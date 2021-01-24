@@ -13,15 +13,17 @@ body {
   font-family: Sans-Serif;
 }
 
-header {
+header,
+main {
   margin-left: 10%
-
 }
 
 h1 {
   font-size: 3rem;
   max-width: 60ch;
 }
+
+
 
 /* Variable declared inline in html */
 /* Concept taken from https://every-layout.dev/blog/css-components/ */

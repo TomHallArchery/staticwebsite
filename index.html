@@ -3,18 +3,35 @@
 
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="Description" content="Home of Team GB archer and online coach Tom Hall">
+  <meta name="theme-color" content="#ffa700" />
   <title>Tom Hall Archery</title>
-  <link rel="stylesheet" href="./custom.css">
+  <!-- Styles -->
+  <link rel="stylesheet" href="./css/normalize.css" rel="preload" as="style">
+  <noscript>
+    <link rel="stylesheet" href="./css/normalize.css">
+  </noscript>
+  <link rel="stylesheet" href="./css/custom.css">
+  <!-- JS -->
   <!-- Alpine JS (Modern JQuery replacement for minor animations/ui/reactive parts) -->
-  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js" defer></script>
+  <script src="./js/alpine.js" defer></script>
 </head>
 
 <body>
   <header>
     <h1>Website under construction...</h1>
   </header>
-
   <hr class="h-dbl-grad" style="--h:1em;">
+
+  <main>
+    <p>See you soon!</p>
+    <div x-data="{name:''}" x-show="false" class="test">
+      <label for="test">Name:</label>
+      <input id="test" type="text" x-model="name" />
+      <p x-text="name">
+    </div>
+  </main>
 </body>
 
 </html>
