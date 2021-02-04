@@ -1,0 +1,212 @@
+/* Color Wheel */
+
+/* Starting colors
+#d70a53 theme color
+#ffa700 accent color
+*/
+
+/* Color wheel axes
+/* See https://www.viget.com/articles/add-colors-to-your-palette-with-color-mixing/
+#d70a53
+#ffa700
+#52d70a /* complementary
+#0a9dd7 /* triadic blue
+*/
+
+/* Interpolated color wheel
+
+#A8247C *           hsl(320, 065%, 40%)
+#d70a53 *primary    hsl(339, 091%, 44%)
+#E91C29 *           hsl(356, 075%, 54%)
+#EB5928 *           hsl(023, 088%, 53%)
+#ffa700 *secondary 	hsl(039, 100%, 50%)
+#EADE06 *           hsl(057, 095%, 47%)
+#52d70a *t2         hsl(099, 091%, 44%)
+#21DE70 *           hsl(145, 074%, 50%)
+#0DC5B5 *           hsl(175, 088%, 41%)
+#0a9dd7 *t2        	hsl(197, 091%, 44%)
+#3178C4 *tertiary   hsl(211, 060%, 48%)
+#6A4992 *t2        	hsl(267, 033%, 43%)
+
+*/
+html {
+  /* https://i2.wp.com/chemistry.com.pk/wp-content/uploads/2014/08/Metal-Ion-Flame-Test-Colours.jpg */
+  --color-Rb: hsl(320, 065%, 40%); /* Rb Rubidium flame */
+  --color-Li: hsl(339, 091%, 44%); /* Li Lithium flame */
+  --color-Sr: hsl(356, 075%, 54%); /* Sr Strontium flame */
+  --color-Ru: hsl(023, 088%, 53%); /* Ru Ruthenium salts*/
+  --color-Na: hsl(039, 100%, 50%); /* Na Sodium flame*/
+  --color-Cd: hsl(057, 095%, 47%); /* Cd Cadmium salts*/
+  --color-Cl: hsl(099, 091%, 44%); /* Cl Chlorine model*/
+  --color-Se: hsl(145, 074%, 50%); /* Se selenium flame*/
+  --color-Cu: hsl(175, 088%, 41%); /* Cu Copper salts*/
+  --color-In: hsl(197, 091%, 44%); /* In indium flame*/
+  --color-Co: hsl(211, 060%, 48%); /* Co Cobalt flame*/
+  --color-Mn: hsl(267, 033%, 43%); /* Mn Manganese salt*/
+  --hue-Rb: 320;
+  --hue-Li: 339;
+  --hue-Sr: 356;
+  --hue-Ru: 023;
+  --hue-Na: 039;
+  --hue-Cd: 057;
+  --hue-Cl: 099;
+  --hue-Se: 145;
+  --hue-Cu: 175;
+  --hue-In: 197;
+  --hue-Co: 211;
+  --hue-Mn: 267;
+  --sat-Rb: 065%;
+  --sat-Li: 091%;
+  --sat-Sr: 075%;
+  --sat-Ru: 088%;
+  --sat-Na: 100%;
+  --sat-Cd: 095%;
+  --sat-Cl: 091%;
+  --sat-Se: 074%;
+  --sat-Cu: 088%;
+  --sat-In: 091%;
+  --sat-Co: 060%;
+  --sat-Mn: 033%;
+  --l4: 94%;
+  --l3: 83%;
+  --l2: 72%;
+  --l1: 61%;
+  --m0: 50%;
+  --d1: 39%;
+  --d2: 28%;
+  --d3: 17%;
+  --d4: 06%;
+  --greysat: 5%;
+  --greytone: 39;
+  --greyl4: hsl(var(--greytone),var(--greysat),var(--l4));
+  --greyl3: hsl(var(--greytone),var(--greysat),var(--l3));
+  --greyl2: hsl(var(--greytone),var(--greysat),var(--l2));
+  --greyl1: hsl(var(--greytone),var(--greysat),var(--l1));
+  --greym0: hsl(var(--greytone),var(--greysat),var(--m0));
+  --greyd1: hsl(var(--greytone),var(--greysat),var(--d1));
+  --greyd2: hsl(var(--greytone),var(--greysat),var(--d2));
+  --greyd3: hsl(var(--greytone),var(--greysat),var(--d3));
+  --greyd4: hsl(var(--greytone),var(--greysat),var(--d4));
+  --invert: 0;
+  text-align: center;
+}
+/* 7% saturation equiv to 10% overlay blend of saturated hue */
+
+body {
+  text-align: center;
+  font-family: sans-serif;
+}
+
+input {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
+.pie{
+  height: 400px;
+  width: 400px;
+  border-radius: 100%;
+  display: inline-block;
+  background-color: grey;
+  margin: 0 30px;
+  filter: invert(var(--invert));
+}
+
+.pie .inner {
+  height: 200px;
+  width: 200px;
+  background-color: white;
+  position: relative;
+  margin-top: 100px;
+  /* display: none; */
+}
+
+.three-col {
+  background: conic-gradient(
+    from -60deg,
+    var(--color-Li) 0 120deg,
+    var(--color-Na) 0 240deg,
+    var(--color-Co) 0 360deg
+    );
+}
+
+.three-grey {
+  background: conic-gradient(
+    var(--greyl4) 0 120deg,
+    var(--greym0) 0 240deg,
+    var(--greyd4) 0 360deg
+    );
+}
+
+.six-col {
+  background: conic-gradient(
+    from calc(-360deg/12),
+    var(--color-Li) 0 calc(1* 360deg/6),
+    var(--color-Na) 0 calc(2* 360deg/6),
+    var(--color-Cl) 0 calc(3* 360deg/6),
+    var(--color-Cu) 0 calc(4* 360deg/6),
+    var(--color-Co) 0 calc(5* 360deg/6),
+    var(--color-Mn) 0 calc(6* 360deg/6)
+    );
+}
+
+.five-grey {
+  background: conic-gradient(
+    var(--greyl4) 0 calc(1* 360deg/5),
+    var(--greyl2) 0 calc(2* 360deg/5),
+    var(--greym0) 0 calc(3* 360deg/5),
+    var(--greyd2) 0 calc(4* 360deg/5),
+    var(--greyd4) 0 calc(5* 360deg/5)
+    );
+}
+
+.twelve-col {
+  background: conic-gradient(
+    from -45deg,
+    var(--color-Rb) 0 30deg,
+    var(--color-Li) 0 60deg,
+    var(--color-Sr) 0 90deg,
+    var(--color-Ru) 0 120deg,
+    var(--color-Na) 0 150deg,
+    var(--color-Cd) 0 180deg,
+    var(--color-Cl) 0 210deg,
+    var(--color-Se) 0 240deg,
+    var(--color-Cu) 0 270deg,
+    var(--color-In) 0 300deg,
+    var(--color-Co) 0 330deg,
+    var(--color-Mn) 0 360deg
+    );
+}
+
+.twelve-col-sat {
+  background: conic-gradient(
+    from -45deg,
+    hsl(var(--hue-Rb), 100%, 50%) 0 30deg,
+    hsl(var(--hue-Li), 100%, 50%) 0 60deg,
+    hsl(var(--hue-Sr), 100%, 50%) 0 90deg,
+    hsl(var(--hue-Ru), 100%, 50%) 0 120deg,
+    hsl(var(--hue-Na), 100%, 50%) 0 150deg,
+    hsl(var(--hue-Cd), 100%, 50%) 0 180deg,
+    hsl(var(--hue-Cl), 100%, 50%) 0 210deg,
+    hsl(var(--hue-Se), 100%, 50%) 0 240deg,
+    hsl(var(--hue-Cu), 100%, 50%) 0 270deg,
+    hsl(var(--hue-In), 100%, 50%) 0 300deg,
+    hsl(var(--hue-Co), 100%, 50%) 0 330deg,
+    hsl(var(--hue-Mn), 100%, 50%) 0 360deg
+    );
+}
+
+
+.nine-grey {
+  background: conic-gradient(
+    var(--greyl4) 0 calc(1* 360deg/9),
+    var(--greyl3) 0 calc(2* 360deg/9),
+    var(--greyl2) 0 calc(3* 360deg/9),
+    var(--greyl1) 0 calc(4* 360deg/9),
+    var(--greym0) 0 calc(5* 360deg/9),
+    var(--greyd1) 0 calc(6* 360deg/9),
+    var(--greyd2) 0 calc(7* 360deg/9),
+    var(--greyd3) 0 calc(8* 360deg/9),
+    var(--greyd4) 0 calc(9* 360deg/9)
+    );
+}

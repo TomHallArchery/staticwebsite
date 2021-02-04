@@ -1,0 +1,80 @@
+/* Global variables for use */
+:root {
+  --color-Rb: hsl(320, 065%, 40%); /* Rb Rubidium flame */
+  --color-Li: hsl(339, 091%, 44%); /* Li Lithium flame */
+  --color-Sr: hsl(356, 075%, 54%); /* Sr Strontium flame */
+  --color-Ru: hsl(023, 088%, 53%); /* Ru Ruthenium salts*/
+  --color-Na: hsl(039, 100%, 50%); /* Na Sodium flame*/
+  --color-Cd: hsl(057, 095%, 47%); /* Cd Cadmium salts*/
+  --color-Cl: hsl(099, 091%, 44%); /* Cl Chlorine model*/
+  --color-Se: hsl(145, 074%, 50%); /* Se selenium flame*/
+  --color-Cu: hsl(175, 088%, 41%); /* Cu Copper salts*/
+  --color-In: hsl(197, 091%, 44%); /* In indium flame*/
+  --color-Co: hsl(211, 060%, 48%); /* Co Cobalt flame*/
+  --color-Mn: hsl(267, 033%, 43%); /* Mn Manganese salt*/
+  --greys-l4: hsl(39,5%,94%);
+  --greys-l3: hsl(39,5%,83%);
+  --greys-l2: hsl(39,5%,72%);
+  --greys-l1: hsl(39,5%,61%);
+  --greys-m0: hsl(39,5%,50%);
+  --greys-d1: hsl(39,5%,39%);
+  --greys-d2: hsl(39,5%,28%);
+  --greys-d3: hsl(39,5%,17%);
+  --greys-d4: hsl(39,5%,06%);
+  --alpha-00: hsla(360, 0%, 100%, 0)
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--greys-l3);
+  color: var(--greys-d3);
+  font-family: Sans-Serif;
+}
+
+header,
+main {
+  padding-left: 10%;
+}
+
+header {
+  background-color: var(--color-Li);
+  padding-top: 3em;
+  padding-bottom: 3em;
+}
+
+header h1 {
+  margin: 0;
+  color: var(--greys-l3);
+}
+
+h1 {
+  font-size: 3rem;
+  max-width: 60ch;
+}
+
+a {
+  color: var(--color-Li);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Variable declared inline in html */
+/* Concept taken from https://every-layout.dev/blog/css-components/ */
+.h-dbl-grad {
+  margin: 0;
+  height: var(--h, 0.5em);
+  border: none;
+  background: linear-gradient(
+    var(--color-Li) calc(var(--h, 0.5em)/5*1),
+    var(--color-Na) calc(var(--h, 0.5em)/5*3),
+    var(--color-Li) calc(var(--h, 0.5em)/5*4),
+    var(--alpha-00) calc(var(--h, 0.5em)/5*5)
+    );
+}
