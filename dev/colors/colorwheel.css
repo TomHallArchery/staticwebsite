@@ -1,34 +1,3 @@
-/* Color Wheel */
-
-/* Starting colors
-#d70a53 theme color
-#ffa700 accent color
-*/
-
-/* Color wheel axes
-/* See https://www.viget.com/articles/add-colors-to-your-palette-with-color-mixing/
-#d70a53
-#ffa700
-#52d70a /* complementary
-#0a9dd7 /* triadic blue
-*/
-
-/* Interpolated color wheel
-
-#A8247C *           hsl(320, 065%, 40%)
-#d70a53 *primary    hsl(339, 091%, 44%)
-#E91C29 *           hsl(356, 075%, 54%)
-#EB5928 *           hsl(023, 088%, 53%)
-#ffa700 *secondary 	hsl(039, 100%, 50%)
-#EADE06 *           hsl(057, 095%, 47%)
-#52d70a *t2         hsl(099, 091%, 44%)
-#21DE70 *           hsl(145, 074%, 50%)
-#0DC5B5 *           hsl(175, 088%, 41%)
-#0a9dd7 *t2        	hsl(197, 091%, 44%)
-#3178C4 *tertiary   hsl(211, 060%, 48%)
-#6A4992 *t2        	hsl(267, 033%, 43%)
-
-*/
 html {
   /* https://i2.wp.com/chemistry.com.pk/wp-content/uploads/2014/08/Metal-Ion-Flame-Test-Colours.jpg */
   --color-Rb: hsl(320, 065%, 40%); /* Rb Rubidium flame */
@@ -67,6 +36,18 @@ html {
   --sat-In: 091%;
   --sat-Co: 060%;
   --sat-Mn: 033%;
+  --lit-Rb: 40%;
+  --lit-Li: 44%;
+  --lit-Sr: 54%;
+  --lit-Ru: 53%;
+  --lit-Na: 50%;
+  --lit-Cd: 47%;
+  --lit-Cl: 44%;
+  --lit-Se: 50%;
+  --lit-Cu: 41%;
+  --lit-In: 44%;
+  --lit-Co: 48%;
+  --lit-Mn: 43%;
   --l4: 94%;
   --l3: 83%;
   --l2: 72%;
@@ -88,6 +69,8 @@ html {
   --greyd3: hsl(var(--greytone),var(--greysat),var(--d3));
   --greyd4: hsl(var(--greytone),var(--greysat),var(--d4));
   --invert: 0;
+  --strongtint: 40%;
+  --weaktint: 20%;
   text-align: center;
 }
 /* 7% saturation equiv to 10% overlay blend of saturated hue */
@@ -100,6 +83,10 @@ body {
 input {
   margin-top: 1em;
   margin-bottom: 0.5em;
+}
+
+.none {
+  display: none;
 }
 
 .pie{
@@ -209,4 +196,103 @@ input {
     var(--greyd3) 0 calc(8* 360deg/9),
     var(--greyd4) 0 calc(9* 360deg/9)
     );
+}
+
+/* building colour tint swatches */
+/* method one: directly manipulating hsl values */
+
+.tints {
+  width: 16ch;
+  border-radius: 0%;
+  display: inline-block;
+  background-color: grey;
+  margin: 0;
+  filter: invert(var(--invert));
+  list-style: none;
+  padding-left: 0;
+}
+
+.tints li {
+  block-size: 3em;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tints .darkest {
+  --lit: calc(var(--lit-Rb) - var(--lit-Rb) * 0.4);
+  background-color: hsl(
+    var(--hue-Rb),
+    var(--sat-Rb),
+    var(--lit)
+    );
+}
+
+.tints .darker {
+  --lit: calc(var(--lit-Rb) - var(--lit-Rb) * 0.2);
+  background-color: hsl(
+    var(--hue-Rb),
+    var(--sat-Rb),
+    var(--lit)
+    );
+}
+
+.tints .pure{
+  background-color: var(--color-Rb);
+}
+
+.tints .lighter {
+  --lit: calc(var(--lit-Rb) + (100% - var(--lit-Rb)) * 0.2);
+  background-color: hsl(
+    var(--hue-Rb),
+    var(--sat-Rb),
+    var(--lit)
+    );
+}
+
+.tints .lightest {
+  --lit: calc(var(--lit-Rb) + (100% - var(--lit-Rb)) * 0.8);
+  background-color: hsl(
+    var(--hue-Rb),
+    var(--sat-Rb),
+    var(--lit)
+    );
+}
+
+/* method 2: overlaying tints on top of background colour */
+.overlays {
+  --col: var(--greym0);
+  width: 16ch;
+  border-radius: 0%;
+  display: inline-block;
+  background-color: var(--col);
+  margin: 0;
+  filter: invert(var(--invert));
+  list-style: none;
+  padding-left: 0;
+}
+
+.overlays li {
+  block-size: 3em;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.darkest {
+  background-color: hsla(100, 0%, 00%, var(--strongtint));
+}
+
+.darker {
+  background-color: hsla(100, 00%, 00%, var(--weaktint));
+}
+
+.lighter {
+  background-color: hsla(100, 0%, 100%, var(--weaktint));
+}
+
+.lightest {
+  background-color: hsla(100, 00%, 100%, var(--strongtint));
 }

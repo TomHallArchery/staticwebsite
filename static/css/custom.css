@@ -21,7 +21,13 @@
   --greys-d2: hsl(39,5%,28%);
   --greys-d3: hsl(39,5%,17%);
   --greys-d4: hsl(39,5%,06%);
-  --alpha-00: hsla(360, 0%, 100%, 0)
+  --alpha-00: hsla(360, 0%, 100%, 0);
+  --Rb-h: 320 ; --Li-h: 339 ; /*....*/
+  --Rb-s: 065%; --Li-s: 091%; /*....*/
+  --Rb-l: 040%; --Li-l: 044%; /*....*/
+}
+em {
+  color: var(--color-Na)
 }
 
 * {
@@ -32,9 +38,10 @@ body {
   margin: 0;
   background-color: var(--greys-l3);
   color: var(--greys-d3);
-  font-family: Sans-Serif;
+  font-family: Sans-Serif; /* add custom fonts */
 }
 
+/* could factor into overall wrap container */
 header,
 main {
   padding-left: 10%;
@@ -46,12 +53,9 @@ header {
   padding-bottom: 3em;
 }
 
-header h1 {
+h1 {
   margin: 0;
   color: var(--greys-l3);
-}
-
-h1 {
   font-size: 3rem;
   max-width: 60ch;
 }

@@ -1,0 +1,102 @@
+/* Color Wheel */
+
+/* Starting colors
+#d70a53 theme color
+#ffa700 accent color
+*/
+
+/* Color wheel axes
+/* See https://www.viget.com/articles/add-colors-to-your-palette-with-color-mixing/
+#d70a53
+#ffa700
+#52d70a /* complementary
+#0a9dd7 /* triadic blue
+*/
+
+/* Interpolated color wheel
+
+#A8247C *           hsl(320, 065%, 40%)
+#d70a53 *primary    hsl(339, 091%, 44%)
+#E91C29 *           hsl(356, 075%, 54%)
+#EB5928 *           hsl(023, 088%, 53%)
+#ffa700 *secondary 	hsl(039, 100%, 50%)
+#EADE06 *           hsl(057, 095%, 47%)
+#52d70a *t2         hsl(099, 091%, 44%)
+#21DE70 *           hsl(145, 074%, 50%)
+#0DC5B5 *           hsl(175, 088%, 41%)
+#0a9dd7 *t2        	hsl(197, 091%, 44%)
+#3178C4 *tertiary   hsl(211, 060%, 48%)
+#6A4992 *t2        	hsl(267, 033%, 43%)
+
+*/
+
+/* Full tones
+#65174b
+#861e63
+#a8247c
+#bb5397
+#cc80b1
+#810C31
+#AB0D41
+#D60C52
+#E14C75
+#EB7B98
+#881F25
+#B42930
+#E2323D
+#E96065
+#F1898D
+#914316
+#C1591B
+#F1701D
+#F58D53
+#F8AA80
+#99640D
+#CC850B
+#FEA700
+#FFB94F
+#FFCA7F
+#8C8510
+#BCB209
+#EADD05
+#EFE456
+#F2EB84
+#338110
+#42AC10
+#52D509
+#7BDE53
+#9FE781
+#198543
+#1CB259
+#1EDF70
+#63E58E
+#8FECAA
+#11766D
+#129D91
+#11C5B5
+#5BD0C4
+#88DCD3
+#0D5E80
+#0B7DAB
+#059CD6
+#52B0DE
+#81C4E6
+#1F4875
+#275F9C
+#3177C3
+#5C92D0
+#87AEDC
+#402B57
+#553A75
+#6A4892
+#896DA9
+#A792BE
+*/
+
+/*
+#65174b;#810C31;#881F25;#914316;#99640D;#8C8510;#338110;#198543;#11766D;#0D5E80;#1F4875;#402B57
+#861e63;#AB0D41;#B42930;#C1591B;#CC850B;#BCB209;#42AC10;#1CB259;#129D91;#0B7DAB;#275F9C;#553A75
+#a8247c;#D60C52;#E2323D;#F1701D;#FEA700;#EADD05;#52D509;#1EDF70;#11C5B5;#059CD6;#3177C3;#6A4892
+#bb5397;#E14C75;#E96065;#F58D53;#FFB94F;#EFE456;#7BDE53;#63E58E;#5BD0C4;#52B0DE;#5C92D0;#896DA9
+#cc80b1;#EB7B98;#F1898D;#F8AA80;#FFCA7F;#F2EB84;#9FE781;#8FECAA;#88DCD3;#81C4E6;#87AEDC;#A792BE
+*/
