@@ -1,30 +1,27 @@
 /* Global variables for use */
 :root {
-  --color-Rb: hsl(320, 065%, 40%); /* Rb Rubidium flame */
-  --color-Li: hsl(339, 091%, 44%); /* Li Lithium flame */
-  --color-Sr: hsl(356, 075%, 54%); /* Sr Strontium flame */
-  --color-Ru: hsl(023, 088%, 53%); /* Ru Ruthenium salts*/
-  --color-Na: hsl(039, 100%, 50%); /* Na Sodium flame*/
-  --color-Cd: hsl(057, 095%, 47%); /* Cd Cadmium salts*/
-  --color-Cl: hsl(099, 091%, 44%); /* Cl Chlorine model*/
-  --color-Se: hsl(145, 074%, 50%); /* Se selenium flame*/
-  --color-Cu: hsl(175, 088%, 41%); /* Cu Copper salts*/
-  --color-In: hsl(197, 091%, 44%); /* In indium flame*/
-  --color-Co: hsl(211, 060%, 48%); /* Co Cobalt flame*/
-  --color-Mn: hsl(267, 033%, 43%); /* Mn Manganese salt*/
-  --greys-l4: hsl(39,5%,94%);
-  --greys-l3: hsl(39,5%,83%);
-  --greys-l2: hsl(39,5%,72%);
-  --greys-l1: hsl(39,5%,61%);
-  --greys-m0: hsl(39,5%,50%);
-  --greys-d1: hsl(39,5%,39%);
-  --greys-d2: hsl(39,5%,28%);
-  --greys-d3: hsl(39,5%,17%);
-  --greys-d4: hsl(39,5%,06%);
-  --alpha-00: hsla(360, 0%, 100%, 0);
-  --Rb-h: 320 ; --Li-h: 339 ; /*....*/
-  --Rb-s: 065%; --Li-s: 091%; /*....*/
-  --Rb-l: 040%; --Li-l: 044%; /*....*/
+  --color-Rb: #A8247C;
+  --color-Li: #D70A53;
+  --color-Sr: #E91C29;
+  --color-Ru: #EB5928;
+  --color-Na: #FFA700;
+  --color-Cd: #EADE06;
+  --color-Cl: #52D70A;
+  --color-Se: #21DE70;
+  --color-Cu: #0DC5B5;
+  --color-In: #0A9DD7;
+  --color-Co: #3178C4;
+  --color-Mn: #6A4992;
+  --greys-l4: #F0F0EF;
+  --greys-l3: #D6D4D1;
+  --greys-l2: #BBB9B4;
+  --greys-l1: #A19D97;
+  --greys-m0: #868179;
+  --greys-d1: #68655E;
+  --greys-d2: #4B4844;
+  --greys-d3: #2E2C29;
+  --greys-d4: #10100F;
+  --alpha-00: #fff0;
 }
 em {
   color: var(--color-Na)

@@ -1,102 +1,80 @@
-/* Color Wheel */
-
 /* Starting colors
 #d70a53 theme color
 #ffa700 accent color
+
 */
 
-/* Color wheel axes
-/* See https://www.viget.com/articles/add-colors-to-your-palette-with-color-mixing/
-#d70a53
-#ffa700
-#52d70a /* complementary
-#0a9dd7 /* triadic blue
-*/
+/* See https://www.viget.com/articles/add-colors-to-your-palette-with-color-mixing/ */
 
 /* Interpolated color wheel
-
-#A8247C *           hsl(320, 065%, 40%)
-#d70a53 *primary    hsl(339, 091%, 44%)
-#E91C29 *           hsl(356, 075%, 54%)
-#EB5928 *           hsl(023, 088%, 53%)
-#ffa700 *secondary 	hsl(039, 100%, 50%)
-#EADE06 *           hsl(057, 095%, 47%)
-#52d70a *t2         hsl(099, 091%, 44%)
-#21DE70 *           hsl(145, 074%, 50%)
-#0DC5B5 *           hsl(175, 088%, 41%)
-#0a9dd7 *t2        	hsl(197, 091%, 44%)
-#3178C4 *tertiary   hsl(211, 060%, 48%)
-#6A4992 *t2        	hsl(267, 033%, 43%)
-
+#A8247C : hsl(320, 065%, 40%) #
+#D70A53 : hsl(339, 091%, 44%) #primary
+#E91C29 : hsl(356, 075%, 54%) #
+#EB5928 : hsl(023, 088%, 53%) #
+#FFA700 :	hsl(039, 100%, 50%) #secondary
+#EADE06 : hsl(057, 095%, 47%) #
+#52D70A : hsl(099, 091%, 44%) #t2
+#21DE70 : hsl(145, 074%, 50%) #
+#0DC5B5 : hsl(175, 088%, 41%) #
+#0A9DD7 :	hsl(197, 091%, 44%) #t2
+#3178C4 : hsl(211, 060%, 48%) #tertiary
+#6A4992 :	hsl(267, 033%, 43%) #t2
 */
 
-/* Full tones
-#65174b
-#861e63
-#a8247c
-#bb5397
-#cc80b1
-#810C31
-#AB0D41
-#D60C52
-#E14C75
-#EB7B98
-#881F25
-#B42930
-#E2323D
-#E96065
-#F1898D
-#914316
-#C1591B
-#F1701D
-#F58D53
-#F8AA80
-#99640D
-#CC850B
-#FEA700
-#FFB94F
-#FFCA7F
-#8C8510
-#BCB209
-#EADD05
-#EFE456
-#F2EB84
-#338110
-#42AC10
-#52D509
-#7BDE53
-#9FE781
-#198543
-#1CB259
-#1EDF70
-#63E58E
-#8FECAA
-#11766D
-#129D91
-#11C5B5
-#5BD0C4
-#88DCD3
-#0D5E80
-#0B7DAB
-#059CD6
-#52B0DE
-#81C4E6
-#1F4875
-#275F9C
-#3177C3
-#5C92D0
-#87AEDC
-#402B57
-#553A75
-#6A4892
-#896DA9
-#A792BE
+/* greyscales
+#F0F0EF : hsl(39,5%,94%) #l4 lightest
+#D6D4D1 : hsl(39,5%,83%) #l3
+#BBB9B4 : hsl(39,5%,72%) #l2
+#A19D97 : hsl(39,5%,61%) #l1 11% lighter
+#868179 : hsl(39,5%,50%) #m0 neutral
+#68655E : hsl(39,5%,39%) #d1 11% darker
+#4B4844 : hsl(39,5%,28%) #d2
+#2E2C29 : hsl(39,5%,17%) #d3
+#10100F : hsl(39,5%,06%) #d4 darkest
 */
 
-/*
-#65174b;#810C31;#881F25;#914316;#99640D;#8C8510;#338110;#198543;#11766D;#0D5E80;#1F4875;#402B57
-#861e63;#AB0D41;#B42930;#C1591B;#CC850B;#BCB209;#42AC10;#1CB259;#129D91;#0B7DAB;#275F9C;#553A75
-#a8247c;#D60C52;#E2323D;#F1701D;#FEA700;#EADD05;#52D509;#1EDF70;#11C5B5;#059CD6;#3177C3;#6A4892
-#bb5397;#E14C75;#E96065;#F58D53;#FFB94F;#EFE456;#7BDE53;#63E58E;#5BD0C4;#52B0DE;#5C92D0;#896DA9
-#cc80b1;#EB7B98;#F1898D;#F8AA80;#FFCA7F;#F2EB84;#9FE781;#8FECAA;#88DCD3;#81C4E6;#87AEDC;#A792BE
+/* shades and tints from python script
+#65164A;#861D63;#A8247C;#B95096;#CB7CB0
+#810632;#AC0842;#D70A53;#DF3B75;#E76C98
+#8C1119;#BA1621;#E91C29;#ED4954;#F2777F
+#8D3518;#BC4720;#EB5928;#EF7A53;#F39B7E
+#996400;#CC8600;#FFA700;#FFB933;#FFCA66
+#8C8504;#BBB205;#EADE06;#EEE538;#F2EB6A
+#318106;#42AC08;#52D70A;#75DF3B;#97E76C
+#148543;#1AB25A;#21DE70;#4DE58D;#7AEBA9
+#08766D;#0A9E91;#0DC5B5;#3DD1C4;#6EDCD3
+#065E81;#087EAC;#0A9DD7;#3BB1DF;#6CC4E7
+#1D4876;#27609D;#3178C4;#5A93D0;#83AEDC
+#402C58;#553A75;#6A4992;#886DA8;#A692BE
+*/
+
+/* full greytones css rules
+:root {
+--greys-l4: #F0F0EF;
+--greys-l3: #D6D4D1;
+--greys-l2: #BBB9B4;
+--greys-l1: #A19D97;
+--greys-m0: #868179;
+--greys-d1: #68655E;
+--greys-d2: #4B4844;
+--greys-d3: #2E2C29;
+--greys-d4: #10100F;
+--alpha-00: #fff0;
+}*/
+
+/* full 12 colors all tones in css rules */
+:root {
+  --Rb-blk: #65164A; --Rb-drk: #861D63; --Rb-pur: #A8247C; --Rb-lit: #B95096; --Rb-wht: #CB7CB0;
+  --Li-blk: #810632; --Li-drk: #AC0842; --Li-pur: #D70A53; --Li-lit: #DF3B75; --Li-wht: #E76C98;
+  --Sr-blk: #8C1119; --Sr-drk: #BA1621; --Sr-pur: #E91C29; --Sr-lit: #ED4954; --Sr-wht: #F2777F;
+  --Ru-blk: #8D3518; --Ru-drk: #BC4720; --Ru-pur: #EB5928; --Ru-lit: #EF7A53; --Ru-wht: #F39B7E;
+  --Na-blk: #996400; --Na-drk: #CC8600; --Na-pur: #FFA700; --Na-lit: #FFB933; --Na-wht: #FFCA66;
+  --Cd-blk: #8C8504; --Cd-drk: #BBB205; --Cd-pur: #EADE06; --Cd-lit: #EEE538; --Cd-wht: #F2EB6A;
+  --Cl-blk: #318106; --Cl-drk: #42AC08; --Cl-pur: #52D70A; --Cl-lit: #75DF3B; --Cl-wht: #97E76C;
+  --Se-blk: #148543; --Se-drk: #1AB25A; --Se-pur: #21DE70; --Se-lit: #4DE58D; --Se-wht: #7AEBA9;
+  --Cu-blk: #08766D; --Cu-drk: #0A9E91; --Cu-pur: #0DC5B5; --Cu-lit: #3DD1C4; --Cu-wht: #6EDCD3;
+  --In-blk: #065E81; --In-drk: #087EAC; --In-pur: #0A9DD7; --In-lit: #3BB1DF; --In-wht: #6CC4E7;
+  --Co-blk: #1D4876; --Co-drk: #27609D; --Co-pur: #3178C4; --Co-lit: #5A93D0; --Co-wht: #83AEDC;
+  --Mn-blk: #402C58; --Mn-drk: #553A75; --Mn-pur: #6A4992; --Mn-lit: #886DA8; --Mn-wht: #A692BE;
+}
 */

@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <title>ColorWheelTester</title>
   <link rel="stylesheet" href="colorwheel.css">
+
   <script type="text/javascript" src="colorwheel.js">
 
   </script>
@@ -12,8 +13,8 @@
 
 <body>
   <h1>Color tester</h1>
-<input type="button" name="invert" id="invert-btn" value="Invert Colours"></input>
-  <section class="none">
+  <input type="button" name="invert" id="invert-btn" value="Invert Colours"></input>
+  <section class="">
     <h1>Hue Palette</h1>
     <span class="pie three-col">
       <span class="pie inner"></span>
@@ -26,10 +27,10 @@
     </span>
   </section>
 
-  <section class="none">
+  <section class="">
     <h1>Greys</h1>
     <label for="sat">Saturation</label>
-    <input type="number" name="sat"id="greysat-inp" value=5>
+    <input type="number" name="sat" id="greysat-inp" value=5>
     <br>
     <span class="pie three-grey">
       <span class="pie inner"></span>
@@ -59,94 +60,100 @@
     <label for="weaktint">Weaker Tint Percantage</label>
     <input type="number" name="weaktint" id="weaktint-inp" value=20>
 
-
-<br>
-    <ul class="overlays" style="--col:var(--color-Rb)">
-      <li class="darkest">darkest</li>
-      <li class="darker">darker</li>
-      <li class="pure">pure</li>
-      <li class="lighter">lighter</li>
-      <li class="lightest">lightest</li>
-    </ul>
-    <ul class="overlays" style="--col:var(--color-Li)">
-      <li class="darkest">darkest</li>
-      <li class="darker">darker</li>
-      <li class="pure">pure</li>
-      <li class="lighter">lighter</li>
-      <li class="lightest">lightest</li>
-    </ul>
-    <ul class="overlays" style="--col:var(--color-Sr)">
-      <li class="darkest">darkest</li>
-      <li class="darker">darker</li>
-      <li class="pure">pure</li>
-      <li class="lighter">lighter</li>
-      <li class="lightest">lightest</li>
-    </ul>
-    <ul class="overlays" style="--col:var(--color-Ru)">
-      <li class="darkest">darkest</li>
-      <li class="darker">darker</li>
-      <li class="pure">pure</li>
-      <li class="lighter">lighter</li>
-      <li class="lightest">lightest</li>
-    </ul>
-    <ul class="overlays" style="--col:var(--color-Na)">
-      <li class="darkest">darkest</li>
-      <li class="darker">darker</li>
-      <li class="pure">pure</li>
-      <li class="lighter">lighter</li>
-      <li class="lightest">lightest</li>
-    </ul>
-    <ul class="overlays" style="--col:var(--color-Cd)">
-      <li class="darkest">darkest</li>
-      <li class="darker">darker</li>
-      <li class="pure">pure</li>
-      <li class="lighter">lighter</li>
-      <li class="lightest">lightest</li>
-    </ul>
     <br>
-    <ul class="overlays" style="--col:var(--color-Cl)">
-      <li class="darkest">darkest</li>
-      <li class="darker">darker</li>
-      <li class="pure">pure</li>
-      <li class="lighter">lighter</li>
-      <li class="lightest">lightest</li>
-    </ul>
-    <ul class="overlays" style="--col:var(--color-Se)">
-      <li class="darkest">darkest</li>
-      <li class="darker">darker</li>
-      <li class="pure">pure</li>
-      <li class="lighter">lighter</li>
-      <li class="lightest">lightest</li>
-    </ul>
-    <ul class="overlays" style="--col:var(--color-Cu)">
-      <li class="darkest">darkest</li>
-      <li class="darker">darker</li>
-      <li class="pure">pure</li>
-      <li class="lighter">lighter</li>
-      <li class="lightest">lightest</li>
-    </ul>
-    <ul class="overlays" style="--col:var(--color-In)">
-      <li class="darkest">darkest</li>
-      <li class="darker">darker</li>
-      <li class="pure">pure</li>
-      <li class="lighter">lighter</li>
-      <li class="lightest">lightest</li>
-    </ul>
-    <ul class="overlays" style="--col:var(--color-Co)">
-      <li class="darkest">darkest</li>
-      <li class="darker">darker</li>
-      <li class="pure">pure</li>
-      <li class="lighter">lighter</li>
-      <li class="lightest">lightest</li>
-    </ul>
-    <ul class="overlays" style="--col:var(--color-Mn)">
-      <li class="darkest">darkest</li>
-      <li class="darker">darker</li>
-      <li class="pure">pure</li>
-      <li class="lighter">lighter</li>
-      <li class="lightest">lightest</li>
-    </ul>
+
+    <div class="overlays-container">
+
+      <ul class="overlays" style="--col:var(--color-Rb)">
+        <li class="darkest">darkest</li>
+        <li class="darker">darker</li>
+        <li class="pure">pure</li>
+        <li class="lighter">lighter</li>
+        <li class="lightest">lightest</li>
+      </ul>
+      <ul class="overlays" style="--col:var(--color-Li)">
+        <li class="darkest">darkest</li>
+        <li class="darker">darker</li>
+        <li class="pure">pure</li>
+        <li class="lighter">lighter</li>
+        <li class="lightest">lightest</li>
+      </ul>
+      <ul class="overlays" style="--col:var(--color-Sr)">
+        <li class="darkest">darkest</li>
+        <li class="darker">darker</li>
+        <li class="pure">pure</li>
+        <li class="lighter">lighter</li>
+        <li class="lightest">lightest</li>
+      </ul>
+      <ul class="overlays" style="--col:var(--color-Ru)">
+        <li class="darkest">darkest</li>
+        <li class="darker">darker</li>
+        <li class="pure">pure</li>
+        <li class="lighter">lighter</li>
+        <li class="lightest">lightest</li>
+      </ul>
+      <ul class="overlays" style="--col:var(--color-Na)">
+        <li class="darkest">darkest</li>
+        <li class="darker">darker</li>
+        <li class="pure">pure</li>
+        <li class="lighter">lighter</li>
+        <li class="lightest">lightest</li>
+      </ul>
+      <ul class="overlays" style="--col:var(--color-Cd)">
+        <li class="darkest">darkest</li>
+        <li class="darker">darker</li>
+        <li class="pure">pure</li>
+        <li class="lighter">lighter</li>
+        <li class="lightest">lightest</li>
+      </ul>
+      <!-- <br> -->
+      <ul class="overlays" style="--col:var(--color-Cl)">
+        <li class="darkest">darkest</li>
+        <li class="darker">darker</li>
+        <li class="pure">pure</li>
+        <li class="lighter">lighter</li>
+        <li class="lightest">lightest</li>
+      </ul>
+      <ul class="overlays" style="--col:var(--color-Se)">
+        <li class="darkest">darkest</li>
+        <li class="darker">darker</li>
+        <li class="pure">pure</li>
+        <li class="lighter">lighter</li>
+        <li class="lightest">lightest</li>
+      </ul>
+      <ul class="overlays" style="--col:var(--color-Cu)">
+        <li class="darkest">darkest</li>
+        <li class="darker">darker</li>
+        <li class="pure">pure</li>
+        <li class="lighter">lighter</li>
+        <li class="lightest">lightest</li>
+      </ul>
+      <ul class="overlays" style="--col:var(--color-In)">
+        <li class="darkest">darkest</li>
+        <li class="darker">darker</li>
+        <li class="pure">pure</li>
+        <li class="lighter">lighter</li>
+        <li class="lightest">lightest</li>
+      </ul>
+      <ul class="overlays" style="--col:var(--color-Co)">
+        <li class="darkest">darkest</li>
+        <li class="darker">darker</li>
+        <li class="pure">pure</li>
+        <li class="lighter">lighter</li>
+        <li class="lightest">lightest</li>
+      </ul>
+      <ul class="overlays" style="--col:var(--color-Mn)">
+        <li class="darkest">darkest</li>
+        <li class="darker">darker</li>
+        <li class="pure">pure</li>
+        <li class="lighter">lighter</li>
+        <li class="lightest">lightest</li>
+      </ul>
+    </div>
   </section>
+  <div class="alphahex">
+    <h1> <em>TEST</em></h1>
+  </div>
 </body>
 
 </html>

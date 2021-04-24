@@ -199,71 +199,17 @@ input {
 }
 
 /* building colour tint swatches */
-/* method one: directly manipulating hsl values */
-
-.tints {
-  width: 16ch;
-  border-radius: 0%;
-  display: inline-block;
-  background-color: grey;
-  margin: 0;
-  filter: invert(var(--invert));
-  list-style: none;
-  padding-left: 0;
-}
-
-.tints li {
-  block-size: 3em;
-  margin: auto;
-  display: flex;
-  align-items: center;
+/* overlaying tints on top of background colour */
+.overlays-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16ch, 24ch));
+  grid-template-rows: auto auto;
   justify-content: center;
 }
 
-.tints .darkest {
-  --lit: calc(var(--lit-Rb) - var(--lit-Rb) * 0.4);
-  background-color: hsl(
-    var(--hue-Rb),
-    var(--sat-Rb),
-    var(--lit)
-    );
-}
-
-.tints .darker {
-  --lit: calc(var(--lit-Rb) - var(--lit-Rb) * 0.2);
-  background-color: hsl(
-    var(--hue-Rb),
-    var(--sat-Rb),
-    var(--lit)
-    );
-}
-
-.tints .pure{
-  background-color: var(--color-Rb);
-}
-
-.tints .lighter {
-  --lit: calc(var(--lit-Rb) + (100% - var(--lit-Rb)) * 0.2);
-  background-color: hsl(
-    var(--hue-Rb),
-    var(--sat-Rb),
-    var(--lit)
-    );
-}
-
-.tints .lightest {
-  --lit: calc(var(--lit-Rb) + (100% - var(--lit-Rb)) * 0.8);
-  background-color: hsl(
-    var(--hue-Rb),
-    var(--sat-Rb),
-    var(--lit)
-    );
-}
-
-/* method 2: overlaying tints on top of background colour */
 .overlays {
   --col: var(--greym0);
-  width: 16ch;
+  /* width: 16ch; */
   border-radius: 0%;
   display: inline-block;
   background-color: var(--col);

@@ -1,0 +1,46 @@
+body {
+  font-family: sans-serif;
+  font-weight: 360;
+}
+
+em {
+  font-weight: 525;
+  font-style: italic;
+}
+
+strong {
+  font-weight: 825;
+}
+
+small {
+  font-weight: 125;
+  font-size: inherit;
+}
+
+img {
+  border: solid red 2px;
+}
+
+figure {
+  border: solid blue 2px;
+}
+
+.font1 {
+  font-family: "Raleway"
+}
+
+.font2 {
+  font-family: "RobotoSlab"
+}
+
+.font3 {
+  font-family: "PublicSans";
+}
+
+.font4 {
+  font-family: "Bitter", serif;
+}
+
+.serif {
+  font-family: serif;
+}

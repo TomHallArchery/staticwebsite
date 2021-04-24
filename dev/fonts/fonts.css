@@ -1,0 +1,80 @@
+@font-face {
+  font-family: "Raleway";
+  src:
+    url("/Assets/Fonts/Variable/Raleway/Raleway-VariableFont_wght.ttf");
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+    font-family: "Raleway";
+    src:
+      url("/Assets/Fonts/Variable/Raleway/Raleway-Italic-VariableFont_wght.ttf");
+    font-weight: 100 900;
+    font-style: italic;
+}
+
+@font-face {
+  font-family: "RobotoSlab";
+  src:
+    url("/Assets/Fonts/Variable/Roboto_Slab/RobotoSlab-VariableFont_wght.ttf");
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+    font-family: "PublicSans";
+    src:
+      url("/Assets/Fonts/Variable/Public_Sans/PublicSans-VariableFont_wght.ttf");
+    font-weight: 100 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "PublicSans";
+    src:
+      url("/Assets/Fonts/Variable/Public_Sans/PublicSans-Italic-VariableFont_wght.ttf");
+    font-weight: 100 900;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Rokkitt";
+    src:
+      url("/Assets/Fonts/Variable/Rokkitt/Rokkitt-VariableFont_wght.ttf");
+    font-weight: 100 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Bitter";
+    src:
+      url("/Assets/Fonts/Variable/Bitter/Bitter-VariableFont_wght.ttf");
+    font-weight: 100 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Bitter";
+    src:
+      url("/Assets/Fonts/Variable/Bitter/Bitter-Italic-VariableFont_wght.ttf");
+    font-weight: 100 900;
+    font-style: italic;
+}
+
+
+@font-face {
+    font-family: "CrimsonPro";
+    src:
+      url("/Assets/Fonts/Variable/Crimson_Pro/CrimsonPro-VariableFont_wght.ttf");
+    font-weight: 100 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "CrimsonPro";
+    src:
+      url("/Assets/Fonts/Variable/Crimson_Pro/CrimsonPro-Italic-VariableFont_wght.ttf");
+    font-weight: 100 900;
+    font-style: italic;
+}
