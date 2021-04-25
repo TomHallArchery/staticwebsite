@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon.ico') }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffa700" />
+  <title>{{ title }} - Tom Hall Archery </title>
+
+  <!-- styles -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/colors.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+  <!-- fonts -->
+  <link rel="stylesheet" href="/static/css/fonts.css">
+
+  <!-- js -->
+  <!-- Alpine JS (Modern JQuery replacement for minor animations/ui/reactive parts) -->
+  <script src="{{ url_for('static', filename='js/alpine.js') }}" defer></script>
+
+</head>
+
+<body>
+  <h1>{{ title }}</h1>
+  {% block content %}
+  {% endblock %}
+</body>
+
+</html>
