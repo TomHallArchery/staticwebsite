@@ -1,0 +1,25 @@
+/* Global variables for use */
+:root {
+  --color-Rb: #A8247C;
+  --color-Li: #D70A53;
+  --color-Sr: #E91C29;
+  --color-Ru: #EB5928;
+  --color-Na: #FFA700;
+  --color-Cd: #EADE06;
+  --color-Cl: #52D70A;
+  --color-Se: #21DE70;
+  --color-Cu: #0DC5B5;
+  --color-In: #0A9DD7;
+  --color-Co: #3178C4;
+  --color-Mn: #6A4992;
+  --greys-l4: #F0F0EF;
+  --greys-l3: #D6D4D1;
+  --greys-l2: #BBB9B4;
+  --greys-l1: #A19D97;
+  --greys-m0: #868179;
+  --greys-d1: #68655E;
+  --greys-d2: #4B4844;
+  --greys-d3: #2E2C29;
+  --greys-d4: #10100F;
+  --alpha-00: #fff0;
+}

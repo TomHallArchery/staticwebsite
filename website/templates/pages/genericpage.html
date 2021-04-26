@@ -1,8 +1,7 @@
 {% extends "base/base.html" %}
 
+{% set title = page_content.title %}
+
 {% block content %}
-<ul>
-  <li>1</li>
-  <li>2</li>
-</ul>
+{{ page_content }}
 {% endblock %}
