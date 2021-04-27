@@ -1,4 +1,4 @@
-{% extends "base/base.html" %}
+{% extends "base/base.j2" %}
 
 {% block content %}
 <p>See you soon!</p>
@@ -11,7 +11,15 @@
 <p>Links</p>
 <ul>
   <li> <a href=" {{ url_for('serve_articles') }}">Articles</a></li>
-  <li> <a href=" {{ url_for('serve_page', path_requested='sponsors') }}">Sponsors</a></li>
+  <!-- links provided by iterating flatpages -->
+  {% for link in links %}
+  <li><a href="{{ url_for('serve_page', path_requested=link.path) }}">
+      {{ link.meta.title | safe }}
+    </a></li>
+  {% endfor %}
 </ul>
+
+{{ lipsum() }}
+
 
 {% endblock %}

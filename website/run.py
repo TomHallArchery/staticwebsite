@@ -2,6 +2,9 @@
 
 from app import app, flatpages
 
+app.config['ENV'] = 'DEVELOPMENT'
+app.config['DEBUG'] = True
+
 if __name__ == '__main__':
     # print config
     print("CONFIG".center(30, "*"))
@@ -14,4 +17,4 @@ if __name__ == '__main__':
         print(p, p.meta)
 
 
-    app.run(debug=True)
+    app.run()
