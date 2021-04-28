@@ -8,8 +8,7 @@ import os
 
 freezer = Freezer(app)
 
-# Instructs the freezer to also check for dynamically generated urls
-# from serve_page functinon.
+# Instructs the freezer to also check for dynamically generated urls from serve_page functinon.
 @freezer.register_generator
 def pagelist():
     for page in flatpages:

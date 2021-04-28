@@ -1,8 +1,21 @@
-* {
+/* * {
   box-sizing: border-box;
-}
+} */
+
 
 body {
   font-family: "RobotoSlab";
   font-style: italic;
+  /* overflow: hidden; */
+  /* height: 100%; */
+}
+
+header,
+nav,
+main,
+article,
+section,
+footer {
+  margin: 0;
+  overflow: hidden;  /* allows main container background to show above overflow from headers */
 }

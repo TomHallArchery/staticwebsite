@@ -1,0 +1,9 @@
+{% macro meta(name, var) -%}
+    <meta name="{{ name }}" content="{{ var }}">
+{%- endmacro %}
+
+{# don't need to enclose file in seperate variable {{}} brackets #}
+{# as url_for function is already in a variable declaration #}
+{% macro link_style(file) -%}
+  <link rel="stylesheet" href="{{ url_for('static', filename=file) }}">
+{%- endmacro %}

@@ -1,14 +1,15 @@
+{% import "macros/macros.j2" as macros -%}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
 <head>
   <meta charset="utf-8">
-
-
-
+  <title>{{ title }} | Tom Hall Archery </title>
+  {{ macros.meta("description",  description ) }}
+  {{ macros.meta("keywords",  keywords ) }}
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffa700" />
-  <title>{{ title }} - Tom Hall Archery </title>
+
 
   <!-- favicon -->
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon/favicon.ico') }}">
@@ -20,12 +21,14 @@
 
 
   <!-- fonts -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/fonts.css') }}">
-
+  {{ macros.link_style('css/fonts.css')}}
   <!-- styles -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/colors.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  {{ macros.link_style('css/normalize.css')}}
+  {{ macros.link_style('css/colors.css')}}
+  {{ macros.link_style('css/styles.css')}}
+{% if highlight_blocks %}
+    {{ macros.link_style('css/blocks.css')}}
+{% endif %}
 
 
   <!-- js -->
@@ -35,16 +38,32 @@
 </head>
 
 <body>
-  <header>
-    <a href="/"><h2>TomHallArchery</h2></a>
-  </header>
 
-  <main>
+<header id="site_id">
+{% include "base/header.j2" %}
+</header>
+
+<nav id="site_nav">
+{% include "base/nav.j2" %}
+</nav>
+
+<main id="page_body">
+
+{% block page_heading -%}
     <h1>{{ title }}</h1>
-    {% block content %}
+{%- endblock %}
+
+
+
+{% block page_content -%}
     <em><strong>DEFAULT CONTENT</strong></em>
-    {% endblock %}
-  </main>
+{%- endblock %}
+
+</main>
+
+<footer id="site_footer">
+{% include "base/footer.j2" %}
+</footer>
 
 </body>
 
