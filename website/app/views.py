@@ -3,7 +3,7 @@ import flask
 from functools import partial
 
 # Add highlighted primary component blocks for layout design
-flask.render_template = partial(flask.render_template, highlight_blocks=True)
+# flask.render_template = partial(flask.render_template, highlight_blocks=True)
 
 @app.route('/')
 def serve_home():

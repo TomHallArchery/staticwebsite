@@ -1,21 +1,65 @@
-/* * {
-  box-sizing: border-box;
-} */
+/* *** */
+/* Global Styles */
+/* Page format */
+/* *** */
 
+
+
+html {
+  font-size: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+/* *** */
+/* Level 0 */
+/* Elements directly descended from body */
+/* *** */
 
 body {
   font-family: "RobotoSlab";
-  font-style: italic;
-  /* overflow: hidden; */
-  /* height: 100%; */
+  margin: 2rem;
 }
 
-header,
-nav,
-main,
-article,
-section,
-footer {
+
+@media screen and (min-width: 650px) {
+  body {
+    width: 80%;
+    margin: auto;
+  }
+}
+
+body > * {
   margin: 0;
   overflow: hidden;  /* allows main container background to show above overflow from headers */
+  padding: 0 2rem;
+}
+
+/* Level 1 */
+:is(header, nav, main, section, article, aside, footer) :is(h1,h2) {
+  font-weight: 900;
+}
+
+.fw700 {
+  font-weight: 700;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* *** */
+/* Default Accesibility */
+/* *** */
+
+@media screen and (prefers-reduced-motion: reduce) {
+  * {
+    /* Very short durations means JavaScript that relies on events still works */
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
