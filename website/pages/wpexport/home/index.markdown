@@ -6,7 +6,7 @@ excerpt: This is the home page's excerpt
 layout: page
 link: https://tomhall2016.wordpress.com/home/
 slug: home
-title: Home
+title: Wordpress home
 wordpress_id: 2
 ---
 

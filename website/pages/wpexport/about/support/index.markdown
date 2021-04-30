@@ -5,7 +5,7 @@ date: 2016-08-22 19:50:52+00:00
 layout: page
 link: https://tomhall2016.wordpress.com/about/support/
 slug: support
-title: Sponsors
+title: Wordpress Sponsors
 wordpress_id: 100
 ---
 
@@ -103,12 +103,12 @@ Being the kind of person who can squint walking outside on an overcast day in En
 ![X-Sight-Home-Page-Images-2.jpg](https://tomhall2016.files.wordpress.com/2018/12/x-sight-home-page-images-2.jpg)
 
 
-## 
+##
 
 
 
 
-## 
+##
 
 
 
@@ -134,5 +134,3 @@ Products used: Titan EX riser and Limbs. SM540 button, Saker II tab, Accendo Fie
 I was fortunate enough to be given the chance to try the new Titan EX bow as it was released, and it took me less than a week to both set a new PB and fall in love with it. Since then the "Pink Panther" as I call it, has been by my side through my best year yet in 2018, including two World Cup medals and the British No 1 ranking throughout the entire outdoor season. After trying a few different bows before this I am really happy I've found something I can trust.
 
 ![FB_IMG_1543236534797](https://tomhall2016.files.wordpress.com/2018/12/fb_img_1543236534797.jpg)
-
-

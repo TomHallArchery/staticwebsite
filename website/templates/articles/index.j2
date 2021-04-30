@@ -2,7 +2,10 @@
 
 {% block page_content %}
 <ul>
-  <li>1</li>
-  <li>2</li>
+  {% for link in links %}
+  <li><a href="{{ url_for('serve_page', path_requested=link.path) }}">
+      {{ link.meta.title | safe }}
+    </a></li>
+  {% endfor %}
 </ul>
 {% endblock %}

@@ -1,15 +1,23 @@
 import flask
+import markdown
 from flask import render_template_string, Markup
-from flask_flatpages import FlatPages, pygmented_markdown
+from flask_flatpages import FlatPages
 
-app = flask.Flask('website') #any name here works EXCEPT 'app'
+app = flask.Flask('website') #any name here works EXCEPT 'app'??
 # static_folder='static'
 # template_folder='templates'
 
+# Setting flatpages extensions wasn't working for some reason, had to overwrite pygmented_markdown method
 def prerender_jinja(text):
     prerendered_body = render_template_string(Markup(text))
-    return pygmented_markdown(prerendered_body)
+    pygmented_body = markdown.markdown(prerendered_body, extensions=FLATPAGES_MARKDOWN_EXTENSIONS)
+    return pygmented_body
 
+# dirty:
+# strip '---' from ._meta attribute of page objects to allow flatpages to work with yaml delimiter
+def clean_flatpage_metas():
+    for page in flatpages:
+        page._meta = page._meta.strip('---')
 
 # Some configuration, ensures
 # 1. Pages are loaded on request.
@@ -17,12 +25,19 @@ def prerender_jinja(text):
 
 FLATPAGES_EXTENSION = ['.md', '.markdown']
 FLATPAGES_HTML_RENDERER = prerender_jinja
+FLATPAGES_MARKDOWN_EXTENSIONS = ['codehilite', 'attr_list']
+FLATPAGES_AUTO_RELOAD = True
 
-app.config.from_object(__name__)
+print(app.root_path)
+print(app.static_folder)
+print(app.template_folder)
+
+app.config.from_object('app')
 flatpages = FlatPages(app)
-# dirty:
-# strip '---' from ._meta attribute of page objects to allow flatpages to work with yaml delimiter
-for page in flatpages:
-    page._meta = page._meta.strip('---')
+clean_flatpage_metas()
+
+@app.before_request
+def reload_flatpages():
+    clean_flatpage_metas()
 
 from app import views, errors

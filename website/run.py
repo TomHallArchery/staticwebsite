@@ -4,6 +4,7 @@ from app import app, flatpages
 
 app.config['ENV'] = 'DEVELOPMENT'
 app.config['DEBUG'] = True
+app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 def pprint(string):
     print(string.center(30, "*"))

@@ -7,17 +7,21 @@ from functools import partial
 
 @app.route('/')
 def serve_home():
-    links = [link for link in flatpages]
     return flask.render_template('generic/home.j2',
         title="Home",
         description = "The homepage of Tom Hall, Archer and Coach",
         keywords = "Archery, Athlete, Profile",
-        links=links,
         )
 
 @app.route('/articles/')
 def serve_articles():
-    return flask.render_template('articles/index.j2', title="Articles")
+    # Coded just to pick up wordpress markdown pages for now
+    # will extend to my own identifier
+    article_links = [link for link in flatpages if 'wordpress_id' in link.meta]
+    return flask.render_template('articles/index.j2',
+        title="Articles",
+        links=article_links,
+        )
 
 
 

@@ -1,4 +1,6 @@
+---
 title: Sponsors
+---
 
 This is my homepage for my sponsors, they are listed here:
 
@@ -9,3 +11,6 @@ This is my homepage for my sponsors, they are listed here:
 * X-sight
 * Clickers
 * Errea
+
+Thanks!
+{: .red}

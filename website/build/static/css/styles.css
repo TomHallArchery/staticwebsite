@@ -1,30 +1,37 @@
 /* *** */
 /* Global Styles */
-/* Page format */
 /* *** */
-
-
 
 html {
   font-size: 16px;
+  line-height: 1.5;
 }
+
+/* *** */
+/* Element spacing */
+/* *** */
 
 * {
   box-sizing: border-box;
 }
+/* 1 line spacing between all adjacent elements in tree */
+* + * {
+	margin-top: 1.5em;
+}
+/* Exceptions to aboe rule for adjacent paragrpahs, list items etc */
+li + li,
+p + p {
+  margin-top:0;
+}
 
-
-/* *** */
 /* Level 0 */
-/* Elements directly descended from body */
-/* *** */
-
+/* Page body size and attributes */
+/* mobile */
 body {
   font-family: "RobotoSlab";
   margin: 2rem;
 }
-
-
+/* large screen/desktop */
 @media screen and (min-width: 650px) {
   body {
     width: 80%;
@@ -32,25 +39,27 @@ body {
   }
 }
 
+/* Level 1 */
+/* Direct body descendants */
+
 body > * {
   margin: 0;
-  overflow: hidden;  /* allows main container background to show above overflow from headers */
   padding: 0 2rem;
 }
 
-/* Level 1 */
 :is(header, nav, main, section, article, aside, footer) :is(h1,h2) {
   font-weight: 900;
 }
 
-.fw700 {
-  font-weight: 700;
-}
+/*  */
 
 img {
   max-width: 100%;
 }
 
+.red {
+  color: red;
+}
 /* *** */
 /* Default Accesibility */
 /* *** */

@@ -19,4 +19,4 @@ if __name__ == '__main__':
     freezer.freeze()
     # Use python builtin server to serve static files based on directory structure
     os.chdir('build')
-    svr.test(HandlerClass=svr.SimpleHTTPRequestHandler)
+    svr.test(HandlerClass=svr.SimpleHTTPRequestHandler, port=5001)

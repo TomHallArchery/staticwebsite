@@ -4,6 +4,10 @@ body {
     );
 }
 
+body > * {
+  border: solid 2px grey;
+}
+
 header {
   background-color: red;
 }
