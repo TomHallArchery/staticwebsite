@@ -9,9 +9,10 @@ from functools import partial
 # add filtering method to flatpages object
 def filter_pages(dir):
     ''' return list of flask flatpage objects from subdirectory of "pages" '''
-    return [page for page in flatpages if os.path.dirname(page.path) == dir]
+    return list(page for page in flatpages if os.path.dirname(page.path) == dir)
 flatpages.filter = filter_pages
 
+WP_POSTS_DIR = 'wpexport/_posts'
 
 @app.route('/')
 def serve_home():
@@ -37,19 +38,29 @@ def serve_sponsors():
 
 @app.route('/articles/')
 def serve_articles():
-    # Coded just to pick up wordpress markdown pages for now
-    # will extend to my own identifier
-    # posts = filter_pages('wpexport/_posts')
+    # Selects posts with a PATH starting with wpexport/_posts and trim that directory from the link
+    posts = filter_pages(WP_POSTS_DIR )
+    cannonical_links = [os.path.join('WP', os.path.basename(post.path)) for post in posts]
+
     return flask.render_template('articles/index.j2',
         title="Articles",
-        links=flatpages.filter('wpexport/_posts'),
+        pages= zip(posts,cannonical_links)
         )
 
 # URL Routing - Flat Pages
 # Retrieves the page specified by the url /path_requested
 @app.route("/articles/<path:path_requested>/")
 def serve_article(path_requested):
-    flatpage = flatpages.get_or_404(path_requested)
+
+    print("PATH:", path_requested)
+    path = os.path.split(path_requested)
+    # If requesting direct shorter link:
+    if path[0] == 'WP':
+        flatpage = flatpages.get_or_404(os.path.join(WP_POSTS_DIR , path[1]))
+    # Else return full link
+    else:
+        flatpage = flatpages.get_or_404(os.path.join('articles', path_requested))
+
     return flask.render_template(
         'generic/page.j2',
         page=flatpage,
