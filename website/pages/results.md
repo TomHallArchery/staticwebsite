@@ -1,7 +1,9 @@
+---
 title: Results
 description: A timeline of some of my major competition results
 keywords: Competition, Medal, Tournament, Performance, Team, Championships
 unused: blank
+---
 
 A list of my important competition results, which I will hopefully be able to code up into some custom formatting
 

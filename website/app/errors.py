@@ -1,4 +1,4 @@
-from app import app
+from app import app, flatpages
 import flask
 
 @app.errorhandler(404)

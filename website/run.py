@@ -21,4 +21,4 @@ if __name__ == '__main__':
         print(p.meta['title'])
 
     pprint("LOG")
-    app.run()
+    app.run(debug=True)

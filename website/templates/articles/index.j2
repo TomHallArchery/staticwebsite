@@ -3,7 +3,7 @@
 {% block page_content %}
 <ul>
   {% for link in links %}
-  <li><a href="{{ url_for('serve_page', path_requested=link.path) }}">
+  <li><a href="{{ url_for('serve_article', path_requested=link.path) }}">
       {{ link.meta.title | safe }}
     </a></li>
   {% endfor %}

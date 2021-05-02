@@ -28,10 +28,6 @@ FLATPAGES_HTML_RENDERER = prerender_jinja
 FLATPAGES_MARKDOWN_EXTENSIONS = ['codehilite', 'attr_list']
 FLATPAGES_AUTO_RELOAD = True
 
-print(app.root_path)
-print(app.static_folder)
-print(app.template_folder)
-
 app.config.from_object('app')
 flatpages = FlatPages(app)
 clean_flatpage_metas()

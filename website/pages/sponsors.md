@@ -13,4 +13,4 @@ This is my homepage for my sponsors, they are listed here:
 * Errea
 
 Thanks!
-{: .red}
+{:.red}

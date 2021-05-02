@@ -9,6 +9,8 @@ flask-flatpages = "*"
 frozen-flask = "*"
 
 [dev-packages]
+fonttools = "*"
+brotli = "*"
 
 [requires]
 python_version = "3.9"
