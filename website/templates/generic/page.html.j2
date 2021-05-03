@@ -1,6 +1,10 @@
 {% extends "base/base.html.j2" %}
 
 {% block page_content %}
-<!-- {{ page.meta }} -->
+<!-- Page_Content from page.html.j2 tempalate, flatpage object -->
+{% for k, v in page.meta.items() -%}
+  <!-- <li>{{k}}:{{v}}</li> -->
+{% endfor %}
 {{ page.html }}
+<!-- End page_content -->
 {% endblock %}

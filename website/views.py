@@ -36,6 +36,13 @@ def serve_sponsors():
         page=sponsors,
         **sponsors.meta)
 
+@app.route('/contact/')
+def contact_page():
+    contact = flatpages.get_or_404('contact')
+    return flask.render_template('generic/contact.html.j2',
+        page=contact,
+        **contact.meta)
+
 @app.route('/articles/')
 def serve_articles():
     # Selects posts with a PATH starting with wpexport/_posts
