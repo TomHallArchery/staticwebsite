@@ -24,7 +24,7 @@
   <link rel="preload" href="{{ url_for('static', filename='fonts/Roboto_Slab/RobotoSlab-VariableFont_wght-Latin.woff2') }}" as="font" type="font/woff2" crossorigin>
   {{ macros.link_style('css/fonts.css')}}
   <!-- styles -->
-  {# {{ macros.link_style('css/normalize.css')}} #}
+  {{ macros.link_style('css/normalize.css')}}
   {{ macros.link_style('css/colors.css')}}
   {{ macros.link_style('css/styles.css')}}
 {% if highlight_blocks %}

@@ -1,7 +1,6 @@
 /* *** */
 /* Global Styles */
 /* *** */
-
 html {
   font-size: 16px;
   line-height: 1.5;
@@ -10,15 +9,18 @@ html {
 /* *** */
 /* Element spacing */
 /* *** */
-
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
+
 /* 1 line spacing between all adjacent elements in tree */
 * + * {
 	margin-top: 1.5em;
 }
-/* Exceptions to aboe rule for adjacent paragrpahs, list items etc */
+
+/* Exceptions to above rule for adjacent paragrpahs, list items etc */
 li + li,
 p + p {
   margin-top:0;
@@ -41,7 +43,6 @@ body {
 
 /* Level 1 */
 /* Direct body descendants */
-
 body > * {
   margin: 0;
   padding: 0 2rem;
@@ -51,8 +52,9 @@ body > * {
   font-weight: 900;
 }
 
-/*  */
-
+/* *** */
+/* Element Styles */
+/* *** */
 img {
   max-width: 100%;
 }
@@ -60,10 +62,55 @@ img {
 .red {
   color: red;
 }
+
+/* Contact form specific */
+form {
+  align-items:baseline;
+  display: flex;
+  flex-direction: column;
+}
+
+/* #contact-form label {
+  display: block
+} */
+
+#contact-form label[for="title"] {
+  display: none;
+}
+
+/* site_nav styling */
+#site_nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+/* #site_nav h2 {
+  flex-grow: 20;
+} */
+
+#site_nav ul {
+  display: flex;
+  width: 50%;
+}
+
+#site_nav li {
+  margin: auto;
+}
+
+#site_nav a {
+  text-decoration: none;
+  margin: auto;
+}
+
+#site_nav a:hover,
+#site_nav a:focus {
+  border-bottom: 5px solid red;
+}
+
 /* *** */
 /* Default Accesibility */
 /* *** */
-
 @media screen and (prefers-reduced-motion: reduce) {
   * {
     /* Very short durations means JavaScript that relies on events still works */
