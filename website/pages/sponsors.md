@@ -1,5 +1,7 @@
 ---
 title: Sponsors
+description: The companies and organisations that support me
+keywords: 
 ---
 
 This is my homepage for my sponsors, they are listed here:
