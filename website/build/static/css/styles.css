@@ -16,14 +16,14 @@ html {
 }
 
 /* 1 line spacing between all adjacent elements in tree */
-* + * {
-	margin-top: 1.5em;
+*+* {
+  margin-top: 1.5em;
 }
 
 /* Exceptions to above rule for adjacent paragrpahs, list items etc */
-li + li,
-p + p {
-  margin-top:0;
+li+li,
+p+p {
+  margin-top: 0;
 }
 
 /* Level 0 */
@@ -31,24 +31,25 @@ p + p {
 /* mobile */
 body {
   font-family: "RobotoSlab";
-  margin: 2rem;
 }
+
 /* large screen/desktop */
 @media screen and (min-width: 650px) {
   body {
-    width: 80%;
     margin: auto;
+    min-height: 100vh;
+    width: 80%;
   }
 }
 
 /* Level 1 */
 /* Direct body descendants */
-body > * {
+body>* {
   margin: 0;
   padding: 0 2rem;
 }
 
-:is(header, nav, main, section, article, aside, footer) :is(h1,h2) {
+:is(header, nav, main, section, article, aside, footer) :is(h1, h2) {
   font-weight: 900;
 }
 
@@ -65,47 +66,58 @@ img {
 
 /* Contact form specific */
 form {
-  align-items:baseline;
+  align-items: baseline;
   display: flex;
   flex-direction: column;
+}
+
+form :is(input, textarea):focus {
+  outline-color: var(--color-Na);
 }
 
 /* #contact-form label {
   display: block
 } */
-
 #contact-form label[for="title"] {
   display: none;
 }
 
 /* site_nav styling */
 #site_nav {
-  display: flex;
-  justify-content: space-between;
   align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
 }
 
-/* #site_nav h2 {
-  flex-grow: 20;
-} */
+#site_nav h2 {
+  padding-right: 2em;
+}
 
 #site_nav ul {
   display: flex;
-  width: 50%;
+  flex-wrap: wrap;
+  margin: 0 0 1em auto;
+  padding: 0;
 }
 
-#site_nav li {
-  margin: auto;
+#site_nav li:not(:last-child)::after {
+  content: '|';
+  padding: 0 1em;
 }
 
 #site_nav a {
+  color: var(--color-Rb);
   text-decoration: none;
-  margin: auto;
 }
 
 #site_nav a:hover,
 #site_nav a:focus {
-  border-bottom: 5px solid red;
+  /* box-shadow:
+    0 0.5em 0.25em -0.25em  var(--color-Rb),
+    inset  0 -10px 0.25em -0.25em var(--color-Rb); */
+    border-bottom: 0.25em solid var(--color-Na);
+    border-top: 0.25em solid var(--color-Na);
+    /* border-radius: 0.125em; */
 }
 
 /* *** */
