@@ -7,7 +7,7 @@
     <summary>Archived Articles</summary>
     <ul>
       {% for page in pages %}
-      <li><a href="{{ url_for('serve_page', path_requested=page.path) }}">
+      <li><a href="{{ url_for('serve_article', path_requested=page.path.replace('article/','')) }}">
           {{ page.meta.title | safe }}
         </a></li>
       {% endfor %}
@@ -18,7 +18,12 @@
 <aside id="page_sidebar">
   {% block side_content %}
     <h3>Test sidebar</h3>
-    {{ lipsum(1) }}
+    <ol>
+      <li>Extra Articles</li>
+      <li>Extra Articles</li>
+      <li>Extra Articles</li>
+      <li>Extra Articles</li>
+    </ol>
   {% endblock %}
 </aside>
 

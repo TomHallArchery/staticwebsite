@@ -4,7 +4,7 @@
   <form class="" id="contact-form" name="contact" action="" method="post" netlify netlify-honeypot="title">
 
       <label for="name">Your Name:</label>
-      <input type="text" id="name" name="name" value="">
+      <input type="text" id="name" name="name" value="" required>
 
       <label for="title">Your Title:
       <input type="text" id=title name="title" value="">
@@ -14,7 +14,7 @@
       <input type="email" id=email name="email" value="">
 
       <label for="message">Message:</label>
-      <textarea name="message" id="message" rows="8"></textarea>
+      <textarea name="message" id="message" rows="8" required></textarea>
 
       <label for="submit"></label>
       <button type="submit" name="submit" value="">Send Message</button>
@@ -22,4 +22,6 @@
   </form>
 {%- endblock %}
 
+{% block side_content %}
+{% endblock %}
 <!--  -->

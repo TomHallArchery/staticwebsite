@@ -2,34 +2,52 @@
 <html lang="en" dir="ltr">
 
 <head>
+<!-- start base/head -->
+<meta charset="utf-8">
+<title>Home | Tom Hall Archery </title>
+<meta name="description" content="The homepage of Tom Hall, Archer and Coach">
+<meta name="keywords" content="Archery, Athlete, Profile">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffa700" />
 
-  <meta charset="utf-8">
-  <title>Home | Tom Hall Archery </title>
-  <meta name="description" content="The homepage of Tom Hall, Archer and Coach">
-  <meta name="keywords" content="Archery, Athlete, Profile">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffa700" />
+<!-- favicon -->
+<!-- generated from https://favicon.io/favicon-generator/ using erica one font -->
+<link rel="icon" type="image/png" href="/static/favicon/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16x16.png">
 
-  <!-- favicon -->
-  <!-- generated from https://favicon.io/favicon-generator/ using erica one font -->
-  <link rel="icon" type="image/png" href="/static/favicon/favicon.ico">
-  <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16x16.png">
+<!-- fonts -->
+<link rel="preload" href="/static/fonts/Roboto_Slab/RobotoSlab-VariableFont_wght-Latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/static/css/fonts.css">
 
-  <!-- fonts -->
-  <link rel="preload" href="/static/fonts/Roboto_Slab/RobotoSlab-VariableFont_wght-Latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/static/css/fonts.css">
-
-  <!-- styles -->
-  <link rel="stylesheet" href="/static/css/normalize.css">
-  <link rel="stylesheet" href="/static/css/colors.css">
-  <link rel="stylesheet" href="/static/css/styles.css">
+<!-- styles -->
+<link rel="stylesheet" href="/static/css/normalize.css">
+<link rel="stylesheet" href="/static/css/colors.css">
+<link rel="stylesheet" href="/static/css/styles.css">
 
 
-  <!-- js -->
-  <!-- Alpine JS (Modern JQuery replacement for minor animations/ui/reactive parts) -->
-  <script src="/static/js/alpine.js" defer></script>
+<!-- js -->
+<!-- Alpine JS (Modern JQuery replacement for minor animations/ui/reactive parts) -->
+<script src="/static/js/alpine.js" defer></script>
+<!-- end base/head -->
+
+<!-- override default grid layout for landing on homepage  -->
+  <style media="screen and (min-width: 110ch)">
+    body {
+      margin: auto;
+      min-height: 100vh;
+      width: 66%;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      grid-template-areas:
+        "header"
+        "nav"
+        "main"
+        "footer";
+    }
+  </style>
 
 </head>
 
@@ -47,31 +65,30 @@
   </ul>
 </nav>
 </header>
+
 <!-- end header -->
 
 
 <main id="page_body">
   <h1>Welcome</h1>
-  <p>Cum netus senectus diam condimentum lectus, eros nascetur nulla tellus, semper vel cras dolor eu nonummy, sapien facilisis laoreet orci. Semper massa phasellus velit ipsum, integer cursus auctor imperdiet non, metus vestibulum ad facilisi pharetra bibendum, nunc turpis varius orci enim,. Nunc nostra suspendisse vestibulum, sagittis sapien enim libero, adipiscing commodo leo cursus litora, mattis viverra a.</p>
-<p>Montes sodales cum ut sit montes pulvinar dolor, arcu eleifend quisque nunc tincidunt vitae viverra, nostra. Sociis cum amet volutpat tellus iaculis nam, tortor sociosqu quis ornare nec, laoreet venenatis eu pharetra lectus, nibh commodo inceptos primis, iaculis. Laoreet etiam phasellus praesent nulla amet mattis pellentesque, ad varius viverra sed nulla, iaculis eleifend vulputate non parturient varius, dignissim. Urna montes cum habitasse hac aliquet, vulputate nunc sem imperdiet auctor rhoncus senectus, nostra parturient.</p>
-<p>Litora nisl suscipit sit ad, nonummy consectetuer aliquam ridiculus, malesuada praesent elit penatibus id senectus, tristique vehicula luctus conubia platea magnis. Vestibulum vulputate donec risus, ullamcorper curae odio sapien fusce, per litora pellentesque vehicula praesent, dui nostra cubilia nonummy sit. Ut odio sociis aliquam, commodo iaculis blandit metus fames, commodo egestas condimentum sed fames, amet fringilla sociosqu tempor tortor per etiam morbi, tempor. Justo phasellus amet magnis potenti venenatis netus, accumsan ante et sem elit vulputate, luctus imperdiet per feugiat proin, laoreet placerat laoreet.</p>
-<p>Libero faucibus parturient aptent integer nec lectus magnis justo, natoque nisl rutrum fermentum nonummy, sodales metus ridiculus placerat. Platea quis netus maecenas luctus sem nullam, dis hymenaeos ridiculus cursus proin, dignissim imperdiet placerat cum justo. Consequat inceptos leo pulvinar purus, quis pellentesque nonummy curae vitae cursus habitasse.</p>
-<p>Sem feugiat cras neque molestie dis rutrum, dolor tempus gravida a, aliquam placerat venenatis hendrerit nascetur cursus, ultricies purus class mi cras nunc,. Placerat euismod laoreet tempus sociosqu molestie, velit congue ipsum dictumst eleifend natoque, mattis dapibus aliquet quis ullamcorper. Suscipit dapibus ornare augue ad, rutrum id metus ultrices cursus, metus habitasse cum arcu sed.</p>
+  <p>Phasellus sociis euismod dui suscipit, lacus ornare nascetur lobortis luctus, suspendisse posuere ante tempor parturient, rhoncus ullamcorper cras viverra. Habitant taciti egestas nunc cursus eget, nisl et justo convallis, viverra lacinia ultrices pretium consectetuer sociis, diam imperdiet molestie metus nascetur. Proin ullamcorper rhoncus dictumst, vitae hendrerit auctor hendrerit, quis cubilia fermentum urna dictumst augue, lorem habitasse volutpat dignissim. Pellentesque platea vel litora taciti platea, curabitur.</p>
+<p>Nam mus augue euismod at facilisis mauris at, auctor felis risus praesent mus urna. Aenean a rutrum dignissim nec, habitasse sit sollicitudin convallis fusce posuere, primis suscipit posuere condimentum. Leo habitasse volutpat iaculis sociis, facilisis commodo congue bibendum ridiculus nisi elit, ultricies cras duis ornare, lacus cum vel. Aliquet mattis rhoncus litora gravida laoreet, mus praesent nisi orci, elementum facilisis est nec auctor, congue aliquet parturient. Pellentesque nonummy.</p>
+<p>Nam quam netus nisl sit hac, posuere cubilia ornare ante id, feugiat pede nulla convallis dui, nibh egestas mattis bibendum neque, senectus dapibus imperdiet curabitur, viverra dignissim. Parturient cum blandit tortor sem justo, diam hac varius suspendisse aliquet, a sapien per vehicula, gravida lacinia magna rutrum imperdiet vel, pede. Tellus vel mus erat cras, aliquam aliquet rhoncus netus enim at, blandit dis quis hac sed laoreet, interdum. Vel vivamus nullam non posuere turpis, placerat penatibus sodales odio bibendum cum, consectetuer maecenas nibh quisque vitae mollis,. Sit phasellus ridiculus nam pretium tristique proin, condimentum eu primis quis, rutrum.</p>
+<p>Nascetur amet litora posuere erat nisi metus turpis, convallis fringilla elementum nulla, nec penatibus vulputate taciti vehicula, aptent. Ac convallis feugiat ornare pulvinar congue lobortis sit, ridiculus hymenaeos facilisis magnis per eget. Eu hymenaeos dapibus nec rutrum nunc, habitant sollicitudin erat molestie odio etiam, lectus litora fusce sodales tincidunt, taciti. Duis eros est metus ante phasellus, placerat dis posuere mattis litora, bibendum blandit libero massa ut. Scelerisque eu class lorem potenti fringilla, justo taciti bibendum metus venenatis massa sapien, magna parturient placerat. Proin diam.</p>
+<p>Taciti lorem euismod imperdiet nostra conubia magnis, urna nec posuere mi, tristique gravida in porttitor duis metus, hac nisl. Etiam tellus rutrum nonummy leo eu et, dolor magna lorem sed ridiculus vehicula, et ante vitae accumsan, nascetur mus tristique. Nibh quisque enim lectus arcu habitant praesent, eu luctus nec montes suscipit.</p>
+
+  <!-- homepage content sections: -->
+  <!-- Banner image [main > header] -->
+  <!--  -->
 </main id="page_body">
 
-<aside id="page_sidebar">
-  
-    <h3>Test sidebar</h3>
-    <p>Diam montes aenean ad eros, ad nec felis molestie tempor hac, accumsan consequat vitae convallis suscipit, malesuada pellentesque ad aliquam nisi tempus. Cras semper ut facilisis molestie viverra, et arcu fringilla nonummy iaculis, congue eleifend dui tempus, ligula dictum vel tristique facilisis non, lectus ridiculus cubilia. Feugiat faucibus sodales suscipit mi, penatibus cum malesuada tortor pulvinar, nulla porta.</p>
-  
-</aside>
 
 
-<!-- From footer template -->
+<!-- Start base/footer -->
 <footer id="site_footer">
   <small>&copy Tom Hall 2021</small>
 </footer>
-<!-- End footer template -->
+<!-- End base/footer -->
 
 </body>
 

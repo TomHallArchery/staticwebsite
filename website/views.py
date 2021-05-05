@@ -7,13 +7,13 @@ from functools import partial
 # Add highlighted primary component blocks for layout design
 # flask.render_template = partial(flask.render_template, highlight_blocks=True)
 
+WP_POSTS_DIR = 'article/archive'
+
 # add filtering method to flatpages object
 def filter_pages(dir):
     ''' return list of flask flatpage objects from subdirectory of "pages" '''
     return list(page for page in flatpages if os.path.dirname(page.path) == dir)
-flatpages.filter = filter_pages
 
-WP_POSTS_DIR = 'articles/archive'
 
 @app.before_request
 def reload_flatpages():
@@ -58,19 +58,28 @@ def contact_page():
 @app.route('/articles/')
 def serve_articles():
     # Selects posts with a PATH starting with wpexport/_posts
-    posts = filter_pages(WP_POSTS_DIR )
-
+    posts = filter_pages(WP_POSTS_DIR)
     return flask.render_template('articles/index.html.j2',
         title="Articles",
         pages=posts
         )
 
+@app.route("/article/<path:path_requested>/")
+def serve_article(path_requested):
+
+    # reappend 'article/' to front of path as has been stripped off by the route selector
+    path = os.path.join('article', path_requested)
+    flatpage = flatpages.get_or_404(path)
+
+    return flask.render_template('articles/article.html.j2',
+        page=flatpage,
+        **flatpage.meta
+        )
+
 # URL Routing - Flat Pages
 # Retrieves the page specified by the url /path_requested
-@app.route("/<path:path_requested>/")
+@app.route("/<path_requested>/")
 def serve_page(path_requested):
-
-    path = os.path.split(path_requested)
 
     flatpage = flatpages.get_or_404(path_requested)
     return flask.render_template('generic/page.html.j2',

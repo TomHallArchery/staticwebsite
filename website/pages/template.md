@@ -8,5 +8,9 @@ slug:
 id:
 header_image: URL For optional use in page header banner
 published: Boolean, for filtering
-archived: 
+archived:
 ---
+
+Page content ideas:
+* Countdown to next competitons (wigit, sidebar)
+*

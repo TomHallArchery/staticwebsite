@@ -1,0 +1,18 @@
+{% extends "generic/page.html.j2" %}
+
+{% block page_content %}
+  <article>
+    {{ page.html }}
+  </article>
+{% endblock %}
+
+{% block side_content %}
+{# extra articles candidate for macro #}
+  <h3>Test sidebar</h3>
+  <ol>
+    <li>Extra Articles</li>
+    <li>Extra Articles</li>
+    <li>Extra Articles</li>
+    <li>Extra Articles</li>
+  </ol>
+{% endblock %}
