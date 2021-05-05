@@ -30,8 +30,5 @@ app.config.from_object(__name__)
 flatpages = FlatPages(app)
 clean_flatpage_metas()
 
-@app.before_request
-def reload_flatpages():
-    clean_flatpage_metas()
 
 from website import views, errors

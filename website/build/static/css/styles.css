@@ -31,14 +31,37 @@ p+p {
 /* mobile */
 body {
   font-family: "RobotoSlab";
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "header"
+    "main"
+    "aside"
+    "footer";
 }
 
 /* large screen/desktop */
-@media screen and (min-width: 650px) {
+@media screen and (min-width: 110ch) {
   body {
     margin: auto;
     min-height: 100vh;
     width: 80%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas:
+      "header header header"
+      "main main aside"
+      "footer footer footer";
+  }
+
+  main {
+    grid-area: main;
+  }
+
+  body>aside {
+    grid-area: aside;
   }
 }
 
@@ -46,7 +69,7 @@ body {
 /* Direct body descendants */
 body>* {
   margin: 0;
-  padding: 0 2rem;
+  padding: 1rem 2rem 0;
 }
 
 :is(header, nav, main, section, article, aside, footer) :is(h1, h2) {
@@ -56,6 +79,16 @@ body>* {
 /* *** */
 /* Element Styles */
 /* *** */
+a {
+ color: var(--color-Rb);
+ text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  text-decoration: underline;
+}
+
 img {
   max-width: 100%;
 }
@@ -66,7 +99,7 @@ img {
 
 /* Contact form specific */
 form {
-  align-items: baseline;
+  /* align-items:stretch; */
   display: flex;
   flex-direction: column;
 }
@@ -75,6 +108,11 @@ form :is(input, textarea):focus {
   outline-color: var(--color-Na);
 }
 
+/* form textarea,
+form input {
+  width: 100%;
+} */
+
 /* #contact-form label {
   display: block
 } */
@@ -82,15 +120,23 @@ form :is(input, textarea):focus {
   display: none;
 }
 
-/* site_nav styling */
-#site_nav {
+/* header and site_nav styling */
+/* make global banner container a flexbox */
+#site_header {
   align-items: baseline;
   display: flex;
   flex-wrap: wrap;
+  grid-area: header;
+}
+/* left part: header/home link */
+#site_header h2 {
+  margin: 0;
+  padding-right: 2em;
 }
 
-#site_nav h2 {
-  padding-right: 2em;
+/* right part: nav links */
+#site_nav {
+  margin-left: auto;
 }
 
 #site_nav ul {
@@ -105,21 +151,17 @@ form :is(input, textarea):focus {
   padding: 0 1em;
 }
 
-#site_nav a {
-  color: var(--color-Rb);
-  text-decoration: none;
-}
-
-#site_nav a:hover,
-#site_nav a:focus {
-  /* box-shadow:
-    0 0.5em 0.25em -0.25em  var(--color-Rb),
-    inset  0 -10px 0.25em -0.25em var(--color-Rb); */
+/* header link styling */
+#site_header a:hover,
+#site_header a:focus {
     border-bottom: 0.25em solid var(--color-Na);
     border-top: 0.25em solid var(--color-Na);
-    /* border-radius: 0.125em; */
+    text-decoration: none;
 }
 
+#site_footer {
+  grid-area: footer;
+}
 /* *** */
 /* Default Accesibility */
 /* *** */

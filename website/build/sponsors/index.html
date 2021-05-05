@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr">
 
 <head>
+
   <meta charset="utf-8">
   <title>Sponsors | Tom Hall Archery </title>
   <meta name="description" content="The companies and organisations that support me">
@@ -9,24 +10,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffa700" />
 
-
   <!-- favicon -->
-  <link rel="icon" type="image/png" href="/static/favicon/favicon.ico">
   <!-- generated from https://favicon.io/favicon-generator/ using erica one font -->
+  <link rel="icon" type="image/png" href="/static/favicon/favicon.ico">
   <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16x16.png">
-  <link rel="manifest" href="/static/favicon/site.webmanifest">
-
 
   <!-- fonts -->
   <link rel="preload" href="/static/fonts/Roboto_Slab/RobotoSlab-VariableFont_wght-Latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/static/css/fonts.css">
+
   <!-- styles -->
   <link rel="stylesheet" href="/static/css/normalize.css">
   <link rel="stylesheet" href="/static/css/colors.css">
   <link rel="stylesheet" href="/static/css/styles.css">
-
 
 
   <!-- js -->
@@ -37,31 +35,24 @@
 
 <body>
 
-<nav id="site_nav">
-<h2><a href="/">TomHallArchery</a></h2>
-
-<ul>
-  <li><a href=/sponsors/>Sponsors</a></li>
-  <li><a href=/results/>Results</a></li>
-  <li><a href=/articles/>Articles</a></li>
-  <li><a href=/contact/>Contact</a></li>
-</ul>
+<!-- from header template -->
+<header id="site_header">
+  <h2><a href="/">TomHallArchery</a></h2>
+  <nav id="site_nav">
+  <ul>
+    <li><a href=/sponsors/>Sponsors</a></li>
+    <li><a href=/results/>Results</a></li>
+    <li><a href=/articles/>Articles</a></li>
+    <li><a href=/contact/>Contact</a></li>
+  </ul>
 </nav>
-
-<header id="site_id">
-<!-- <a href="/"><h2>TomHallArchery</h2></a> -->
 </header>
-
-<main id="page_body">
-
-<h1>Sponsors</h1>
+<!-- end header -->
 
 <!-- Page_Content from page.html.j2 tempalate, flatpage object -->
-<!-- <li>title:Sponsors</li> -->
-<!-- <li>description:The companies and organisations that support me</li> -->
-<!-- <li>keywords:None</li> -->
-
-<p>This is my homepage for my sponsors, they are listed here:</p>
+<main id="page_body">
+  <h1>Sponsors</h1>
+  <p>This is my homepage for my sponsors, they are listed here:</p>
 <ul>
 <li>Fivics</li>
 <li>Shibuya</li>
@@ -72,15 +63,21 @@
 <li>Errea</li>
 </ul>
 <p class="red">Thanks!</p>
+  <!-- for extra content not controlled by flatpage -->
+</main>
 <!-- End page_content -->
 
-<!-- for extra content not controlled by flatpage -->
+<aside id="page_sidebar">
+  
 
-</main>
+  
+</aside>
 
+<!-- From footer template -->
 <footer id="site_footer">
-<!-- <h2>Footer</h2> -->
+  <small>&copy Tom Hall 2021</small>
 </footer>
+<!-- End footer template -->
 
 </body>
 

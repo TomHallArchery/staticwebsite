@@ -1,6 +1,7 @@
-from website import app, flatpages
+from website import app, flatpages, clean_flatpage_metas
 import flask
 import os
+from datetime import datetime
 from functools import partial
 
 # Add highlighted primary component blocks for layout design
@@ -14,10 +15,21 @@ flatpages.filter = filter_pages
 
 WP_POSTS_DIR = 'articles/archive'
 
+@app.before_request
+def reload_flatpages():
+    clean_flatpage_metas()
+
+@app.context_processor
+def inject_year():
+    this_year = datetime.now().year
+    return dict(year=this_year)
+
 @app.route('/')
 def serve_home():
     return flask.render_template('generic/home.html.j2',
         title="Home",
+        # move metadata into markdown? even if not calling from generic page tempalate
+        # could still allow dict unpacking of metadata
         description = "The homepage of Tom Hall, Archer and Coach",
         keywords = "Archery, Athlete, Profile",
         )
@@ -27,7 +39,7 @@ def serve_results():
     results = flatpages.get_or_404('results')
     return flask.render_template('generic/page.html.j2',
         page=results,
-        title='Results')
+        **results.meta)
 
 @app.route('/sponsors/')
 def serve_sponsors():

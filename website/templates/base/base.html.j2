@@ -3,34 +3,32 @@
 <html lang="en" dir="ltr">
 
 <head>
+
   <meta charset="utf-8">
-  <title>{{ title }} | Tom Hall Archery </title>
+  <title>{{ title | title }} | Tom Hall Archery </title>
   {{ macros.meta("description",  description ) }}
   {{ macros.meta("keywords",  keywords ) }}
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffa700" />
 
-
   <!-- favicon -->
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon/favicon.ico') }}">
   <!-- generated from https://favicon.io/favicon-generator/ using erica one font -->
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon/favicon.ico') }}">
   <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon/apple-touch-icon.png') }}">
   <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}">
   <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon/favicon-16x16.png') }}">
-  <link rel="manifest" href="{{ url_for('static', filename='favicon/site.webmanifest') }}">
-
 
   <!-- fonts -->
   <link rel="preload" href="{{ url_for('static', filename='fonts/Roboto_Slab/RobotoSlab-VariableFont_wght-Latin.woff2') }}" as="font" type="font/woff2" crossorigin>
   {{ macros.link_style('css/fonts.css')}}
+
   <!-- styles -->
   {{ macros.link_style('css/normalize.css')}}
   {{ macros.link_style('css/colors.css')}}
   {{ macros.link_style('css/styles.css')}}
-{% if highlight_blocks %}
-    {{ macros.link_style('css/blocks.css')}}
-{% endif %}
-
+{% if highlight_blocks -%}
+  {{ macros.link_style('css/blocks.css')}}
+{%- endif %}
 
   <!-- js -->
   <!-- Alpine JS (Modern JQuery replacement for minor animations/ui/reactive parts) -->
@@ -39,32 +37,13 @@
 </head>
 
 <body>
-{# Link to home and defined main pages #}
-<nav id="site_nav">
-{% include "base/nav.html.j2" %}
-</nav>
-{# header image if desired #}
-<header id="site_id">
+{# Combined header and nav bar #}
 {% include "base/header.html.j2" %}
-</header>
-{#  #}
-<main id="page_body">
 
-{% block page_heading -%}
-    <h1>{{ title }}</h1>
-{%- endblock %}
-{% block page_content -%}
-    <em><strong>DEFAULT CONTENT</strong></em>
-{%- endblock %}
-{% block extra_content -%}
-  <!-- for extra content not controlled by flatpage -->
+{% block body -%}
 {%- endblock %}
 
-</main>
-{#  #}
-<footer id="site_footer">
 {% include "base/footer.html.j2" %}
-</footer>
 
 </body>
 
