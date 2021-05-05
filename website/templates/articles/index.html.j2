@@ -15,6 +15,11 @@
   </details>
 </main>
 
-
+<aside id="page_sidebar">
+  {% block side_content %}
+    <h3>Test sidebar</h3>
+    {{ lipsum(1) }}
+  {% endblock %}
+</aside>
 
 {% endblock body %}
