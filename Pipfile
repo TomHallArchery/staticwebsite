@@ -11,6 +11,7 @@ frozen-flask = "*"
 [dev-packages]
 fonttools = "*"
 brotli = "*"
+pynetlify = "*"
 
 [requires]
 python_version = "3.9"
