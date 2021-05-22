@@ -1,8 +1,8 @@
 <!-- start base/head -->
 <meta charset="utf-8">
 <title>{{ title | title }} | Tom Hall Archery </title>
-{{ macros.meta("description",  description ) }}
-{{ macros.meta("keywords",  keywords ) }}
+{{ m.meta("description",  description ) }}
+{{ m.meta("keywords",  keywords ) }}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#ffa700" />
 
@@ -15,14 +15,14 @@
 
 <!-- fonts -->
 <link rel="preload" href="{{ url_for('static', filename='fonts/Roboto_Slab/RobotoSlab-VariableFont_wght-Latin.woff2') }}" as="font" type="font/woff2" crossorigin>
-{{ macros.link_style('css/fonts.css')}}
+{{ m.link_style('css/fonts.css')}}
 
 <!-- styles -->
-<!-- {{ macros.link_style('css/normalize.css')}} -->
-{{ macros.link_style('css/colors.css')}}
-{{ macros.link_style('css/styles.css')}}
+<!-- {{ m.link_style('css/normalize.css')}} -->
+{{ m.link_style('css/colors.css')}}
+{{ m.link_style('css/styles.css')}}
 {% if highlight_blocks -%}
-{{ macros.link_style('css/blocks.css')}}
+{{ m.link_style('css/blocks.css')}}
 {%- endif %}
 
 <!-- js -->

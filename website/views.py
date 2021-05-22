@@ -7,6 +7,7 @@ from functools import partial
 # Add highlighted primary component blocks for layout design
 # flask.render_template = partial(flask.render_template, highlight_blocks=True)
 
+IMAGES_URL = "https://trusting-darwin-7474dd.netlify.app/"
 WP_POSTS_DIR = 'article/archive'
 
 # add filtering method to flatpages object
@@ -23,6 +24,10 @@ def reload_flatpages():
 def inject_year():
     this_year = datetime.now().year
     return dict(year=this_year)
+
+@app.context_processor
+def inject_images_url():
+    return dict(img_url=IMAGES_URL)
 
 @app.route('/')
 def serve_home():

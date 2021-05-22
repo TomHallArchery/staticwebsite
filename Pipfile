@@ -12,6 +12,7 @@ frozen-flask = "*"
 fonttools = "*"
 brotli = "*"
 pynetlify = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.9"

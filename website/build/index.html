@@ -35,17 +35,10 @@
 <!-- override default grid layout for landing on homepage  -->
   <style media="screen and (min-width: 110ch)">
     body {
+      display: block;
       margin: auto;
       min-height: 100vh;
       width: 66%;
-      display: grid;
-      grid-template-columns: 1fr;
-      grid-template-rows: auto;
-      grid-template-areas:
-        "header"
-        "nav"
-        "main"
-        "footer";
     }
   </style>
 
@@ -71,16 +64,28 @@
 
 <main id="page_body">
   <h1>Welcome</h1>
-  <p>Aliquet dis taciti morbi potenti est, posuere dictum varius vel bibendum, malesuada ut vel hac, porttitor erat dolor metus. Nostra tristique ac adipiscing hymenaeos, iaculis risus facilisi quisque faucibus cubilia, platea vulputate pulvinar inceptos eleifend vitae suspendisse vivamus, pharetra tortor proin aenean tempor integer. Penatibus convallis habitant nullam bibendum, ultricies mauris habitasse tortor, nunc sed maecenas eu, condimentum tellus sociis sollicitudin. Imperdiet taciti sapien eu condimentum ipsum, odio venenatis auctor ligula cubilia mollis, auctor sociis dapibus. Taciti.</p>
-<p>Est inceptos maecenas curabitur per, fermentum hymenaeos nullam ullamcorper arcu conubia, varius ad adipiscing fusce vitae mattis mus, dictum dui cum. Cubilia accumsan litora magnis conubia, nisi cubilia varius parturient tempus imperdiet placerat, nibh orci sapien. Cum purus fames pretium tristique bibendum, ipsum adipiscing dui nostra quisque nullam, erat dictum etiam eget aliquet hymenaeos, senectus dui malesuada. Nam ultricies porta sagittis molestie commodo porta, vitae proin fringilla conubia iaculis malesuada, phasellus pretium quam. Hendrerit nam odio feugiat quisque, et justo tristique.</p>
-<p>Mattis pharetra tempus conubia fermentum purus, erat tempor mus curabitur magna cursus sed, porttitor taciti donec curae nisl dis, inceptos. Egestas dis morbi at dolor viverra, faucibus lacus montes pretium lobortis hac natoque, justo lacus velit habitant sapien. Aenean ultrices enim dis lacus hendrerit, imperdiet tellus quam dapibus egestas platea, feugiat interdum potenti. Duis nonummy gravida hac platea eros purus, ad sodales egestas sagittis tristique, nascetur felis per donec netus.</p>
-<p>Metus vestibulum lacinia porttitor ac neque, consectetuer dis magnis interdum per, nibh mauris vel dapibus, feugiat parturient nonummy vivamus cum non,. Sagittis vivamus auctor ullamcorper cursus metus, litora tincidunt ullamcorper dui morbi, taciti platea at ad dolor ligula, metus. Ullamcorper euismod semper pulvinar lacus magnis.</p>
-<p>Porta est mattis tristique euismod libero dictum mollis, duis sodales ligula montes, tortor fringilla purus ad sagittis. Taciti vitae mattis pretium, amet torquent lorem auctor consequat diam, pretium risus hendrerit a, mi eu pharetra tempor tempus urna, mus malesuada curabitur tempus ultrices,. Nascetur volutpat felis est orci montes, vitae nec placerat facilisi, sodales sagittis porttitor hac dis curae, metus ornare rutrum sollicitudin. Nullam inceptos lorem montes aenean ridiculus, risus rhoncus interdum curae nonummy, tempor ante eu duis curae, potenti congue iaculis. Vestibulum duis maecenas tempor suspendisse habitant, sem nascetur nibh nascetur tortor adipiscing, porta morbi.</p>
+
+  <p>My website is still under construction but feel free to have a look around!</p>
 
   <!-- homepage content sections: -->
   <!-- Banner image [main > header] -->
-  <!--  -->
+  <img
+  src="https://trusting-darwin-7474dd.netlify.app/2020-Back2Back-Finals_1500.jpg"
+  srcset="
+    https://trusting-darwin-7474dd.netlify.app/2020-Back2Back-Finals_1500.jpg 1500w,
+    https://trusting-darwin-7474dd.netlify.app/2020-Back2Back-Finals_1000.jpg 1000w,
+    https://trusting-darwin-7474dd.netlify.app/2020-Back2Back-Finals_750.jpg 750w,
+    https://trusting-darwin-7474dd.netlify.app/2020-Back2Back-Finals_500.jpg 500w,
+    https://trusting-darwin-7474dd.netlify.app/2020-Back2Back-Finals_300.jpg 300w
+  "
+  sizes="
+    (min-width: 110ch) 60vw,
+    95vw
+  "
+  alt="Front view of tom shooting in the back2back finals against a dark backdrop"
+  >
 </main id="page_body">
+
 
 
 

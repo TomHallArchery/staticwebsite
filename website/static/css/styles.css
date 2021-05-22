@@ -35,6 +35,7 @@ h1,h2,h3,h4,h5,h6 {
 /* mobile */
 body {
   font-family: "RobotoSlab";
+  margin: 0;
 }
 
 /* large screen/desktop */
@@ -43,6 +44,7 @@ body {
     align-items: start;
     margin: auto;
     min-height: 100vh;
+    max-width: 1500px;
     width: 80%;
     display: grid;
     grid-template-columns: 2fr 1fr;
