@@ -35,15 +35,6 @@ h1,h2,h3,h4,h5,h6 {
 /* mobile */
 body {
   font-family: "RobotoSlab";
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto;
-  grid-template-areas:
-    "header"
-    /* "nav" */
-    "main"
-    "aside"
-    "footer";
 }
 
 /* large screen/desktop */
@@ -149,6 +140,7 @@ form input {
 #site_nav ul {
   display: flex;
   flex-wrap: wrap;
+  list-style: none;
   margin: 0 0 1em auto;
   padding: 0;
 }
