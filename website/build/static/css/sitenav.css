@@ -1,0 +1,45 @@
+/* header and site_nav styling */
+
+/* left part: header/home link */
+.site_nav h2 {
+  margin: 0;
+  padding-right: 2em;
+}
+
+/* right part: nav links */
+.site_nav ul {
+  margin: 0 0 1em auto;
+  padding: 0;
+}
+
+.site_nav li {
+  display: block;
+}
+
+/* header link styling */
+/* refactor to a ::before/::after pseudo element rather than border */
+.site_nav a:hover,
+.site_nav a:focus {
+    border-bottom: 0.25em solid var(--color-Na);
+    border-top: 0.25em solid var(--color-Na);
+    text-decoration: none;
+}
+
+/* Nav needs to collapse again at medium breakpoint ~660px with current links */
+@media screen and (min-width: 85ch) {
+  .site_nav {
+    align-items: baseline;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .site_nav ul {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .site_nav li:not(:last-child)::after {
+    content: '|';
+    padding: 0 1em;
+  }
+}

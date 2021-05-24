@@ -8,6 +8,6 @@
   <link rel="stylesheet" href="{{ url_for('static', filename=file) }}">
 {%- endmacro %}
 
-{% macro imgpath(path) -%}
+{% macro imgpath(img_url, path) -%}
     {{img_url + path}}
 {%- endmacro %}

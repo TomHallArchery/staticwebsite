@@ -25,6 +25,7 @@
 <!-- <link rel="stylesheet" href="/static/css/normalize.css"> -->
 <link rel="stylesheet" href="/static/css/colors.css">
 <link rel="stylesheet" href="/static/css/styles.css">
+<link rel="stylesheet" href="/static/css/hresize.css">
 
 
 <!-- js -->
@@ -36,10 +37,10 @@
 
 <body>
 
-<!-- from header template -->
-<header id="site_header">
+<!-- from nav template -->
+<link rel="stylesheet" href="/static/css/sitenav.css">
+<nav id="site_nav" class="site_nav">
   <h2><a href="/">TomHallArchery</a></h2>
-  <nav id="site_nav">
   <ul>
     <li><a href=/sponsors/>Sponsors</a></li>
     <li><a href=/results/>Results</a></li>
@@ -47,8 +48,13 @@
     <li><a href=/contact/>Contact</a></li>
   </ul>
 </nav>
-</header>
+<!-- end nav template -->
 
+
+<!-- from header template -->
+<header id="site_header" style="display:none;">
+
+</header>
 <!-- end header -->
 
 <!-- Page_Content from page.html.j2 tempalate, flatpage object -->
@@ -70,10 +76,8 @@
 <!-- End page_content -->
 
 <aside id="page_sidebar">
-  
-    <h3>Test sidebar</h3>
-    <p>Dui tempus rhoncus molestie nullam placerat taciti vitae, libero quis sit leo, quisque eget cursus facilisis condimentum sem sed, tincidunt sodales. Augue parturient dui eu in, nisi taciti penatibus viverra nibh tristique, orci sit cum vestibulum, neque.</p>
-  
+  <h3>Test sidebar</h3>
+    <p>Faucibus eros tempus dictum donec quis dapibus, potenti nisl mus condimentum scelerisque cum, dis turpis lacus primis morbi. Natoque laoreet nisl est senectus nisl, donec quam inceptos sem vivamus, vulputate eget in nascetur augue gravida, lacinia urna. Pulvinar habitasse sed eget pellentesque donec, dictumst ac massa taciti.</p>
 </aside>
 
 <!-- Start base/footer -->

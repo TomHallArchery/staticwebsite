@@ -27,7 +27,11 @@ def inject_year():
 
 @app.context_processor
 def inject_images_url():
-    return dict(img_url=IMAGES_URL)
+    return dict(
+        img_url=IMAGES_URL,
+        # Can only add macros one at a time by name for access in markdown pages
+        imgpath=flask.get_template_attribute("macros/macros.j2", "imgpath")
+        )
 
 @app.route('/')
 def serve_home():

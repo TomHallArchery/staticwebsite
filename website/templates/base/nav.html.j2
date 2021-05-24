@@ -1,4 +1,7 @@
-<nav id="site_nav">
+<!-- from nav template -->
+{{ m.link_style('css/sitenav.css')}}
+<nav id="site_nav" class="site_nav">
+  <h2><a href="/">TomHallArchery</a></h2>
   <ul>
     <li><a href={{ url_for('serve_sponsors')}}>Sponsors</a></li>
     <li><a href={{ url_for('serve_results')}}>Results</a></li>
@@ -6,3 +9,4 @@
     <li><a href={{ url_for('contact_page')}}>Contact</a></li>
   </ul>
 </nav>
+<!-- end nav template -->

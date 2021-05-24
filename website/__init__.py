@@ -23,12 +23,12 @@ def clean_flatpage_metas():
 
 FLATPAGES_EXTENSION = ['.md', '.markdown']
 FLATPAGES_HTML_RENDERER = prerender_jinja
-FLATPAGES_MARKDOWN_EXTENSIONS = ['codehilite', 'attr_list']
+FLATPAGES_MARKDOWN_EXTENSIONS = ['codehilite', 'attr_list', 'md_in_html']
 FLATPAGES_AUTO_RELOAD = True
+
 
 app.config.from_object(__name__)
 flatpages = FlatPages(app)
 clean_flatpage_metas()
-
 
 from website import views, errors

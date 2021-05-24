@@ -25,6 +25,7 @@
 <!-- <link rel="stylesheet" href="/static/css/normalize.css"> -->
 <link rel="stylesheet" href="/static/css/colors.css">
 <link rel="stylesheet" href="/static/css/styles.css">
+<link rel="stylesheet" href="/static/css/hresize.css">
 
 
 <!-- js -->
@@ -38,7 +39,7 @@
       display: block;
       margin: auto;
       min-height: 100vh;
-      width: 66%;
+      width: 80%;
     }
   </style>
 
@@ -46,10 +47,10 @@
 
 <body>
 
-<!-- from header template -->
-<header id="site_header">
+<!-- from nav template -->
+<link rel="stylesheet" href="/static/css/sitenav.css">
+<nav id="site_nav" class="site_nav">
   <h2><a href="/">TomHallArchery</a></h2>
-  <nav id="site_nav">
   <ul>
     <li><a href=/sponsors/>Sponsors</a></li>
     <li><a href=/results/>Results</a></li>
@@ -57,14 +58,18 @@
     <li><a href=/contact/>Contact</a></li>
   </ul>
 </nav>
-</header>
+<!-- end nav template -->
 
+
+<!-- from header template -->
+<header id="site_header" style="display:none;">
+
+</header>
 <!-- end header -->
 
 
 <main id="page_body">
   <h1>Welcome</h1>
-
   <p>My website is still under construction but feel free to have a look around!</p>
 
   <!-- homepage content sections: -->
@@ -84,7 +89,9 @@
   "
   alt="Front view of tom shooting in the back2back finals against a dark backdrop"
   >
-</main id="page_body">
+
+  <meta name="Home" content="Test">
+</main>
 
 
 

@@ -4,6 +4,8 @@
 html {
   font-size: 16px;
   line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* *** */
@@ -20,15 +22,13 @@ html {
   margin-top: 1.5em;
 }
 
-/* Exceptions to above rule for adjacent paragrpahs, list items etc */
+/* Exceptions to above rule for: */
+/* adjacent paragrpahs, list items etc */
 li+li,
 p+p {
   margin-top: 0;
 }
-
-h1,h2,h3,h4,h5,h6 {
-  margin: 0;
-}
+/* first item in each body component */
 
 /* Level 0 */
 /* Page body size and attributes */
@@ -36,21 +36,42 @@ h1,h2,h3,h4,h5,h6 {
 body {
   font-family: "RobotoSlab";
   margin: 0;
+  min-width: 23ch; /* x-small: ~210px */
 }
 
-/* large screen/desktop */
+body>* {
+  margin: 0;
+  padding: 0 0.5rem;
+}
+
+/* small */
+/* gt 35ch ~ 280px */
+@media screen and (min-width: 35ch) {
+  body>* {
+    padding: 0.5rem 1rem;
+  }
+}
+
+/* medium */
+/* 85ch ~ 680px */
+@media screen and (min-width: 85ch) {
+  body>* {
+    padding: 1rem 2rem;
+  }
+}
+
+/* large tablet/small laptop + */
+/* 110ch ~ 880px */
 @media screen and (min-width: 110ch) {
   body {
     align-items: start;
     margin: auto;
     min-height: 100vh;
-    max-width: 1500px;
-    width: 80%;
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: auto 1fr auto;
     grid-template-areas:
-      "header header"
+      "nav nav"
       "main aside"
       "footer footer";
   }
@@ -62,17 +83,26 @@ body {
   body>aside {
     grid-area: aside;
   }
+
+  .site_nav {
+    grid-area: nav;
+  }
+
+}
+
+@media screen and (min-width: 145ch) {
+  body {
+    width: 80%;
+    max-width: 1500px;
+  }
 }
 
 /* Level 1 */
 /* Direct body descendants */
-body>* {
-  margin: 0;
-  padding: 1rem 2rem 0;
-}
 
-:is(header, nav, main, section, article, aside, footer) :is(h1, h2) {
-  font-weight: 900;
+body > * > *:first-child {
+  background-color: white;
+  margin-top: 0;
 }
 
 /* *** */
@@ -107,6 +137,10 @@ form :is(input, textarea):focus {
   outline-color: var(--color-Na);
 }
 
+h1:first-of-type,
+h2:first-of-type {
+  font-weight: 900;
+}
 /* form textarea,
 form input {
   width: 100%;
@@ -117,47 +151,6 @@ form input {
 } */
 #contact-form label[for="title"] {
   display: none;
-}
-
-/* header and site_nav styling */
-/* make global banner container a flexbox */
-#site_header {
-  align-items: baseline;
-  display: flex;
-  flex-wrap: wrap;
-  grid-area: header;
-}
-/* left part: header/home link */
-#site_header h2 {
-  margin: 0;
-  padding-right: 2em;
-}
-
-/* right part: nav links */
-#site_nav {
-  margin-left: auto;
-  grid-area: nav;
-}
-
-#site_nav ul {
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-  margin: 0 0 1em auto;
-  padding: 0;
-}
-
-#site_nav li:not(:last-child)::after {
-  content: '|';
-  padding: 0 1em;
-}
-
-/* header link styling */
-#site_header a:hover,
-#site_header a:focus {
-    border-bottom: 0.25em solid var(--color-Na);
-    border-top: 0.25em solid var(--color-Na);
-    text-decoration: none;
 }
 
 #site_footer {

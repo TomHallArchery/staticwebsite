@@ -25,6 +25,7 @@
 <!-- <link rel="stylesheet" href="/static/css/normalize.css"> -->
 <link rel="stylesheet" href="/static/css/colors.css">
 <link rel="stylesheet" href="/static/css/styles.css">
+<link rel="stylesheet" href="/static/css/hresize.css">
 
 
 <!-- js -->
@@ -36,10 +37,10 @@
 
 <body>
 
-<!-- from header template -->
-<header id="site_header">
+<!-- from nav template -->
+<link rel="stylesheet" href="/static/css/sitenav.css">
+<nav id="site_nav" class="site_nav">
   <h2><a href="/">TomHallArchery</a></h2>
-  <nav id="site_nav">
   <ul>
     <li><a href=/sponsors/>Sponsors</a></li>
     <li><a href=/results/>Results</a></li>
@@ -47,8 +48,13 @@
     <li><a href=/contact/>Contact</a></li>
   </ul>
 </nav>
-</header>
+<!-- end nav template -->
 
+
+<!-- from header template -->
+<header id="site_header" style="display:none;">
+
+</header>
 <!-- end header -->
 
 <!-- Page_Content from page.html.j2 tempalate, flatpage object -->

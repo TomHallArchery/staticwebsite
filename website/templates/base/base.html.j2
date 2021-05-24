@@ -1,4 +1,4 @@
-{% import "macros/macros.j2" as m with context -%}
+{% import "macros/macros.j2" as m -%}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -9,7 +9,10 @@
 </head>
 
 <body>
-{# Combined header and nav bar #}
+{# Nav bar contains header logo #}
+{% include "base/nav.html.j2" %}
+
+{# seperate header not currently used #}
 {% include "base/header.html.j2" %}
 
 {% block body -%}

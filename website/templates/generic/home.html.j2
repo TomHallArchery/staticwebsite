@@ -7,7 +7,7 @@
       display: block;
       margin: auto;
       min-height: 100vh;
-      width: 66%;
+      width: 80%;
     }
   </style>
 {% endblock %}
@@ -15,19 +15,18 @@
 {% block body %}
 <main id="page_body">
   <h1>Welcome</h1>
-
   <p>My website is still under construction but feel free to have a look around!</p>
 
   <!-- homepage content sections: -->
   <!-- Banner image [main > header] -->
   <img
-  src="{{ m.imgpath('2020-Back2Back-Finals_1500.jpg') }}"
+  src="{{ m.imgpath(img_url, '2020-Back2Back-Finals_1500.jpg') }}"
   srcset="
-    {{ m.imgpath('2020-Back2Back-Finals_1500.jpg') }} 1500w,
-    {{ m.imgpath('2020-Back2Back-Finals_1000.jpg') }} 1000w,
-    {{ m.imgpath('2020-Back2Back-Finals_750.jpg') }} 750w,
-    {{ m.imgpath('2020-Back2Back-Finals_500.jpg') }} 500w,
-    {{ m.imgpath('2020-Back2Back-Finals_300.jpg') }} 300w
+    {{ m.imgpath(img_url, '2020-Back2Back-Finals_1500.jpg') }} 1500w,
+    {{ m.imgpath(img_url, '2020-Back2Back-Finals_1000.jpg') }} 1000w,
+    {{ m.imgpath(img_url, '2020-Back2Back-Finals_750.jpg') }} 750w,
+    {{ m.imgpath(img_url, '2020-Back2Back-Finals_500.jpg') }} 500w,
+    {{ m.imgpath(img_url, '2020-Back2Back-Finals_300.jpg') }} 300w
   "
   sizes="
     (min-width: 110ch) 60vw,
@@ -35,7 +34,8 @@
   "
   alt="Front view of tom shooting in the back2back finals against a dark backdrop"
   >
-</main id="page_body">
+
+</main>
 
 
 {% endblock body %}
