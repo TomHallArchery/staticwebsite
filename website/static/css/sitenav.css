@@ -1,8 +1,13 @@
 /* header and site_nav styling */
+.site_nav {
+  --color-active: var(--Na-pur);
+  --color-theme: var(--Rb-pur);
+  background: var(--color-theme);
+  color: white;
+}
 
 /* left part: header/home link */
 .site_nav h2 {
-  margin: 0;
   padding-right: 2em;
 }
 
@@ -16,13 +21,17 @@
   display: block;
 }
 
+.site_nav a {
+  color: inherit;
+}
+
 /* header link styling */
 /* refactor to a ::before/::after pseudo element rather than border */
 .site_nav a:hover,
 .site_nav a:focus {
-    border-bottom: 0.25em solid var(--Na-pur);
-    border-top: 0.25em solid var(--Na-pur);
+    border-bottom: 0.25em solid var(--color-active);
     text-decoration: none;
+    color: var(--color-active);
 }
 
 /* Nav needs to collapse again at medium breakpoint ~660px with current links */
