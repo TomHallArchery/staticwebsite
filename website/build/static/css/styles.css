@@ -15,17 +15,18 @@ html {
 *::before,
 *::after {
   box-sizing: border-box;
+  margin: 0;
+
 }
 
 /* 1 line spacing between all adjacent elements in tree */
 *+* {
-  margin-top: 1.5em;
+  margin-top: 0.75em;
 }
 
 /* Exceptions to above rule for: */
 /* adjacent paragrpahs, list items etc */
-li+li,
-p+p {
+li+li {
   margin-top: 0;
 }
 /* first item in each body component */
@@ -109,7 +110,7 @@ body > * > *:first-child {
 /* Element Styles */
 /* *** */
 a {
- color: var(--color-Rb);
+ color: var(--Rb-pur);
  text-decoration: none;
 }
 
@@ -120,6 +121,8 @@ a:focus {
 
 img {
   max-width: 100%;
+  height: auto;
+  /* object-fit: contain; */
 }
 
 .red {
@@ -134,7 +137,7 @@ form {
 }
 
 form :is(input, textarea):focus {
-  outline-color: var(--color-Na);
+  outline-color: var(--Na-pur);
 }
 
 h1:first-of-type,

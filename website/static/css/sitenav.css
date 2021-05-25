@@ -20,8 +20,8 @@
 /* refactor to a ::before/::after pseudo element rather than border */
 .site_nav a:hover,
 .site_nav a:focus {
-    border-bottom: 0.25em solid var(--color-Na);
-    border-top: 0.25em solid var(--color-Na);
+    border-bottom: 0.25em solid var(--Na-pur);
+    border-top: 0.25em solid var(--Na-pur);
     text-decoration: none;
 }
 

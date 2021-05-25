@@ -6,7 +6,7 @@ unused: blank
 ---
 
 [test]: {{ imgpath(img_url, '2020-Back2Back-Finals_1000.jpg') }}
-
+	
 A list of my important competition results, which I will hopefully be able to code up into some custom formatting
 
 ## National Tour 2019

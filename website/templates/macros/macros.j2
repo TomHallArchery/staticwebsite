@@ -11,3 +11,18 @@
 {% macro imgpath(img_url, path) -%}
     {{img_url + path}}
 {%- endmacro %}
+
+{% macro srcset(img_url, path, sizes, ext) -%}
+    {% for size in sizes -%}
+    {% set img_path = "{}_{}.{}".format(path, size, ext) %}
+    {{ imgpath(img_url, img_path) }} {{ "{}w".format(size)}},
+    {%- endfor %}
+{% endmacro %}
+
+{% macro sizes(sizes, breakpoints) %}
+    sizes="
+    {% for size in sizes -%}
+
+    "
+    {%- endfor %}
+{% endmacro %}
