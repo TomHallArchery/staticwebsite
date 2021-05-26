@@ -12,7 +12,7 @@ freezer = Freezer(app)
 # Manually add fonts to list to incorporate into freezer
 FONTS = {
 'Roboto_Slab' : 'RobotoSlab-VariableFont_wght-Latin.woff2', #tuple: vf, latin, woff2
-'Public_Sans' : 'PublicSans-VariableFont_wght-Eng.woff2'
+'Public_Sans' : 'PublicSans-VariableFont_wght-Min.woff2'
 }
 
 # Instructs the freezer to also check for dynamically generated urls from serve_page functinon.
