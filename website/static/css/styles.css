@@ -1,17 +1,12 @@
 /* *** */
 /* Global Styles */
 /* *** */
-/* head {
-  display: block;
-  height: 200px;
-  background-color: var(--Cd-pur)
-} */
+
 
 html {
+  box-sizing: border-box;
   font-size: 16px;
   line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 /* *** */
@@ -20,7 +15,7 @@ html {
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+  box-sizing: inherit;
   margin: 0;
 
 }
@@ -117,25 +112,51 @@ body>* {
 
 /* *** */
 /* Element Styles */
+/* Resets and general styling*/
 /* *** */
+
 a {
- color: var(--Rb-pur);
  text-decoration: none;
 }
 
-a:hover,
-a:focus {
+a:link {
+ color: var(--Rb-pur);
+}
+
+a:visited {
+  color: var(--Rb-blk);
+}
+
+a:hover {
   text-decoration: underline;
+  opacity: 0.7;
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-  /* object-fit: contain; */
+a:focus {
+  outline: 2px dotted var(--Rb-wht);
 }
 
-.red {
-  color: red;
+a:active {
+  background-color: var(--Rb-wht);
+  color: white;
+  outline: none;
+  opacity: revert;
+}
+
+button {
+  background-color: white;
+  border: 2px solid var(--Rb-pur);
+  color: var(--Rb-pur);
+  cursor: pointer;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 500;
+}
+button:hover,
+button:focus {
+  background-color: var(--Rb-pur);
+  color: white;
 }
 
 /* Contact form specific */
@@ -154,6 +175,43 @@ h2:first-of-type {
   font-weight: 900;
 }
 
+h1,h2,h3,h4,h5,h6 {
+  color: var(--greys-d3);
+}
+
+@media screen and (max-width: calc(84.99ch)) {
+  h1 {font-size:1.5em;}
+  h2 {font-size:1.17em;}
+  h3 {font-size:1em;}
+  h4 {font-size:0.83em;}
+  h5 {font-size:0.75em;}
+  h6 {font-size:0.75em;}
+}
+
+
+nav ul,
+nav ol {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  /* object-fit: contain; */
+}
+
+input {
+  height: 2em;
+}
+
+input,
+textarea {
+  border: 1px solid var(--greys-l2);
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: inherit;
+}
+
 summary {
   cursor: pointer;
 }
@@ -164,6 +222,17 @@ details summary > * {
 
 textarea {
   resize: vertical;
+}
+
+p {
+  color: var(--greys-d4);
+}
+/* *** */
+/* Utilitiies */
+/* *** */
+
+.red {
+  color: red;
 }
 
 /* #contact-form label {
