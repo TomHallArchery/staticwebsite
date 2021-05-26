@@ -9,12 +9,19 @@ import subprocess
 
 freezer = Freezer(app)
 
+# Manually add fonts to list to incorporate into freezer
+FONTS = {
+'Roboto_Slab' : 'RobotoSlab-VariableFont_wght-Latin.woff2', #tuple: vf, latin, woff2
+'Public_Sans' : 'PublicSans-VariableFont_wght-Eng.woff2'
+}
+
 # Instructs the freezer to also check for dynamically generated urls from serve_page functinon.
-# @freezer.register_generator
-# def pagelist():
-#     # limit to articles
-#     for page in flatpages:
-#         yield url_for('serve_article', path_requested=page.path)
+@freezer.register_generator
+def fonts():
+    for dir, font in FONTS.items():
+        path = os.path.join('fonts', dir, font)
+        print(path)
+        yield url_for('static', filename=path)
 
 if __name__ == '__main__':
     # Freeze static files into default directory 'build'
