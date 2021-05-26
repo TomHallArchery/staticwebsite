@@ -35,7 +35,7 @@ li+li {
 /* Page body size and attributes */
 /* mobile */
 body {
-  font-family: "RobotoSlab";
+  font-family: "RobotoSlab", "Rockwell", Georgia, serif;
   margin: 0;
   min-width: 23ch; /* x-small: ~210px */
 }
@@ -118,6 +118,11 @@ body>* {
 a {
  text-decoration: none;
 }
+/* example inserting unicode into pseudoelement */
+/* a::before {
+  content: "\1F4DE";
+  color: blue;
+} */
 
 a:link {
  color: var(--Rb-pur);
@@ -139,8 +144,8 @@ a:focus {
 a:active {
   background-color: var(--Rb-wht);
   color: white;
-  outline: none;
   opacity: revert;
+  outline: none;
 }
 
 button {
