@@ -2,11 +2,11 @@ import os
 import sys
 import http.server as svr
 import subprocess
+import argparse
 import hashlib
 from PIL import Image
-from website.views import IMAGES_URL
 
-SIZES = [2500, 1500, 1000, 750, 500, 300, 100]
+SIZES = [2000, 1800, 1600, 1400, 1200, 800, 400]
 IMGAES_ROOT = 'website/static/img/'
 
 def read_img_dir():
@@ -28,8 +28,9 @@ def create_thumbnails(imfile, sizes):
     ''' Create rezised images from img/new and move original to img/src '''
     dir, file = os.path.split(imfile)
     fname, ext = os.path.splitext(file)
-    with Image.open(imfile) as im:
-        for size in sizes:
+
+    for size in sizes:
+        with Image.open(imfile) as im:
             print("Making size: ", size)
             im.thumbnail((size, size))
             im.save(f'out/{fname}_{size}.jpg', optimize=True)
@@ -69,10 +70,18 @@ def upload_images(dir):
         print(file)
 
 
-def main():
+def main(full_reset=False):
     ''' Process all images in img/new '''
-    print("Images URL: ", IMAGES_URL)
     os.chdir(IMGAES_ROOT)
+
+    if full_reset:
+        for file in os.listdir('src'):
+            os.rename(
+                os.path.join('src', file),
+                os.path.join('new', file)
+                )
+        print("files reset from src to new")
+
     for img in list_new_images():
         create_thumbnails(img, SIZES)
     try:
@@ -80,14 +89,23 @@ def main():
     except FileNotFoundError:
         pass
     dir = read_img_dir()
+    print('Out directory:')
     print(dir['out'])
 
 
 if __name__ == '__main__':
-    main()
 
-    print(sys.argv)
-    if len(sys.argv) > 1:
-        if sys.argv[1] == '-S':
-            os.chdir('out')
-            svr.test(HandlerClass=svr.SimpleHTTPRequestHandler, port=5002)
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-S', '--serve')
+    parser.add_argument('-R', '--reset', action='store_true')
+
+    args = parser.parse_args()
+
+    # main()
+
+    if args.serve:
+        os.chdir('out')
+        svr.test(HandlerClass=svr.SimpleHTTPRequestHandler, port=5002)
+
+    main(full_reset=args.reset)

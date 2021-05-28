@@ -1,11 +1,13 @@
 #!/usr/bin/env python
-
 from website import app, flatpages
 from website.utils import compile_css
+from images import SIZES
 
 app.config['ENV'] = 'DEVELOPMENT'
 app.config['DEBUG'] = True
 app.config['TEMPLATES_AUTO_RELOAD'] = True
+
+IMAGES_URL = "/static/img/out/"
 
 def pprint(string):
     print(string.center(30, "*"))
@@ -14,6 +16,13 @@ def pprint(string):
 @app.before_request
 def rebuild_css():
     compile_css('website/static/scss', 'website/static/css')
+
+
+@app.context_processor
+def localise_img_url():
+    return dict(
+        img_url=IMAGES_URL,
+        )
 
 if __name__ == '__main__':
     # print config

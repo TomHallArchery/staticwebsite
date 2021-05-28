@@ -33,17 +33,19 @@ if __name__ == '__main__':
 
     # TODO: check font files exist and compile with pyftsubset
 
+        # TODO: compile scss with sass commandline: here or in run?
+    compile_css('website/static/scss', 'website/static/css', compressed=True)
+    print("Css recompiled")
+
     # Freeze static files into default directory 'build'
     freezer.freeze()
     print("Website frozen")
 
-    # TODO: compile scss with sass commandline: here or in run?
-    compile_css('website/static/scss', 'website/build/static/css', compressed=True)
-    print("Css recompiled")
-
     # If dir hash has changed, upload images:
     if hash_dir_filenames('website/static/img/out', 'hash.txt'):
+        print('Uploading images:')
         upload_images('website/static/img/out')
+        print('DONE')
     else:
         print('No new images to upload')
 

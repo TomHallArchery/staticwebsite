@@ -1,4 +1,5 @@
 from website import app, flatpages, clean_flatpage_metas
+from images import SIZES
 import flask
 import os
 from datetime import datetime
@@ -21,16 +22,15 @@ def reload_flatpages():
     clean_flatpage_metas()
 
 @app.context_processor
-def inject_year():
+def inject_data():
     this_year = datetime.now().year
-    return dict(year=this_year)
-
-@app.context_processor
-def inject_images_url():
     return dict(
+        year=this_year,
         img_url=IMAGES_URL,
+        img_sizes=SIZES,
         # Can only add macros one at a time by name for access in markdown pages
-        imgpath=flask.get_template_attribute("macros/macros.j2", "imgpath")
+        imgpath=flask.get_template_attribute("macros/macros.j2", "imgpath"),
+        srcset=flask.get_template_attribute("macros/macros.j2", "srcset")
         )
 
 @app.route('/')
