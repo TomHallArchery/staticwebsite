@@ -1,7 +1,7 @@
 /* header and site_nav styling */
 .site_nav {
   --color-active: white;
-  --color-theme: var(--Rb-pur);
+  --color-theme: var(--Li-pur);
   background-color: var(--color-theme);
   /* background: linear-gradient(
     var(--color-theme) 95%,
@@ -9,7 +9,7 @@
     ); */
   color: var(--greys-l4);
   font-family: "PublicSans", Tahoma, Arial, sans-serif;
-  text-shadow: 0 0 8px var(--Rb-blk);
+  text-shadow: 0 0 8px var(--Li-blk);
 
 }
 
@@ -47,7 +47,7 @@
 }
 
 .site_nav a:active {
-  background-color: var(--Rb-wht);
+  background-color: var(--Li-wht);
   /* box-shadow: revert; */
 }
 

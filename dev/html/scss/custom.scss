@@ -23,9 +23,8 @@
   --greys-d4: #10100F;
   --alpha-00: #fff0;
 }
-
 em {
-  color: var(--color-Na);
+  color: var(--color-Na)
 }
 
 * {
@@ -36,8 +35,7 @@ body {
   margin: 0;
   background-color: var(--greys-l3);
   color: var(--greys-d3);
-  font-family: Sans-Serif;
-  /* add custom fonts */
+  font-family: Sans-Serif; /* add custom fonts */
 }
 
 /* could factor into overall wrap container */
@@ -46,10 +44,12 @@ main {
   padding-left: 10%;
 }
 
+$padding: 10em;
+
 header {
   background-color: var(--color-Li);
-  padding-top: 10em;
-  padding-bottom: 10em;
+  padding-top: $padding;
+  padding-bottom: $padding;
 }
 
 h1 {
@@ -62,10 +62,15 @@ h1 {
 a {
   color: var(--color-Li);
   text-decoration: none;
+
+  &:hover {
+    outline: 2px solid green;
+    text-decoration: underline;
+  }
 }
+
 a:hover {
-  outline: 2px solid green;
-  text-decoration: underline;
+
 }
 
 /* Variable declared inline in html */
@@ -74,5 +79,10 @@ a:hover {
   margin: 0;
   height: var(--h, 0.5em);
   border: none;
-  background: linear-gradient(var(--color-Li) calc(var(--h, 0.5em)/5*1), var(--color-Na) calc(var(--h, 0.5em)/5*3), var(--color-Li) calc(var(--h, 0.5em)/5*4), var(--alpha-00) calc(var(--h, 0.5em)/5*5));
+  background: linear-gradient(
+    var(--color-Li) calc(var(--h, 0.5em)/5*1),
+    var(--color-Na) calc(var(--h, 0.5em)/5*3),
+    var(--color-Li) calc(var(--h, 0.5em)/5*4),
+    var(--alpha-00) calc(var(--h, 0.5em)/5*5)
+    );
 }
