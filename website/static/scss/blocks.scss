@@ -1,0 +1,32 @@
+body {
+  background: linear-gradient(
+    black, white
+    );
+}
+
+body > * {
+  border: solid 2px grey;
+}
+
+header {
+  background-color: red;
+}
+
+nav {
+  background-color: yellow;
+}
+
+main {
+  background-color: green;
+}
+
+footer {
+  background-color: blue;
+}
+
+article,
+aside,
+section {
+  border: solid 2px black;
+  background-color: #fff8;
+}

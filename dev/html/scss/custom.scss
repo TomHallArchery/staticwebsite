@@ -1,0 +1,88 @@
+/* Global variables for use */
+:root {
+  --color-Rb: #A8247C;
+  --color-Li: #D70A53;
+  --color-Sr: #E91C29;
+  --color-Ru: #EB5928;
+  --color-Na: #FFA700;
+  --color-Cd: #EADE06;
+  --color-Cl: #52D70A;
+  --color-Se: #21DE70;
+  --color-Cu: #0DC5B5;
+  --color-In: #0A9DD7;
+  --color-Co: #3178C4;
+  --color-Mn: #6A4992;
+  --greys-l4: #F0F0EF;
+  --greys-l3: #D6D4D1;
+  --greys-l2: #BBB9B4;
+  --greys-l1: #A19D97;
+  --greys-m0: #868179;
+  --greys-d1: #68655E;
+  --greys-d2: #4B4844;
+  --greys-d3: #2E2C29;
+  --greys-d4: #10100F;
+  --alpha-00: #fff0;
+}
+em {
+  color: var(--color-Na)
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--greys-l3);
+  color: var(--greys-d3);
+  font-family: Sans-Serif; /* add custom fonts */
+}
+
+/* could factor into overall wrap container */
+header,
+main {
+  padding-left: 10%;
+}
+
+$padding: 10em;
+
+header {
+  background-color: var(--color-Li);
+  padding-top: $padding;
+  padding-bottom: $padding;
+}
+
+h1 {
+  margin: 0;
+  color: var(--greys-l3);
+  font-size: 3rem;
+  max-width: 60ch;
+}
+
+a {
+  color: var(--color-Li);
+  text-decoration: none;
+
+  &:hover {
+    outline: 2px solid green;
+    text-decoration: underline;
+  }
+}
+
+a:hover {
+
+}
+
+/* Variable declared inline in html */
+/* Concept taken from https://every-layout.dev/blog/css-components/ */
+.h-dbl-grad {
+  margin: 0;
+  height: var(--h, 0.5em);
+  border: none;
+  background: linear-gradient(
+    var(--color-Li) calc(var(--h, 0.5em)/5*1),
+    var(--color-Na) calc(var(--h, 0.5em)/5*3),
+    var(--color-Li) calc(var(--h, 0.5em)/5*4),
+    var(--alpha-00) calc(var(--h, 0.5em)/5*5)
+    );
+}

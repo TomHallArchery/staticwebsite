@@ -1,2 +1,11 @@
 .DS_Store
 __pycache__
+.python-version
+
+pynetlify.ini
+
+# Ignore image directory: output files uploaded seperately to netlify
+website/static/img/
+
+# Ignore static/css: scss source and comipiled css already tracked on git
+website/static/css

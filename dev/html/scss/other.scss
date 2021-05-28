@@ -1,0 +1,8 @@
+@use "sass:color";
+
+$col: #D70A53;
+
+@for $i from 1 through 9 {
+  @debug color.scale($col, $whiteness:$i * 10%);
+  @debug color.scale($col, $blackness:$i * 10%);
+}

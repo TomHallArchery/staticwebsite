@@ -1,0 +1,51 @@
+{% extends "base/base.html.j2" %}
+
+{% block head %}
+<!-- override default grid layout for landing on homepage  -->
+  <style media="screen and (min-width: 110ch)">
+    body {
+      display: block;
+      min-height: 100vh;
+    }
+    main {
+      margin-left: 10vw;
+      margin-right: 10vw;
+    }
+  </style>
+{% endblock %}
+
+{% block body %}
+<main id="page_body">
+  <h1>Welcome</h1>
+  <p>My website is still under construction but feel free to have a look around!</p>
+
+  <!-- homepage content sections: -->
+  <!-- Banner image [main > header] -->
+  <img
+  src="{{ m.imgpath(img_url, '2020-Back2Back-Finals_1500.jpg') }}"
+  srcset="{{ m.srcset(img_url, '2020-Back2Back-Finals', [1500,1000,750,500,300], 'jpg') }}"
+  sizes="
+    (min-width: 110ch) 60vw,
+    95vw
+  "
+  alt="Front view of tom shooting in the back2back finals against a dark backdrop"
+  width="1500"
+  height="1125"
+  >
+
+<img
+  src="{{ m.imgpath(img_url, '2015-BUCS-indoor_1500.jpg') }}"
+  srcset="{{ m.srcset(img_url, '2015-BUCS-indoor', [1500,1000,750,500,300], 'jpg') }}"
+  sizes="
+    (min-width: 110ch) 60vw,
+    95vw
+  "
+  alt="Tom grinning and holding the BUCS trophy"
+  width="1500"
+  height="1125"
+>
+
+</main>
+
+
+{% endblock body %}

@@ -1,0 +1,25 @@
+{% import "macros/macros.j2" as m -%}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+{% include "base/head.html.j2" %}
+{% block head -%}
+{%- endblock %}
+</head>
+
+<body>
+{# Nav bar contains header logo #}
+{% include "base/nav.html.j2" %}
+
+{# seperate header not currently used #}
+{% include "base/header.html.j2" %}
+
+{% block body -%}
+{%- endblock %}
+
+{% include "base/footer.html.j2" %}
+
+</body>
+
+</html>

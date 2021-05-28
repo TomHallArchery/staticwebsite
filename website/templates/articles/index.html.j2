@@ -1,0 +1,32 @@
+{% extends "base/base.html.j2" %}
+
+{% block body %}
+<!-- archived articles -->
+<main id="page_body">
+  <details open>
+    <summary>
+      <h1>Archived Articles</h1>
+    </summary>
+    <ul>
+      {% for page in pages %}
+      <li><a href="{{ url_for('serve_article', path_requested=page.path.replace('article/','')) }}">
+          {{ page.meta.title | safe }}
+        </a></li>
+      {% endfor %}
+    </ul>
+  </details>
+</main>
+
+<aside id="page_sidebar">
+  {% block side_content %}
+    <h3>Test sidebar</h3>
+    <ol>
+      <li>Extra Articles</li>
+      <li>Extra Articles</li>
+      <li>Extra Articles</li>
+      <li>Extra Articles</li>
+    </ol>
+  {% endblock %}
+</aside>
+
+{% endblock body %}

@@ -1,0 +1,28 @@
+{% macro meta(name, var) -%}
+    <meta name="{{ name }}" content="{{ var }}">
+{%- endmacro %}
+
+{# don't need to enclose file in seperate variable {{}} brackets #}
+{# as url_for function is already in a variable declaration #}
+{% macro link_style(file) -%}
+  <link rel="stylesheet" href="{{ url_for('static', filename=file) }}">
+{%- endmacro %}
+
+{% macro imgpath(img_url, path) -%}
+    {{img_url + path}}
+{%- endmacro %}
+
+{% macro srcset(img_url, path, sizes, ext) -%}
+    {% for size in sizes -%}
+    {% set img_path = "{}_{}.{}".format(path, size, ext) %}
+    {{ imgpath(img_url, img_path) }} {{ "{}w".format(size)}},
+    {%- endfor %}
+{% endmacro %}
+
+{% macro sizes(sizes, breakpoints) %}
+    sizes="
+    {% for size in sizes -%}
+
+    "
+    {%- endfor %}
+{% endmacro %}
