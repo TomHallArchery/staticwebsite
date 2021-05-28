@@ -9,8 +9,8 @@ import http.server as svr
 import os
 
 freezer = Freezer(app)
-app.config["FREEZER_DESTINATION_IGNORE"] = 'website/build/static/css/*'
-app.config["FREEZER_STATIC_IGNORE"] = 'website/static/css/*'
+# app.config["FREEZER_DESTINATION_IGNORE"] = 'website/build/static/css/*'
+# app.config["FREEZER_STATIC_IGNORE"] = 'website/static/css/*'
 
 # Manually add fonts to list to incorporate into freezer
 FONTS = {

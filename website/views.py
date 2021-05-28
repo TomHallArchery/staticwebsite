@@ -7,7 +7,7 @@ from functools import partial
 # Add highlighted primary component blocks for layout design
 # flask.render_template = partial(flask.render_template, highlight_blocks=True)
 
-IMAGES_URL = "https://trusting-darwin-7474dd.netlify.app/"
+IMAGES_URL = "https://cdn.tomhallarchery.com/"
 WP_POSTS_DIR = 'article/archive'
 
 # add filtering method to flatpages object
