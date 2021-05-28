@@ -1,0 +1,92 @@
+@font-face {
+  font-family: "Raleway";
+  src:
+    url("/static/fonts/Raleway/Raleway-VariableFont_wght.ttf") format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+    font-family: "Raleway";
+    src:
+      url("/static/fonts/Raleway/Raleway-Italic-VariableFont_wght.ttf") format('truetype');
+    font-weight: 100 900;
+    font-style: italic;
+}
+
+@font-face {
+  font-family: "RobotoSlab";
+  src:
+    url("/static/fonts/Roboto_Slab/RobotoSlab-VariableFont_wght.woff2") format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "RobotoSlab";
+  src:
+    url("/static/fonts/Roboto_Slab/RobotoSlab-VariableFont_wght-Latin.woff2") format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD
+}
+/* Minimal English */
+@font-face {
+    font-family: "PublicSans";
+    src:
+      url("/static/fonts/Public_Sans/PublicSans-VariableFont_wght-Min.woff2") format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: U+0000-00A0;
+    /* ,U+00A2-00A9,U+00AC-00AE,U+00B0-00B7,U+00B9-00BA,U+00BC-00BE,U+00D7,U+00F7,U+2000-206F,U+2074,U+20AC,U+2122,U+2190-21BB,U+2212,U+2215,U+F8FF,U+FEFF,U+FFFD; */
+}
+
+@font-face {
+    font-family: "PublicSans";
+    src:
+      url("/static/fonts/Public_Sans/PublicSans-Italic-VariableFont_wght.ttf") format('truetype');
+    font-weight: 100 900;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Rokkitt";
+    src:
+      url("/static/fonts/Rokkitt/Rokkitt-VariableFont_wght.ttf") format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Bitter";
+    src:
+      url("/static/fonts/Bitter/Bitter-VariableFont_wght.woff2") format('woff2'),
+      url("/static/fonts/Bitter/Bitter-VariableFont_wght.ttf") format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Bitter";
+    src:
+      url("/static/fonts/Bitter/Bitter-Italic-VariableFont_wght.woff2") format('woff2'),
+      url("/static/fonts/Bitter/Bitter-Italic-VariableFont_wght.ttf") format('truetype');
+    font-weight: 100 900;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "CrimsonPro";
+    src:
+      url("/static/fonts/Crimson_Pro/CrimsonPro-VariableFont_wght.ttf") format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "CrimsonPro";
+    src:
+      url("/static/fonts/Crimson_Pro/CrimsonPro-Italic-VariableFont_wght.ttf") format('truetype');
+    font-weight: 100 900;
+    font-style: italic;
+}

@@ -10,6 +10,7 @@
   color: var(--greys-l4);
   font-family: "PublicSans", Tahoma, Arial, sans-serif;
   text-shadow: 0 0 8px var(--Li-blk);
+
 }
 
 /* left part: header/home link */
@@ -41,7 +42,8 @@
   color: var(--color-active);
   outline: 1px solid currentColor;
   /* outline-offset: 3px; */
-  box-shadow: 0 0 2px 4px currentColor;
+  box-shadow:
+    0 0 2px 4px currentColor;
 }
 
 .site_nav a:active {
@@ -63,7 +65,7 @@
   }
 
   .site_nav li:not(:last-child)::after {
-    content: "|";
+    content: '|';
     padding: 0 1em;
   }
 }
