@@ -36,29 +36,28 @@ body {
   margin: 0;
   min-width: 23ch;
   /* x-small: ~210px */
+  /* Level 1 */
+  /* Direct body descendants */
 }
-
-/* Level 1 */
-/* Direct body descendants */
 body > * {
   margin: 0;
   padding: 0 0.5rem;
+  /* small */
+  /* gt 35ch ~ 280px */
+  /* medium */
+  /* 85ch ~ 680px */
 }
-
-/* small */
-/* gt 35ch ~ 280px */
 @media screen and (min-width: 45ch) {
   body > * {
     padding: 0.5rem 1rem;
   }
 }
-/* medium */
-/* 85ch ~ 680px */
 @media screen and (min-width: 85ch) {
   body > * {
     padding: 1rem 2rem;
   }
 }
+
 /* large tablet/small laptop + */
 /* 110ch ~ 880px */
 @media screen and (min-width: 110ch) {
@@ -73,10 +72,6 @@ body > * {
     min-height: 100vh;
   }
 
-  /* body>* {
-    padding-left: 10%;
-    padding-right: 10%;
-  } */
   main {
     background-color: white;
     grid-area: main;
@@ -94,15 +89,16 @@ body > * {
 
   .site_nav {
     grid-area: nav;
-    padding-left: 10%;
-    padding-right: 10%;
+    padding-left: 10vw;
+    padding-right: 10vw;
   }
 
   #site_footer {
     background-color: var(--Li-pur);
+    color: white;
     grid-area: footer;
-    padding-left: 10%;
-    padding-right: 10%;
+    padding-left: 10vw;
+    padding-right: 10vw;
   }
 }
 @media screen and (min-width: 145ch) {
@@ -126,20 +122,16 @@ a {
 a:link {
   color: var(--Li-pur);
 }
-
 a:visited {
   color: var(--Li-blk);
 }
-
 a:hover {
   text-decoration: underline;
   opacity: 0.7;
 }
-
 a:focus {
   outline: 2px dotted var(--Li-wht);
 }
-
 a:active {
   background-color: var(--Li-wht);
   color: white;
@@ -157,9 +149,7 @@ button {
   font-size: inherit;
   font-weight: 500;
 }
-
-button:hover,
-button:focus {
+button:hover, button:focus {
   background-color: var(--Li-pur);
   color: white;
 }
@@ -209,8 +199,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.75em;
   }
 }
-nav ul,
-nav ol {
+nav ul, nav ol {
   list-style: none;
 }
 

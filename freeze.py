@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from website import app, flatpages
-from utils import compile_css
+from website.utils import compile_css
 from flask_frozen import Freezer
 from flask import url_for
 from images import hash_dir_filenames, upload_images

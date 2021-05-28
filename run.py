@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from website import app, flatpages
-from utils import compile_css
+from website.utils import compile_css
 
 app.config['ENV'] = 'DEVELOPMENT'
 app.config['DEBUG'] = True
