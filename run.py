@@ -32,8 +32,8 @@ if __name__ == '__main__':
 
     # print pages generated from Markdown
     pprint("PAGES")
-    for p in flatpages:
-        print(p.meta['title'])
+    for i,p in enumerate(flatpages):
+        print(p.meta.get('title', f'Untitled page at: {p.path}'))
 
     rebuild_css()
 

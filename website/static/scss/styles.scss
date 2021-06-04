@@ -1,7 +1,6 @@
 /* *** */
 /* Global Styles */
 /* *** */
-$test: pink;
 
 html {
   box-sizing: border-box;
@@ -35,9 +34,18 @@ li+li {
 /* Page body size and attributes */
 /* mobile */
 body {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto auto;
+  grid-template-areas:
+    "nav"
+    "main"
+    "aside"
+    "footer";
   font-family: "RobotoSlab", "Rockwell", Georgia, serif;
   margin: 0;
   min-width: 23ch; /* x-small: ~210px */
+  min-height: 100vh;
 
   /* Level 1 */
   /* Direct body descendants */
@@ -57,6 +65,22 @@ body {
       padding: 1rem 2rem;
     }
 
+  }
+
+  main {
+    grid-area: main;
+  }
+  >aside {
+    grid-area: aside;
+    background-color: var(--greys-l4);
+  }
+  .site_nav {
+    grid-area: nav;
+  }
+  #site_footer {
+    background-color: var(--Li-pur);
+    color: white;
+    grid-area: footer;
   }
 
 }
@@ -81,29 +105,22 @@ body {
 
   main {
     background-color: white;
-    grid-area: main;
     margin-left: $page_gutter;
     min-height: 100%;
   }
 
   body>aside {
-    background-color: var(--greys-l4);
-    grid-area: aside;
     margin-right: $page_gutter;
     min-height: 100%;
     text-align: justify;
   }
 
   .site_nav {
-    grid-area: nav;
     padding-left: $page_gutter;
     padding-right: $page_gutter;
   }
 
   #site_footer {
-    background-color: var(--Li-pur);
-    color: white;
-    grid-area: footer;
     padding-left: $page_gutter;
     padding-right: $page_gutter;
   }

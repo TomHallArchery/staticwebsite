@@ -9,7 +9,7 @@ from functools import partial
 # flask.render_template = partial(flask.render_template, highlight_blocks=True)
 
 IMAGES_URL = "https://cdn.tomhallarchery.com/"
-WP_POSTS_DIR = 'article/archive'
+WP_POSTS_DIR = 'articles/archive'
 
 # add filtering method to flatpages object
 def filter_pages(dir):
@@ -34,7 +34,7 @@ def inject_data():
         )
 
 @app.route('/')
-def serve_home():
+def home_page():
     return flask.render_template('generic/home.html.j2',
         title="Home",
         # move metadata into markdown? even if not calling from generic page tempalate
@@ -44,28 +44,32 @@ def serve_home():
         )
 
 @app.route('/results/')
-def serve_results():
+def results_page():
     results = flatpages.get_or_404('results')
+    sidebar = flatpages.get('sidebar')
     return flask.render_template('generic/page.html.j2',
         page=results,
+        side=sidebar,
         **results.meta)
 
 @app.route('/sponsors/')
-def serve_sponsors():
+def sponsors_page():
     sponsors = flatpages.get_or_404('sponsors')
+    sidebar = flatpages.get('sidebar')
     return flask.render_template('generic/page.html.j2',
         page=sponsors,
+        side=sidebar,
         **sponsors.meta)
 
 @app.route('/contact/')
 def contact_page():
     contact = flatpages.get_or_404('contact')
-    return flask.render_template('generic/contact.html.j2',
+    return flask.render_template('contact.html.j2',
         page=contact,
         **contact.meta)
 
 @app.route('/articles/')
-def serve_articles():
+def articles_page():
     # Selects posts with a PATH starting with wpexport/_posts
     posts = filter_pages(WP_POSTS_DIR)
     return flask.render_template('articles/index.html.j2',
@@ -73,11 +77,11 @@ def serve_articles():
         pages=posts
         )
 
-@app.route("/article/<path:path_requested>/")
+@app.route("/articles/<path:path_requested>/")
 def serve_article(path_requested):
-
-    # reappend 'article/' to front of path as has been stripped off by the route selector
-    path = os.path.join('article', path_requested)
+    ''' eg path_requested="archive/title" '''
+    # # reappend 'article/' to front of path as has been stripped off by the route selector
+    path = os.path.join('articles', path_requested)
     flatpage = flatpages.get_or_404(path)
 
     return flask.render_template('articles/article.html.j2',
@@ -93,5 +97,6 @@ def serve_page(path_requested):
     flatpage = flatpages.get_or_404(path_requested)
     return flask.render_template('generic/page.html.j2',
         page=flatpage,
+        side=flatpages.get('sidebar'),
         **flatpage.meta
         )

@@ -1,11 +1,13 @@
 /* header and site_nav styling */
+$color-active: white;
+
 .site_nav {
-  --color-active: white;
+  --color-active: #{$color-active};
   --color-theme: var(--Li-pur);
   background-color: var(--color-theme);
   /* background: linear-gradient(
     var(--color-theme) 95%,
-    var(--alpha-00)
+    transparent,
     ); */
   color: var(--greys-l4);
   font-family: "PublicSans", Tahoma, Arial, sans-serif;
@@ -29,13 +31,25 @@
     padding: 5px;
 
     /* refactor to a ::before/::after pseudo element rather than border */
-    &:hover {
-     border-bottom: 3px solid var(--color-active);
-     opacity: revert;
-     text-decoration: none;
+    &:hover,
+    &.u-hover {
+      border-width: 3px 0;
+      border-style: solid;
+      border-color: $color-active;
+      border-image-source:
+        linear-gradient(
+          to right,
+          transparent,
+          $color-active,
+          transparent
+        );
+      border-image-slice: 1;
+      color: $color-active;
+      opacity: revert; // revert default link opacity styling
+      text-decoration: none;
     }
     &:focus {
-      color: var(--color-active);
+      color: $color-active;
       outline: 1px solid currentColor;
       /* outline-offset: 3px; */
       box-shadow:
@@ -43,7 +57,7 @@
     }
     &:active {
       background-color: var(--Li-wht);
-      /* box-shadow: revert; */
+      // box-shadow: revert;
     }
 
   }

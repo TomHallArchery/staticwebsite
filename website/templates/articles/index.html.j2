@@ -9,7 +9,7 @@
     </summary>
     <ul>
       {% for page in pages %}
-      <li><a href="{{ url_for('serve_article', path_requested=page.path.replace('article/','')) }}">
+      <li><a href="{{ url_for('serve_article', path_requested=page.path.replace('articles/','')) }}">
           {{ page.meta.title | safe }}
         </a></li>
       {% endfor %}
