@@ -15,6 +15,7 @@
 {% endblock %}
 
 {% block body %}
+{% filter responsive_images(img_layout, img_url) %}
 <main id="page_body">
   <h1>Welcome</h1>
   <p>My website is still under construction but feel free to have a look around!</p>
@@ -22,30 +23,20 @@
   <!-- homepage content sections: -->
   <!-- Banner image [main > header] -->
   <img
-  src="{{ m.imgpath(img_url, '2020-Back2Back-Finals_1600.jpg') }}"
-  srcset="{{ m.srcset(img_url, '2020-Back2Back-Finals', img_sizes, 'jpg') }}"
-  sizes="
-    (min-width: 110ch) 60vw,
-    95vw
-  "
+  src="{{ img_url + '2020-Back2Back-Finals.jpg'}}"
   alt="Front view of tom shooting in the back2back finals against a dark backdrop"
   width="1600"
   height="1200"
   >
 
-<img
-  src="{{ m.imgpath(img_url, '2015-BUCS-indoor_1600.jpg') }}"
-  srcset="{{ m.srcset(img_url, '2015-BUCS-indoor', img_sizes, 'jpg') }}"
-  sizes="
-    (min-width: 110ch) 60vw,
-    95vw
-  "
-  alt="Tom grinning and holding the BUCS trophy"
+
+  <img src="../static/img/src/2020-Warwick-Castle-Bow.jpg"
+  alt="Close photo of red bow in sunlight"
   width="1600"
   height="1200"
->
+  >
 
 </main>
 
-
+{% endfilter %}
 {% endblock body %}

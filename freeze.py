@@ -2,9 +2,9 @@
 
 from website import app, flatpages
 from website.utils import compile_css
+from website.images import hash_dir_filenames, upload_images
 from flask_frozen import Freezer
 from flask import url_for
-from images import hash_dir_filenames, upload_images
 import http.server as svr
 import os
 
@@ -31,7 +31,7 @@ def fonts():
 
 if __name__ == '__main__':
     print("Building website:")
-    print(app.config)
+    # print(app.config)
     # TODO: check font files exist and compile with pyftsubset
 
     # Freeze static files into default directory 'build'

@@ -1,3 +1,4 @@
+from website import app
 import os
 import sys
 import http.server as svr
@@ -17,26 +18,36 @@ def read_img_dir():
     }
     return img_dir_dict
 
-def list_new_images():
-
+def list_images(subdir):
     return [os.path.join(root, file)
-        for root, dir, files in os.walk('new')
+        for root, dir, files in os.walk(subdir)
         for file in files
         ]
 
 def create_thumbnails(imfile, sizes):
     ''' Create rezised images from img/new and move original to img/src '''
-    dir, file = os.path.split(imfile)
+    path, file = os.path.split(imfile)
     fname, ext = os.path.splitext(file)
 
-    for size in sizes:
-        with Image.open(imfile) as im:
+    with Image.open(imfile) as im:
+        print("Loaded image: ", im.filename)
+        thumb = im.copy()
+        for size in sizes:
+            if im.width < size:
+                continue
             print("Making size: ", size)
-            im.thumbnail((size, size))
-            im.save(f'out/{fname}_{size}.jpg', optimize=True)
+            thumb.thumbnail((size, size))
+            thumb.save(f'out/{fname}_{size}.jpg', optimize=True, progressive=True)
+            thumb.save(f'out/{fname}_{size}.webp', method=6)
             print("Done")
 
-    os.rename(imfile, os.path.join('src', file))
+        im.save(f'out/{fname}_{im.width}.jpg', optimize=True, progressive=True)
+        im.save(f'out/{fname}_{im.width}.webp', method=6)
+
+        # size descriptor prefeixed by __s to uniquely identify
+        outfile = os.path.join('src', f'{fname}__s{im.width}x{im.height}{ext}')
+        print(f"Moving image: {outfile}")
+        os.rename(imfile, outfile)
 
 def hash_dir_filenames(dir, hashfile):
     ''' Calculates hash of sorted list of files in directory and writes it to hashfile, return True for change in hash '''
@@ -70,42 +81,49 @@ def upload_images(dir):
         print(file)
 
 
+
 def main(full_reset=False):
     ''' Process all images in img/new '''
     os.chdir(IMGAES_ROOT)
+    if os.path.exists('new/.DS_Store'):
+        os.remove('new/.DS_Store')
+    if os.path.exists('src/.DS_Store'):
+        os.remove('src/.DS_Store')
 
     if full_reset:
         for file in os.listdir('src'):
+            print("Input: ", file)
+            fname, ext = os.path.splitext(file)
             os.rename(
                 os.path.join('src', file),
-                os.path.join('new', file)
+                # strip size descriptor if present from path/fname__s1234x1234.ext
+                os.path.join('new', fname.split('__s')[0] + ext)
                 )
         print("files reset from src to new")
 
-    for img in list_new_images():
+    print(list_images('new'))
+    for img in list_images('new'):
         create_thumbnails(img, SIZES)
-    try:
+
+    print(list_images('src'))
+    if os.path.exists('out/.DS_Store'):
         os.remove('out/.DS_Store')
-    except FileNotFoundError:
-        pass
-    dir = read_img_dir()
-    print('Out directory:')
-    print(dir['out'])
+
+    print('Output:')
+    print(list_images('out'))
+
 
 
 if __name__ == '__main__':
 
-
     parser = argparse.ArgumentParser()
-    parser.add_argument('-S', '--serve')
+    parser.add_argument('-S', '--serve', action='store_true')
     parser.add_argument('-R', '--reset', action='store_true')
 
     args = parser.parse_args()
 
-    # main()
+    main(full_reset=args.reset)
 
     if args.serve:
         os.chdir('out')
         svr.test(HandlerClass=svr.SimpleHTTPRequestHandler, port=5002)
-
-    main(full_reset=args.reset)

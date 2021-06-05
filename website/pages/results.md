@@ -16,9 +16,4 @@ Won team olympic quota Places
 
 ## BUCS Indoors 2015
 Individual and team Gold
-![Big grin holding bucs trophy]()
-
-*Testing Imagepath*
-
-![reference_img](../static/img/src/2020-Back2Back-Finals.jpg){: .test_img}
-<!-- may make more sense to store this information as eg json or yaml, then build the results page with its own view function -->
+![Big grin holding bucs trophy](../static/img/src/2015-BUCS-indoor.jpg){: .test_img width=1536 height=1024}

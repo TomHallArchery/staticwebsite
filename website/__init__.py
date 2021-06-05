@@ -24,4 +24,4 @@ FLATPAGES_AUTO_RELOAD = True
 app.config.from_object(__name__)
 flatpages = FlatPages(app)
 
-from website import utils, views, errors
+from website import utils, images, errors, views

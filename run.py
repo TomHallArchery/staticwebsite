@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from website import app, flatpages, utils
-from images import SIZES
+from website.images import SIZES
 
 app.config['ENV'] = 'DEVELOPMENT'
 app.config['DEBUG'] = True

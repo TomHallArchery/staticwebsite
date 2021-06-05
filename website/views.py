@@ -1,5 +1,5 @@
 from website import app, flatpages, utils
-from images import SIZES
+from website.images import SIZES
 import flask
 import os
 from datetime import datetime
@@ -19,28 +19,32 @@ def reload_flatpages():
 @app.context_processor
 def inject_data():
     this_year = datetime.now().year
+    default_img_widths = {'60vw': 'min-width: 110ch', '95vw': None}
     return dict(
         year=this_year,
         img_url=IMAGES_URL,
         img_sizes=SIZES,
-        img_layout={'60vw': 'min-width: 110ch', '95vw': None},
-        # Can only add macros one at a time by name for access in markdown pages
-        imgpath=flask.get_template_attribute("macros/macros.j2", "imgpath"),
-        srcset=flask.get_template_attribute("macros/macros.j2", "srcset")
+        img_layout=default_img_widths,
+        srcset=utils.srcset,
+        sizes=utils.sizes,
+
         )
 
 @app.template_filter()
 def responsive_images(html, conditions, img_url):
     parser = utils.parse_html(html)
     imgs = parser.getElementsByTagName('img')
-
     for img in imgs:
+        print(repr(img))
         if img.src:
+            if not img.width:
+                img.width = '1600'
+            widths = filter(lambda x: x<int(img.width), SIZES)
+            print(widths)
             path, fname, ext = utils.split_filename(img.src)
-            img.src = os.path.join(img_url, f'{fname}_1200{ext}')
-            img.srcset = utils.srcset(img_url, fname, SIZES, 'jpg')
+            img.src = os.path.join(img_url, f'{fname}_{img.width}{ext}')
+            img.srcset = utils.srcset(img_url, fname, widths, 'jpg')
             img.sizes = utils.sizes(conditions)
-            print(img.src)
 
     return parser.toHTML()
 
@@ -53,6 +57,7 @@ def home_page():
         # could still allow dict unpacking of metadata
         description = "The homepage of Tom Hall, Archer and Coach",
         keywords = "Archery, Athlete, Profile",
+        img_layout = {'80vw': 'min-width: 110ch', '95vw': None}
         )
 
 @app.route('/results/')
