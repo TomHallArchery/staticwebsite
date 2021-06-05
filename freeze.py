@@ -9,14 +9,15 @@ import http.server as svr
 import os
 
 freezer = Freezer(app)
-# app.config["FREEZER_DESTINATION_IGNORE"] = 'website/build/static/css/*'
-# app.config["FREEZER_STATIC_IGNORE"] = 'website/static/css/*'
+app.config["FREEZER_DESTINATION_IGNORE"] += []
+app.config["FREEZER_STATIC_IGNORE"] += ['fonts/', 'scss/', 'img/', 'css/', 'favicon/', 'js/']
 
 # Manually add fonts to list to incorporate into freezer
 FONTS = {
 'Roboto_Slab' : 'RobotoSlab-VariableFont_wght-Latin.woff2', #tuple: vf, latin, woff2
 'Public_Sans' : 'PublicSans-VariableFont_wght-Min.woff2'
 }
+IMAGES_URL = "https://cdn.tomhallarchery.com/"
 
 # Instructs the freezer to also check for dynamically generated urls from serve_page functinon.
 @freezer.register_generator
@@ -30,16 +31,16 @@ def fonts():
 
 if __name__ == '__main__':
     print("Building website:")
-
+    print(app.config)
     # TODO: check font files exist and compile with pyftsubset
-
-        # TODO: compile scss with sass commandline: here or in run?
-    compile_css('website/static/scss', 'website/static/css', compressed=True)
-    print("Css recompiled")
 
     # Freeze static files into default directory 'build'
     freezer.freeze()
     print("Website frozen")
+
+
+    compile_css('website/static/scss', 'website/build/static/css', compressed=True)
+    print("Css recompiled")
 
     # If dir hash has changed, upload images:
     if hash_dir_filenames('website/static/img/out', 'hash.txt'):

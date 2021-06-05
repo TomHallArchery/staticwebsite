@@ -11,12 +11,6 @@ def prerender_jinja(text):
     pygmented_body = markdown.markdown(prerendered_body, extensions=FLATPAGES_MARKDOWN_EXTENSIONS)
     return pygmented_body
 
-# dirty:
-# strip '---' from ._meta attribute of page objects to allow flatpages to work with yaml delimiter
-def clean_flatpage_metas():
-    for page in flatpages:
-        page._meta = page._meta.strip('---')
-
 # Some configuration, ensures
 # 1. Pages are loaded on request.
 # 2. File name extension for pages is Markdown.
@@ -29,6 +23,5 @@ FLATPAGES_AUTO_RELOAD = True
 
 app.config.from_object(__name__)
 flatpages = FlatPages(app)
-clean_flatpage_metas()
 
-from website import views, errors, utils
+from website import utils, views, errors

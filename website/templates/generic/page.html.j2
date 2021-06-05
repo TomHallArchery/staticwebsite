@@ -4,10 +4,10 @@
 <!-- Page_Content from page.html.j2 tempalate, flatpage object -->
 <main id="page_body">
   {% block page_heading -%}
-    <h1>{{ title | title}}</h1>
+    <h1>{{ title | title }}</h1>
   {%- endblock %}
   {% block page_content -%}
-    {{ page.html }}
+    {{ page.html | responsive_images(img_layout, img_url)}}
   {%- endblock %}
   {% block extra_content -%}
     <!-- for extra content not controlled by flatpage -->

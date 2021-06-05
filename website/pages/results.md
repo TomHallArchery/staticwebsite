@@ -5,8 +5,6 @@ keywords: Competition, Medal, Tournament, Performance, Team, Championships
 unused: blank
 ---
 
-[test]: {{ imgpath(img_url, '2020-Back2Back-Finals_1200.jpg') }}
-
 A list of my important competition results, which I will hopefully be able to code up into some custom formatting
 
 ## National Tour 2019
@@ -22,5 +20,5 @@ Individual and team Gold
 
 *Testing Imagepath*
 
-![reference_img][test]{: .test_img}
+![reference_img](../static/img/src/2020-Back2Back-Finals.jpg){: .test_img}
 <!-- may make more sense to store this information as eg json or yaml, then build the results page with its own view function -->
