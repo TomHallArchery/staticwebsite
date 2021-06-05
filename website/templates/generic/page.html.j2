@@ -7,7 +7,7 @@
     <h1>{{ title | title }}</h1>
   {%- endblock %}
   {% block page_content -%}
-    {{ page.html | responsive_images(img_layout, img_url)}}
+    {{ page.html | responsive_images(img_layout, img_url, wrap_picture=True)}}
   {%- endblock %}
   {% block extra_content -%}
     <!-- for extra content not controlled by flatpage -->

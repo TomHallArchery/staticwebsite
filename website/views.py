@@ -10,6 +10,10 @@ from functools import partial
 
 IMAGES_URL = "https://cdn.tomhallarchery.com/"
 WP_POSTS_DIR = 'articles/archive'
+DEFAULT_IMG_DISPLAY_WIDTHS = {'60vw': 'min-width: 110ch', '95vw': None}
+DEFAULT_IMG_WIDTH = '1200'
+PRIMARY_IMG_FORMAT = 'jpg'
+SECONDARY_IMG_FORMAT = 'webp'
 
 
 @app.before_request
@@ -19,32 +23,52 @@ def reload_flatpages():
 @app.context_processor
 def inject_data():
     this_year = datetime.now().year
-    default_img_widths = {'60vw': 'min-width: 110ch', '95vw': None}
     return dict(
         year=this_year,
         img_url=IMAGES_URL,
         img_sizes=SIZES,
-        img_layout=default_img_widths,
+        img_layout=DEFAULT_IMG_DISPLAY_WIDTHS,
         srcset=utils.srcset,
         sizes=utils.sizes,
 
         )
 
 @app.template_filter()
-def responsive_images(html, conditions, img_url):
+def responsive_images(html, conditions, img_url, wrap_picture=False):
     parser = utils.parse_html(html)
     imgs = parser.getElementsByTagName('img')
     for img in imgs:
-        print(repr(img))
+        # TODO: Abstract below into utils function
         if img.src:
             if not img.width:
-                img.width = '1600'
-            widths = filter(lambda x: x<int(img.width), SIZES)
-            print(widths)
+                img.width = DEFAULT_IMG_WIDTH
+                widths = SIZES
+            else:
+                # generate list of widths up to intrinsic image size
+                # to prevent server requests for image sizes that don't exist
+                widths = list(filter(lambda x: x<int(img.width), SIZES))
+
             path, fname, ext = utils.split_filename(img.src)
-            img.src = os.path.join(img_url, f'{fname}_{img.width}{ext}')
-            img.srcset = utils.srcset(img_url, fname, widths, 'jpg')
-            img.sizes = utils.sizes(conditions)
+            img.setAttributes({
+                'src': os.path.join(img_url, f'{fname}_{DEFAULT_IMG_WIDTH}{ext}'),
+                'srcset': utils.srcset(img_url, fname, widths, 'jpg'),
+                'sizes': utils.sizes(conditions)
+            })
+
+            if wrap_picture:
+                picture = parser.createElement('picture')
+                source = parser.createElement('source')
+                parent = img.parentElement
+
+                parent.removeChild(img)
+                picture = parent.appendChild(picture)
+                picture.appendBlocks([source, img])
+
+                source.setAttributes({
+                    'type': 'image/webp',
+                    'srcset': utils.srcset(img_url, fname, widths, 'webp'),
+                    'sizes': utils.sizes(conditions)
+                })
 
     return parser.toHTML()
 

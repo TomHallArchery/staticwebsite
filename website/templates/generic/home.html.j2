@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block body %}
-{% filter responsive_images(img_layout, img_url) %}
+{% filter responsive_images(img_layout, img_url, wrap_picture=True) %}
 <main id="page_body">
   <h1>Welcome</h1>
   <p>My website is still under construction but feel free to have a look around!</p>
@@ -25,15 +25,15 @@
   <img
   src="{{ img_url + '2020-Back2Back-Finals.jpg'}}"
   alt="Front view of tom shooting in the back2back finals against a dark backdrop"
-  width="1600"
-  height="1200"
+  width="4608"
+  height="3456"
   >
 
 
   <img src="../static/img/src/2020-Warwick-Castle-Bow.jpg"
   alt="Close photo of red bow in sunlight"
-  width="1600"
-  height="1200"
+  width="4928"
+  height="3280"
   >
 
 </main>
