@@ -1,4 +1,5 @@
-from website import app, flatpages, clean_flatpage_metas
+from website import app, flatpages, utils
+from website.images import SIZES
 import flask
 import os
 from datetime import datetime
@@ -8,76 +9,120 @@ from functools import partial
 # flask.render_template = partial(flask.render_template, highlight_blocks=True)
 
 IMAGES_URL = "https://cdn.tomhallarchery.com/"
-WP_POSTS_DIR = 'article/archive'
-
-# add filtering method to flatpages object
-def filter_pages(dir):
-    ''' return list of flask flatpage objects from subdirectory of "pages" '''
-    return list(page for page in flatpages if os.path.dirname(page.path) == dir)
+WP_POSTS_DIR = 'articles/archive'
+DEFAULT_IMG_DISPLAY_WIDTHS = {'60vw': 'min-width: 110ch', '95vw': None}
+DEFAULT_IMG_WIDTH = '1200'
+PRIMARY_IMG_FORMAT = 'jpg'
+SECONDARY_IMG_FORMAT = 'webp'
 
 
 @app.before_request
 def reload_flatpages():
-    clean_flatpage_metas()
+    utils.clean_flatpage_metas(flatpages)
 
 @app.context_processor
-def inject_year():
+def inject_data():
     this_year = datetime.now().year
-    return dict(year=this_year)
-
-@app.context_processor
-def inject_images_url():
     return dict(
+        year=this_year,
         img_url=IMAGES_URL,
-        # Can only add macros one at a time by name for access in markdown pages
-        imgpath=flask.get_template_attribute("macros/macros.j2", "imgpath")
+        img_sizes=SIZES,
+        img_layout=DEFAULT_IMG_DISPLAY_WIDTHS,
+        srcset=utils.srcset,
+        sizes=utils.sizes,
+
         )
 
+@app.template_filter()
+def responsive_images(html, conditions, img_url, wrap_picture=False):
+    parser = utils.parse_html(html)
+    imgs = parser.getElementsByTagName('img')
+    for img in imgs:
+        # TODO: Abstract below into utils function
+        if img.src:
+            if not img.width:
+                img.width = DEFAULT_IMG_WIDTH
+                widths = SIZES
+            else:
+                # generate list of widths up to intrinsic image size
+                # to prevent server requests for image sizes that don't exist
+                widths = list(filter(lambda x: x<int(img.width), SIZES))
+
+            path, fname, ext = utils.split_filename(img.src)
+            img.setAttributes({
+                'src': os.path.join(img_url, f'{fname}_{DEFAULT_IMG_WIDTH}{ext}'),
+                'srcset': utils.srcset(img_url, fname, widths, 'jpg'),
+                'sizes': utils.sizes(conditions)
+            })
+
+            if wrap_picture:
+                picture = parser.createElement('picture')
+                source = parser.createElement('source')
+                parent = img.parentElement
+
+                parent.removeChild(img)
+                picture = parent.appendChild(picture)
+                picture.appendBlocks([source, img])
+
+                source.setAttributes({
+                    'type': 'image/webp',
+                    'srcset': utils.srcset(img_url, fname, widths, 'webp'),
+                    'sizes': utils.sizes(conditions)
+                })
+
+    return parser.toHTML()
+
+
 @app.route('/')
-def serve_home():
+def home_page():
     return flask.render_template('generic/home.html.j2',
         title="Home",
         # move metadata into markdown? even if not calling from generic page tempalate
         # could still allow dict unpacking of metadata
         description = "The homepage of Tom Hall, Archer and Coach",
         keywords = "Archery, Athlete, Profile",
+        img_layout = {'80vw': 'min-width: 110ch', '95vw': None}
         )
 
 @app.route('/results/')
-def serve_results():
+def results_page():
     results = flatpages.get_or_404('results')
+    sidebar = flatpages.get('sidebar')
     return flask.render_template('generic/page.html.j2',
         page=results,
+        side=sidebar,
         **results.meta)
 
 @app.route('/sponsors/')
-def serve_sponsors():
+def sponsors_page():
     sponsors = flatpages.get_or_404('sponsors')
+    sidebar = flatpages.get('sidebar')
     return flask.render_template('generic/page.html.j2',
         page=sponsors,
+        side=sidebar,
         **sponsors.meta)
 
 @app.route('/contact/')
 def contact_page():
     contact = flatpages.get_or_404('contact')
-    return flask.render_template('generic/contact.html.j2',
+    return flask.render_template('contact.html.j2',
         page=contact,
         **contact.meta)
 
 @app.route('/articles/')
-def serve_articles():
+def articles_page():
     # Selects posts with a PATH starting with wpexport/_posts
-    posts = filter_pages(WP_POSTS_DIR)
+    posts = utils.filter_pages(WP_POSTS_DIR)
     return flask.render_template('articles/index.html.j2',
         title="Articles",
         pages=posts
         )
 
-@app.route("/article/<path:path_requested>/")
+@app.route("/articles/<path:path_requested>/")
 def serve_article(path_requested):
-
-    # reappend 'article/' to front of path as has been stripped off by the route selector
-    path = os.path.join('article', path_requested)
+    ''' eg path_requested="archive/title" '''
+    # # reappend 'article/' to front of path as has been stripped off by the route selector
+    path = os.path.join('articles', path_requested)
     flatpage = flatpages.get_or_404(path)
 
     return flask.render_template('articles/article.html.j2',
@@ -93,5 +138,6 @@ def serve_page(path_requested):
     flatpage = flatpages.get_or_404(path_requested)
     return flask.render_template('generic/page.html.j2',
         page=flatpage,
+        side=flatpages.get('sidebar'),
         **flatpage.meta
         )

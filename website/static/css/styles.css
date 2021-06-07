@@ -32,33 +32,52 @@ li + li {
 /* Page body size and attributes */
 /* mobile */
 body {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto auto;
+  grid-template-areas: "nav" "main" "aside" "footer";
   font-family: "RobotoSlab", "Rockwell", Georgia, serif;
   margin: 0;
   min-width: 23ch;
   /* x-small: ~210px */
+  min-height: 100vh;
+  /* Level 1 */
+  /* Direct body descendants */
 }
-
-/* Level 1 */
-/* Direct body descendants */
 body > * {
   margin: 0;
   padding: 0 0.5rem;
+  /* small */
+  /* gt 35ch ~ 280px */
+  /* medium */
+  /* 85ch ~ 680px */
 }
-
-/* small */
-/* gt 35ch ~ 280px */
 @media screen and (min-width: 45ch) {
   body > * {
     padding: 0.5rem 1rem;
   }
 }
-/* medium */
-/* 85ch ~ 680px */
 @media screen and (min-width: 85ch) {
   body > * {
     padding: 1rem 2rem;
   }
 }
+body main {
+  grid-area: main;
+}
+body > aside {
+  grid-area: aside;
+  background-color: var(--greys-l4);
+}
+body .site_nav {
+  grid-area: nav;
+}
+body #site_footer {
+  background-color: var(--Li-pur);
+  color: white;
+  grid-area: footer;
+}
+
 /* large tablet/small laptop + */
 /* 110ch ~ 880px */
 @media screen and (min-width: 110ch) {
@@ -73,36 +92,26 @@ body > * {
     min-height: 100vh;
   }
 
-  /* body>* {
-    padding-left: 10%;
-    padding-right: 10%;
-  } */
   main {
     background-color: white;
-    grid-area: main;
     margin-left: 10vw;
     min-height: 100%;
   }
 
   body > aside {
-    background-color: var(--greys-l4);
-    grid-area: aside;
     margin-right: 10vw;
     min-height: 100%;
     text-align: justify;
   }
 
   .site_nav {
-    grid-area: nav;
-    padding-left: 10%;
-    padding-right: 10%;
+    padding-left: 10vw;
+    padding-right: 10vw;
   }
 
   #site_footer {
-    background-color: var(--Li-pur);
-    grid-area: footer;
-    padding-left: 10%;
-    padding-right: 10%;
+    padding-left: 10vw;
+    padding-right: 10vw;
   }
 }
 @media screen and (min-width: 145ch) {
@@ -126,20 +135,16 @@ a {
 a:link {
   color: var(--Li-pur);
 }
-
 a:visited {
   color: var(--Li-blk);
 }
-
 a:hover {
   text-decoration: underline;
   opacity: 0.7;
 }
-
 a:focus {
   outline: 2px dotted var(--Li-wht);
 }
-
 a:active {
   background-color: var(--Li-wht);
   color: white;
@@ -157,9 +162,7 @@ button {
   font-size: inherit;
   font-weight: 500;
 }
-
-button:hover,
-button:focus {
+button:hover, button:focus {
   background-color: var(--Li-pur);
   color: white;
 }
@@ -209,8 +212,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.75em;
   }
 }
-nav ul,
-nav ol {
+nav ul, nav ol {
   list-style: none;
 }
 

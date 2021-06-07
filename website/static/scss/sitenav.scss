@@ -1,54 +1,67 @@
 /* header and site_nav styling */
+$color-active: white;
+
 .site_nav {
-  --color-active: white;
+  --color-active: #{$color-active};
   --color-theme: var(--Li-pur);
   background-color: var(--color-theme);
   /* background: linear-gradient(
     var(--color-theme) 95%,
-    var(--alpha-00)
+    transparent,
     ); */
   color: var(--greys-l4);
   font-family: "PublicSans", Tahoma, Arial, sans-serif;
   text-shadow: 0 0 8px var(--Li-blk);
 
-}
+  /* left part: header/home link */
+  h2 {
+    padding-right: 2em;
+    color: inherit;
+  }
 
-/* left part: header/home link */
-.site_nav h2 {
-  padding-right: 2em;
-  color: inherit;
-}
+  /* right part: nav links */
+  ul {
+    font-weight: 200;
+    margin: 0 0 1em auto;
+    padding: 0;
+  }
 
-/* right part: nav links */
-.site_nav ul {
-  font-weight: 200;
-  margin: 0 0 1em auto;
-  padding: 0;
-}
+  a {
+    color: inherit;
+    padding: 5px;
 
-.site_nav a {
-  color: inherit;
-  padding: 5px;
-}
+    /* refactor to a ::before/::after pseudo element rather than border */
+    &:hover,
+    &.u-hover {
+      border-width: 3px 0;
+      border-style: solid;
+      border-color: $color-active;
+      border-image-source:
+        linear-gradient(
+          to right,
+          transparent,
+          $color-active,
+          transparent
+        );
+      border-image-slice: 1;
+      color: $color-active;
+      opacity: revert; // revert default link opacity styling
+      text-decoration: none;
+    }
+    &:focus {
+      color: $color-active;
+      outline: 1px solid currentColor;
+      /* outline-offset: 3px; */
+      box-shadow:
+        0 0 2px 4px currentColor;
+    }
+    &:active {
+      background-color: var(--Li-wht);
+      // box-shadow: revert;
+    }
 
-/* refactor to a ::before/::after pseudo element rather than border */
-.site_nav a:hover {
-  border-bottom: 3px solid var(--color-active);
-  opacity: revert;
-  text-decoration: none;
-}
+  }
 
-.site_nav a:focus {
-  color: var(--color-active);
-  outline: 1px solid currentColor;
-  /* outline-offset: 3px; */
-  box-shadow:
-    0 0 2px 4px currentColor;
-}
-
-.site_nav a:active {
-  background-color: var(--Li-wht);
-  /* box-shadow: revert; */
 }
 
 /* Nav needs to collapse again at medium breakpoint ~660px with current links */
