@@ -46,6 +46,10 @@
 .site_nav a:active {
   background-color: var(--Li-wht);
 }
+.site_nav.homepage {
+  padding-top: 1rem;
+  margin-top: 0;
+}
 
 /* Nav needs to collapse again at medium breakpoint ~660px with current links */
 @media screen and (min-width: 85ch) {

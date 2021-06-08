@@ -1,155 +1,154 @@
 /* *** */
 /* Global Styles */
 /* *** */
-
 html {
   box-sizing: border-box;
   font-size: 16px;
   line-height: 1.5;
 }
-
 /* *** */
 /* Element spacing */
 /* *** */
 *,
-*::before,
-*::after {
+*::after,
+*::before {
   box-sizing: inherit;
   margin: 0;
-
 }
-
 /* 1 line spacing between all adjacent elements in tree */
 *+* {
   margin-top: 0.75em;
 }
-
 /* Exceptions to above rule for: */
 /* adjacent paragrpahs, list items etc */
 li+li {
   margin-top: 0;
 }
-
 /* Level 0 */
 /* Page body size and attributes */
 /* mobile */
 body {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr auto auto;
+  grid-template-rows: auto auto 1fr auto auto;
   grid-template-areas:
     "nav"
+    "header"
     "main"
     "aside"
     "footer";
   font-family: "RobotoSlab", "Rockwell", Georgia, serif;
   margin: 0;
-  min-width: 23ch; /* x-small: ~210px */
+  min-width: 23ch;
+  /* x-small: ~210px */
   min-height: 100vh;
-
   /* Level 1 */
   /* Direct body descendants */
-  >* {
+  > * {
     margin: 0;
     padding: 0 0.5rem;
-
     /* small */
     /* gt 35ch ~ 280px */
     @media screen and (min-width: 45ch) {
       padding: 0.5rem 1rem;
     }
-
     /* medium */
     /* 85ch ~ 680px */
     @media screen and (min-width: 85ch) {
       padding: 1rem 2rem;
     }
-
   }
 
-  main {
+  > header {
+    grid-area: header;
+  }
+
+  > main {
     grid-area: main;
   }
-  >aside {
+
+  > aside {
     grid-area: aside;
     background-color: var(--greys-l4);
   }
-  .site_nav {
+
+  > nav.site_nav {
     grid-area: nav;
   }
+
   #site_footer {
     background-color: var(--Li-pur);
     color: white;
     grid-area: footer;
   }
-
 }
-
 /* large tablet/small laptop + */
 /* 110ch ~ 880px */
 @media screen and (min-width: 110ch) {
   $page_gutter: 10vw;
+
   body {
-    align-items: start;
+    // align-items: start;
     background-color: var(--greys-l4);
     display: grid;
     grid-template-columns: 2fr 1fr;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: auto auto 1fr auto;
     grid-template-areas:
-      "nav    nav   "
-      "main   aside "
+      "nav nav "
+      "header header"
+      "main aside "
       "footer footer";
     margin: auto;
     min-height: 100vh;
-  }
 
-  main {
-    background-color: white;
-    margin-left: $page_gutter;
-    min-height: 100%;
-  }
+    > header {
+      padding-left: $page_gutter;
+      padding-right: $page_gutter;
+    }
 
-  body>aside {
-    margin-right: $page_gutter;
-    min-height: 100%;
-    text-align: justify;
-  }
+    > main {
+      background-color: white;
+      margin-left: $page_gutter;
+      min-height: 100%;
+    }
 
-  .site_nav {
-    padding-left: $page_gutter;
-    padding-right: $page_gutter;
-  }
+    > aside {
+      margin-right: $page_gutter;
+      min-height: 100%;
+      text-align: justify;
+    }
 
-  #site_footer {
-    padding-left: $page_gutter;
-    padding-right: $page_gutter;
-  }
+    .site_nav {
+      padding-left: $page_gutter;
+      padding-right: $page_gutter;
+    }
 
+    #site_footer {
+      padding-left: $page_gutter;
+      padding-right: $page_gutter;
+    }
+  }
 }
-
 @media screen and (min-width: 145ch) {
   body {
     max-width: 1500px;
   }
 }
-
 /* *** */
 /* Element Styles */
 /* Resets and general styling*/
 /* *** */
-
 a {
- text-decoration: none;
+  text-decoration: none;
 }
 /* example inserting unicode into pseudoelement */
 /* a::before {
   content: "\1F4DE";
   color: blue;
 } */
-
 a {
   &:link {
-   color: var(--Li-pur);
+    color: var(--Li-pur);
   }
 
   &:visited {
@@ -183,13 +182,12 @@ button {
   font-size: inherit;
   font-weight: 500;
 
-  &:hover,
-  &:focus {
+  &:focus,
+  &:hover {
     background-color: var(--Li-pur);
     color: white;
   }
 }
-
 /* Contact form specific */
 form {
   /* align-items:stretch; */
@@ -206,22 +204,43 @@ h2:first-of-type {
   font-weight: 900;
 }
 
-h1,h2,h3,h4,h5,h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: var(--greys-d3);
 }
-
 @media screen and (max-width: calc(84.99ch)) {
-  h1 {font-size:1.5em;}
-  h2 {font-size:1.17em;}
-  h3 {font-size:1em;}
-  h4 {font-size:0.83em;}
-  h5 {font-size:0.75em;}
-  h6 {font-size:0.75em;}
+  h1 {
+    font-size: 1.5em;
+  }
+
+  h2 {
+    font-size: 1.17em;
+  }
+
+  h3 {
+    font-size: 1em;
+  }
+
+  h4 {
+    font-size: 0.83em;
+  }
+
+  h5 {
+    font-size: 0.75em;
+  }
+
+  h6 {
+    font-size: 0.75em;
+  }
 }
 
-
 nav {
-  ul, ol {
+  ol,
+  ul {
     list-style: none;
   }
 }
@@ -262,11 +281,13 @@ p {
 /* *** */
 /* Utilitiies */
 /* *** */
-
 .red {
   color: red;
 }
 
+.notop {
+  margin-top: 0;
+}
 /* #contact-form label {
   display: block
 } */

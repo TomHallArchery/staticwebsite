@@ -11,8 +11,8 @@ html {
 /* Element spacing */
 /* *** */
 *,
-*::before,
-*::after {
+*::after,
+*::before {
   box-sizing: inherit;
   margin: 0;
 }
@@ -34,8 +34,8 @@ li + li {
 body {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr auto auto;
-  grid-template-areas: "nav" "main" "aside" "footer";
+  grid-template-rows: auto auto 1fr auto auto;
+  grid-template-areas: "nav" "header" "main" "aside" "footer";
   font-family: "RobotoSlab", "Rockwell", Georgia, serif;
   margin: 0;
   min-width: 23ch;
@@ -62,14 +62,17 @@ body > * {
     padding: 1rem 2rem;
   }
 }
-body main {
+body > header {
+  grid-area: header;
+}
+body > main {
   grid-area: main;
 }
 body > aside {
   grid-area: aside;
   background-color: var(--greys-l4);
 }
-body .site_nav {
+body > nav.site_nav {
   grid-area: nav;
 }
 body #site_footer {
@@ -82,34 +85,33 @@ body #site_footer {
 /* 110ch ~ 880px */
 @media screen and (min-width: 110ch) {
   body {
-    align-items: start;
     background-color: var(--greys-l4);
     display: grid;
     grid-template-columns: 2fr 1fr;
-    grid-template-rows: auto 1fr auto;
-    grid-template-areas: "nav    nav   " "main   aside " "footer footer";
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-areas: "nav nav " "header header" "main aside " "footer footer";
     margin: auto;
     min-height: 100vh;
   }
-
-  main {
+  body > header {
+    padding-left: 10vw;
+    padding-right: 10vw;
+  }
+  body > main {
     background-color: white;
     margin-left: 10vw;
     min-height: 100%;
   }
-
   body > aside {
     margin-right: 10vw;
     min-height: 100%;
     text-align: justify;
   }
-
-  .site_nav {
+  body .site_nav {
     padding-left: 10vw;
     padding-right: 10vw;
   }
-
-  #site_footer {
+  body #site_footer {
     padding-left: 10vw;
     padding-right: 10vw;
   }
@@ -162,7 +164,7 @@ button {
   font-size: inherit;
   font-weight: 500;
 }
-button:hover, button:focus {
+button:focus, button:hover {
   background-color: var(--Li-pur);
   color: white;
 }
@@ -183,7 +185,12 @@ h2:first-of-type {
   font-weight: 900;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: var(--greys-d3);
 }
 
@@ -212,7 +219,8 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.75em;
   }
 }
-nav ul, nav ol {
+nav ol,
+nav ul {
   list-style: none;
 }
 
@@ -255,6 +263,10 @@ p {
 /* *** */
 .red {
   color: red;
+}
+
+.notop {
+  margin-top: 0;
 }
 
 /* #contact-form label {

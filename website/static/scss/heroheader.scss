@@ -1,0 +1,11 @@
+header.hero {
+  padding: 0;
+  background-color: grey; // match hero img
+
+  img {
+    display: block;
+    width: 100%;
+    height: 90vh;
+    object-fit: cover;
+  }
+}

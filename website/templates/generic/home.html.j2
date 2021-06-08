@@ -1,42 +1,44 @@
 {% extends "base/base.html.j2" %}
 
 {% block head %}
+{% include "base/head.html.j2" %}
 <!-- override default grid layout for landing on homepage  -->
-  <style media="screen and (min-width: 110ch)">
+  <style>
     body {
       display: block;
-      min-height: 100vh;
-    }
-    main {
-      margin-left: 10vw;
-      margin-right: 10vw;
+      max-height: 100vh;
     }
   </style>
 {% endblock %}
 
-{% block body %}
-{% filter responsive_images(img_layout, img_url, wrap_picture=True) %}
-<main id="page_body">
-  <h1>Welcome</h1>
-  <p>My website is still under construction but feel free to have a look around!</p>
+{% block nav %}
+{% endblock %}
 
-  <!-- homepage content sections: -->
-  <!-- Banner image [main > header] -->
-  <img
-  src="{{ img_url + '2020-Back2Back-Finals.jpg'}}"
-  alt="Front view of tom shooting in the back2back finals against a dark backdrop"
-  width="4608"
-  height="3456"
-  >
+{% block header %}
+{{ m.link_style('css/heroheader.css')}}
+{{ m.link_style('css/sitenav.css')}}
+{#
+  {% filter responsive_images(img_layout, img_url, wrap_picture=True) %}
+#}
+  <header id="site_header" class="hero">
+    <img src="{{ img_url | replace('/out/','/src/') + 'B2B_NeonEffect.jpg' }}" alt=""
+    width="2000"
+    height="1500">
+    <nav class="site_nav homepage">
+      {% include "base/nav.html.j2" %}
+    </nav>
+
+  </header>
+
+{% endblock %}
 
 
-  <img src="../static/img/src/2020-Warwick-Castle-Bow.jpg"
-  alt="Close photo of red bow in sunlight"
-  width="4928"
-  height="3280"
-  >
 
-</main>
+{% block content %}
 
-{% endfilter %}
-{% endblock body %}
+
+{% endblock content %}
+
+
+{% block footer %}
+{% endblock %}

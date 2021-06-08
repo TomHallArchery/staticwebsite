@@ -3,22 +3,38 @@
 <html lang="en" dir="ltr">
 
 <head>
-{% include "base/head.html.j2" %}
+
 {% block head -%}
+{% include "base/head.html.j2" %}
 {%- endblock %}
+
 </head>
 
 <body>
+
 {# Nav bar contains header logo #}
-{% include "base/nav.html.j2" %}
+{% block nav %}
+
+{{ m.link_style('css/sitenav.css')}}
+<nav id="site_nav" class="site_nav">
+  {% include "base/nav.html.j2" %}
+</nav>
+
+{% endblock %}
 
 {# seperate header not currently used #}
+{% block header %}
 {% include "base/header.html.j2" %}
+{% endblock %}
 
-{% block body -%}
+
+{% block content -%}
 {%- endblock %}
 
+
+{% block footer %}
 {% include "base/footer.html.j2" %}
+{% endblock %}
 
 </body>
 
