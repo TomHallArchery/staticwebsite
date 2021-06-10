@@ -1,0 +1,34 @@
+@use "../vars" as *;
+
+/* Site hero-header styling */
+header.hero {
+  padding: 0;
+  margin-top:0;
+  background-color: black; // match hero img
+  display: grid;
+  grid-template-rows: 1fr auto;
+  height: 100vh;
+  max-height: 100vh;
+
+
+  picture {
+    overflow-y: hidden;
+  }
+
+  img {
+    // override default height of auto
+    // max width 100% still inherited from default styles
+    height: 100%;
+    object-fit: cover;
+  }
+
+  nav {
+    padding-top: 1rem;
+    margin-top: 0;
+    background: linear-gradient(
+      transparent,
+      var(--color-theme) 0.25rem,
+      );
+    z-index: 3;
+  }
+}

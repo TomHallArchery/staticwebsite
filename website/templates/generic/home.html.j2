@@ -1,30 +1,27 @@
 {% extends "base/base.html.j2" %}
 
 {% block head %}
-{% include "base/head.html.j2" %}
-<!-- override default grid layout for landing on homepage  -->
-  <style>
-    body {
-      display: block;
-      max-height: 100vh;
-    }
-  </style>
+{{super()}}
+{{ m.link_style('css/homepage-styles.css')}}
 {% endblock %}
 
 {% block nav %}
 {% endblock %}
 
 {% block header %}
-{{ m.link_style('css/heroheader.css')}}
-{{ m.link_style('css/sitenav.css')}}
 {#
   {% filter responsive_images(img_layout, img_url, wrap_picture=True) %}
 #}
   <header id="site_header" class="hero">
-    <img src="{{ img_url | replace('/out/','/src/') + 'B2B_NeonEffect.jpg' }}" alt=""
-    width="2000"
-    height="1500">
-    <nav class="site_nav homepage">
+
+    <picture>
+      <source media="(min-width: 300px)" src="{{ img_url | replace('/out/','/src/') + 'B2B_NeonEffect.jpg' }}" >
+      <img src="{{ img_url | replace('/out/','/src/') + 'B2B_NeonEffect_small.jpg' }}" alt=""
+      width="2000"
+      height="1500">
+    </picture>
+
+    <nav class="site_nav">
       {% include "base/nav.html.j2" %}
     </nav>
 

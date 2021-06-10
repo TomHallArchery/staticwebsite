@@ -1,6 +1,5 @@
 #!/usr/bin/env python
-from website import app, flatpages, utils
-from website.images import SIZES
+from website import app, flatpages, utils, images
 
 app.config['ENV'] = 'DEVELOPMENT'
 app.config['DEBUG'] = True
@@ -38,6 +37,8 @@ if __name__ == '__main__':
     #     print(p.meta.get('title', f'Untitled page at: {p.path}'))
 
     rebuild_css()
+
+    # images.create_thumbnails()
 
     pprint("LOG")
     app.run(debug=True)

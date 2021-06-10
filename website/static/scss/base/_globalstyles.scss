@@ -1,0 +1,27 @@
+/* *** */
+/* Global Styles */
+/* *** */
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+  line-height: 1.5;
+}
+/* *** */
+/* Element spacing */
+/* *** */
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+  margin: 0;
+}
+/* 1 line spacing between all adjacent elements in tree */
+*+* {
+  margin-top: 0.75em;
+}
+/* Exceptions to above rule for: */
+/* adjacent paragrpahs, list items etc */
+li+li,
+source+img, {
+  margin-top: 0;
+}

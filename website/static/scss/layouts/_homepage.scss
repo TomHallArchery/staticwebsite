@@ -1,0 +1,25 @@
+@use "../vars" as *;
+
+// override default grid layout for landing on homepage
+body {
+  display: block;
+  min-height: 100vh;
+  margin-top: 0;
+}
+
+nav.site_nav {
+  --page_gutter: 0.5rem;
+  padding-left: var(--page_gutter);
+  padding-right: var(--page_gutter);
+
+  @media screen and (min-width: $bp-small) {
+    --page_gutter: 1rem;
+  }
+
+  @media screen and (min-width: $bp-medium) {
+    --page_gutter: 2rem;
+  }
+
+  @media screen and (min-width: $bp-large) {
+    --page_gutter: 10vw;
+}

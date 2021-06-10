@@ -1,4 +1,6 @@
-/* header and site_nav styling */
+@use "../vars" as *;
+
+/* Site_nav styling */
 $color-active: white;
 
 .site_nav {
@@ -61,14 +63,11 @@ $color-active: white;
     }
 
   }
-  &.homepage {
-    padding-top: 1rem;
-    margin-top: 0;
-  }
+
 }
 
 /* Nav needs to collapse again at medium breakpoint ~660px with current links */
-@media screen and (min-width: 85ch) {
+@media screen and (min-width: $bp-small) {
   .site_nav {
     align-items: baseline;
     display: flex;

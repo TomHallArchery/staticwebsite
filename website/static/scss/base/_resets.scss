@@ -1,0 +1,146 @@
+@use "../vars" as *;
+
+/* *** */
+/* Element Styles */
+/* Resets and general styling*/
+/* *** */
+a {
+  text-decoration: none;
+}
+/* example inserting unicode into pseudoelement */
+/* a::before {
+  content: "\1F4DE";
+  color: blue;
+} */
+a {
+  &:link {
+    color: var(--Li-pur);
+  }
+
+  &:visited {
+    color: var(--Li-blk);
+  }
+
+  &:hover {
+    text-decoration: underline;
+    opacity: 0.7;
+  }
+
+  &:focus {
+    outline: 2px dotted var(--Li-wht);
+  }
+
+  &:active {
+    background-color: var(--Li-wht);
+    color: white;
+    opacity: revert;
+    outline: none;
+  }
+}
+
+button {
+  background-color: white;
+  border: 2px solid var(--Li-pur);
+  color: var(--Li-pur);
+  cursor: pointer;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 500;
+
+  &:focus,
+  &:hover {
+    background-color: var(--Li-pur);
+    color: white;
+  }
+}
+/* Contact form specific */
+form {
+  /* align-items:stretch; */
+  display: flex;
+  flex-direction: column;
+}
+
+form :is(input, textarea):focus {
+  outline-color: var(--Na-pur);
+}
+
+h1:first-of-type,
+h2:first-of-type {
+  font-weight: 900;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--greys-d3);
+}
+@media screen and (max-width: calc(#{$bp-medium} - 0.1px)) {
+  h1 {
+    font-size: 1.5em;
+  }
+
+  h2 {
+    font-size: 1.17em;
+  }
+
+  h3 {
+    font-size: 1em;
+  }
+
+  h4 {
+    font-size: 0.83em;
+  }
+
+  h5 {
+    font-size: 0.75em;
+  }
+
+  h6 {
+    font-size: 0.75em;
+  }
+}
+
+nav {
+  ol,
+  ul {
+    list-style: none;
+  }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  /* object-fit: contain; */
+}
+
+input {
+  height: 2em;
+}
+
+input,
+textarea {
+  border: 1px solid var(--greys-l2);
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+summary {
+  cursor: pointer;
+}
+
+details summary > * {
+  display: inline;
+}
+
+textarea {
+  resize: vertical;
+}
+
+p {
+  color: var(--greys-d4);
+}

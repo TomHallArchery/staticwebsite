@@ -1,0 +1,112 @@
+@use "../vars" as *;
+
+/* Level 0 */
+/* Page body size and attributes */
+/* mobile */
+body {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto 1fr auto auto;
+  grid-template-areas:
+    "nav"
+    "header"
+    "main"
+    "aside"
+    "footer";
+  font-family: "RobotoSlab", "Rockwell", Georgia, serif;
+  margin: 0;
+  min-width: 23ch;
+  /* x-small: ~210px */
+  min-height: 100vh;
+  /* Level 1 */
+  /* Direct body descendants */
+  > * {
+    margin: 0;
+    padding: 0 0.5rem;
+    /* small */
+    /* gt 35ch ~ 280px */
+    @media screen and (min-width: $bp-small) {
+      padding: 0.5rem 1rem;
+    }
+    /* medium */
+    /* 85ch ~ 680px */
+    @media screen and (min-width: $bp-medium) {
+      padding: 1rem 2rem;
+    }
+  }
+
+  > header {
+    grid-area: header;
+  }
+
+  > main {
+    grid-area: main;
+  }
+
+  > aside {
+    grid-area: aside;
+    background-color: var(--greys-l4);
+  }
+
+  > nav.site_nav {
+    grid-area: nav;
+  }
+
+  #site_footer {
+    background-color: var(--Li-pur);
+    color: white;
+    grid-area: footer;
+  }
+}
+/* large tablet/small laptop + */
+/* 110ch ~ 880px */
+@media screen and (min-width: $bp-large) {
+  $page_gutter: 10vw;
+
+  body {
+    // align-items: start;
+    background-color: var(--greys-l4);
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-areas:
+      "nav nav "
+      "header header"
+      "main aside "
+      "footer footer";
+    margin: auto;
+    min-height: 100vh;
+
+    > header {
+      padding-left: $page_gutter;
+      padding-right: $page_gutter;
+    }
+
+    > main {
+      background-color: white;
+      margin-left: $page_gutter;
+      min-height: 100%;
+    }
+
+    > aside {
+      margin-right: $page_gutter;
+      min-height: 100%;
+      text-align: justify;
+    }
+
+    .site_nav {
+      padding-left: $page_gutter;
+      padding-right: $page_gutter;
+    }
+
+    #site_footer {
+      padding-left: $page_gutter;
+      padding-right: $page_gutter;
+    }
+  }
+}
+@media screen and (min-width: $bp-xlarge) {
+  body {
+    max-width: 1500px;
+  }
+}

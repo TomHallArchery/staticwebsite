@@ -72,6 +72,9 @@ def responsive_images(html, conditions, img_url, wrap_picture=False):
 
     return parser.toHTML()
 
+# ===============
+# #ROUTES
+# ===============
 
 @app.route('/')
 def home_page():

@@ -1,0 +1,33 @@
+@use "../vars" as *;
+/* *** */
+/* FONT DECLARATIONS */
+/* *** */
+
+/* Latin English */
+@font-face {
+  font-family: "RobotoSlab";
+  src:
+    url("/static/fonts/Roboto_Slab/RobotoSlab-VariableFont_wght-Latin.woff2") format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  unicode-range: $chset-latin;
+}
+
+/* Minimal English */
+@font-face {
+    font-family: "PublicSans";
+    src:
+      url("/static/fonts/Public_Sans/PublicSans-VariableFont_wght-Min.woff2") format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: $chset-min-eng;
+}
+
+// @mixin fontface($family) {
+//   font-family: $family;
+//   src:
+//     url("/static/fonts/#{$family}/#{$family}-VariableFont_wght.ttf") format('woff2'),
+//     url("/static/fonts/#{$family}/#{$family}-VariableFont_wght.ttf") format('truetype');
+//   font-weight: 100 900;
+//   font-style: normal;
+// }
