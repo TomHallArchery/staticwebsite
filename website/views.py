@@ -78,13 +78,13 @@ def responsive_images(html, conditions, img_url, wrap_picture=False):
 
 @app.route('/')
 def home_page():
-    return flask.render_template('generic/home.html.j2',
+    return flask.render_template('home.html.j2',
         title="Home",
         # move metadata into markdown? even if not calling from generic page tempalate
         # could still allow dict unpacking of metadata
         description = "The homepage of Tom Hall, Archer and Coach",
         keywords = "Archery, Athlete, Profile",
-        img_layout = {'80vw': 'min-width: 110ch', '95vw': None}
+        img_layout = {'100vw': None}
         )
 
 @app.route('/results/')

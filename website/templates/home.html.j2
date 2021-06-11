@@ -1,0 +1,44 @@
+{% extends "base/base.html.j2" %}
+
+{% block head_styles %}
+  {{super()}}
+  {{ m.link_style('css/homepage-styles.css')}}
+{% endblock %}
+
+{% block head_fonts %}
+  <link rel="prefetch" href="{{ url_for('static', filename='fonts/Roboto_Slab/RobotoSlab-VariableFont_wght-Latin.woff2') }}" as="font" type="font/woff2" crossorigin>
+{% endblock %}
+
+{% block nav %}
+{% endblock %}
+
+{% block header %}
+{#
+
+#}
+  <header id="site_header" class="hero">
+  {% filter responsive_images(img_layout, img_url) %}
+    <picture>
+      <!-- <source media="(min-width: 300px)" srcset="{{ srcset(img_url, 'B2B_NeonEffect', img_sizes, 'jpg') }}" > -->
+      <source type="image/webp" srcset="{{ srcset(img_url, 'B2B_NeonEffect_small', img_sizes, 'webp') }}" >
+      <img src="{{ img_url + 'B2B_NeonEffect_small.jpg' }}" alt=""
+      width="2000"
+      height="2000">
+    </picture>
+{% endfilter %}
+    <nav class="site_nav">
+      {% include "base/nav.html.j2" %}
+    </nav>
+
+  </header>
+
+{% endblock %}
+
+
+
+{% block content %}
+{% endblock content %}
+
+
+{% block footer %}
+{% endblock %}
