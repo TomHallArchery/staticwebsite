@@ -1,11 +1,13 @@
 $breakpoints: (
-  'small':45ch,
+  'xsmall':35ch,
+  'small':50ch,
   'medium':85ch,
   'large':110ch,
   'xlarge':145ch,
 );
 
-$small: 45ch;
+$xsmall: 35ch;
+$small: 50ch;
 $medium: 85ch;
 $large:110ch;
 $xlarge:145ch;

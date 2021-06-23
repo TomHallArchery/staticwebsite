@@ -25,7 +25,7 @@ body {
     padding: 0 0.5rem;
     /* small */
     /* gt 35ch ~ 280px */
-    @media screen and (min-width: $bp-small) {
+    @media screen and (min-width: $bp-xsmall) {
       padding: 0.5rem 1rem;
     }
     /* medium */
@@ -50,6 +50,7 @@ body {
 
   > nav.site_nav {
     grid-area: nav;
+    padding-top: 1rem;
   }
 
   #site_footer {

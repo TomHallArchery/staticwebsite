@@ -231,6 +231,10 @@ p {
   margin: 0 0 1em auto;
   padding: 0;
 }
+.site_nav li {
+  display: block;
+  line-height: 2em;
+}
 .site_nav a {
   color: inherit;
   padding: 5px;
@@ -257,7 +261,7 @@ p {
 }
 
 /* Nav needs to collapse again at medium breakpoint ~660px with current links */
-@media screen and (min-width: 45ch) {
+@media screen and (min-width: 50ch) {
   .site_nav {
     align-items: baseline;
     display: flex;
@@ -298,7 +302,7 @@ body > * {
   /* medium */
   /* 85ch ~ 680px */
 }
-@media screen and (min-width: 45ch) {
+@media screen and (min-width: 35ch) {
   body > * {
     padding: 0.5rem 1rem;
   }
@@ -320,6 +324,7 @@ body > aside {
 }
 body > nav.site_nav {
   grid-area: nav;
+  padding-top: 1rem;
 }
 body #site_footer {
   background-color: var(--Li-pur);
