@@ -78,6 +78,7 @@ h5,
 h6 {
   color: var(--greys-d3);
 }
+
 @media screen and (max-width: calc(#{$bp-medium} - 0.1px)) {
   h1 {
     font-size: 1.5em;
