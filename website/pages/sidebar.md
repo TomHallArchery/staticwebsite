@@ -2,6 +2,7 @@
 type: template
 ---
 
-### Sidebar title
+<!--### Sidebar title
 
 Sidebar content goes here
+-->
