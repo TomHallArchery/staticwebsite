@@ -3,6 +3,8 @@ __pycache__
 .python-version
 
 pynetlify.ini
+gitlog.txt
+
 
 # Ignore image directory: output files uploaded seperately to netlify
 website/static/img/
