@@ -39,20 +39,12 @@ a {
 }
 
 button {
-  background-color: white;
-  border: 2px solid var(--Li-pur);
-  color: var(--Li-pur);
-  cursor: pointer;
-  border-radius: 4px;
   font-family: inherit;
   font-size: inherit;
   font-weight: 500;
-
-  &:focus,
-  &:hover {
-    background-color: var(--Li-pur);
-    color: white;
-  }
+  // background: transparent;
+  // border: 2px solid currentColor;
+  // border-radius: 4px;
 }
 /* Contact form specific */
 form {

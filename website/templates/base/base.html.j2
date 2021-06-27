@@ -1,20 +1,25 @@
 {% import "macros/macros.j2" as m -%}
+
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
+
 <head>
+
   <!-- start base/head -->
   <meta charset="utf-8">
+  <link rel="dns-prefetch" href="//cdn.tomhallarchery.com">
+
   <title>{{ title | title }} | Tom Hall Archery </title>
   {{ m.meta("description",  description ) }}
   {{ m.meta("keywords",  keywords ) }}
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#D70A53" />
   {% block head_meta %}
-
   {% endblock %}
 
-  <link rel="dns-prefetch" href="//cdn.tomhallarchery.com">
 
   <!-- favicon -->
   <!-- generated from https://favicon.io/favicon-generator/ using erica one font -->
@@ -22,6 +27,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon/apple-touch-icon.png') }}">
   <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}">
   <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon/favicon-16x16.png') }}">
+
 
   <!-- fonts -->
   {% block head_fonts %}
@@ -38,9 +44,12 @@
   <!-- js -->
   <!-- Alpine JS (Modern JQuery replacement for minor animations/ui/reactive parts) -->
   <script src="{{ url_for('static', filename='js/alpine.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/site_nav.js') }}" ></script>
   <!-- end base/head -->
 
 </head>
+
+
 
 <body>
 

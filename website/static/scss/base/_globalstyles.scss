@@ -21,7 +21,11 @@ html {
 }
 /* Exceptions to above rule for: */
 /* adjacent paragrpahs, list items etc */
-li+li,
-source+img, {
+li+li {
+  margin-top: 0.5em;
+}
+
+nav li+li,
+source+img {
   margin-top: 0;
 }

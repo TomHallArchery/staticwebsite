@@ -1,5 +1,6 @@
 @use "../vars" as *;
 
+
 /* Site_nav styling */
 $color-active: white;
 
@@ -14,22 +15,31 @@ $color-active: white;
   color: var(--greys-l4);
   font-family: "PublicSans", Tahoma, Arial, sans-serif;
   text-shadow: 0 0 8px var(--Li-blk);
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
 
   /* left part: header/home link */
   h2 {
-    padding-right: 2em;
     color: inherit;
   }
 
   /* right part: nav links */
   ul {
+    display: none;
+    flex-direction: column;
+    flex-basis: 100vw;
     font-weight: 200;
-    margin: 0 0 1em auto;
+    margin-left: auto;
     padding: 0;
   }
 
+  ul.open {
+    display: flex;
+  }
+
   li {
-    display: block;
+    display: block; //not list item
     line-height: 2em;
   }
 
@@ -39,7 +49,7 @@ $color-active: white;
 
     /* refactor to a ::before/::after pseudo element rather than border */
     &:hover,
-    &.u-hover {
+    .u-hover {
       border-width: 3px 0;
       border-style: solid;
       border-color: $color-active;
@@ -74,14 +84,21 @@ $color-active: white;
 /* Nav needs to collapse again at medium breakpoint ~660px with current links */
 @media screen and (min-width: $bp-small) {
   .site_nav {
-    align-items: baseline;
+    align-items: center;
     display: flex;
     flex-wrap: wrap;
 
     ul {
       display: flex;
+      flex-direction: row;
       flex-wrap: wrap;
+      flex-basis: auto;
+      margin-top: 0;
+    }
 
+    .hamburger {
+      display: none;
+      margin-top: 0.5em;
     }
 
     li:not(:last-child)::after {
