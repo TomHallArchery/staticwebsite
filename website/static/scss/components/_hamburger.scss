@@ -39,12 +39,12 @@
   }
 
   &:focus {
-    outline: 1px solid currentColor;
-    /* outline-offset: 3px; */
-    box-shadow:
-      0 0 2px 4px currentColor;
-    border-color: $color-active;
+    outline: 2px dotted $color-active;
+
+  }
+  &:focus:not(:focus-visible) {
+    outline: none;
   }
 
-  
+
 }

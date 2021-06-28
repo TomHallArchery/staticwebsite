@@ -5,7 +5,7 @@
 /* Resets and general styling*/
 /* *** */
 a {
-  text-decoration: none;
+  text-decoration: underline double;
 }
 /* example inserting unicode into pseudoelement */
 /* a::before {
@@ -22,7 +22,7 @@ a {
   }
 
   &:hover {
-    text-decoration: underline;
+    text-decoration: none;
     opacity: 0.7;
   }
 

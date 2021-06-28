@@ -46,7 +46,7 @@ $color-active: white;
   a {
     color: inherit;
     padding: 5px;
-
+    text-decoration: none;
     /* refactor to a ::before/::after pseudo element rather than border */
     &:hover,
     .u-hover {
@@ -65,13 +65,15 @@ $color-active: white;
       opacity: revert; // revert default link opacity styling
       text-decoration: none;
     }
-    &:focus {
+
+    &:focus-visible {
       color: $color-active;
       outline: 1px solid currentColor;
       /* outline-offset: 3px; */
       box-shadow:
         0 0 2px 4px currentColor;
     }
+
     &:active {
       background-color: var(--Li-wht);
       // box-shadow: revert;
