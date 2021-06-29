@@ -6,13 +6,14 @@
 {% endblock %}
 
 {% block content %}
+
 <!-- archived articles -->
 <main id="page_body">
   <details open>
     <summary>
       <h1>Archived Articles</h1>
     </summary>
-    <ul>
+    <ul class="decorated">
       {% for page in pages %}
       <li><a href="{{ url_for('serve_article', path_requested=page.path | replace('articles/','')) }}">
           {{ page.meta.title | safe }}

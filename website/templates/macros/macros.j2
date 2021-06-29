@@ -9,20 +9,27 @@
 {%- endmacro %}
 
 {% macro imgpath(img_url, path) -%}
-    {{img_url + path}}
+{{img_url + path}}
 {%- endmacro %}
 
 {% macro srcset(img_url, path, sizes, ext) -%}
-    {% for size in sizes -%}
-    {% set img_path = "{}_{}.{}".format(path, size, ext) %}
-    {{ imgpath(img_url, img_path) }} {{ "{}w".format(size)}},
-    {%- endfor %}
+{% for size in sizes -%}
+{% set img_path = "{}_{}.{}".format(path, size, ext) %}
+{{ imgpath(img_url, img_path) }} {{ "{}w".format(size)}},
+{%- endfor %}
 {% endmacro %}
 
 {% macro sizes(sizes, breakpoints) %}
-    sizes="
-    {% for size in sizes -%}
+sizes="
+{% for size in sizes -%}
 
-    "
-    {%- endfor %}
+"
+{%- endfor %}
+{% endmacro %}
+
+{% macro svg_fragment(type, id) %}
+{{ url_for('static', filename='symbols/{}.svg'.format(type)) + '#{}'.format(id) }}
+{% endmacro %}
+{% macro svg_file(type, name) %}
+{{ url_for('static', filename='symbols/{}/{}.svg'.format(type, name)) }}
 {% endmacro %}

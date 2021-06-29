@@ -12,3 +12,23 @@
 .hidden {
   display: none !important;
 }
+
+.icon {
+  --scale: 1em;
+  display: inline-block;
+  width: var(--scale);
+  height: var(--scale);
+
+  &--colored {
+    @extend .icon;
+    --stroke-color: black;
+    --fill-color: black;
+    stroke: var(--stroke-color);
+    fill: var(--fill-color);
+  }
+}
+
+.resize {
+  resize:both;
+  overflow:auto;
+}

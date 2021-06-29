@@ -72,29 +72,12 @@ h6 {
 }
 
 @media screen and (max-width: calc(#{$bp-medium} - 0.1px)) {
-  h1 {
-    font-size: 1.5em;
-  }
-
-  h2 {
-    font-size: 1.17em;
-  }
-
-  h3 {
-    font-size: 1em;
-  }
-
-  h4 {
-    font-size: 0.83em;
-  }
-
-  h5 {
-    font-size: 0.75em;
-  }
-
-  h6 {
-    font-size: 0.75em;
-  }
+  h1{font-size:1.5em}
+  h2{font-size:1.17em}
+  h3{font-size:1em}
+  h4{font-size:.83em}
+  h5,
+  h6{font-size:.75em}
 }
 
 nav {
@@ -128,6 +111,9 @@ textarea {
   font-family: inherit;
   font-size: inherit;
 }
+
+
+
 
 summary {
   cursor: pointer;

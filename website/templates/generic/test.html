@@ -1,0 +1,28 @@
+<div class="svg_wrapper">
+  <svg class="icon--colored" style="--scale:5em;display:block;--stroke-color:var(--Mn-pur);">
+    <use href="{{ m.svg_fragment('targets', 'abstract') }}"/>
+  </svg>
+  <p>Use embedded svg from symbol element to include dynamic painting</p>
+  <img class="icon" style="--scale:5em;display:block;" src="{{ m.svg_file('targets', 'abstract')}}" alt="">
+  <img class="icon" style="--scale:5em;display:block;" src="{{ m.svg_file('targets', 'target')}}" alt="">
+  <img class="icon" style="--scale:5em;display:block;" src="{{ m.svg_file('targets', 'field')}}" alt="">
+  <p>Use seperate svg files as img src</p>
+  <div class="resize"
+  style="height:5em;width:5em;
+  background-repeat: no-repeat;
+  background-position:center;
+  background-image:url( {{ m.svg_file('targets', 'abstract') }} );
+  ">
+  </div>
+  <div class="resize"
+  style="height:5em;width:5em;
+  background-repeat: no-repeat;
+  background-position:center;
+  background-image:url( {{ m.svg_file('targets', 'target') }} );
+  ">
+  </div>
+  <ul style="list-style-image: url({{ m.svg_file('targets', 'field') }});" >
+    <li>List item</li>
+  </ul>
+  <p>Use seperate svg files as css background-img source</p>
+</div>
