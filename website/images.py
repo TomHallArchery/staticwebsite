@@ -1,14 +1,14 @@
 from website import app
 import os
 import sys
-import http.server as svr
 import subprocess
-import argparse
 import hashlib
 from PIL import Image
 
 SIZES = [2000, 1800, 1600, 1400, 1200, 800, 400]
-IMGAES_ROOT = 'website/static/img/'
+IMAGES_ROOT = 'website/static/img/'
+
+vprint = lambda *a: None
 
 def read_img_dir():
     img_dir_dict = {
@@ -19,15 +19,18 @@ def read_img_dir():
     return img_dir_dict
 
 def rm_file(file):
+    ''' Remove file at path without exceptions for not found or directory '''
     if os.path.exists(file):
-        os.remove(file)
+        try:
+            os.remove(_)
+        except PermissionError:
+            pass
 
 def list_images(subdir):
     img_list = [os.path.join(root, file)
                 for root, dir, files in os.walk(subdir)
                 for file in files
                 ]
-    vprint(img_list)
     return img_list
 
 def fsplit(filepath):
@@ -37,11 +40,23 @@ def fsplit(filepath):
 
 def test_compression(imfile):
     path, file, fname, ext = fsplit(imfile)
+    print("Entering test_compression:")
+    print(path, file, fname, ext, sep='\n')
 
     with Image.open(imfile) as im:
-        previw = im.thumbnail(1200,1200)
-        for q in [85,75,65,55]:
-            preview.save(f'tmp/{fname}_{q}.jpg', quality=q)
+        preview = im.copy()
+        # Work in tmp directory: if already in img root this will exist
+        os.makedirs('tmp', exist_ok=True)
+        for q in [85,75,65,55,45,35]:
+            preview.thumbnail((1200,1200))
+            preview.save(f'tmp/jpg-{q}.jpg', quality=q, optimize=True, progressive=True)
+            preview.save(f'tmp/webp-{q}.webp', quality=q, method=6)
+
+
+    qj = input('Chosen jpg compression: ')
+    qp = input('Chosen webp compression: ')
+    [ os.remove(_) for _ in list_images('tmp') ]
+    return qj, qp
 
 def create_thumbnails(imfile, sizes):
     ''' Create rezised images from img/new and move original to img/src '''
@@ -94,66 +109,11 @@ def upload_images(dir):
     cmnd = ['python', '-m', 'pynetlify', 'deploy_folder', '--site-id', 'bd867c99-8ad2-41da-b295-d619581e8079', dir]
     res = subprocess.run(cmnd)
     print(res)
-    vprint("Uploaded files:")
-    for file in sorted(os.listdir(dir)):
-        vprint(file)
+    # vprint("Uploaded files:")
+    # for file in sorted(os.listdir(dir)):
+    #     vprint(file)
 
-#TODO: Split main and ifmain into seperate script to avoid runtime warning
-
-def main(reset=False, compress=False):
-    ''' Process all images in img/new '''
-    os.chdir(IMGAES_ROOT)
-    rm_file('new/.DS_Store')
-    rm_file('src/.DS_Store')
-    imgs = read_img_dir()
-
-    if reset:
-        #move all image files back into new/ to reprocess
-        #todo: make this work in non flat-directory
-        for file in os.listdir('src'): #imgs['src']
-            vprint("Input: ", file)
-            fname, ext = os.path.splitext(file)
-            os.rename(
-                os.path.join('src', file),
-                # strip size descriptor if present from path/fname__s1234x1234.ext
-                os.path.join('new', fname.split('__s')[0] + ext)
-                )
-        vprint("files reset from src to new")
-
-    if compress:
-        print('Interactive Compression')
-
-    vprint(list_images('new'))
-    for img in list_images('new'):
-        create_thumbnails(img, SIZES)
-
-    vprint(list_images('src'))
-
-    rm_file('out/.DS_Store')
-    vprint('Output:')
-    vprint(list_images('out'))
-
-
-
+#TESTING
 if __name__ == '__main__':
-
-    parser = argparse.ArgumentParser(description="Process website images")
-    parser.add_argument('-S', '--serve', action='store_true',
-        help="Serve local output directory on port 5002")
-    parser.add_argument('-R', '--reset', action='store_true',
-        help="Process all existing images as well as new")
-    parser.add_argument('-C', '--compress', action='store_true')
-    parser.add_argument('-V', '--verbose', action='store_true')
-    args = parser.parse_args()
-
-    vprint = print if args.verbose else lambda *a: None
-
-    main(reset=args.reset)
-
-    print(args)
-    if args.compress:
-        pass
-
-    if args.serve:
-        os.chdir('out')
-        svr.test(HandlerClass=svr.SimpleHTTPRequestHandler, port=5002)
+    os.chdir(IMAGES_ROOT)
+    test_compression('src/2015-BUCS-indoor__s1536x1024.jpg')

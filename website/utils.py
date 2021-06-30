@@ -1,8 +1,19 @@
 import subprocess
 import os
 import AdvancedHTMLParser
+from contextlib import contextmanager
 from website import app, flatpages
 
+from contextlib import contextmanager
+
+@contextmanager
+def cwd(path):
+    oldpwd=os.getcwd()
+    os.chdir(path)
+    try:
+        yield
+    finally:
+        os.chdir(oldpwd)
 
 def compile_css(src, dest, compressed=False, watch=False):
     cmnd = ["sass", f"{src}:{dest}", "--no-source-map"]
