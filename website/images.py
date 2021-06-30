@@ -12,41 +12,59 @@ IMGAES_ROOT = 'website/static/img/'
 
 def read_img_dir():
     img_dir_dict = {
-        "new" : os.listdir('new'),
-        "src" : os.listdir('src'),
-        "out" : os.listdir('out')
+        "new" : list_images('new'),
+        "src" : list_images('src'),
+        "out" : list_images('out')
     }
     return img_dir_dict
 
+def rm_file(file):
+    if os.path.exists(file):
+        os.remove(file)
+
 def list_images(subdir):
-    return [os.path.join(root, file)
-        for root, dir, files in os.walk(subdir)
-        for file in files
-        ]
+    img_list = [os.path.join(root, file)
+                for root, dir, files in os.walk(subdir)
+                for file in files
+                ]
+    vprint(img_list)
+    return img_list
+
+def fsplit(filepath):
+    path, file = os.path.split(filepath)
+    fname, ext = os.path.splitext(file)
+    return path, file, fname, ext
+
+def test_compression(imfile):
+    path, file, fname, ext = fsplit(imfile)
+
+    with Image.open(imfile) as im:
+        previw = im.thumbnail(1200,1200)
+        for q in [85,75,65,55]:
+            preview.save(f'tmp/{fname}_{q}.jpg', quality=q)
 
 def create_thumbnails(imfile, sizes):
     ''' Create rezised images from img/new and move original to img/src '''
-    path, file = os.path.split(imfile)
-    fname, ext = os.path.splitext(file)
+    path, file, fname, ext = fsplit(imfile)
 
     with Image.open(imfile) as im:
-        print("Loaded image: ", im.filename)
+        vprint("Loaded image: ", im.filename)
         thumb = im.copy()
         for size in sizes:
             if im.width < size:
                 continue
-            print("Making size: ", size)
+            vprint("Making size: ", size)
             thumb.thumbnail((size, size))
             thumb.save(f'out/{fname}_{size}.jpg', optimize=True, progressive=True)
             thumb.save(f'out/{fname}_{size}.webp', method=6)
-            print("Done")
+            vprint("Done")
 
         im.save(f'out/{fname}_{im.width}.jpg', optimize=True, progressive=True)
         im.save(f'out/{fname}_{im.width}.webp', method=6)
 
         # size descriptor prefeixed by __s to uniquely identify
         outfile = os.path.join('src', f'{fname}__s{im.width}x{im.height}{ext}')
-        print(f"Moving image: {outfile}")
+        vprint(f"Moving image: {outfile}")
         os.rename(imfile, outfile)
 
 def hash_dir_filenames(dir, hashfile):
@@ -76,53 +94,65 @@ def upload_images(dir):
     cmnd = ['python', '-m', 'pynetlify', 'deploy_folder', '--site-id', 'bd867c99-8ad2-41da-b295-d619581e8079', dir]
     res = subprocess.run(cmnd)
     print(res)
-    print("Uploaded files:")
+    vprint("Uploaded files:")
     for file in sorted(os.listdir(dir)):
-        print(file)
+        vprint(file)
 
+#TODO: Split main and ifmain into seperate script to avoid runtime warning
 
-
-def main(full_reset=False):
+def main(reset=False, compress=False):
     ''' Process all images in img/new '''
     os.chdir(IMGAES_ROOT)
-    if os.path.exists('new/.DS_Store'):
-        os.remove('new/.DS_Store')
-    if os.path.exists('src/.DS_Store'):
-        os.remove('src/.DS_Store')
+    rm_file('new/.DS_Store')
+    rm_file('src/.DS_Store')
+    imgs = read_img_dir()
 
-    if full_reset:
-        for file in os.listdir('src'):
-            print("Input: ", file)
+    if reset:
+        #move all image files back into new/ to reprocess
+        #todo: make this work in non flat-directory
+        for file in os.listdir('src'): #imgs['src']
+            vprint("Input: ", file)
             fname, ext = os.path.splitext(file)
             os.rename(
                 os.path.join('src', file),
                 # strip size descriptor if present from path/fname__s1234x1234.ext
                 os.path.join('new', fname.split('__s')[0] + ext)
                 )
-        print("files reset from src to new")
+        vprint("files reset from src to new")
 
-    print(list_images('new'))
+    if compress:
+        print('Interactive Compression')
+
+    vprint(list_images('new'))
     for img in list_images('new'):
         create_thumbnails(img, SIZES)
 
-    print(list_images('src'))
-    if os.path.exists('out/.DS_Store'):
-        os.remove('out/.DS_Store')
+    vprint(list_images('src'))
 
-    print('Output:')
-    print(list_images('out'))
+    rm_file('out/.DS_Store')
+    vprint('Output:')
+    vprint(list_images('out'))
 
 
 
 if __name__ == '__main__':
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-S', '--serve', action='store_true')
-    parser.add_argument('-R', '--reset', action='store_true')
-
+    parser = argparse.ArgumentParser(description="Process website images")
+    parser.add_argument('-S', '--serve', action='store_true',
+        help="Serve local output directory on port 5002")
+    parser.add_argument('-R', '--reset', action='store_true',
+        help="Process all existing images as well as new")
+    parser.add_argument('-C', '--compress', action='store_true')
+    parser.add_argument('-V', '--verbose', action='store_true')
     args = parser.parse_args()
 
-    main(full_reset=args.reset)
+    vprint = print if args.verbose else lambda *a: None
+
+    main(reset=args.reset)
+
+    print(args)
+    if args.compress:
+        pass
 
     if args.serve:
         os.chdir('out')
