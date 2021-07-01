@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from website import app, flatpages
-from website.utils import compile_css
+from website.utils import compile_css, cwd
 from website.images import hash_dir_filenames, upload_images
 from flask_minify import minify
 from flask_frozen import Freezer
@@ -53,5 +53,5 @@ if __name__ == '__main__':
         print('No new images to upload')
 
     # Use python builtin server to serve static files based on directory structure
-    os.chdir('website/build')
-    svr.test(HandlerClass=svr.SimpleHTTPRequestHandler, port=5001)
+    with cwd('website/build'):
+        svr.test(HandlerClass=svr.SimpleHTTPRequestHandler, port=5001)

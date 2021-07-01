@@ -5,8 +5,9 @@ import subprocess
 import hashlib
 from PIL import Image
 
-SIZES = [2000, 1800, 1600, 1400, 1200, 800, 400]
+SIZES = [2000, 1600, 1200, 800, 400]
 IMAGES_ROOT = 'website/static/img/'
+
 
 vprint = lambda *a: None
 
@@ -20,11 +21,8 @@ def read_img_dir():
 
 def rm_file(file):
     ''' Remove file at path without exceptions for not found or directory '''
-    if os.path.exists(file):
-        try:
-            os.remove(_)
-        except PermissionError:
-            pass
+    if os.path.exists(file) and os.path.isfile(file):
+        os.remove(file)
 
 def list_images(subdir):
     img_list = [os.path.join(root, file)
@@ -38,10 +36,9 @@ def fsplit(filepath):
     fname, ext = os.path.splitext(file)
     return path, file, fname, ext
 
+
 def test_compression(imfile):
     path, file, fname, ext = fsplit(imfile)
-    print("Entering test_compression:")
-    print(path, file, fname, ext, sep='\n')
 
     with Image.open(imfile) as im:
         preview = im.copy()
@@ -58,7 +55,7 @@ def test_compression(imfile):
     [ os.remove(_) for _ in list_images('tmp') ]
     return qj, qp
 
-def create_thumbnails(imfile, sizes):
+def create_thumbnails(imfile, sizes, q=55):
     ''' Create rezised images from img/new and move original to img/src '''
     path, file, fname, ext = fsplit(imfile)
 
@@ -70,11 +67,11 @@ def create_thumbnails(imfile, sizes):
                 continue
             vprint("Making size: ", size)
             thumb.thumbnail((size, size))
-            thumb.save(f'out/{fname}_{size}.jpg', optimize=True, progressive=True)
-            thumb.save(f'out/{fname}_{size}.webp', method=6)
+            thumb.save(f'out/{fname}_{size}.jpg', quality=q, optimize=True, progressive=True)
+            thumb.save(f'out/{fname}_{size}.webp', quality=q, method=6)
             vprint("Done")
 
-        im.save(f'out/{fname}_{im.width}.jpg', optimize=True, progressive=True)
+        im.save(f'out/{fname}_{im.width}.jpg', quality=q, optimize=True, progressive=True)
         im.save(f'out/{fname}_{im.width}.webp', method=6)
 
         # size descriptor prefeixed by __s to uniquely identify
@@ -106,14 +103,10 @@ def hash_dir_filenames(dir, hashfile):
 # eg hash_dir_filenames('website/static/img/out', 'hash.txt')
 
 def upload_images(dir):
-    cmnd = ['python', '-m', 'pynetlify', 'deploy_folder', '--site-id', 'bd867c99-8ad2-41da-b295-d619581e8079', dir]
+    cmnd = ['python', '-m', 'pynetlify', 'deploy_folder',
+     '--site-id', 'bd867c99-8ad2-41da-b295-d619581e8079', dir]
     res = subprocess.run(cmnd)
     print(res)
     # vprint("Uploaded files:")
     # for file in sorted(os.listdir(dir)):
     #     vprint(file)
-
-#TESTING
-if __name__ == '__main__':
-    os.chdir(IMAGES_ROOT)
-    test_compression('src/2015-BUCS-indoor__s1536x1024.jpg')

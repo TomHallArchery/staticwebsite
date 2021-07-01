@@ -7,12 +7,13 @@ import sys
 import os
 import http.server as svr
 
-def compress(img):
-    if not img:
+def compress(imgpath):
+    if not imgpath:
         return
     vprint('Interactive Compression')
-    path, file, fname, ext = fsplit(img)
-    return test_compression(img)
+    imgpath = os.path.abspath(imgpath)
+    with cwd(IMAGES_ROOT):
+        test_compression(imgpath)
 
 def main(reset=False):
     ''' Process all images in img/new '''
@@ -34,6 +35,7 @@ def main(reset=False):
         vprint("files reset from src to new")
 
     vprint(list_images('new'))
+    # add img:quality dict
     for img in list_images('new'):
         create_thumbnails(img, SIZES)
 
@@ -60,13 +62,13 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     vprint = print if args.verbose else lambda *a: None
-    print(args)
+
 
     compress(args.compress)
 
     with cwd(IMAGES_ROOT):
         main(reset=args.reset)
 
-    if args.serve:
-        os.chdir('out')
-        svr.test(HandlerClass=svr.SimpleHTTPRequestHandler, port=5002)
+        if args.serve:
+            with cwd('out')
+            svr.test(HandlerClass=svr.SimpleHTTPRequestHandler, port=5002)
