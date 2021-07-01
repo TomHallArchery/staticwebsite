@@ -3,13 +3,11 @@
 from website import app, flatpages
 from website.utils import compile_css, cwd
 from website.images import hash_dir_filenames, upload_images
-from flask_minify import minify
 from flask_frozen import Freezer
 from flask import url_for
 import http.server as svr
 import os
 
-minify(app, cssless=False)
 freezer = Freezer(app)
 app.config["FREEZER_DESTINATION_IGNORE"] += []
 app.config["FREEZER_STATIC_IGNORE"] += ['fonts/', 'scss/', 'img/', 'css/', 'favicon/', 'js/']

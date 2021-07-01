@@ -8,8 +8,6 @@ flask = "*"
 flask-flatpages = "*"
 frozen-flask = "*"
 advancedhtmlparser = "*"
-minify-html = "*"
-flask-minify = "*"
 
 [dev-packages]
 fonttools = "*"
