@@ -81,8 +81,7 @@ def create_thumbnails(imfile, sizes, q=55):
 
 def hash_dir_filenames(dir, hashfile):
     ''' Calculates hash of sorted list of files in directory and writes it to hashfile, return True for change in hash '''
-    # Deploy static images output to seperate netlify repo
-    # Automated deploy if any filenames change (not file contents!)
+
     try:
         owd = os.getcwd()
         os.chdir(dir)
@@ -99,8 +98,7 @@ def hash_dir_filenames(dir, hashfile):
         os.chdir(owd)
 
     return new_hash != old_hash
-
-# eg hash_dir_filenames('website/static/img/out', 'hash.txt')
+    # eg hash_dir_filenames('website/static/img/out', 'hash.txt')
 
 def upload_images(dir):
     cmnd = ['python', '-m', 'pynetlify', 'deploy_folder',

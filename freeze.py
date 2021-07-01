@@ -44,7 +44,8 @@ if __name__ == '__main__':
     compile_css('website/static/scss', 'website/build/static/css', compressed=True)
     print("Css recompiled")
 
-    # If dir hash has changed, upload images:
+    # Deploy static images output to seperate netlify repo
+    # Automated deploy if any filenames change (not file contents!)
     if hash_dir_filenames('website/static/img/out', 'hash.txt'):
         print('Uploading images:')
         upload_images('website/static/img/out')
