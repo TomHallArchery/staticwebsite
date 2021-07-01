@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+
+<!--
+select individual svg document:
+import AdvancedHTMLParser as ap
+parser = ap.AdvancedHTMLParser()
+parser.parseFile('path/to/svg')
+
+symbol = parser.getRoot()
+#change tag type
+symbol.tagName = 'symbol'
+symbol.removeAttribute('xmlns')  -->
+
+
+
+<!--
+gold: 254,254,5     #FEFE05
+red: 255,2,2        #FF0202
+blue: 5,246,246,    #05F6F6
+black: 2,2,2        #020202
+white: 250,250,250  #FAFAFA
+-->
+<symbol id="abstract" viewBox="0 0 100 100">
+  <g fill="none" style="stroke:var(--color black)" stroke-width="10">
+    <circle cx="50" cy="50" r="45"></circle>
+    <circle cx="50" cy="50" r="25"></circle>
+    <circle cx="50" cy="50" r="05"></circle>
+  </g>
+</symbol>
+
+
+</svg>

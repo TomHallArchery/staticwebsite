@@ -1,6 +1,5 @@
 from website import app
 import os
-import sys
 import subprocess
 import hashlib
 from PIL import Image, ImageOps
@@ -70,9 +69,6 @@ def create_thumbnails(imfile, sizes, q=55):
             thumb.save(f'out/{fname}_{size}.jpg', quality=q, optimize=True, progressive=True)
             thumb.save(f'out/{fname}_{size}.webp', quality=q, method=6)
             vprint("Done")
-
-        im.save(f'out/{fname}_{im.width}.jpg', quality=q, optimize=True, progressive=True)
-        im.save(f'out/{fname}_{im.width}.webp', method=6)
 
         # size descriptor prefeixed by __s to uniquely identify
         outfile = os.path.join('src', f'{fname}__s{im.width}x{im.height}{ext}')
