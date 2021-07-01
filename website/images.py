@@ -3,7 +3,7 @@ import os
 import sys
 import subprocess
 import hashlib
-from PIL import Image
+from PIL import Image, ImageOps
 
 SIZES = [2000, 1600, 1200, 800, 400]
 IMAGES_ROOT = 'website/static/img/'
@@ -41,7 +41,7 @@ def test_compression(imfile):
     path, file, fname, ext = fsplit(imfile)
 
     with Image.open(imfile) as im:
-        preview = im.copy()
+        preview = ImageOps.exif_transpose(im)
         # Work in tmp directory: if already in img root this will exist
         os.makedirs('tmp', exist_ok=True)
         for q in [85,75,65,55,45,35]:
@@ -61,7 +61,7 @@ def create_thumbnails(imfile, sizes, q=55):
 
     with Image.open(imfile) as im:
         vprint("Loaded image: ", im.filename)
-        thumb = im.copy()
+        thumb = ImageOps.exif_transpose(im)
         for size in sizes:
             if im.width < size:
                 continue
