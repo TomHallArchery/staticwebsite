@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from website import app, flatpages
-from website.utils import compile_css
+from website.utils import compile_css, cwd
 from website.images import hash_dir_filenames, upload_images
 from flask_minify import minify
 from flask_frozen import Freezer
@@ -44,7 +44,8 @@ if __name__ == '__main__':
     compile_css('website/static/scss', 'website/build/static/css', compressed=True)
     print("Css recompiled")
 
-    # If dir hash has changed, upload images:
+    # Deploy static images output to seperate netlify repo
+    # Automated deploy if any filenames change (not file contents!)
     if hash_dir_filenames('website/static/img/out', 'hash.txt'):
         print('Uploading images:')
         upload_images('website/static/img/out')
@@ -53,5 +54,5 @@ if __name__ == '__main__':
         print('No new images to upload')
 
     # Use python builtin server to serve static files based on directory structure
-    os.chdir('website/build')
-    svr.test(HandlerClass=svr.SimpleHTTPRequestHandler, port=5001)
+    with cwd('website/build'):
+        svr.test(HandlerClass=svr.SimpleHTTPRequestHandler, port=5001)
