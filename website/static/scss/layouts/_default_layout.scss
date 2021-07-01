@@ -28,7 +28,7 @@ body {
     }
     /* medium */
     /* 85ch ~ 680px */
-    @media screen and (min-width: $bp-medium) {
+    @media screen and (min-width: $bp-small) {
       padding: 1rem 2rem;
     }
   }
@@ -58,6 +58,13 @@ body {
     grid-area: footer;
   }
 }
+
+main > * {
+  /* Readable line length */
+  max-width: 60ch;
+  margin: auto;
+}
+
 /* large tablet/small laptop + */
 /* 110ch ~ 880px */
 @media screen and (min-width: $bp-large) {
@@ -98,10 +105,14 @@ body {
       padding-right: $page_gutter;
     }
 
-    #site_footer {
+    .site_footer {
       padding-left: $page_gutter;
       padding-right: $page_gutter;
     }
+  }
+
+  main > * {
+    max-width: 70ch;
   }
 }
 @media screen and (min-width: $bp-xlarge) {
