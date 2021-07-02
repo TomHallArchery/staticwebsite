@@ -135,7 +135,7 @@ def serve_article(path_requested):
 
 # URL Routing - Flat Pages
 # Retrieves the page specified by the url /path_requested
-@app.route("/<path_requested>/")
+@app.route("/page/<path_requested>/")
 def serve_page(path_requested):
 
     flatpage = flatpages.get_or_404(path_requested)

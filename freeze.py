@@ -4,12 +4,12 @@ from website import app, flatpages
 from website.utils import compile_css, cwd
 from website.images import hash_dir_filenames, upload_images
 from flask_frozen import Freezer
-from flask import url_for
+from flask import url_for, render_template
 import http.server as svr
 import os
 
 freezer = Freezer(app)
-app.config["FREEZER_DESTINATION_IGNORE"] += []
+app.config["FREEZER_DESTINATION_IGNORE"] += ['404.html']
 app.config["FREEZER_STATIC_IGNORE"] += ['fonts/', 'scss/', 'img/', 'css/', 'favicon/', 'js/']
 
 # Manually add fonts to list to incorporate into freezer
@@ -28,6 +28,11 @@ def fonts():
         print(path)
         yield url_for('static', filename=path)
 
+#Frozen flask issue: have to manually build the 404 error page for use by server
+with app.test_request_context():
+    error_page = render_template('generic/404.html.j2')
+    with open('website/build/404.html', 'w') as f:
+        f.write(error_page)
 
 if __name__ == '__main__':
     print("Building website:")

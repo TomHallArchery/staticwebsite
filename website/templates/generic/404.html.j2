@@ -1,6 +1,12 @@
 {% extends "base/base.html.j2" %}
 
-{% block body %}
+{% block head_styles %}
+  {{super()}}
+  {{ m.link_style('css/styles.css')}}
+
+{% endblock %}
+
+{% block content %}
 <main id="page_body">
   <h1>The page you requested could not be found!</h1>
   <h2><a href="/">Return Home</a></h2>
