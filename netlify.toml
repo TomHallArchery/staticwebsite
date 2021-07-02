@@ -1,0 +1,7 @@
+[build]
+  ignore = "exit 0"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self';"
