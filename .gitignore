@@ -12,5 +12,8 @@ website/static/img/
 # Ignore static/css: scss source and comipiled css already tracked on git
 website/static/css
 
+# Ignore build output (deploy directly from cli)
+website/build
+
 # Local Netlify folder
 .netlify
