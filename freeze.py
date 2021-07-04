@@ -3,13 +3,14 @@
 from website import app, flatpages
 from website.utils import compile_css, cwd
 from website.images import hash_dir_filenames, upload_images
+from webssite.errors import render_404
 from flask_frozen import Freezer
 from flask import url_for, render_template
 import http.server as svr
 import os
 
 freezer = Freezer(app)
-app.config["FREEZER_DESTINATION_IGNORE"] += ['404.html']
+app.config["FREEZER_DESTINATION_IGNORE"] += ['404.html', '_headers']
 app.config["FREEZER_STATIC_IGNORE"] += ['fonts/', 'scss/', 'img/', 'css/', 'favicon/', 'js/']
 
 # Manually add fonts to list to incorporate into freezer
@@ -29,20 +30,22 @@ def fonts():
         yield url_for('static', filename=path)
 
 #Frozen flask issue: have to manually build the 404 error page for use by server
-with app.test_request_context():
-    error_page = render_template('generic/404.html.j2')
-    with open('website/build/404.html', 'w') as f:
-        f.write(error_page)
+def build_404():
+    with app.test_request_context():
+        error_page = render_404()
+        with open('website/build/404.html', 'w') as f:
+            f.write(error_page)
 
-if __name__ == '__main__':
+
+
+def main():
     print("Building website:")
     # print(app.config)
     # TODO: check font files exist and compile with pyftsubset
-
+    build_404()
     # Freeze static files into default directory 'build'
     freezer.freeze()
     print("Website frozen")
-
 
     compile_css('website/static/scss', 'website/build/static/css', compressed=True)
     print("Css recompiled")
@@ -59,3 +62,8 @@ if __name__ == '__main__':
     # Use python builtin server to serve static files based on directory structure
     with cwd('website/build'):
         svr.test(HandlerClass=svr.SimpleHTTPRequestHandler, port=5001)
+
+
+
+
+if __name__ == '__main__':
