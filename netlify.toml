@@ -4,4 +4,19 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    Content-Security-Policy = "default-src 'self';"
+    test_toml = "True"
+    Content-Security-Policy = """
+    default-src 'self';
+    script-src 'self';
+    style-src 'self' 'unsafe-inline';
+    font-src 'self';
+    img-src 'self' cdn.tomhallarchery.com;
+    prefetch-src 'self' cdn.tomhallarchery.com;
+    object-src 'none';
+    frame-ancestors 'none';
+    frame-src 'none';
+    base-uri 'none'
+      """
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains"
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
