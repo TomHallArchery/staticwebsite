@@ -9,13 +9,11 @@
   <link rel="prefetch" href="{{ url_for('static', filename='fonts/Roboto_Slab/RobotoSlab-VariableFont_wght-Latin.woff2') }}" as="font" type="font/woff2" crossorigin>
 {% endblock %}
 
-{% block nav %}
-{% endblock %}
+{%- block nav -%}
+{%- endblock %}
 
-{% block header %}
-{#
+{%- block header -%}
 
-#}
   <header id="site_header" class="hero">
   {% filter responsive_images(img_layout, img_url) %}
     <picture>
@@ -29,20 +27,20 @@
       width="2000"
       height="2000">
     </picture>
-{% endfilter %}
+  {% endfilter %}
     <nav class="site_nav">
       {% include "base/nav.html.j2" %}
     </nav>
 
   </header>
 
-{% endblock %}
+{%- endblock %}
 
 
 
-{% block content %}
-{% endblock content %}
+{%- block content -%}
+{%- endblock content %}
 
 
-{% block footer %}
-{% endblock %}
+{%- block footer -%}
+{%- endblock %}

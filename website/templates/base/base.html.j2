@@ -11,14 +11,15 @@
   <meta charset="utf-8">
   <link rel="dns-prefetch" href="//cdn.tomhallarchery.com">
 
+  <!-- Meta -->
   <title>{{ title | title }} | Tom Hall Archery </title>
   {{ m.meta("description",  description ) }}
   {{ m.meta("keywords",  keywords ) }}
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#D70A53" />
-  {% block head_meta %}
-  {% endblock %}
+  {%- block head_meta -%}
+  {%- endblock %}
 
 
   <!-- favicon -->
@@ -30,15 +31,15 @@
 
 
   <!-- fonts -->
-  {% block head_fonts %}
+  {%- block head_fonts -%}
   <link rel="preload" href="{{ url_for('static', filename='fonts/Roboto_Slab/RobotoSlab-VariableFont_wght-Latin.woff2') }}" as="font" type="font/woff2" crossorigin>
-  {% endblock %}
+  {%- endblock %}
 
 
   <!-- styles -->
-  {% block head_styles %}
+  {%- block head_styles -%}
   {{ m.link_style('css/colors.css')}}
-  {% endblock %}
+  {%- endblock %}
 
 
   <!-- js -->
