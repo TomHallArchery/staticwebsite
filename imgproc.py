@@ -1,5 +1,4 @@
-from website import app
-from website.utils import cwd
+from website import app, utils
 from website.images import *
 
 import argparse
@@ -62,8 +61,7 @@ def main():
         vprint(list_images('out'))
 
         if args.serve:
-            with cwd('out'):
-                svr.test(HandlerClass=svr.SimpleHTTPRequestHandler, port=5002)
+            utils.serve_static('out', 5002)('out')
 
 if __name__ == '__main__':
     main()

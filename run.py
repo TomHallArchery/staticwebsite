@@ -1,5 +1,7 @@
 #!/usr/bin/env python
+
 from website import app, flatpages, utils, images
+import subprocess
 
 app.config['ENV'] = 'DEVELOPMENT'
 app.config['DEBUG'] = True
@@ -42,3 +44,8 @@ if __name__ == '__main__':
 
     pprint("LOG")
     app.run(debug=True)
+
+    freeze = input('Freeze application? (y/n): ')
+    if freeze.lower() == 'y':
+        cmd = ["python", "-m", "freeze"]
+        subprocess.run(cmd)
