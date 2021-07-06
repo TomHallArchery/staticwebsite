@@ -1,23 +1,33 @@
 @use "../vars" as *;
-
+@use "sass:color";
 
 /* Site_nav styling */
-$color-active: white;
+$c-theme: $col-Rb;
+$c-active: white;
+
+$c-normal: color.mix($c-active, $c-theme, $weight: 90%);
+
+$c-shadow: color.scale($c-theme, $lightness: -60%);
+$c-tint: color.scale($c-theme, $lightness: 10%);
+$c-shade: color.scale($c-theme, $lightness: -10%);
+$c-highlight: color.scale($c-theme, $lightness: 40%);
+
 
 .site_nav {
-  --color-active: #{$color-active};
-  --color-theme: var(--Li-pur);
-  background-color: var(--color-theme);
-  /* background: linear-gradient(
-    var(--color-theme) 95%,
-    transparent,
-    ); */
-  color: var(--greys-l4);
+  --c-active: #{$c-active};
+  --c-theme: #{$c-theme};
+  background-color: $c-theme;
+  background-image: linear-gradient(
+    $c-tint 5%,
+    $c-theme 50%,
+    $c-shade 95%
+    );
+  color: $c-normal;
   font-family: "PublicSans", Tahoma, Arial, sans-serif;
-  text-shadow: 0 0 8px var(--Li-blk);
   align-items: center;
   display: flex;
   flex-wrap: wrap;
+  // font-size: 1.125em;
 
   /* left part: header/home link */
   h2 {
@@ -29,7 +39,7 @@ $color-active: white;
     display: none;
     flex-direction: column;
     flex-basis: 100vw;
-    font-weight: 200;
+    font-weight: 250;
     margin-left: auto;
     padding: 0;
   }
@@ -47,27 +57,35 @@ $color-active: white;
     color: inherit;
     padding: 5px;
     text-decoration: none;
+    text-shadow:
+      1px 1px 2px $c-shadow,
+      ;
+      // -1px -1px 1px #ddd2;
+    transition: all 150ms ease-in-out;
     /* refactor to a ::before/::after pseudo element rather than border */
     &:hover,
     .u-hover {
       border-width: 3px 0;
       border-style: solid;
-      border-color: $color-active;
+      border-color: $c-active;
       border-image-source:
         linear-gradient(
           to right,
           transparent,
-          $color-active,
+          $c-active,
           transparent
         );
       border-image-slice: 1;
-      color: $color-active;
+      color: $c-active;
       opacity: revert; // revert default link opacity styling
       text-decoration: none;
+      text-shadow:
+        1px 1px 3px $c-shadow,
+        ;
     }
 
     &:focus-visible {
-      color: $color-active;
+      color: $c-active;
       outline: 1px solid currentColor;
       /* outline-offset: 3px; */
       box-shadow:
@@ -75,7 +93,7 @@ $color-active: white;
     }
 
     &:active {
-      background-color: var(--Li-wht);
+      background-color: $c-highlight;
       // box-shadow: revert;
     }
 
@@ -86,9 +104,6 @@ $color-active: white;
 /* Nav needs to collapse again at medium breakpoint ~660px with current links */
 @media screen and (min-width: $bp-small) {
   .site_nav {
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
 
     ul {
       display: flex;
@@ -112,8 +127,6 @@ $color-active: white;
 
 @media screen and (min-width: $bp-medium) {
   .site_nav {
-    ul {
-      font-size: 1.125em;
-    }
+    font-size: 1.125em;
   }
 }
