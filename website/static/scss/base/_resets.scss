@@ -14,11 +14,11 @@ a {
 } */
 a {
   &:link {
-    color: var(--Li-pur);
+    color: $c-theme;
   }
 
   &:visited {
-    color: var(--Li-blk);
+    color: $c-theme-shadow;
   }
 
   &:hover {
@@ -27,11 +27,11 @@ a {
   }
 
   &:focus {
-    outline: 2px dotted var(--Li-wht);
+    outline: 2px dotted $c-theme-highlight;
   }
 
   &:active {
-    background-color: var(--Li-wht);
+    background-color: $c-theme-highlight;
     color: white;
     opacity: revert;
     outline: none;

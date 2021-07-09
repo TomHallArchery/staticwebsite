@@ -1,28 +1,14 @@
 @use "../vars" as *;
 @use "sass:color";
 
-/* Site_nav styling */
-$c-theme: $col-Rb;
-$c-active: white;
-
-$c-normal: color.mix($c-active, $c-theme, $weight: 90%);
-
-$c-shadow: color.scale($c-theme, $lightness: -60%);
-$c-tint: color.scale($c-theme, $lightness: 10%);
-$c-shade: color.scale($c-theme, $lightness: -10%);
-$c-highlight: color.scale($c-theme, $lightness: 40%);
-
-
 .site_nav {
-  --c-active: #{$c-active};
-  --c-theme: #{$c-theme};
   background-color: $c-theme;
   background-image: linear-gradient(
-    $c-tint 5%,
+    $c-theme-tint 5%,
     $c-theme 50%,
-    $c-shade 95%
+    $c-theme-shade 95%
     );
-  color: $c-normal;
+  color: $c-active-off;
   font-family: "PublicSans", Tahoma, Arial, sans-serif;
   align-items: center;
   display: flex;
@@ -58,7 +44,7 @@ $c-highlight: color.scale($c-theme, $lightness: 40%);
     padding: 5px;
     text-decoration: none;
     text-shadow:
-      1px 1px 2px $c-shadow,
+      1px 1px 2px $c-theme-shadow,
       ;
       // -1px -1px 1px #ddd2;
     transition: all 150ms ease-in-out;
@@ -80,7 +66,7 @@ $c-highlight: color.scale($c-theme, $lightness: 40%);
       opacity: revert; // revert default link opacity styling
       text-decoration: none;
       text-shadow:
-        1px 1px 3px $c-shadow,
+        1px 1px 3px $c-theme-shadow,
         ;
     }
 
@@ -93,7 +79,7 @@ $c-highlight: color.scale($c-theme, $lightness: 40%);
     }
 
     &:active {
-      background-color: $c-highlight;
+      background-color: $c-theme-highlight;
       // box-shadow: revert;
     }
 

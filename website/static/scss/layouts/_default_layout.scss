@@ -40,11 +40,12 @@ body {
 
   > main {
     grid-area: main;
+    background-color: $c-theme-grey-950;
   }
 
   > aside {
     grid-area: aside;
-    background-color: var(--greys-l4);
+    background-color: $c-theme-grey-900;
   }
 
   > nav.site_nav {
@@ -54,8 +55,13 @@ body {
   }
 
   .site_footer {
-    background-color: var(--Li-pur);
-    color: white;
+    background-color: $c-theme;
+    background-image: linear-gradient(
+      $c-theme-tint 5%,
+      $c-theme 50%,
+      $c-theme-shade 95%
+      );
+    color: $c-active;
     grid-area: footer;
   }
 }
@@ -73,7 +79,7 @@ main > * {
 
   body {
     // align-items: start;
-    background-color: var(--greys-l4);
+    background-color: $c-theme-grey-900;
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: auto auto minmax(100vh, 1fr) auto;
@@ -90,7 +96,6 @@ main > * {
     }
 
     > main {
-      background-color: white;
       margin-left: $page_gutter;
       // min-height: 100%;
     }
