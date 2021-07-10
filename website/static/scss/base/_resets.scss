@@ -54,7 +54,7 @@ form {
 }
 
 form :is(input, textarea):focus {
-  outline-color: var(--Na-pur);
+  // outline-color: c-color(Na);
 }
 
 h1:first-of-type {
@@ -107,7 +107,7 @@ input {
 
 input,
 textarea {
-  border: 1px solid var(--greys-l2);
+  border: 1px solid c-neutral(600);
   border-radius: 4px;
   font-family: inherit;
   font-size: inherit;

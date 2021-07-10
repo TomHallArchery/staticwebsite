@@ -2,6 +2,7 @@
 
 from website import app, flatpages, utils, images
 import subprocess
+from time import sleep
 
 app.config['ENV'] = 'DEVELOPMENT'
 app.config['DEBUG'] = True
@@ -44,6 +45,7 @@ if __name__ == '__main__':
 
     pprint("LOG")
     app.run(debug=True)
+    sleep(0.5)
 
     freeze = input('Freeze application? (y/n): ')
     if freeze.lower() == 'y':

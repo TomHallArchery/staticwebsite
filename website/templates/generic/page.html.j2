@@ -1,9 +1,7 @@
 {% extends "base/base.html.j2" %}
 
 {% block head_styles %}
-  {{super()}}
   {{ m.link_style('css/styles.css')}}
-
 {% endblock %}
 
 {% block content -%}
@@ -21,7 +19,7 @@
   </section>
 
   {% block extra_content -%}
-    <!-- for extra content not controlled by flatpage -->
+    {# for extra content not controlled by flatpage #}
   {%- endblock %}
 
 

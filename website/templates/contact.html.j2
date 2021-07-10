@@ -1,4 +1,19 @@
-{% extends "generic/page.html.j2" %}
+{% extends "base/base.html.j2" %}
+
+{% block head_styles %}
+  {{ m.link_style('css/styles.css')}}
+{% endblock %}
+
+{% block content %}
+<main id="page_body">
+
+  <section>
+    
+  {% block page_heading -%}
+  <h1>{{ title | title }}</h1>
+  {%- endblock %}
+
+  <p>Hey there, if you want to get in touch you can just send me a message on this form!</p>
 
 {% block extra_content -%}
   <form class="contact-form" id="contact-form" name="contact" action="" method="post" netlify netlify-honeypot="title">
@@ -22,6 +37,10 @@
   </form>
 {%- endblock %}
 
+  </section>
+</main>
+
 {% block side_content %}
 {% endblock %}
-<!--  -->
+
+{%- endblock content %}
