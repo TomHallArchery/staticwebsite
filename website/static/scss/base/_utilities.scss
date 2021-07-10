@@ -2,26 +2,22 @@
 /* *** */
 /* Utilitiies */
 /* *** */
-.red {
-  color: red;
-}
-
-.notop {
+.u-notop {
   margin-top: 0;
 }
 
-.hidden {
+.u-none {
   display: none !important;
 }
 
-.icon {
+.u-icon {
   --scale: 1em;
   display: inline-block;
   width: var(--scale);
   height: var(--scale);
 
   &--colored {
-    @extend .icon;
+    @extend .u-icon;
     --stroke-color: black;
     --fill-color: black;
     stroke: var(--stroke-color);
@@ -29,13 +25,23 @@
   }
 }
 
-.resize {
+.u-resize {
   resize:both;
   overflow:auto;
 }
 
 @each $name, $c in $c-colors {
-  .color-#{$name} {
+  .u-color-#{$name} {
     color: $c;
+  }
+  .u-bg-#{$name} {
+    background-color: $c;
+  }
+}
+
+@each $label, $params in $c-neutrals {
+  $g: neutral($label, $c-theme-hue);
+  .u-bg-grey-#{$label} {
+    background-color: $g;
   }
 }

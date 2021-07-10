@@ -62,7 +62,7 @@ h1:first-of-type {
 }
 
 @include headings {
-  color: var(--greys-d3);
+  color: c-neutral(200, $c-theme-hue);
 }
 
 h1{font-size:1.5em}
@@ -129,5 +129,5 @@ textarea {
 }
 
 p {
-  color: var(--greys-d4);
+  color: c-neutral(100, $c-theme-hue);
 }

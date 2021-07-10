@@ -14,6 +14,7 @@ DEFAULT_IMG_DISPLAY_WIDTHS = {'60vw': 'min-width: 110ch', '95vw': None}
 DEFAULT_IMG_WIDTH = '1200'
 PRIMARY_IMG_FORMAT = 'jpg'
 SECONDARY_IMG_FORMAT = 'webp'
+TEST=False
 
 
 @app.before_request
@@ -144,3 +145,8 @@ def serve_page(path_requested):
         side=flatpages.get('sidebar'),
         **flatpage.meta
         )
+
+if TEST:
+    @app.route("/test/")
+    def serve_test():
+        return flask.render_template('generic/test.html.j2')

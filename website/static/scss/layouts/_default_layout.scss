@@ -40,12 +40,12 @@ body {
 
   > main {
     grid-area: main;
-    background-color: $c-theme-grey-950;
+    background-color: c-neutral(950);
   }
 
   > aside {
     grid-area: aside;
-    background-color: $c-theme-grey-900;
+    background-color: c-neutral(900);
   }
 
   > nav.site_nav {
@@ -79,7 +79,7 @@ main > * {
 
   body {
     // align-items: start;
-    background-color: $c-theme-grey-900;
+    background-color: c-neutral(900);
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: auto auto minmax(100vh, 1fr) auto;

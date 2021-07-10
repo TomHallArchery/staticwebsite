@@ -1,0 +1,31 @@
+{% extends "generic/page.html.j2" %}
+
+
+{% block head_styles %}
+  {{super()}}
+  <style>
+  main {background-color: #888 !important;}
+  aside {background-color: #eee !important;}
+  </style>
+{% endblock %}
+
+{% block page_content %}
+  <h1>Color test</h1>
+  <ol style="padding: 100px;" reversed>
+    <li class="_grey-950"></li>
+    <li class="_grey-900"></li>
+    <li class="_grey-800"></li>
+    <li class="_grey-700"></li>
+    <li class="_grey-600"></li>
+    <li class="_grey-500"></li>
+    <li class="_grey-400"></li>
+    <li class="_grey-300"></li>
+    <li class="_grey-200"></li>
+    <li class="_grey-100"></li>
+    <li class="_grey-50"></li>
+  </ol>
+{% endblock %}
+
+{% block side_content %}
+
+{% endblock %}

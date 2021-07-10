@@ -1,5 +1,9 @@
 @use "sass:map";
 @use "sass:color";
+@use "sass:math";
+
+// CONFIG
+$test: null;
 
 // set base colors
 $colors: (
@@ -17,31 +21,87 @@ $colors: (
   Mn: #6A4992
 );
 
-$neutrals: (
+@function color($name){
+  @return map.get($colors, $name);
+}
 
+$neutrals: (
+  950: (lgt: 98%, sat: 10%),
+  900: (lgt: 95%, sat: 8%),
+  800: (lgt: 90%, sat: 3%),
+  700: (lgt: 85%, sat: 1.5%),
+  600: (lgt: 70%, sat: 1%),
+  500: (lgt: 50%, sat: 0.5%),
+  400: (lgt: 37%, sat: 1.5%),
+  300: (lgt: 25%, sat: 2.5%),
+  200: (lgt: 13%, sat: 8%),
+  100: (lgt: 08%, sat: 20%),
+  50: (lgt: 04%, sat: 70%),
 );
 
+@function neutral($value: 500, $hue: null) {
+  $v: map.get($neutrals, $value);
+  $lgt: map.get($v, lgt);
+  @if $hue {
+    $sat: map.get($v, sat);
+    $grey: hsl($hue, $sat, $lgt);
+    @return $grey /* "grey-#{500}" */;
+  }
+  @else {
+    $grey: hsl(0deg, 0%, $lgt);
+    @return $grey;
+  }
 
-// themeing
-$theme: map.get($colors, Li);
-$active: white;
-
-@function theme($c) {
-  @return map.get($theme, $c)
 };
 
+// @debug neutral();
+// @debug neutral(200);
+// @debug neutral(800);
+// @debug neutral(800, color.hue(color(Li)));
+// @debug neutral(800, color.hue(color(Co)));
 
-$active-off: color.mix($active, $theme, $weight: 90%);
+// themeing
+$theme: color(Li);
+$active: white;
+
+$theme-hue: color.hue($theme);
+$theme-sat: color.saturation($theme);
+$theme-lgt: color.lightness($theme);
 
 // Theme color variants
+$active-off: neutral(900);
+
 $theme-shadow: color.scale($theme, $lightness: -60%);
 $theme-shade: color.scale($theme, $lightness: -10%);
 $theme-tint: color.scale($theme, $lightness: 10%);
 $theme-highlight: color.scale($theme, $lightness: 40%);
 
-// Naming??
-$theme-bg: color.mix(#fff, $theme, $weight: 99%);
-$theme-grey-950: color.mix(#f8f8f8, $theme, $weight: 99%);
-$theme-grey-900: color.mix(#eee, $theme, $weight: 99%);
-$theme-grey-500: color.mix(#888, $theme, $weight: 99%);
-$theme-grey-100: color.mix(#222, $theme, $weight: 99%);
+
+
+
+
+@if $test {
+  @each $label, $params in $neutrals {
+    $g: neutral($label, $theme-hue);
+
+    ._grey-#{$label} {
+      background-color: $g;
+      width: 200px;
+      height: 100px;
+      position: relative;
+
+      &::before {
+        content: "";
+        width: 100px;
+        height: 100px;
+        display: inline-block;
+        background-color: color.grayscale($g);
+      }
+
+      &::marker {
+        content: "#{$label}";
+        margin-right: 2em;
+      }
+    }
+  }
+}
