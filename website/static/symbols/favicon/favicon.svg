@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   viewBox="0 0 100 100">
+  <title>Site Icon</title>
+
+  <style>
+    text {font: bold 60px "PublicSans", sans-serif;}
+  </style>
+
+  <defs>
+    <linearGradient id="grd" gradientTransform="rotate(90)">
+      <stop offset="5%"  stop-color="#f20b5e" />
+      <stop offset="95%" stop-color="#c2094b" />
+    </linearGradient>
+  </defs>
+<!-- #d70a53 url('#grd')-->
+  <rect x="0" y="0" width="100" height="100" rx="25" ry="20"
+    fill="url('#grd')"/>
+  <text x="5" y="75" fill="#FAFAFA"  textLength="95" lengthAdjust="spacingAndGlyphs">TH</text>
+
+</svg>
