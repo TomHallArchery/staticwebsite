@@ -17,6 +17,7 @@ website/static/css
 website/build
 tmp.css
 tmp.css.map
+tmp/
 
 # Local Netlify folder
 .netlify
