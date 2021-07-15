@@ -1,11 +1,17 @@
+@use "../vars" as *;
+
 /* *** */
 /* Global Styles */
 /* *** */
 html {
   box-sizing: border-box;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 350;
   line-height: 1.5;
+
+  @media screen and (min-width: $bp-medium) {
+    font-size: 20px;
+  }
 }
 /* *** */
 /* Element spacing */

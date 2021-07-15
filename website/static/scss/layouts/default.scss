@@ -67,8 +67,8 @@ body {
 }
 
 main > * {
-  /* Readable line length */
-  max-width: 60ch;
+  /* Readable line length: ~2 characters in body text per rem */
+  max-width: 30rem;
   margin: auto;
 }
 
@@ -117,9 +117,6 @@ main > * {
     }
   }
 
-  main > * {
-    max-width: 70ch;
-  }
 }
 @media screen and (min-width: $bp-xlarge) {
   body {
