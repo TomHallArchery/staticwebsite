@@ -2,9 +2,11 @@
   <h2><a href="/">TomHallArchery</a></h2>
   <button class="hamburger hidden"><span class=""></span></button>
   <ul class="open">
+    {#
     <li><a href={{ url_for('sponsors_page')}}>Sponsors</a></li>
     <li><a href={{ url_for('results_page')}}>Results</a></li>
-    <li><a href={{ url_for('articles_page')}}>Articles</a></li>
+    #}
+    <li><a href={{ url_for('serve_articles_index')}}>Articles</a></li>
     <li><a href={{ url_for('contact_page')}}>Contact</a></li>
   </ul>
 

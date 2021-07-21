@@ -114,12 +114,12 @@ def contact_page():
         **contact.meta)
 
 @app.route('/articles/')
-def articles_page():
+def serve_articles_index():
     # Selects posts with a PATH starting with wpexport/_posts
-    posts = utils.filter_pages(WP_POSTS_DIR)
+    wp_posts = utils.filter_pages(WP_POSTS_DIR)
     return flask.render_template('articles/index.html.j2',
         title="Articles",
-        pages=posts
+        pages=wp_posts
         )
 
 @app.route("/articles/<path:path_requested>/")

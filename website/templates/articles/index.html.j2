@@ -4,13 +4,16 @@
 
 <!-- archived articles -->
 <main id="page_body">
+  <h1>Articles</h1>
+
   <details open>
     <summary>
-      <h1>Archived Articles</h1>
+      <h2>Archived Articles</h2>
     </summary>
+    <p>From my old blog 2016-2018</p>
     <ul class="decorated">
       {% for page in pages %}
-      <li><a href="{{ url_for('serve_article', path_requested=page.path | replace('articles/','')) }}">
+      <li><a href="{{ page.meta.link }}">
           {{ page.meta.title | safe }}
         </a></li>
       {% endfor %}
@@ -20,13 +23,6 @@
 
 <aside id="page_sidebar">
   {% block side_content %}
-    <h3>Test sidebar</h3>
-    <ol>
-      <li>Extra Articles</li>
-      <li>Extra Articles</li>
-      <li>Extra Articles</li>
-      <li>Extra Articles</li>
-    </ol>
   {% endblock %}
 </aside>
 
