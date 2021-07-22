@@ -69,7 +69,8 @@ body {
 main > * {
   /* Readable line length: ~2 characters in body text per rem */
   max-width: 30rem;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* large tablet/small laptop + */
