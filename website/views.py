@@ -58,7 +58,7 @@ def responsive_images(html, conditions, img_url, wrap_picture=False):
 
             if wrap_picture:
                 picture = parser.createElement('picture')
-                source = parser.createElement('source')
+                source = parser.createElementFromHTML('<source />')
                 parent = img.parentElement
 
                 parent.removeChild(img)
