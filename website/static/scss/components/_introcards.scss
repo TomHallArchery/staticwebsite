@@ -1,0 +1,21 @@
+@use "../vars" as *;
+
+.intro-card {
+  // border: 1px solid green;
+  max-width: none;
+  padding: 0 max(1em, calc(50vw - 15em)); /* max width of content is 30em */
+
+  &:nth-child(odd) {
+    background-color: c-neutral(800);
+  }
+  &:nth-child(even) {
+    background-color: c-neutral(700);
+  }
+
+  &-img {
+    width: 100%;
+    object-fit: cover;
+    aspect-ratio: 1/1;
+    clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+  }
+}
