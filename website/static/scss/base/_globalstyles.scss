@@ -33,6 +33,7 @@ li+li {
 }
 
 nav li+li,
-source+img {
+source+img,
+:is(div, main, header, nav, section, article, footer) {
   margin-top: 0;
 }

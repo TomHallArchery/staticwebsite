@@ -4,23 +4,10 @@
 header.hero {
   padding: 0;
   margin-top:0;
-  background-color: black; // match hero img
   display: grid;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: auto 1fr;
   height: 100vh;
   max-height: 100vh;
-
-
-  picture {
-    overflow-y: hidden;
-  }
-
-  img {
-    // override default height of auto
-    // max width 100% still inherited from default styles
-    height: 100%;
-    object-fit: cover;
-  }
 
   nav {
     padding-top: 1rem;
@@ -31,5 +18,58 @@ header.hero {
     //   var(--color-theme) 0.25rem,
     //   );
     z-index: 3;
+  }
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  width: 100%;
+  // position: relative;
+  overflow: hidden;
+
+
+  &-img {
+    height: 100%;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    grid-row: 1;
+    background-color: c-neutral(600);
+    background-size: cover;
+    transform: scale(1.1);
+    transition: all 250ms ease-in-out;
+
+    &:hover {
+      z-index: 2;
+      transform: scale(1.2);
+      filter: brightness(0.65);
+
+    }
+
+    &--1 {
+      @extend .intro-img;
+      // background-color: red;
+      background-image: url("/static/img/new/muddy-lausanne-practice.jpg");
+      background-position: center;
+      grid-column: 1 / span 2;
+      clip-path: polygon(0% 0%, 100% 0%, 90% 100%, 0% 100%);
+    }
+    &--2 {
+      @extend .intro-img;
+      // background-color: orange;
+      background-image: url("/static/img/new/sunny-woodland-field.jpg");
+      background-position: 20%;
+      grid-column: 3 / span 2;
+      clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+      z-index: 1;
+    }
+    &--3 {
+      @extend .intro-img;
+      // background-color: yellow;
+      background-image: url("/static/img/new/skiddaw-landscape.jpg");
+      background-position: 45%;
+      grid-column: 5 / span 2;
+      clip-path: polygon(10% 0%, 100% 0%, 100% 100%, 0% 100%);
+    }
   }
 }
