@@ -1,3 +1,43 @@
+@use "vars" as *;
+@use "components";
 // Site nav: built from nav components
 
-// Banner slants: built from img slants
+//Intro Banner:
+// Built from img slants inside grid layout
+.slant-banner {
+  display: grid; /* implicit grid placement works here */
+  width: 100%;
+  overflow: hidden;
+
+
+  &__img {
+    @extend %c-slant-img;
+    // fill space of grid cell
+    height: 100%;
+    // prevent overflow outside of grid
+    margin-top: 0;
+    // force placement on same row
+    grid-row: 1;
+    // specific styling
+    background-color: c-neutral(600);
+    transform: scale(1.1);
+    transition: all 250ms ease-in-out;
+    // customisation based on individual image
+    object-position: var(--obj-pos, center);
+
+    &:hover {
+      // specific styling
+      z-index: 2;
+      transform: scale(1.2);
+      filter: brightness(0.65);
+    }
+    &:first-child {
+      @include clip-stripe-r($left:0);
+    }
+    &:last-child {
+      @include clip-stripe-r($right:0);
+    }
+
+  }
+
+}
