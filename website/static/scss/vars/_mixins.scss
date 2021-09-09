@@ -4,3 +4,11 @@
         @content;
     }
 }
+
+@mixin clip-stripe-r($left: 1, $right: 1) {
+  clip-path: polygon(($left * 10%) 0%, 100% 0%, 100% - ($right * 10%) 100%, 0% 100%);
+}
+
+@mixin clip-stripe-l {
+  clip-path: polygon(0% 0%, 90% 0%, 100% 100%, 10% 100%);
+}

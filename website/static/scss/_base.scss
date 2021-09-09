@@ -235,7 +235,7 @@ p {
 }
 
 @each $label, $params in $c-neutrals {
-  $g: neutral($label, $c-theme-hue);
+  $g: c-neutral($label, $c-theme-hue);
   .u-bg-grey-#{$label} {
     background-color: $g;
   }
