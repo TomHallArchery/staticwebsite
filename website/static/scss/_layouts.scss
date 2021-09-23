@@ -1,6 +1,134 @@
 @use "vars" as *;
+@use "sass:color";
+@use "sass:math";
 @use "components";
+
 // Site nav: built from nav components
+.site_nav {
+  background-color: $c-theme;
+  background-image: linear-gradient(
+    $c-theme-tint 5%,
+    $c-theme 50%,
+    $c-theme-shade 95%
+    );
+  color: $c-active-off;
+  font-family: "PublicSans", Tahoma, Arial, sans-serif;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  // font-size: 1.125em;
+
+  /* left part: header/home link */
+  h2 {
+    color: inherit;
+  }
+
+  /* right part: nav links */
+  ul {
+    display: none;
+    flex-direction: column;
+    flex-basis: 100vw;
+    font-weight: 250;
+    margin-left: auto;
+    padding: 0;
+  }
+
+  ul.open {
+    display: flex;
+  }
+
+  li {
+    display: block; //not list item
+    line-height: 2em;
+  }
+
+  a {
+    color: inherit;
+    padding: 5px;
+    text-decoration: none;
+    text-shadow:
+      1px 1px 2px $c-theme-shadow,
+      ;
+      // -1px -1px 1px #ddd2;
+    transition: all 150ms ease-in-out;
+    /* refactor to a ::before/::after pseudo element rather than border */
+    &:hover,
+    .u-hover {
+      border-width: 3px 0;
+      border-style: solid;
+      border-color: $c-active;
+      border-image-source:
+        linear-gradient(
+          to right,
+          transparent,
+          $c-active,
+          transparent
+        );
+      border-image-slice: 1;
+      color: $c-active;
+      opacity: revert; // revert default link opacity styling
+      text-decoration: none;
+      text-shadow:
+        1px 1px 3px $c-theme-shadow,
+        ;
+    }
+
+    &:focus-visible {
+      color: $c-active;
+      outline: 1px solid currentColor;
+      /* outline-offset: 3px; */
+      box-shadow:
+        0 0 2px 4px currentColor;
+    }
+
+    &:active {
+      background-color: $c-theme-highlight;
+      // box-shadow: revert;
+    }
+
+  }
+
+}
+
+/* Nav needs to collapse again at medium breakpoint ~660px with current links */
+@media screen and (min-width: $bp-small) {
+  .site_nav {
+
+    ul {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      flex-basis: auto;
+      margin-top: 0;
+    }
+
+    .hamburger {
+      display: none;
+      margin-top: 0.5em;
+    }
+
+    li:not(:last-child)::after {
+      content: '|';
+      padding: 0 clamp(0.5em, 1vw, 1em);
+    }
+  }
+}
+
+/* Site hero-header styling */
+.hero {
+  padding: 0;
+  margin-top:0;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100vh;
+  max-height: 100vh;
+
+  nav {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-top: 0;
+  }
+}
 
 //Intro Banner:
 // Built from img slants inside grid layout
@@ -11,7 +139,7 @@
 
 
   &__img {
-    @extend %c-slant-img;
+    @extend .c-slant-img;
     // fill space of grid cell
     height: 100%;
     // prevent overflow outside of grid
@@ -40,4 +168,44 @@
 
   }
 
+}
+
+.contact-form {
+  button {
+    $s: 0.5em;
+    background-color: $c-theme;
+    border: 0px solid $c-theme;
+    color: $c-active-off;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 450;
+    padding: 0 $s*3;
+    height: $s * 5;
+    align-self: flex-end;
+    box-shadow:
+      inset 0 $s * 0.5 $s $c-theme-tint,
+      inset 0 $s * -0.5 $s $c-theme-shade
+      ;
+
+    &:focus,
+    &:hover {
+      color: $c-active;
+      background-color: $c-theme-shade;
+      box-shadow: none;
+    }
+
+    &:active {
+      background-color: $c-theme;
+      box-shadow:
+        inset 0 $s * -0.5 $s $c-theme-tint,
+        inset 0 $s * 0.5 $s $c-theme-shade
+        ;
+    }
+  }
+
+  label[for="title"] {
+    display: none;
+  }
 }
