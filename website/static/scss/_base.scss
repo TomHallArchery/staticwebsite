@@ -78,6 +78,11 @@ a {
   }
 }
 
+b, strong {
+    font-weight: bolder;
+    // reset for specific scenarios
+}
+
 button {
   font-family: inherit;
   font-size: inherit;
