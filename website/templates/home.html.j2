@@ -10,14 +10,11 @@
 
 {%- block header -%}
 
-  <header id="site_header" class="hero">
-
-    <nav class="site_nav">
+  <header id="site_header" class="o-hero">
       {% include "base/nav.html.j2" %}
-    </nav>
-    <div class="intro slant-banner">
-      <img class="slant-banner__img" src="/static/img/new/muddy-lausanne-practice.jpg" alt=""></img>
-      <img class="slant-banner__img" style="--obj-pos: 25%;" src="/static/img/new/sunny-woodland-field.jpg" alt=""></img>
+    <div class="intro c-slant-banner">
+      <img class="c-slant-banner__img" src="/static/img/new/muddy-lausanne-practice.jpg" alt=""></img>
+      <img class="c-slant-banner__img" style="--obj-pos: 25%;" src="/static/img/new/sunny-woodland-field.jpg" alt=""></img>
       <!-- <img class="slant-banner__img" style="--obj-pos: 45%;" src="/static/img/new/skiddaw-landscape.jpg" alt=""></img> -->
     </div>
   </header>
@@ -28,9 +25,9 @@
 
 {%- block content -%}
 <main class="homepage">
-  <section class="intro-card">
+  <section class="c-intro-card">
     <h3>Athlete</h3>
-    <img class="intro-card--img" src="/static/img/new/muddy-lausanne-practice.jpg" alt="" width="600" height="800">
+    <img class="c-intro-card__img" src="/static/img/new/muddy-lausanne-practice.jpg" alt="" width="600" height="800">
     <p>I'm a proffessional athlete and I've been competing since I started archery back in 2010.</p>
     <p>In that time I've progressed from club competitions, student leagues and country championships to climbing the podium in the National Tour, Indoor World series and World Cup. </p>
     <!-- <nav class="intro-card--nav">
@@ -39,17 +36,17 @@
       <a href="#">My Sponsors</a>
     </nav> -->
   </section>
-  <section class="intro-card">
+  <section class="c-intro-card">
     <h3>Coach</h3>
-    <img class="intro-card--img" src="/static/img/new/sunny-woodland-field.jpg" alt="" width="600" height="800">
+    <img class="c-intro-card__img" src="/static/img/new/sunny-woodland-field.jpg" alt="" width="600" height="800">
     <p>I love to help others improve their archery, health and fitness.</p>
     <p>As a student I've helped coach new beginners for years, but more recently I've coached the Warwick performance team and privately.</p>
     <p>During Covid I began to experiment with online coaching sessions including bow training, technique drills and general fitness. </p>
   </section>
-  <section class="intro-card">
+  <section class="c-intro-card">
     <h3>Person</h3>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    <img class="intro-card--img" src="/static/img/new/skiddaw-landscape.jpg" alt="" width="600" height="800">
+    <img class="c-intro-card__img" src="/static/img/new/skiddaw-landscape.jpg" alt="" width="600" height="800">
   </section>
 </main>
 {%- endblock content %}

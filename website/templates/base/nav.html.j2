@@ -1,14 +1,15 @@
 <!-- from nav template -->
-  <h2><a href="/">TomHallArchery</a></h2>
-  <button class="site_nav--btn" type="button">
-    <svg class="hamburger hidden" viewBox="0 0 120 100" aria-labelledby="NavIconTitle">
+<nav class="c-site-nav">
+  <h2 class="c-site-nav__header"><a href="/">TomHallArchery</a></h2>
+  <button class="c-site-nav__btn is-hidden js-navBtn" type="button">
+    <svg class="o-hamburger" viewBox="0 0 120 100" aria-labelledby="NavIconTitle">
       <title id="NavIconTitle">Menu Icon</title>
       <rect y="00" width="120" height="20"></rect>
       <rect y="40" width="120" height="20"></rect>
       <rect y="80" width="120" height="20"></rect>
     </svg>
   </button>
-  <ul class="site_nav--menu open">
+  <ul class="c-site-nav__menu js-navMenu is-open">
     {#
     <li><a href={{ url_for('sponsors_page')}}>Sponsors</a></li>
     <li><a href={{ url_for('results_page')}}>Results</a></li>
@@ -16,5 +17,5 @@
     <li><a href={{ url_for('serve_articles_index')}}>Articles</a></li>
     <li><a href={{ url_for('contact_page')}}>Contact</a></li>
   </ul>
-
+</nav>
 <!-- end nav template -->

@@ -41,7 +41,9 @@
 
   <!-- js -->
   <!-- Alpine JS (Modern JQuery replacement for minor animations/ui/reactive parts) -->
-  <script src="{{ url_for('static', filename='js/alpine.js') }}" defer></script>
+  <!-- <script src="{{ url_for('static', filename='js/alpine.js') }}" defer></script> -->
+
+  <!-- Custom JS -->
   <script src="{{ url_for('static', filename='js/site_nav.js') }}" ></script>
   <!-- end base/head -->
 
@@ -54,9 +56,8 @@
 {# Nav bar contains header logo #}
 {% block nav %}
 
-<nav class="site_nav">
-  {% include "base/nav.html.j2" %}
-</nav>
+{% include "base/nav.html.j2" %}
+
 
 {% endblock %}
 

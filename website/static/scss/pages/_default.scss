@@ -48,13 +48,13 @@ body {
     background-color: c-neutral(900);
   }
 
-  > nav.site_nav {
+  > nav {
     grid-area: nav;
     padding-top: 1rem;
     padding-bottom: 1rem;
   }
 
-  .site_footer {
+  > footer {
     background-color: $c-theme;
     background-image: linear-gradient(
       $c-theme-tint 5%,
@@ -107,12 +107,12 @@ main > * {
       text-align: justify;
     }
 
-    .site_nav {
+    > nav {
       padding-left: $page_gutter;
       padding-right: $page_gutter;
     }
 
-    .site_footer {
+    > footer {
       padding-left: $page_gutter;
       padding-right: $page_gutter;
     }

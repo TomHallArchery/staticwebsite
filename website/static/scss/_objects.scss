@@ -1,0 +1,38 @@
+@use "vars" as *;
+@use "sass:color";
+@use "sass:math";
+
+.o-btn-blank {
+  background: none;
+  border: none;
+  color: inherit;
+  margin:0;
+  padding:0;
+  display: grid;
+  place-items: center;
+}
+
+.o-hamburger {
+  $color-active: white;
+  --color: currentColor;
+  margin-top: 0;
+  margin-left: auto;
+  cursor: pointer;
+  height: 2em;
+  width: 3em;
+  padding: 0.25em 0;
+  fill: var(--color);
+  color: inherit;
+
+  &:hover {
+    --color: #{$color-active};
+  }
+
+}
+
+.o-slant-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  @include clip-stripe-r;
+}
