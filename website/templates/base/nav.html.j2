@@ -1,6 +1,13 @@
 <!-- from nav template -->
   <h2><a href="/">TomHallArchery</a></h2>
-  <button class="hamburger hidden"><span class=""></span></button>
+  <button class="site_nav--btn" type="button">
+    <svg class="hamburger hidden" viewBox="0 0 120 100" aria-labelledby="NavIconTitle">
+      <title id="NavIconTitle">Menu Icon</title>
+      <rect y="00" width="120" height="20"></rect>
+      <rect y="40" width="120" height="20"></rect>
+      <rect y="80" width="120" height="20"></rect>
+    </svg>
+  </button>
   <ul class="open">
     {#
     <li><a href={{ url_for('sponsors_page')}}>Sponsors</a></li>

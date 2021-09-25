@@ -24,6 +24,15 @@
   }
 
   /* right part: nav links */
+  &--btn {
+    @extend .c-btn-blank;
+    margin-left: auto;
+
+    &:focus {
+      outline: 2px dotted $c-active;
+    }
+  }
+
   ul {
     display: none;
     flex-direction: column;
