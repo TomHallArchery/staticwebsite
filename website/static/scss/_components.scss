@@ -22,7 +22,7 @@
   width: 3em;
   padding: 0.25em 0;
   fill: var(--color);
-
+  color: inherit;
 
   &:hover {
     --color: #{$color-active};

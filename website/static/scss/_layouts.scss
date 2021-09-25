@@ -31,6 +31,10 @@
     &:focus {
       outline: 2px dotted $c-active;
     }
+
+    &:focus:not(:focus-visible) {
+      outline: none;
+    }
   }
 
   ul {

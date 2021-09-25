@@ -1,20 +1,19 @@
-document.addEventListener("DOMContentLoaded", handler);
+document.addEventListener("DOMContentLoaded", siteNav);
 
-function handler() {
-  console.log('Page loaded, site_nav priming')
+function siteNav() {
 
   // Select the menu icon
-  const menuIcon = document.querySelector("nav .hamburger");
-  const menu = document.querySelector(".site_nav ul");
+  const menuIcon = document.querySelector(".site_nav--btn");
+  const menu = document.querySelector(".site_nav--menu");
 
   menuIcon.classList.remove('hidden');
   menu.classList.remove('open');
 
   // For each element, add a listener for the "click" event.
-  menuIcon.addEventListener("click", function(e) {
-    menu.classList.toggle('open');
-  });
+  menuIcon.addEventListener("click", toggleMenu);
 
-  console.log('site_nav ready')
+  function toggleMenu(e) {
+    menu.classList.toggle('open');
+  };
 
 }
