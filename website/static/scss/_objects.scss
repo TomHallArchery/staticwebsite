@@ -13,16 +13,16 @@
 }
 
 .o-hamburger {
-  $color-active: white;
-  --color: currentColor;
+  $color-active: white; // component specific behaviour
+  --color: currentColor;  // component specific behaviour
   margin-top: 0;
   margin-left: auto;
-  cursor: pointer;
+  cursor: pointer;  // component specific behaviour
   height: 2em;
   width: 3em;
   padding: 0.25em 0;
-  fill: var(--color);
-  color: inherit;
+  fill: var(--color);  // component specific behaviour??
+  color: inherit;  // component specific behaviour??
 
   &:hover {
     --color: #{$color-active};
@@ -35,4 +35,20 @@
   height: auto;
   object-fit: cover;
   @include clip-stripe-r;
+}
+
+/* Site hero-header styling */
+.o-hero {
+  padding: 0;
+  margin-top:0;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100vh;
+  max-height: 100vh;
+
+  & > *:first-child {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-top: 0;
+  }
 }

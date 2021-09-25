@@ -91,31 +91,20 @@ main > * {
       "footer footer";
     margin: auto;
 
-    > header {
+    > header, > nav, > footer {
       padding-left: $page_gutter;
       padding-right: $page_gutter;
     }
 
     > main {
       margin-left: $page_gutter;
-      // min-height: 100%;
     }
 
     > aside {
       margin-right: $page_gutter;
-      // min-height: 100%;
       text-align: justify;
     }
 
-    > nav {
-      padding-left: $page_gutter;
-      padding-right: $page_gutter;
-    }
-
-    > footer {
-      padding-left: $page_gutter;
-      padding-right: $page_gutter;
-    }
   }
 
 }
