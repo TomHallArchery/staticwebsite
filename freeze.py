@@ -28,6 +28,12 @@ def fonts():
         path = os.path.join('fonts', dir, font)
         yield url_for('static', filename=path)
 
+@app.context_processor
+def localise_img_url():
+    return dict(
+        img_url=IMAGES_URL,
+        )
+
 #Frozen flask issue: have to manually build the 404 error page for use by server
 def build_404():
     with app.test_request_context():
@@ -61,7 +67,7 @@ def main():
         images.upload_images('website/static/img/out')
         print('DONE')
     else:
-        print('No new images to upload')
+        print('No new processed images to upload')
 
     # Use python builtin server to serve static files based on directory structure
     if args.serve:

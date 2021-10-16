@@ -8,7 +8,6 @@ from functools import partial
 # Add highlighted primary component blocks for layout design
 # flask.render_template = partial(flask.render_template, highlight_blocks=True)
 
-IMAGES_URL = "https://cdn.tomhallarchery.com/"
 WP_POSTS_DIR = 'articles/archive'
 DEFAULT_IMG_DISPLAY_WIDTHS = {'60vw': 'min-width: 110ch', '95vw': None}
 DEFAULT_IMG_WIDTH = '1200'
@@ -26,7 +25,6 @@ def inject_data():
     this_year = datetime.now().year
     return dict(
         year=this_year,
-        img_url=IMAGES_URL,
         img_sizes=SIZES,
         img_layout=DEFAULT_IMG_DISPLAY_WIDTHS,
         srcset=utils.srcset,
