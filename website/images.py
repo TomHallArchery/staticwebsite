@@ -62,10 +62,11 @@ def create_thumbnails(imfile, sizes, q=55):
         vprint("Loaded image: ", im.filename)
         thumb = ImageOps.exif_transpose(im)
         for size in sizes:
-            if im.width < size:
+            imsize = max(im.size)
+            if imsize < size:
                 continue
             vprint("Making size: ", size)
-            thumb.thumbnail((size, size))
+            thumb.thumbnail((size, size), resample=Image.LANCZOS)
             thumb.save(f'out/{fname}_{size}.jpg', quality=q, optimize=True, progressive=True)
             thumb.save(f'out/{fname}_{size}.webp', quality=q, method=6)
             vprint("Done")
