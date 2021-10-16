@@ -8,12 +8,13 @@ flask = "*"
 flask-flatpages = "*"
 frozen-flask = "*"
 advancedhtmlparser = "*"
+tinydb = "*"
+pillow = "*"
+pynetlify = "*"
 
 [dev-packages]
 fonttools = "*"
 brotli = "*"
-pynetlify = "*"
-pillow = "*"
 
 [requires]
 python_version = "3.9"
