@@ -1,12 +1,13 @@
-from website import app
 import os
 import subprocess
 import hashlib
 from PIL import Image, ImageOps
 
+from website import app
+from website.database import db
+
 SIZES = [2000, 1600, 1200, 800, 400]
 IMAGES_ROOT = 'website/static/img/'
-
 
 vprint = lambda *a: None
 
