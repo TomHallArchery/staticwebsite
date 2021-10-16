@@ -9,7 +9,7 @@
   flex-wrap: wrap;
   gap: 0 10%;
   max-width: none;
-  padding: 0 max(10vw, calc(50vw - #{math.div($bp-large, 2)}));
+  padding: 0 10vw; /*calc(50vw - #{math.div($bp-large, 2)}));*/
   /* max width of content is 30em */
 
   &:nth-child(odd) {
@@ -32,6 +32,7 @@
     aspect-ratio: 1/1;
     flex: 1 0 40%;
     min-width: var(--min-width);
+    max-width: 2000px;
     margin-top: 0;
   }
 
