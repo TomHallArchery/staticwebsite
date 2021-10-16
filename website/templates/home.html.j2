@@ -11,16 +11,20 @@
 {%- block header -%}
 
   <header id="site_header" class="o-hero">
-      {% include "base/nav.html.j2" %}
+    {% include "base/nav.html.j2" %}
+
+    {% filter responsive_images({'100vw': None}, img_url, wrap_picture=False) %}
     <div class="intro c-slant-banner">
       <!-- <a class="c-slant-banner__img" href="#athlete"> -->
-        <img class="c-slant-banner__img" src="/static/img/new/muddy-lausanne-practice.jpg" alt=""></img>
+        <img class="c-slant-banner__img" src="{{src(img_url, 'teamgb-profile.jpg')}}" alt=""></img>
       <!-- </a> -->
       <!-- <a class="c-slant-banner__img" href="#coach"> -->
-        <img class="c-slant-banner__img" style="--obj-pos: 25%;" src="/static/img/new/sunny-woodland-field.jpg" alt=""></img>
+        <img class="c-slant-banner__img" style="--obj-pos: 25%;" src="sunny-woodland-field.jpg" alt=""></img>
       <!-- </a> -->
       <!-- <img class="slant-banner__img" style="--obj-pos: 45%;" src="/static/img/new/skiddaw-landscape.jpg" alt=""></img> -->
     </div>
+    {% endfilter %}
+
   </header>
 
 {%- endblock %}
@@ -28,10 +32,11 @@
 
 
 {%- block content -%}
+{% filter responsive_images(img_layout, img_url, wrap_picture=True) %}
 <main class="homepage">
   <section class="c-intro-card" id="athlete">
     <h3 class="c-intro-card__header">Athlete</h3>
-    <img class="c-intro-card__img" src="/static/img/new/muddy-lausanne-practice.jpg" alt="" width="600" height="800">
+    <img class="c-intro-card__img" src="/static/img/new/muddy-lausanne-practice.jpg" alt="" width="3000" height="4000">
     <div class="c-intro-card__body">
       <p>I'm a proffessional athlete and I've been competing since I started archery back in 2010.</p>
       <p>In that time I've progressed from club competitions, student leagues and country championships to climbing the podium in the National Tour, Indoor World series and World Cup. </p>
@@ -44,7 +49,7 @@
   </section>
   <section class="c-intro-card" id="coach">
     <h3 class="c-intro-card__header">Coach</h3>
-    <img class="c-intro-card__img" src="/static/img/new/sunny-woodland-field.jpg" alt="" width="600" height="800">
+    <img class="c-intro-card__img" src="/static/img/new/sunny-woodland-field.jpg" alt="" width="6000" height="8000">
     <div class="c-intro-card__body">
       <p>I love to help others improve their archery, health and fitness.</p>
       <p>As a student I've helped coach new beginners for years, but more recently I've coached the Warwick performance team and privately.</p>
@@ -54,9 +59,10 @@
   <section class="c-intro-card">
     <h3 class="c-intro-card__header">Person</h3>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    <img class="c-intro-card__img" src="/static/img/new/skiddaw-landscape.jpg" alt="" width="600" height="800">
+    <img class="c-intro-card__img" src="/static/img/new/skiddaw-landscape.jpg" alt="">
   </section>
 </main>
+{% endfilter %}
 {%- endblock content %}
 
 
