@@ -9,6 +9,7 @@ gitlog.txt
 # Ignore image directory: output files uploaded seperately to netlify
 website/static/img/*
 !website/static/img/src
+!website/static/img/process.py
 
 # Ignore static/css: scss source and comipiled css already tracked on git
 website/static/css
