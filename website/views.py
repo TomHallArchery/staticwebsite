@@ -27,9 +27,9 @@ def inject_data():
         year=this_year,
         img_sizes=SIZES,
         img_layout=DEFAULT_IMG_DISPLAY_WIDTHS,
+        src=utils.src,
         srcset=utils.srcset,
         sizes=utils.sizes,
-
         )
 
 @app.template_filter()
@@ -69,7 +69,7 @@ def responsive_images(html, conditions, img_url, wrap_picture=False):
                     'sizes': utils.sizes(conditions)
                 })
 
-    return parser.toHTML()
+    return parser.getFormattedHTML()
 
 # ===============
 # #ROUTES
@@ -83,7 +83,7 @@ def home_page():
         # could still allow dict unpacking of metadata
         description = "The homepage of Tom Hall, Archer and Coach",
         keywords = "Archery, Athlete, Profile",
-        img_layout = {'100vw': None}
+        img_layout = {'80vw': None}
         )
 
 @app.route('/results/')

@@ -46,6 +46,9 @@ def split_filename(input):
     fname, ext = os.path.splitext(file)
     return (path, fname, ext)
 
+def src(img_url, fname):
+    return os.path.join(img_url, fname)
+
 def srcset(img_url, fname, widths, ext):
     srcset = [f'{img_url + fname}_{width}.{ext} {width}w' for width in widths]
     return ", ".join(srcset)
