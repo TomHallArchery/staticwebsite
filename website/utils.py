@@ -15,6 +15,11 @@ def cwd(path):
     finally:
         os.chdir(oldpwd)
 
+def rm_file(file):
+    ''' Remove file at path without exceptions for not found or directory '''
+    if os.path.exists(file) and os.path.isfile(file):
+        os.remove(file)
+
 def compile_css(src, dest, compressed=False, watch=False):
     cmnd = ["sass", f"{src}:{dest}", "--no-source-map"]
     if compressed:
@@ -78,4 +83,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-# f'({br}) {sz}vw'
