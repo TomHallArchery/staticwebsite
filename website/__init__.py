@@ -1,11 +1,10 @@
 import markdown
 from flask import Flask, render_template_string, Markup
 from flask_flatpages import FlatPages
-from tinydb import TinyDB, Query
+from tinydb import TinyDB
 
 app = Flask(__name__)
-db = TinyDB('database.json', sort_keys=True, indent=4, separators=(',', ': ')) #reads database in from json file
-qr = Query()
+db = TinyDB('database.json', indent=4, separators=(',', ': ')) #reads database in from json file
 
 # Setting flatpages extensions wasn't working for some reason, had to overwrite pygmented_markdown method
 def prerender_jinja(text):

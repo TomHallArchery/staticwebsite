@@ -12,7 +12,7 @@ print(current)
 # the sys.path
 sys.path.append('/Users/tomhall/dev/projects/tomhallarchery')
 
-from website import app, db, qr, utils, images
+from website import app, db, utils, images
 
 def main():
     ''' Process all images in img/new '''

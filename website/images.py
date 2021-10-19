@@ -2,23 +2,27 @@ import os
 import subprocess
 import hashlib
 from PIL import Image, ImageOps
+from tinydb import Query
 
-from website import app, db, qr, utils
+from website import app, db, utils
 
 SIZES = [2000, 1600, 1200, 800, 400]
 IMAGES_ROOT = 'website/static/img/'
+SOURCE_DIR = 'src'
 
 imgdb = db.table("img")
+Img = Query()
+utils.rm_file(os.path.join(IMAGES_ROOT, SOURCE_DIR, '.DS_Store'))
+
 
 vprint = lambda *a: None
 
-def read_img_dir():
-    img_dir_dict = {
-        "new" : list_images('new'),
-        "src" : list_images('src'),
-        "out" : list_images('out')
-    }
-    return img_dir_dict
+class MyImages:
+    query = Query()
+
+    def __init__(self, db, root=IMAGES_ROOT):
+        self.db = db.table('img')
+        self.root = root
 
 def list_images(subdir):
     img_list = [os.path.join(root, file)
@@ -27,6 +31,43 @@ def list_images(subdir):
                 ]
     return img_list
 
+def get_db_imgs():
+    return [rec["file"] for rec in
+        imgdb.search(Img.file.exists())]
+
+def check_img_dir(dir):
+    img_file_list = os.listdir(dir)
+    img_db_list = get_db_imgs()
+    delta = list(set(img_file_list) - set(img_db_list))
+    delta2 = list(set(img_db_list) - set(img_file_list))
+    return delta, delta2
+
+def insert_new_img(img):
+    imgdb.insert({"file": img, "status": "new"})
+
+def flag_new_imgs(imgs):
+    for img in imgs:
+        insert_new_img(img)
+
+def process_new_img(img):
+    width, height, q1, q2, thumbs = create_thumbnails(os.path.join(SOURCE_DIR, img), SIZES)
+    imgdb.update({
+        "status":"src",
+        "width": width,
+        "height": height,
+        "jpg_compression": q1,
+        "webp_compression": q2,
+        "thumbnail_sizes": thumbs},
+         Img.file == img)
+
+def proccess_new_imgs():
+    new_imgs = [rec['file'] for rec in
+        imgdb.search(Img.status == "new")]
+    for img in new_imgs:
+        process_new_img(img)
+
+def reset_db():
+    imgdb.update({"status": "new"})
 
 def test_compression(imfile):
     path, fname, ext = utils.split_filename(imfile)
@@ -41,53 +82,30 @@ def test_compression(imfile):
             preview.save(f'tmp/webp-{q}.webp', quality=q, method=6)
 
 
-    qj = input('Chosen jpg compression: ')
-    qp = input('Chosen webp compression: ')
+    q1 = input('Chosen jpg compression: ')
+    q2 = input('Chosen webp compression: ')
     [ os.remove(_) for _ in list_images('tmp') ]
-    return qj, qp
+    return q1, q2
 
-def create_thumbnails(imfile, sizes, q=55):
+def create_thumbnails(imfile, sizes, q1=55, q2=55):
     ''' Create rezised images from img/new and move original to img/src '''
     path, fname, ext = utils.split_filename(imfile)
 
     with Image.open(imfile) as im:
         vprint("Loaded image: ", im.filename)
         thumb = ImageOps.exif_transpose(im)
+        thumbs = []
         for size in sizes:
             imsize = max(im.size)
             if imsize < size:
                 continue
             vprint("Making size: ", size)
             thumb.thumbnail((size, size), resample=Image.LANCZOS)
-            thumb.save(f'out/{fname}_{size}.jpg', quality=q, optimize=True, progressive=True)
-            thumb.save(f'out/{fname}_{size}.webp', quality=q, method=6)
+            thumb.save(f'out/{fname}_{size}.jpg', quality=q1, optimize=True, progressive=True)
+            thumb.save(f'out/{fname}_{size}.webp', quality=q2, method=6)
             vprint("Done")
-
-        # size descriptor prefeixed by __s to uniquely identify
-        outfile = os.path.join('src', f'{fname}__s{im.width}x{im.height}{ext}')
-        vprint(f"Moving image: {outfile}")
-        os.rename(imfile, outfile)
-
-def hash_dir_filenames(dir, hashfile):
-    ''' Calculates hash of sorted list of files in directory and writes it to hashfile, return True for change in hash '''
-
-    try:
-        owd = os.getcwd()
-        os.chdir(dir)
-        dirlist = ",".join(sorted(os.listdir()))
-        new_hash = hashlib.sha256(dirlist.encode()).hexdigest()
-
-        with open(hashfile, "r") as f:
-            old_hash = f.read()
-
-        with open(hashfile, "w") as f:
-            f.write(new_hash)
-
-    finally:
-        os.chdir(owd)
-
-    return new_hash != old_hash
-    # eg hash_dir_filenames('website/static/img/out', 'hash.txt')
+            thumbs.append(size)
+    return im.width, im.height, q1, q2, thumbs
 
 def upload_images(dir):
     cmnd = ['python', '-m', 'pynetlify', 'deploy_folder',
