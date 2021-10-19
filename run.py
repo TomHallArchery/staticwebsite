@@ -1,14 +1,22 @@
 #!/usr/bin/env python
 
-from website import app, flatpages, utils, images
+from website import app, db, qr, flatpages, utils, images
 import subprocess
-from time import sleep
+from time import sleep, localtime, strftime
 
 app.config['ENV'] = 'DEVELOPMENT'
 app.config['DEBUG'] = True
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 IMAGES_URL = "/static/img/out/"
+
+rundb = db.table("run")
+
+#Test dynamic database value insertion
+TESTDBVAL = strftime("%X %x", localtime())
+rundb.update({"Active": True, "Started": TESTDBVAL})
+
+
 
 def pprint(string):
     print(string.center(30, "*"))
@@ -29,19 +37,7 @@ if __name__ == '__main__':
 
     utils.clean_flatpage_metas(flatpages)
 
-    # print config
-    # pprint("CONFIG")
-    # for k, v in app.config.items():
-    #     print(f'{k+":":>30} {v}')
-
-    # print pages generated from Markdown
-    # pprint("PAGES")
-    # for i,p in enumerate(flatpages):
-    #     print(p.meta.get('title', f'Untitled page at: {p.path}'))
-
     rebuild_css()
-
-    # images.create_thumbnails()
 
     pprint("LOG")
     app.run(debug=True)
@@ -51,3 +47,5 @@ if __name__ == '__main__':
     if freeze.lower() == 'y':
         cmd = ["python", "-m", "freeze"]
         subprocess.run(cmd)
+
+    rundb.update({"Active": False})

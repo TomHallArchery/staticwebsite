@@ -12,7 +12,7 @@ print(current)
 # the sys.path
 sys.path.append('/Users/tomhall/dev/projects/tomhallarchery')
 
-from website import app, utils, images
+from website import app, db, qr, utils, images
 
 def main():
     ''' Process all images in img/new '''
@@ -35,8 +35,8 @@ def main():
     # Main Function
     ###
 
-    images.rm_file('new/.DS_Store')
-    images.rm_file('src/.DS_Store')
+    utils.rm_file('new/.DS_Store')
+    utils.rm_file('src/.DS_Store')
 
     # 1
     # Move selected image files back into new/ to reprocess
@@ -66,7 +66,7 @@ def main():
         images.create_thumbnails(img, images.SIZES)
 
 
-    images.rm_file('out/.DS_Store')
+    utils.rm_file('out/.DS_Store')
     vprint('Output:')
 
     if args.serve:

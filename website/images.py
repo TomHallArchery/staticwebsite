@@ -3,11 +3,12 @@ import subprocess
 import hashlib
 from PIL import Image, ImageOps
 
-from website import app
-from website.database import db
+from website import app, db, qr, utils
 
 SIZES = [2000, 1600, 1200, 800, 400]
 IMAGES_ROOT = 'website/static/img/'
+
+imgdb = db.table("img")
 
 vprint = lambda *a: None
 
@@ -19,11 +20,6 @@ def read_img_dir():
     }
     return img_dir_dict
 
-def rm_file(file):
-    ''' Remove file at path without exceptions for not found or directory '''
-    if os.path.exists(file) and os.path.isfile(file):
-        os.remove(file)
-
 def list_images(subdir):
     img_list = [os.path.join(root, file)
                 for root, dir, files in os.walk(subdir)
@@ -31,14 +27,9 @@ def list_images(subdir):
                 ]
     return img_list
 
-def fsplit(filepath):
-    path, file = os.path.split(filepath)
-    fname, ext = os.path.splitext(file)
-    return path, file, fname, ext
-
 
 def test_compression(imfile):
-    path, file, fname, ext = fsplit(imfile)
+    path, fname, ext = utils.split_filename(imfile)
 
     with Image.open(imfile) as im:
         preview = ImageOps.exif_transpose(im)
@@ -57,7 +48,7 @@ def test_compression(imfile):
 
 def create_thumbnails(imfile, sizes, q=55):
     ''' Create rezised images from img/new and move original to img/src '''
-    path, file, fname, ext = fsplit(imfile)
+    path, fname, ext = utils.split_filename(imfile)
 
     with Image.open(imfile) as im:
         vprint("Loaded image: ", im.filename)
