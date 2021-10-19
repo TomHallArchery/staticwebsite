@@ -1,9 +1,203 @@
 {
+    "img": {
+        "1": {
+            "file": "sunny-woodland-field.jpg",
+            "status": "src",
+            "width": 2048,
+            "height": 1536,
+            "jpg_compression": 55,
+            "webp_compression": 55,
+            "thumbnail_sizes": [
+                2000,
+                1600,
+                1200,
+                800,
+                400
+            ]
+        },
+        "2": {
+            "file": "skiddaw-landscape.jpg",
+            "status": "src",
+            "width": 3840,
+            "height": 2160,
+            "jpg_compression": 55,
+            "webp_compression": 55,
+            "thumbnail_sizes": [
+                2000,
+                1600,
+                1200,
+                800,
+                400
+            ]
+        },
+        "3": {
+            "file": "2020-Back2Back-Finals.jpg",
+            "status": "src",
+            "width": 4608,
+            "height": 3456,
+            "jpg_compression": 55,
+            "webp_compression": 55,
+            "thumbnail_sizes": [
+                2000,
+                1600,
+                1200,
+                800,
+                400
+            ]
+        },
+        "4": {
+            "file": "2020-Warwick-Castle-Bow.jpg",
+            "status": "src",
+            "width": 4928,
+            "height": 3280,
+            "jpg_compression": 55,
+            "webp_compression": 55,
+            "thumbnail_sizes": [
+                2000,
+                1600,
+                1200,
+                800,
+                400
+            ]
+        },
+        "5": {
+            "file": "B2B_NeonEffect.jpg",
+            "status": "src",
+            "width": 4608,
+            "height": 3456,
+            "jpg_compression": 55,
+            "webp_compression": 55,
+            "thumbnail_sizes": [
+                2000,
+                1600,
+                1200,
+                800,
+                400
+            ]
+        },
+        "6": {
+            "file": "2015-BUCS-indoor.jpg",
+            "status": "src",
+            "width": 1536,
+            "height": 1024,
+            "jpg_compression": 55,
+            "webp_compression": 55,
+            "thumbnail_sizes": [
+                1200,
+                800,
+                400
+            ]
+        },
+        "7": {
+            "file": "B2B_NeonEffect_small.jpg",
+            "status": "src",
+            "width": 3456,
+            "height": 3456,
+            "jpg_compression": 55,
+            "webp_compression": 55,
+            "thumbnail_sizes": [
+                2000,
+                1600,
+                1200,
+                800,
+                400
+            ]
+        },
+        "8": {
+            "file": "2016-BUCS-podium.jpg",
+            "status": "src",
+            "width": 4759,
+            "height": 3173,
+            "jpg_compression": 55,
+            "webp_compression": 55,
+            "thumbnail_sizes": [
+                2000,
+                1600,
+                1200,
+                800,
+                400
+            ]
+        },
+        "9": {
+            "file": "muddy-lausanne-practice.jpg",
+            "status": "src",
+            "width": 1067,
+            "height": 1600,
+            "jpg_compression": 55,
+            "webp_compression": 55,
+            "thumbnail_sizes": [
+                1600,
+                1200,
+                800,
+                400
+            ]
+        },
+        "10": {
+            "file": "tokyo-prep-camp.jpg",
+            "status": "src",
+            "width": 4500,
+            "height": 3000,
+            "jpg_compression": 55,
+            "webp_compression": 55,
+            "thumbnail_sizes": [
+                2000,
+                1600,
+                1200,
+                800,
+                400
+            ]
+        },
+        "11": {
+            "file": "2019-NationalTourFinals_Victory.jpg",
+            "status": "src",
+            "width": 4608,
+            "height": 3456,
+            "jpg_compression": 55,
+            "webp_compression": 55,
+            "thumbnail_sizes": [
+                2000,
+                1600,
+                1200,
+                800,
+                400
+            ]
+        },
+        "12": {
+            "file": "teamgb-profile.jpg",
+            "status": "src",
+            "width": 3983,
+            "height": 5974,
+            "jpg_compression": 55,
+            "webp_compression": 55,
+            "thumbnail_sizes": [
+                2000,
+                1600,
+                1200,
+                800,
+                400
+            ]
+        },
+        "13": {
+            "file": "fake-archery-home.jpg",
+            "status": "src",
+            "width": 5312,
+            "height": 2988,
+            "jpg_compression": 55,
+            "webp_compression": 55,
+            "thumbnail_sizes": [
+                2000,
+                1600,
+                1200,
+                800,
+                400
+            ]
+        }
+    },
     "meta": {},
     "run": {
         "1": {
             "Active": false,
-            "Started": "11:51:16 10/19/21"
+            "Started": "15:56:33 10/19/21"
         }
     }
 }
