@@ -9,7 +9,7 @@
   flex-wrap: wrap;
   gap: 0 10%;
   max-width: none;
-  padding: 0 10vw; /*calc(50vw - #{math.div($bp-large, 2)}));*/
+  padding: 2rem 10vw; /*calc(50vw - #{math.div($bp-large, 2)}));*/
   /* max width of content is 30em */
 
   &:nth-child(odd) {
@@ -21,6 +21,7 @@
 
   &__header {
     flex: 0 0 100%;
+    margin-bottom: 1em;
   }
 
   &__body {
@@ -28,12 +29,18 @@
   }
 
   &__img {
+    // Styling split between wrapper (recieves class) and img object
     @extend .o-slant-img;
-    aspect-ratio: 1/1;
     flex: 1 0 40%;
-    min-width: var(--min-width);
-    max-width: 2000px;
+    min-width: var(--min-width); //?
+    max-width: 2000px; //?
     margin-top: 0;
+
+    & > img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
   }
 
 

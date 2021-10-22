@@ -34,7 +34,7 @@ class SiteImage:
         self.file = file #can't change filename after initialisation
         self.formats = IMG_FORMATS # for now, fixed, as eg saving files depends on assumed formats
         self.db = IMG_DB
-        self._dbq = Query().file == self.file
+        self._dbq = IQ.file == self.file
 
         assert self.path.suffix in self.formats
         self.format = self.path.suffix
@@ -246,38 +246,54 @@ def responsive_images(html, conditions, img_url, wrap_picture=False):
     parser = utils.parse_html(html)
     imgs = parser.getElementsByTagName('img')
     for img in imgs:
+        # Abort if img src is empty
+        if not img.src:
+            continue
+
         path = Path(img.src)
         si = SiteImage(path.name)
 
+        # Don't process if image not in database; leaves broken img link
+        if not si.data:
+            continue
+
         # Set image attributes using database
-        if si.data:
-            widths = si.data.get('sizes', SIZES)
-            img.setAttributes({
-                'src': Path(img_url, f'{path.stem}_{DEFAULT_IMG_WIDTH}{path.suffix}'),
-                'srcset': utils.srcset(img_url, path.stem, widths, 'jpg'),
-                'sizes': utils.sizes(conditions),
-                'width': si.data.get('width'),
-                'height': si.data.get('height'),
-            })
+        widths = si.data.get('sizes', SIZES)
+        img.setAttributes({
+            'src': Path(img_url, f'{path.stem}_{DEFAULT_IMG_WIDTH}{path.suffix}'),
+            'srcset': utils.srcset(img_url, path.stem, widths, 'jpg'),
+            'sizes': utils.sizes(conditions),
+            'width': si.data.get('width'),
+            'height': si.data.get('height'),
+        })
 
-            # Wrap img in picture tag with source for secondary format
-            if wrap_picture:
-                picture = parser.createElement('picture')
-                source = parser.createElementFromHTML('<source />')
-                parent = img.parentElement
+        # Wrap img in picture tag with source for secondary format
+        if not wrap_picture:
+            continue
+        picture = parser.createElement('picture')
+        source = parser.createElementFromHTML('<source />')
+        parent = img.parentElement
 
-                parent.removeChild(img)
-                picture = parent.appendChild(picture)
-                picture.appendBlocks([source, img])
+        # wrap img & source with picture
+        parent.removeChild(img)
+        picture = parent.appendChild(picture)
+        picture.appendBlocks([source, img])
 
-                source.setAttributes({
-                    'type': 'image/webp',
-                    'srcset': utils.srcset(img_url, path.stem, widths, 'webp'),
-                    'sizes': utils.sizes(conditions)
-                })
+        #transfer classes to picture
+        for _ in img.getAttribute('class').split():
+            cls = img.removeClass(_)
+            picture.addClass(cls)
+
+        source.setAttributes({
+            'type': 'image/webp',
+            'srcset': utils.srcset(img_url, path.stem, widths, 'webp'),
+            'sizes': utils.sizes(conditions)
+        })
 
     return parser.getFormattedHTML()
 
+def main():
+    pass
 
 if __name__ == '__main__':
-    # main()
+    main()
