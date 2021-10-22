@@ -281,8 +281,3 @@ def responsive_images(html, conditions, img_url, wrap_picture=False):
 
 if __name__ == '__main__':
     # main()
-
-    all = SourceImages()
-    for img in all.images:
-        im = img.open()
-        img.update_db({"height": im.height, "width": im.width})

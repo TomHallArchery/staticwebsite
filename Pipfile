@@ -15,6 +15,7 @@ pynetlify = "*"
 [dev-packages]
 fonttools = "*"
 brotli = "*"
+pympler = "*"
 
 [requires]
 python_version = "3.9"
