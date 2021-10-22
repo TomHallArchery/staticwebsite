@@ -60,7 +60,7 @@ def main():
     utils.compile_css('website/static/scss', 'website/build/static/css', compressed=True)
     print("Css recompiled")
 
-    images.upload_images('website/static/img/out')
+    images.SourceImages().upload_images()
 
     # Use python builtin server to serve static files based on directory structure
     if args.serve:

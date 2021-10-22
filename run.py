@@ -14,12 +14,6 @@ IMAGES_URL = "/static/img/out/"
 
 rundb = db.table("run")
 
-#Test dynamic database value insertion
-TESTDBVAL = strftime("%X %x", localtime())
-rundb.update({"Active": True, "Started": TESTDBVAL})
-
-
-
 def pprint(string):
     print(string.center(30, "*"))
 
@@ -39,21 +33,25 @@ if __name__ == '__main__':
 
     # Extra debugging/testing functions
     pprint("LOG")
-    with utils.cwd(images.IMAGES_ROOT):
-        new_imgs, missing_imgs = images.check_img_dir('src')
-        images.flag_new_imgs(new_imgs)
-        images.proccess_new_imgs()
+
+    #Test dynamic database value insertion
+    TESTDBVAL = strftime("%X %x", localtime())
+    rundb.insert({"Active": True, "Started": TESTDBVAL})
+
+    all = images.SourceImages()
+    all.add_to_db()
+    all.process()
 
     # Run dev server
     app.run(debug=True)
 
     # Request to freeze
-    sleep(0.5)
-    freeze = input('Freeze application? (y/n): ')
-    if freeze.lower() == 'y':
-        cmd = ["python", "-m", "freeze"]
-        subprocess.run(cmd)
+    # sleep(0.5)
+    # freeze = input('Freeze application? (y/n): ')
+    # if freeze.lower() == 'y':
+    #     cmd = ["python", "-m", "freeze"]
+    #     subprocess.run(cmd)
 
     # clear database
-    rundb.update({"Active": False})
+    rundb.truncate()
     db.close()

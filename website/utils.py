@@ -78,6 +78,8 @@ def serve_static(dir, port):
     with cwd(dir):
         svr.test(HandlerClass=svr.SimpleHTTPRequestHandler, port=port)
 
+
+
 def main():
     return
 

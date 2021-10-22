@@ -1,117 +1,288 @@
-import os
+from pathlib import Path
+from collections import namedtuple
 import subprocess
-import hashlib
+
 from PIL import Image, ImageOps
 from tinydb import Query
 
 from website import app, db, utils
 
+Formats = namedtuple("Formats", "source progressive")
+
+# Constants
 SIZES = [2000, 1600, 1200, 800, 400]
-IMAGES_ROOT = 'website/static/img/'
-SOURCE_DIR = 'src'
+IMAGES_ROOT = 'website/static/img/' #app config?
+SOURCE_DIR = 'src' #app config?
+OUTPUT_DIR = 'out'
+IMG_FORMATS = Formats('.jpg', '.webp')
+IMG_DB = db.table('img')
+IQ = Query()
+DEFAULT_IMG_WIDTH = '1200'
 
-imgdb = db.table("img")
-Img = Query()
-utils.rm_file(os.path.join(IMAGES_ROOT, SOURCE_DIR, '.DS_Store'))
+
+# Clear img directory
+utils.rm_file(Path(IMAGES_ROOT, SOURCE_DIR, '.DS_Store'))
 
 
-vprint = lambda *a: None
+class SiteImage:
+    """In Memory representation of the metadata for a saved image asset
 
-class MyImages:
-    query = Query()
+    Provides a single handle for all database operations and image processing.
+    Also provides html attributes for output """
 
-    def __init__(self, db, root=IMAGES_ROOT):
-        self.db = db.table('img')
-        self.root = root
+    def __init__(self, file):
+        self.file = file #can't change filename after initialisation
+        self.formats = IMG_FORMATS # for now, fixed, as eg saving files depends on assumed formats
+        self.db = IMG_DB
+        self._dbq = Query().file == self.file
 
-def list_images(subdir):
-    img_list = [os.path.join(root, file)
-                for root, dir, files in os.walk(subdir)
-                for file in files
-                ]
-    return img_list
+        assert self.path.suffix in self.formats
+        self.format = self.path.suffix
 
-def get_db_imgs():
-    return [rec["file"] for rec in
-        imgdb.search(Img.file.exists())]
+    def __repr__(self):
+        return f"SiteImage({self.file})"
 
-def check_img_dir(dir):
-    img_file_list = os.listdir(dir)
-    img_db_list = get_db_imgs()
-    delta = list(set(img_file_list) - set(img_db_list))
-    delta2 = list(set(img_db_list) - set(img_file_list))
-    return delta, delta2
+    def __eq__(self, other):
+        return self.file == other.file
 
-def insert_new_img(img):
-    imgdb.insert({"file": img, "status": "new"})
+    @property
+    def path(self):
+        """Returns current relative path to src img file"""
+        # Assumes image is inside default image source directory
+        abspath = Path(IMAGES_ROOT, SOURCE_DIR, self.file).resolve()
+        return abspath.relative_to(Path.cwd())
 
-def flag_new_imgs(imgs):
-    for img in imgs:
-        insert_new_img(img)
+    @property
+    def data(self):
+        """ Returns img data from database as dict """
+        return self.db.get(self._dbq)
 
-def process_new_img(img):
-    width, height, q1, q2, thumbs = create_thumbnails(os.path.join(SOURCE_DIR, img), SIZES)
-    imgdb.update({
-        "status":"src",
-        "width": width,
-        "height": height,
-        "jpg_compression": q1,
-        "webp_compression": q2,
-        "thumbnail_sizes": thumbs},
-         Img.file == img)
+    @property
+    def status(self):
+        if self.db.contains(self._dbq):
+            return self.db.get(self._dbq)["status"]
+        return "missing"
 
-def proccess_new_imgs():
-    new_imgs = [rec['file'] for rec in
-        imgdb.search(Img.status == "new")]
-    for img in new_imgs:
-        process_new_img(img)
+    def open(self):
+        """ Exposes PIL.Image object, requires closing"""
+        self.image = Image.open(self.path)
+        return self.image
 
-def reset_db():
-    imgdb.update({"status": "new"})
+    def close(self):
+        """ Closes PIL.Image object """
+        self.image.close()
+        self.image = None
 
-def test_compression(imfile):
-    path, fname, ext = utils.split_filename(imfile)
+    def add_to_db(self):
+        """ Inserts new document into image database to represent this image"""
+        if not self.data:
+            if self.path.exists():
+                self.db.insert({"file": self.file, "status": "new"})
 
-    with Image.open(imfile) as im:
-        preview = ImageOps.exif_transpose(im)
-        # Work in tmp directory: if already in img root this will exist
-        os.makedirs('tmp', exist_ok=True)
+    def remove_from_db(self):
+        """ Removes document from image database"""
+        self.db.remove(self._dbq)
+
+    def update_db(self, values_dict):
+        """ Updates document in database with key:value pairs"""
+        self.db.update(values_dict, self._dbq)
+
+    def archive(self):
+        self.update_db({"status": "archived"})
+
+    def set_compression(self, q, format=".jpg"):
+        """ Override default image compression quality """
+        # check format is in this instances supported formats
+        assert format in self.formats
+
+        self.update_db({
+            format : q
+            })
+
+    def test_compression(self):
+        """ Interactive test of image compression quality settings
+
+        Prepares set of thumbnails in tmp/ to allow manual selection of best
+        image quality"""
+
+        #Prepare tmp directory
+        tmp = Path(IMAGES_ROOT, 'tmp')
+        Path.mkdir(tmp)
+
+        #Rotate portrait jpg into correct orientation
+        preview = ImageOps.exif_transpose(self.open())
+
+        #Save preview at set quality values
         for q in [85,75,65,55,45,35]:
             preview.thumbnail((1200,1200))
-            preview.save(f'tmp/jpg-{q}.jpg', quality=q, optimize=True, progressive=True)
-            preview.save(f'tmp/webp-{q}.webp', quality=q, method=6)
+            # Update save to use relative path
+            preview.save(f'{tmp}/jpg-{q}.jpg', quality=q, optimize=True, progressive=True)
+            preview.save(f'{tmp}/webp-{q}.webp', quality=q, method=6)
 
+        #Manually check quality in tmp dir and choose
+        q1 = int(input(f'Chose jpg compression: '))
+        self.set_compression(q1, '.jpg')
+        q2 = int(input(f'Chose webp compression: '))
+        self.set_compression(q2, '.webp')
 
-    q1 = input('Chosen jpg compression: ')
-    q2 = input('Chosen webp compression: ')
-    [ os.remove(_) for _ in list_images('tmp') ]
-    return q1, q2
+        for _ in Path.iterdir(tmp):
+            Path.unlink(_)
+        tmp.rmdir()
 
-def create_thumbnails(imfile, sizes, q1=55, q2=55):
-    ''' Create rezised images from img/new and move original to img/src '''
-    path, fname, ext = utils.split_filename(imfile)
+    def create_thumbnails(self, process_src=False):
+        """ Generate and save thumbnails of source image"""
+        im = ImageOps.exif_transpose(self.open())
 
-    with Image.open(imfile) as im:
-        vprint("Loaded image: ", im.filename)
-        thumb = ImageOps.exif_transpose(im)
+        #Deal with fresh images not yet saved in db
+        if not self.data:
+            self.add_to_db()
+
+        if not process_src:
+            if self.data['status'] == "src":
+                return
+        #Don't process archived images
+        if self.data['status'] == "archived":
+            return
+
+        q_jpg = self.data.get('.jpg', 55)
+        q_webp = self.data.get('.webp', 55)
+        width = self.data.get('width')
+        height = self.data.get('height')
+
+        #Set up staging area
+        out = Path(IMAGES_ROOT, OUTPUT_DIR)
+        Path.mkdir(out, exist_ok=True)
+
+        #Produce thumbnails no larger than current image max size
         thumbs = []
-        for size in sizes:
-            imsize = max(im.size)
-            if imsize < size:
+        for size in SIZES:
+            if max(im.size) < size:
                 continue
-            vprint("Making size: ", size)
+            thumb = im.copy()
             thumb.thumbnail((size, size), resample=Image.LANCZOS)
-            thumb.save(f'out/{fname}_{size}.jpg', quality=q1, optimize=True, progressive=True)
-            thumb.save(f'out/{fname}_{size}.webp', quality=q2, method=6)
-            vprint("Done")
+            thumb.save(f'{out}/{self.path.stem}_{size}.jpg', quality=q_jpg, optimize=True, progressive=True)
+            thumb.save(f'{out}/{self.path.stem}_{size}.webp', quality=q_webp, method=6)
             thumbs.append(size)
-    return im.width, im.height, q1, q2, thumbs
 
-def upload_images(dir):
-    cmnd = ['python', '-m', 'pynetlify', 'deploy_folder',
-     '--site-id', 'bd867c99-8ad2-41da-b295-d619581e8079', dir]
-    res = subprocess.run(cmnd)
-    print(res)
-    # vprint("Uploaded files:")
-    # for file in sorted(os.listdir(dir)):
-    #     vprint(file)
+        #Save updated data to db
+        self.update_db({
+            "status": "src",
+            "width": im.width,
+            "height": im.height,
+            "sizes": thumbs
+        })
+        print("Processed: ", self.path)
+        self.close()
+
+
+class SourceImages:
+    """Convinience class for accessing all source images"""
+    def __init__(self):
+        self.db = IMG_DB
+        self.update_archived()
+
+    @property
+    def path(self):
+        """Returns current relative path to src img directory"""
+        # Assumes image is inside default image source directory
+        abspath = Path(IMAGES_ROOT, SOURCE_DIR).resolve()
+        return abspath.relative_to(Path.cwd())
+
+    @property
+    def outpath(self):
+        """Returns current relative path to output directory"""
+        # Assumes image is inside default image source directory
+        abspath = Path(IMAGES_ROOT, OUTPUT_DIR).resolve()
+        return abspath.relative_to(Path.cwd())
+
+    @property
+    def images(self):
+        """ Return list of SiteImage objects from all images in source directory"""
+        return [SiteImage(f.name) for f in self.path.iterdir()]
+
+    def find(self, img):
+        """ Find one image by filename from images list """
+        # i = SiteImage(img)
+        if (i := SiteImage(img)) in self.images:
+            print("FOUND")
+            return i
+        print("NOT FOUND")
+        return None
+
+    def add_to_db(self):
+        for img in self.images:
+            img.add_to_db()
+
+    def clear_db(self):
+        for img in self.images:
+            img.remove_from_db()
+
+    def update_db(self, values_dict):
+        """ Updates field in all entries"""
+        self.db.update(values_dict)
+
+    def list_db_files(self):
+        return [SiteImage(rec['file']) for rec in self.db.all()]
+
+    def update_archived(self):
+        """ Tag all images that are in db but not in source as archived """
+        for rec in self.list_db_files():
+            if rec not in self.images:
+                rec.archive()
+
+    def process(self):
+        db_imgs = self.db.search(IQ.status == "new")
+        for img in db_imgs:
+            SiteImage(img['file']).create_thumbnails()
+
+    def upload_images(self):
+        cmnd = ['python', '-m', 'pynetlify', 'deploy_folder',
+         '--site-id', 'bd867c99-8ad2-41da-b295-d619581e8079', self.outpath]
+        res = subprocess.run(cmnd)
+        print(res)
+
+
+def responsive_images(html, conditions, img_url, wrap_picture=False):
+    parser = utils.parse_html(html)
+    imgs = parser.getElementsByTagName('img')
+    for img in imgs:
+        path = Path(img.src)
+        si = SiteImage(path.name)
+
+        # Set image attributes using database
+        if si.data:
+            widths = si.data.get('sizes', SIZES)
+            img.setAttributes({
+                'src': Path(img_url, f'{path.stem}_{DEFAULT_IMG_WIDTH}{path.suffix}'),
+                'srcset': utils.srcset(img_url, path.stem, widths, 'jpg'),
+                'sizes': utils.sizes(conditions),
+                'width': si.data.get('width'),
+                'height': si.data.get('height'),
+            })
+
+            # Wrap img in picture tag with source for secondary format
+            if wrap_picture:
+                picture = parser.createElement('picture')
+                source = parser.createElementFromHTML('<source />')
+                parent = img.parentElement
+
+                parent.removeChild(img)
+                picture = parent.appendChild(picture)
+                picture.appendBlocks([source, img])
+
+                source.setAttributes({
+                    'type': 'image/webp',
+                    'srcset': utils.srcset(img_url, path.stem, widths, 'webp'),
+                    'sizes': utils.sizes(conditions)
+                })
+
+    return parser.getFormattedHTML()
+
+
+if __name__ == '__main__':
+    # main()
+
+    all = SourceImages()
+    for img in all.images:
+        im = img.open()
+        img.update_db({"height": im.height, "width": im.width})

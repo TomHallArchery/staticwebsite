@@ -1,4 +1,4 @@
-from website import app, flatpages, utils
+from website import app, flatpages, utils, images
 from website.images import SIZES
 import flask
 import os
@@ -10,10 +10,7 @@ from functools import partial
 
 WP_POSTS_DIR = 'articles/archive'
 DEFAULT_IMG_DISPLAY_WIDTHS = {'60vw': 'min-width: 110ch', '95vw': None}
-DEFAULT_IMG_WIDTH = '1200'
-PRIMARY_IMG_FORMAT = 'jpg'
-SECONDARY_IMG_FORMAT = 'webp'
-TEST=False
+TEST=os.environ.get('TEST')
 
 
 @app.before_request
@@ -32,44 +29,7 @@ def inject_data():
         sizes=utils.sizes,
         )
 
-@app.template_filter()
-def responsive_images(html, conditions, img_url, wrap_picture=False):
-    parser = utils.parse_html(html)
-    imgs = parser.getElementsByTagName('img')
-    for img in imgs:
-        # TODO: Abstract below into utils function
-        if img.src:
-            if not img.width:
-                img.width = DEFAULT_IMG_WIDTH
-                widths = SIZES
-            else:
-                # generate list of widths up to intrinsic image size
-                # to prevent server requests for image sizes that don't exist
-                widths = list(filter(lambda x: x<int(img.width), SIZES))
-
-            path, fname, ext = utils.split_filename(img.src)
-            img.setAttributes({
-                'src': os.path.join(img_url, f'{fname}_{DEFAULT_IMG_WIDTH}{ext}'),
-                'srcset': utils.srcset(img_url, fname, widths, 'jpg'),
-                'sizes': utils.sizes(conditions)
-            })
-
-            if wrap_picture:
-                picture = parser.createElement('picture')
-                source = parser.createElementFromHTML('<source />')
-                parent = img.parentElement
-
-                parent.removeChild(img)
-                picture = parent.appendChild(picture)
-                picture.appendBlocks([source, img])
-
-                source.setAttributes({
-                    'type': 'image/webp',
-                    'srcset': utils.srcset(img_url, fname, widths, 'webp'),
-                    'sizes': utils.sizes(conditions)
-                })
-
-    return parser.getFormattedHTML()
+app.add_template_filter(images.responsive_images)
 
 # ===============
 # #ROUTES
