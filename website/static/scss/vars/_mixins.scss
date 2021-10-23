@@ -5,10 +5,14 @@
     }
 }
 
-@mixin clip-stripe-r($left: 1, $right: 1) {
-  clip-path: polygon(($left * 10%) 0%, 100% 0%, 100% - ($right * 10%) 100%, 0% 100%);
+@mixin slant-h($left: 1, $right: 1) {
+  clip-path: polygon(($left * 10%) 0%, 100% 0%, (100% - $right * 10%) 100%, 0% 100%);
 }
 
-@mixin clip-stripe-l {
+@mixin slant-h-reversed {
   clip-path: polygon(0% 0%, 90% 0%, 100% 100%, 10% 100%);
+}
+
+@mixin slant-v($top: 1, $bottom: 1) {
+  clip-path: polygon(0% ($top * 10%), 100% 0%, 100% (100% - $bottom * 10%), 0% 100%);
 }
