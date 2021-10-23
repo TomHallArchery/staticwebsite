@@ -10,7 +10,7 @@ from website import app, db, utils
 Formats = namedtuple("Formats", "source progressive")
 
 # Constants
-SIZES = [2000, 1600, 1200, 800, 400]
+WIDTHS = [2000, 1600, 1200, 800, 400]
 IMAGES_ROOT = 'website/static/img/' #app config?
 SOURCE_DIR = 'src' #app config?
 OUTPUT_DIR = 'out'
@@ -155,15 +155,16 @@ class SiteImage:
 
         #Produce thumbnails no larger than current image max size
         thumbs = []
-        for size in SIZES:
-            if max(im.size) < size:
-                continue
+        widths = filter(lambda x: max(im.size) > x, WIDTHS)
+        for w in widths:
+            # Correct width descriptor for portrait images
+            _w = min(w, w * width // height)
             thumb = im.copy()
-            thumb.thumbnail((size, size), resample=Image.LANCZOS)
-            thumb.save(f'{out}/{self.path.stem}_{size}.jpg', quality=q_jpg, optimize=True, progressive=True)
-            thumb.save(f'{out}/{self.path.stem}_{size}.webp', quality=q_webp, method=6)
-            thumbs.append(size)
-
+            thumb.thumbnail((w, w), resample=Image.LANCZOS)
+            thumb.save(f'{out}/{self.path.stem}_{_w}.jpg', quality=q_jpg, optimize=True, progressive=True)
+            thumb.save(f'{out}/{self.path.stem}_{_w}.webp', quality=q_webp, method=6)
+            thumbs.append(_w)
+        print(thumbs)
         #Save updated data to db
         self.update_db({
             "status": "src",
@@ -230,10 +231,15 @@ class SourceImages:
             if rec not in self.images:
                 rec.archive()
 
-    def process(self):
-        db_imgs = self.db.search(IQ.status == "new")
-        for img in db_imgs:
-            SiteImage(img['file']).create_thumbnails()
+    def process(self, reprocess=True):
+        if reprocess:
+            db_imgs = self.db.search(IQ.status.one_of(["new", "src"]))
+            for img in db_imgs:
+                SiteImage(img['file']).create_thumbnails(process_src=True)
+        else:
+            db_imgs = self.db.search(IQ.status == "new")
+            for img in db_imgs:
+                SiteImage(img['file']).create_thumbnails()
 
     def upload_images(self):
         cmnd = ['python', '-m', 'pynetlify', 'deploy_folder',
@@ -258,10 +264,10 @@ def responsive_images(html, conditions, img_url, wrap_picture=False):
             continue
 
         # Set image attributes using database
-        widths = si.data.get('sizes', SIZES)
+        sizes = si.data.get('sizes', WIDTHS)
         img.setAttributes({
             'src': Path(img_url, f'{path.stem}_{DEFAULT_IMG_WIDTH}{path.suffix}'),
-            'srcset': utils.srcset(img_url, path.stem, widths, 'jpg'),
+            'srcset': utils.srcset(img_url, path.stem, sizes, 'jpg'),
             'sizes': utils.sizes(conditions),
             'width': si.data.get('width'),
             'height': si.data.get('height'),
@@ -286,7 +292,7 @@ def responsive_images(html, conditions, img_url, wrap_picture=False):
 
         source.setAttributes({
             'type': 'image/webp',
-            'srcset': utils.srcset(img_url, path.stem, widths, 'webp'),
+            'srcset': utils.srcset(img_url, path.stem, sizes, 'webp'),
             'sizes': utils.sizes(conditions)
         })
 

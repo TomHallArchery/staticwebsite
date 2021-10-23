@@ -61,7 +61,7 @@ def srcset(img_url, fname, widths, ext):
 def sizes(criteria):
     ''' usage: sizes({'60vw':'min-width: 110ch', '95vw': None}) '''
 
-    sizes = [f'({br}) {sz}' for sz, br in criteria.items()]
+    sizes = [f'({sz}) {br}' for sz, br in criteria.items()]
     return ", ".join(sizes).replace('(None) ', '')
 
 def gen_img_attributes(src, img_url, fname, widths, ext, default_size, default_layout , height, width):

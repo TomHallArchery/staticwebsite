@@ -1,5 +1,5 @@
 from website import app, flatpages, utils, images
-from website.images import SIZES
+from website.images import WIDTHS
 import flask
 import os
 from datetime import datetime
@@ -9,7 +9,7 @@ from functools import partial
 # flask.render_template = partial(flask.render_template, highlight_blocks=True)
 
 WP_POSTS_DIR = 'articles/archive'
-DEFAULT_IMG_DISPLAY_WIDTHS = {'60vw': 'min-width: 110ch', '95vw': None}
+DEFAULT_IMG_DISPLAY_WIDTHS = {'min-width: 110ch': '60vw', None: '95vw'}
 TEST=os.environ.get('TEST')
 
 
@@ -22,7 +22,7 @@ def inject_data():
     this_year = datetime.now().year
     return dict(
         year=this_year,
-        img_sizes=SIZES,
+        img_sizes=WIDTHS,
         img_layout=DEFAULT_IMG_DISPLAY_WIDTHS,
         src=utils.src,
         srcset=utils.srcset,
@@ -43,7 +43,7 @@ def home_page():
         # could still allow dict unpacking of metadata
         description = "The homepage of Tom Hall, Archer and Coach",
         keywords = "Archery, Athlete, Profile",
-        img_layout = {'80vw': None}
+        img_layout = {'min-width: 110ch': '60vw', None : '95vw'}
         )
 
 @app.route('/results/')
