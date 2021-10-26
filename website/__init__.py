@@ -2,6 +2,9 @@ import markdown
 from flask import Flask, render_template_string, Markup
 from flask_flatpages import FlatPages
 from tinydb import TinyDB
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 db = TinyDB('database.json', indent=4, separators=(',', ': ')) #reads database in from json file
