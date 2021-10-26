@@ -16,9 +16,8 @@ website/static/img/*
 website/static/css
 
 # Ignore build output (deploy directly from cli)
-website/build
-tmp.css
-tmp.css.map
+website/build/*
+!website/build/netlify.toml
 tmp/
 
 # Local Netlify folder

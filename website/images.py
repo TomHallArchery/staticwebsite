@@ -244,7 +244,8 @@ class SourceImages:
     def upload_images(self):
         netlify = pynetlify.APIRequest(os.environ.get('NETLIFY_AUTH_TOKEN'))
         target = netlify.get_site(os.environ.get('CDN_NETLIFY_ID'))
-        return netlify.deploy_folder_to_site(str(self.outpath), target)
+        deploy = netlify.deploy_folder_to_site(str(self.outpath), target)
+        return netlify.get_deploy(deploy)
 
 
 def responsive_images(html, conditions, img_url, wrap_picture=False):

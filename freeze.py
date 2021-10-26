@@ -1,15 +1,13 @@
 #!/usr/bin/env python
-
-from website import app, flatpages, utils, images, errors
-
+import os
+import argparse
 from flask_frozen import Freezer
 from flask import url_for, render_template
 
-import os
-import argparse
+from website import app, flatpages, utils, images, errors
 
 freezer = Freezer(app)
-app.config["FREEZER_DESTINATION_IGNORE"] += ['404.html', '_headers']
+app.config["FREEZER_DESTINATION_IGNORE"] += ['404.html', 'netlify.toml']
 app.config["FREEZER_STATIC_IGNORE"] += [
     'fonts/', 'scss/', 'img/', 'css/', 'favicon/', 'js/', '.DS_Store'
     ]
@@ -25,10 +23,10 @@ BUILD_PATH = "website/build"
 # Instructs the freezer to also check for dynamically generated urls from serve_page functinon.
 @freezer.register_generator
 def fonts():
-    print('Registering Font files:')
     for dir, font in FONTS.items():
         path = os.path.join('fonts', dir, font)
         yield url_for('static', filename=path)
+
 
 @app.context_processor
 def localise_img_url():
@@ -62,7 +60,8 @@ def main():
     utils.compile_css('website/static/scss', 'website/build/static/css', compressed=True)
     print("Css recompiled")
 
-    images.SourceImages().upload_images()
+    i = images.SourceImages().upload_images()
+    print("Images Uploaded", i)
 
     # Use python builtin server to serve static files based on directory structure
     if args.serve:
