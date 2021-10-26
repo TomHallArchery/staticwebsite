@@ -10,7 +10,9 @@ import argparse
 
 freezer = Freezer(app)
 app.config["FREEZER_DESTINATION_IGNORE"] += ['404.html', '_headers']
-app.config["FREEZER_STATIC_IGNORE"] += ['fonts/', 'scss/', 'img/', 'css/', 'favicon/', 'js/']
+app.config["FREEZER_STATIC_IGNORE"] += [
+    'fonts/', 'scss/', 'img/', 'css/', 'favicon/', 'js/', '.DS_Store'
+    ]
 
 # Manually add fonts to list to incorporate into freezer
 FONTS = {
@@ -64,7 +66,7 @@ def main():
 
     # Use python builtin server to serve static files based on directory structure
     if args.serve:
-        utils.serve_static('website/build', 5001)
+        utils.serve_static(BUILD_PATH, 5001)
 
 
 if __name__ == '__main__':
