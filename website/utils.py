@@ -1,10 +1,10 @@
-from website import app, flatpages
-
 import subprocess
 import os
 import AdvancedHTMLParser
 import http.server as svr
 from contextlib import contextmanager
+
+from website import app, flatpages
 
 @contextmanager
 def cwd(path):
@@ -77,7 +77,6 @@ def gen_img_attributes(src, img_url, fname, widths, ext, default_size, default_l
 def serve_static(dir, port):
     with cwd(dir):
         svr.test(HandlerClass=svr.SimpleHTTPRequestHandler, port=port)
-
 
 
 def main():

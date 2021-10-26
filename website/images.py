@@ -1,7 +1,7 @@
+import os
 from pathlib import Path
 from collections import namedtuple
-import subprocess
-
+from pynetlify import pynetlify
 from PIL import Image, ImageOps
 from tinydb import Query
 
@@ -242,10 +242,9 @@ class SourceImages:
                 SiteImage(img['file']).create_thumbnails()
 
     def upload_images(self):
-        cmnd = ['python', '-m', 'pynetlify', 'deploy_folder',
-         '--site-id', 'bd867c99-8ad2-41da-b295-d619581e8079', self.outpath]
-        res = subprocess.run(cmnd)
-        print(res)
+        netlify = pynetlify.APIRequest(os.environ.get('NETLIFY_AUTH_TOKEN'))
+        target = netlify.get_site(os.environ.get('CDN_NETLIFY_ID'))
+        return netlify.deploy_folder_to_site(str(self.outpath), target)
 
 
 def responsive_images(html, conditions, img_url, wrap_picture=False):
