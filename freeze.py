@@ -11,13 +11,14 @@ app.config["FREEZER_DESTINATION_IGNORE"] += ['404.html', 'netlify.toml']
 app.config["FREEZER_STATIC_IGNORE"] += [
     'fonts/', 'scss/', 'img/', 'css/', 'favicon/', 'js/', '.DS_Store'
     ]
+app.config['IMG_URL'] = "https://cdn.tomhallarchery.com/"
+
 
 # Manually add fonts to list to incorporate into freezer
 FONTS = {
 'Roboto_Slab' : 'RobotoSlab-VariableFont_wght-Latin.woff2', #tuple: vf, latin, woff2
 'Public_Sans' : 'PublicSans-VariableFont_wght-Min.woff2'
 }
-IMAGES_URL = "https://cdn.tomhallarchery.com/"
 BUILD_PATH = "website/build"
 
 # Instructs the freezer to also check for dynamically generated urls from serve_page functinon.
@@ -27,21 +28,12 @@ def fonts():
         path = os.path.join('fonts', dir, font)
         yield url_for('static', filename=path)
 
-
-@app.context_processor
-def localise_img_url():
-    return dict(
-        img_url=IMAGES_URL,
-        )
-
 #Frozen flask issue: have to manually build the 404 error page for use by server
 def build_404():
     with app.test_request_context():
         error_page = errors.render_404()
         with open('website/build/404.html', 'w') as f:
             f.write(error_page)
-
-
 
 def main():
     parser = argparse.ArgumentParser(description="Freeze website into static files")

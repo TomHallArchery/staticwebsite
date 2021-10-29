@@ -13,7 +13,7 @@
   <header id="site_header" class="o-hero">
     {% include "base/nav.html.j2" %}
 
-    {% filter responsive_images({ None: '120vmax'}, img_url, wrap_picture=True) %}
+    {% filter responsive_images({ None: '120vmax'}, wrap_picture=True) %}
     <div class="intro c-slant-banner">
       <!-- <a class="c-slant-banner__img" href="#athlete"> -->
         <img class="c-slant-banner__img" style="--obj-pos: 50% 0%;" src="teamgb-profile.jpg" alt=""></img>
@@ -32,7 +32,7 @@
 
 
 {%- block content -%}
-{% filter responsive_images(img_layout, img_url, wrap_picture=True) %}
+{% filter responsive_images(img_layout, wrap_picture=True) %}
 <main class="homepage">
   <section class="c-intro-card" id="athlete">
     <h3 class="c-intro-card__header">Athlete</h3>

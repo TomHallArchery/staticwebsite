@@ -248,7 +248,8 @@ class SourceImages:
         return netlify.get_deploy(deploy)
 
 
-def responsive_images(html, conditions, img_url, wrap_picture=False):
+def responsive_images(html, conditions, wrap_picture=False):
+    img_url = app.config['IMG_URL']
     parser = utils.parse_html(html)
     imgs = parser.getElementsByTagName('img')
     for img in imgs:

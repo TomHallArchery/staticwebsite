@@ -3,16 +3,13 @@ import subprocess
 import os
 from time import sleep, localtime, strftime
 
-
 from website import app, db, flatpages, utils, images
-
 
 app.config['ENV'] = 'DEVELOPMENT'
 app.config['DEBUG'] = True
 app.config['TEMPLATES_AUTO_RELOAD'] = True
+app.config['IMG_URL'] = "/static/img/out/"
 REPROC_IMAGES = os.environ.get('REPROC_IMAGES', False)
-
-IMAGES_URL = "/static/img/out/"
 
 rundb = db.table("run")
 
@@ -31,13 +28,6 @@ def process_all_images():
     all.add_to_db()
     all.process(reprocess=REPROC_IMAGES)
 
-# overload img_url with relative url to same domain
-@app.context_processor
-def localise_img_url():
-    return dict(
-        img_url=IMAGES_URL,
-        )
-
 if __name__ == '__main__':
 
     # Extra debugging/testing functions
@@ -49,13 +39,6 @@ if __name__ == '__main__':
 
     # Run dev server
     app.run(debug=True)
-
-    # Request to freeze
-    # sleep(0.5)
-    # freeze = input('Freeze application? (y/n): ')
-    # if freeze.lower() == 'y':
-    #     cmd = ["python", "-m", "freeze"]
-    #     subprocess.run(cmd)
 
     # clear database
     rundb.truncate()
