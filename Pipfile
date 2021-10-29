@@ -13,6 +13,7 @@ pillow = "*"
 pynetlify = "*"
 beautifulsoup4 = "*"
 python-dotenv = "*"
+mongoengine = "*"
 
 [dev-packages]
 fonttools = "*"

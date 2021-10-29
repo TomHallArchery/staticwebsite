@@ -6,6 +6,9 @@ __pycache__
 pynetlify.ini
 gitlog.txt
 
+# Ignore database files
+database/*
+!database/db.conf
 
 # Ignore image directory: output files uploaded seperately to netlify
 website/static/img/*
