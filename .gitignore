@@ -18,6 +18,9 @@ website/static/img/*
 # Ignore static/css: scss source and comipiled css already tracked on git
 website/static/css
 
+# Ignore external js dependancy from install script
+website/static/js/alpine.js
+
 # Ignore build output (deploy directly from cli)
 website/build/*
 !website/build/netlify.toml

@@ -1,7 +1,7 @@
 import os
 import flask
 import markdown
-
+from pathlib import Path
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -38,6 +38,12 @@ class Config:
     # Views config
     VIEW_POSTS_DIR_WP = 'articles/archive'
     VIEW_TEST = os.environ.get('TEST')
+
+    # External Depedancies
+    ALPINE = {
+        'url': "https://unpkg.com/alpinejs@3.4.2/dist/cdn.min.js",
+        'fpath': Path('website', 'static', 'js', 'alpine.js')
+    }
 
 class RunConfig(Config):
     # from run.py
