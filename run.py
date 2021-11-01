@@ -1,17 +1,16 @@
 #!/usr/bin/env python
 import subprocess
 import os
-from time import sleep, localtime, strftime
+from time import sleep
+from datetime import datetime
 
-from website import app, db, flatpages, utils, images
+from website import app, db, flatpages, utils, database, images
 
 app.config['ENV'] = 'DEVELOPMENT'
 app.config['DEBUG'] = True
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 app.config['IMG_URL'] = "/static/img/out/"
 REPROC_IMAGES = os.environ.get('REPROC_IMAGES', False)
-
-rundb = db.table("run")
 
 def pprint(string):
     print(string.center(30, "*"))
@@ -33,13 +32,12 @@ if __name__ == '__main__':
     # Extra debugging/testing functions
     pprint("LOG")
 
-    #Test dynamic database value insertion
-    TESTDBVAL = strftime("%X %x", localtime())
-    rundb.insert({"Active": True, "Started": TESTDBVAL})
+    # log run
+    run = database.Run(started=datetime.now())
+    print(run)
+    run.save()
 
     # Run dev server
     app.run(debug=True)
 
-    # clear database
-    rundb.truncate()
-    db.close()
+    database.Run.drop_collection()

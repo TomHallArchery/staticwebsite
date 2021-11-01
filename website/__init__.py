@@ -1,4 +1,5 @@
 import markdown
+import os
 from flask import Flask, render_template_string, Markup
 from flask_flatpages import FlatPages
 from tinydb import TinyDB
@@ -24,8 +25,11 @@ FLATPAGES_HTML_RENDERER = prerender_jinja
 FLATPAGES_MARKDOWN_EXTENSIONS = ['codehilite', 'attr_list', 'md_in_html']
 FLATPAGES_AUTO_RELOAD = True
 
+DB_PORT = 5009
+DB_PWD = os.environ.get("DB_PWORD")
+DB_CONFIG = 'database/db.conf'
 
 app.config.from_object(__name__)
 flatpages = FlatPages(app)
 
-from website import utils, images, errors, views
+from website import utils, database, images, errors, views

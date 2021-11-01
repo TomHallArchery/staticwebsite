@@ -1,15 +1,18 @@
-import os
-from dotenv import load_dotenv
+import subprocess
 import mongoengine as mg
-from datetime import datetime
 
-load_dotenv()
+from website import app
 
+#launch mongodb instance in seperate process
+cmd = ['mongod', '--config', app.config["DB_CONFIG"]]
+subprocess.Popen(cmd)
+
+#connect
 mg.connect('website', #connects to website DB
             username="app",
-            password=os.environ.get("DB_PWORD"),
+            password= app.config["DB_PWD"],
             authentication_source="admin",
-            port=5009)
+            port=app.config["DB_PORT"])
 
 # creates or loads collection
 class Img(mg.Document):
@@ -21,4 +24,5 @@ class Page(mg.Document):
     title = mg.StringField()
     content = mg.StringField()
 
-a = Img(name="img_1", desc="test img database", created_at=datetime.now()).save()
+class Run(mg.Document):
+    started = mg.DateTimeField()
