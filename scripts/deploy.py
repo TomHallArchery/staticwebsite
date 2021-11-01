@@ -1,12 +1,7 @@
-import os
-from pynetlify import pynetlify
+from website import app, utils
+import config
 
-from website import app
-
-def netlify_deploy():
-    netlify = pynetlify.APIRequest(os.environ.get('NETLIFY_AUTH_TOKEN'))
-    target = netlify.get_site(os.environ.get('ROOT_NETLIFY_ID'))
-    return netlify.deploy_folder_to_site("website/build", target)
+app.config.from_object(config.BuildConfig)
 
 if __name__ == '__main__':
-    netlify_deploy()
+    utils.deploy_folder_to_netlify('website/build', "ROOT")

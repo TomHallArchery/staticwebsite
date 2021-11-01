@@ -1,16 +1,11 @@
 #!/usr/bin/env python
-import subprocess
-import os
 from time import sleep
 from datetime import datetime
 
-from website import app, db, flatpages, utils, database, images
+from website import app, flatpages, utils, database, images
+import config
 
-app.config['ENV'] = 'DEVELOPMENT'
-app.config['DEBUG'] = True
-app.config['TEMPLATES_AUTO_RELOAD'] = True
-app.config['IMG_URL'] = "/static/img/out/"
-REPROC_IMAGES = os.environ.get('REPROC_IMAGES', False)
+app.config.from_object(config.RunConfig)
 
 def pprint(string):
     print(string.center(30, "*"))
@@ -25,7 +20,7 @@ def process_all_images():
     print("Processing images")
     all = images.SourceImages()
     all.add_to_db()
-    all.process(reprocess=REPROC_IMAGES)
+    all.process(reprocess= app.config['REPROC_IMAGES'])
 
 if __name__ == '__main__':
 

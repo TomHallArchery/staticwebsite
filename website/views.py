@@ -1,17 +1,8 @@
-from website import app, flatpages, utils, images
-from website.images import WIDTHS
 import flask
 import os
 from datetime import datetime
-from functools import partial
 
-# Add highlighted primary component blocks for layout design
-# flask.render_template = partial(flask.render_template, highlight_blocks=True)
-
-WP_POSTS_DIR = 'articles/archive'
-DEFAULT_IMG_DISPLAY_WIDTHS = {'min-width: 110ch': '60vw', None: '95vw'}
-TEST=os.environ.get('TEST')
-
+from website import app, flatpages, utils, images
 
 @app.before_request
 def reload_flatpages():
@@ -22,8 +13,8 @@ def inject_data():
     this_year = datetime.now().year
     return dict(
         year=this_year,
-        img_sizes=WIDTHS,
-        img_layout=DEFAULT_IMG_DISPLAY_WIDTHS,
+        img_sizes=app.config.get('IMG_WIDTHS'),
+        img_layout=app.config.get('IMG_DISPLAY_WIDTHS'),
         src=utils.src,
         srcset=utils.srcset,
         sizes=utils.sizes,
@@ -74,7 +65,7 @@ def contact_page():
 @app.route('/articles/')
 def serve_articles_index():
     # Selects posts with a PATH starting with wpexport/_posts
-    wp_posts = utils.filter_pages(WP_POSTS_DIR)
+    wp_posts = utils.filter_pages(app.config["VIEW_POSTS_DIR_WP"])
     return flask.render_template('articles/index.html.j2',
         title="Articles",
         pages=wp_posts
@@ -104,7 +95,7 @@ def serve_page(path_requested):
         **flatpage.meta
         )
 
-if TEST:
+if app.config["VIEW_TEST"]:
     @app.route("/test/")
     def serve_test():
         return flask.render_template('generic/test.html.j2')

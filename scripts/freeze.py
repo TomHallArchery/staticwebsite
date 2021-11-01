@@ -5,20 +5,12 @@ from flask_frozen import Freezer
 from flask import url_for, render_template
 
 from website import app, flatpages, utils, images, errors
+import config
 
+app.config.from_object(config.BuildConfig)
 freezer = Freezer(app)
-app.config["FREEZER_DESTINATION_IGNORE"] += ['404.html', 'netlify.toml']
-app.config["FREEZER_STATIC_IGNORE"] += [
-    'fonts/', 'scss/', 'img/', 'css/', 'favicon/', 'js/', '.DS_Store'
-    ]
-app.config['IMG_URL'] = "https://cdn.tomhallarchery.com/"
 
-
-# Manually add fonts to list to incorporate into freezer
-FONTS = {
-'Roboto_Slab' : 'RobotoSlab-VariableFont_wght-Latin.woff2', #tuple: vf, latin, woff2
-'Public_Sans' : 'PublicSans-VariableFont_wght-Min.woff2'
-}
+FONTS = app.config["FONTS"]
 BUILD_PATH = "website/build"
 
 # Instructs the freezer to also check for dynamically generated urls from serve_page functinon.

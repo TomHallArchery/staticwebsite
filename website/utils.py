@@ -3,6 +3,7 @@ import os
 import AdvancedHTMLParser
 import http.server as svr
 from contextlib import contextmanager
+from pynetlify import pynetlify
 
 from website import app, flatpages
 
@@ -77,6 +78,17 @@ def gen_img_attributes(src, img_url, fname, widths, ext, default_size, default_l
 def serve_static(dir, port):
     with cwd(dir):
         svr.test(HandlerClass=svr.SimpleHTTPRequestHandler, port=port)
+
+def deploy_folder_to_netlify(dir, subdomain):
+    subdomain = subdomain.upper()
+    assert subdomain in ['ROOT', 'CDN']
+
+    AUTH_TOKEN = app.config.get('NETLIFY_AUTH_TOKEN')
+    DOMAIN_ID = app.config.get(f'NETLIFY_{subdomain}_ID')
+
+    netlify = pynetlify.APIRequest(AUTH_TOKEN)
+    target = netlify.get_site(DOMAIN_ID)
+    return netlify.deploy_folder_to_site(dir, target)
 
 
 def main():

@@ -1,23 +1,18 @@
-import os
 from pathlib import Path
-from collections import namedtuple
-from pynetlify import pynetlify
 from PIL import Image, ImageOps
 from tinydb import Query
 
 from website import app, db, utils
 
-Formats = namedtuple("Formats", "source progressive")
-
 # Constants
-WIDTHS = [2000, 1600, 1200, 800, 400]
-IMAGES_ROOT = 'website/static/img/' #app config?
-SOURCE_DIR = 'src' #app config?
-OUTPUT_DIR = 'out'
-IMG_FORMATS = Formats('.jpg', '.webp')
+WIDTHS = app.config["IMG_WIDTHS"]
+IMAGES_ROOT = app.config["IMG_ROOT"]
+SOURCE_DIR = app.config["IMG_SOURCE_DIR"]
+OUTPUT_DIR = app.config["IMG_OUTPUT_DIR"]
+IMG_FORMATS = app.config["IMG_FORMATS"]
 IMG_DB = db.table('img')
 IQ = Query()
-DEFAULT_IMG_WIDTH = '1200'
+DEFAULT_IMG_WIDTH = app.config["IMG_DEFAULT_WIDTH"]
 
 
 # Clear img directory
@@ -242,10 +237,7 @@ class SourceImages:
                 SiteImage(img['file']).create_thumbnails()
 
     def upload_images(self):
-        netlify = pynetlify.APIRequest(os.environ.get('NETLIFY_AUTH_TOKEN'))
-        target = netlify.get_site(os.environ.get('CDN_NETLIFY_ID'))
-        deploy = netlify.deploy_folder_to_site(str(self.outpath), target)
-        return netlify.get_deploy(deploy)
+        return utils.deploy_folder_to_netlify(str(self.outpath), "CDN")
 
 
 def responsive_images(html, conditions, wrap_picture=False):
