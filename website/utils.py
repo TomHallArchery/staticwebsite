@@ -21,13 +21,15 @@ def rm_file(file):
     if os.path.exists(file) and os.path.isfile(file):
         os.remove(file)
 
-def compile_css(src, dest, compressed=False, watch=False):
+def compile_css(compressed=False, watch=False):
+    src = app.config["CSS_SRC_DIR"]
+    dest = app.config["CSS_OUT_DIR"]
     cmnd = ["sass", f"{src}:{dest}", "--no-source-map"]
     if compressed:
         cmnd.extend([ "-s", "compressed"])
     if watch:
         cmnd.extend(['--watch'])
-    res = subprocess.run(cmnd)
+    res = subprocess.Popen(cmnd)
     return res
 
 # dirty:

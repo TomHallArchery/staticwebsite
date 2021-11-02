@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 import os
-import argparse
 from flask_frozen import Freezer
 from flask import url_for, render_template
 
@@ -28,29 +27,19 @@ def build_404():
             f.write(error_page)
 
 def main():
-    parser = argparse.ArgumentParser(description="Freeze website into static files")
-    parser.add_argument('-S', '--serve', action='store_true',
-        help="Serve built files on port 5001")
-    args = parser.parse_args()
-
     print("Building website:")
-    # print(app.config)
+
     # TODO: check font files exist and compile with pyftsubset
     build_404()
     # Freeze static files into default directory 'build'
     freezer.freeze()
     print("Website frozen")
 
-    utils.compile_css('website/static/scss', 'website/build/static/css', compressed=True)
+    utils.compile_css(compressed=True)
     print("Css recompiled")
 
     i = images.SourceImages().upload_images()
     print("Images Uploaded", i)
-
-    # Use python builtin server to serve static files based on directory structure
-    if args.serve:
-        utils.serve_static(BUILD_PATH, 5001)
-
 
 if __name__ == '__main__':
     main()

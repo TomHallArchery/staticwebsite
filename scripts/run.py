@@ -10,11 +10,6 @@ app.config.from_object(config.RunConfig)
 def pprint(string):
     print(string.center(30, "*"))
 
-# recompile scss on each request during development mode
-@app.before_request
-def rebuild_css():
-    utils.compile_css('website/static/scss', 'website/static/css')
-
 @app.before_first_request
 def process_all_images():
     print("Processing images")
@@ -27,12 +22,15 @@ if __name__ == '__main__':
     # Extra debugging/testing functions
     pprint("LOG")
 
+    p = utils.compile_css(watch=True)
+    print(p.pid)
+
+    # add a comment
     # log run
+    database.Run.drop_collection()
     run = database.Run(started=datetime.now())
     print(run)
     run.save()
 
     # Run dev server
     app.run(debug=True)
-
-    database.Run.drop_collection()

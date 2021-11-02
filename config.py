@@ -45,6 +45,11 @@ class Config:
         'fpath': Path('website', 'static', 'js', 'alpine.js')
     }
 
+    # CSS config
+    CSS_PREPROCESSOR = 'sass'
+    CSS_SRC_DIR = Path('website', 'static', 'scss')
+    CSS_OUT_DIR = Path('website', 'static', 'css')
+
 class RunConfig(Config):
     # from run.py
     ENV = 'DEVELOPMENT'
@@ -69,6 +74,8 @@ class BuildConfig(Config):
     FREEZER_STATIC_IGNORE = [
     'fonts/', 'scss/', 'img/', 'css/', 'favicon/', 'js/', '.DS_Store'
     ]
+
+    CSS_OUT_DIR = Path('website', 'build', 'static', 'css')
 
     # Pynetlify config
     NETLIFY_AUTH_TOKEN = os.environ.get('NETLIFY_AUTH_TOKEN')
