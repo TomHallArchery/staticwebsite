@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 import os
+
+from flask_htmlmin import HTMLMIN
 from flask_frozen import Freezer
 from flask import url_for, render_template
 
@@ -12,6 +14,7 @@ if conf == "Deploy":
 else:
     app.config.from_object(config.BuildConfig)
 
+HTMLMIN(app)
 freezer = Freezer(app)
 
 FONTS = app.config["FONTS"]

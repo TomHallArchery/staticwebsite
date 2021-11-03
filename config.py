@@ -77,6 +77,9 @@ class BuildConfig(Config):
 
     CSS_OUT_DIR = Path('website', 'build', 'static', 'css')
 
+    # Flask-HTMLmin
+    MINIFY_HTML = True
+
 class DeployConfig(BuildConfig):
 
     IMG_URL = "https://cdn.tomhallarchery.com/"

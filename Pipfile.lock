@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "933c45da62a42db6b4c90a2984ef8d1afc32b6f2e481dc392a1704d602e5e1a9"
+            "sha256": "7a006f84f188e20c0ee0831671a45136bae90eda1173ac070346b86b8a60b734"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -54,6 +54,12 @@
             "markers": "python_version >= '3.6'",
             "version": "==8.0.3"
         },
+        "cssmin": {
+            "hashes": [
+                "sha256:e012f0cc8401efcf2620332339011564738ae32be8c84b2e43ce8beaec1067b6"
+            ],
+            "version": "==0.2.0"
+        },
         "flask": {
             "hashes": [
                 "sha256:7b2fb8e934ddd50731893bdcdb00fc8c0315916f9fcd50d22c7cc1a95ab634e2",
@@ -70,6 +76,15 @@
             "index": "pypi",
             "version": "==0.7.3"
         },
+        "flask-htmlmin": {
+            "hashes": [
+                "sha256:78cbb4783ca4eb201516b53121b5f673065b5377136e22ba69b16b6733d446f3",
+                "sha256:b29c0937df249cce9e08fb6beaf559a989c06cbf0299f85c26e703f73b14e564",
+                "sha256:cef745ab70db5298c3062dde68ca9101d4a5458ad2538c9b7dab1294d4619082"
+            ],
+            "index": "pypi",
+            "version": "==2.2.0"
+        },
         "frozen-flask": {
             "hashes": [
                 "sha256:4113638baebb348e16b10b12cbd88bddc7309f24d94332a18ae6a56c8ac02d3d",
@@ -77,6 +92,12 @@
             ],
             "index": "pypi",
             "version": "==0.18"
+        },
+        "htmlmin": {
+            "hashes": [
+                "sha256:50c1ef4630374a5d723900096a961cff426dff46b48f34d194a81bbe14eca178"
+            ],
+            "version": "==0.1.12"
         },
         "idna": {
             "hashes": [
@@ -431,11 +452,11 @@
         },
         "soupsieve": {
             "hashes": [
-                "sha256:052774848f448cf19c7e959adf5566904d525f33a3f8b6ba6f6f8f26ec7de0cc",
-                "sha256:c2c1c2d44f158cdbddab7824a9af8c4f83c76b1e23e049479aa432feb6c4c23b"
+                "sha256:617ffc4d0dfd39c66f4d1413a6e165663a34eca86be9b54f97b91756300ff6df",
+                "sha256:e4860f889dfa88774c07da0b276b70c073b6470fa1a4a8350800bb7bce3dcc76"
             ],
             "markers": "python_version >= '3.6'",
-            "version": "==2.2.1"
+            "version": "==2.3"
         },
         "tinydb": {
             "hashes": [
@@ -450,7 +471,7 @@
                 "sha256:4987c65554f7a2dbf30c18fd48778ef124af6fab771a377103da0585e2336ece",
                 "sha256:c4fdf4019605b6e5423637e01bc9fe4daef873709a7973e195ceba0a62bbc844"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4.0'",
             "version": "==1.26.7"
         },
         "werkzeug": {
