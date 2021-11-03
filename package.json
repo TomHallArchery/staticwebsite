@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "browser-sync": "^2.27.7"
+  },
+  "bin": {
+    "browser-sync": "/.bin/browser-sync"
+  }
+}
