@@ -78,6 +78,7 @@ def gen_img_attributes(src, img_url, fname, widths, ext, default_size, default_l
     ]
 
 def serve_static(dir, port):
+    print("Serving: ", dir)
     with cwd(dir):
         svr.test(HandlerClass=svr.SimpleHTTPRequestHandler, port=port)
 

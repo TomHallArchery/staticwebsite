@@ -6,7 +6,12 @@ from flask import url_for, render_template
 from website import app, flatpages, utils, images, errors
 import config
 
-app.config.from_object(config.BuildConfig)
+conf = os.environ.get("APP_CONFIG")
+if conf == "Deploy":
+    app.config.from_object(config.DeployConfig)
+else:
+    app.config.from_object(config.BuildConfig)
+
 freezer = Freezer(app)
 
 FONTS = app.config["FONTS"]
@@ -37,9 +42,6 @@ def main():
 
     utils.compile_css(compressed=True)
     print("Css recompiled")
-
-    i = images.SourceImages().upload_images()
-    print("Images Uploaded", i)
 
 if __name__ == '__main__':
     main()

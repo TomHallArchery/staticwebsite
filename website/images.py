@@ -236,9 +236,6 @@ class SourceImages:
             for img in db_imgs:
                 SiteImage(img['file']).create_thumbnails()
 
-    def upload_images(self):
-        return utils.deploy_folder_to_netlify(str(self.outpath), "CDN")
-
 
 def responsive_images(html, conditions, wrap_picture=False):
     img_url = app.config['IMG_URL']

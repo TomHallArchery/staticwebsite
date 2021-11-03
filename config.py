@@ -61,7 +61,7 @@ class RunConfig(Config):
 
 class BuildConfig(Config):
     ENV = 'PRODUCTION'
-    IMG_URL = "https://cdn.tomhallarchery.com/"
+    IMG_URL = "http://localhost:5003/"
 
     # Manually add fonts to list to incorporate into freezer
     FONTS = {
@@ -76,6 +76,10 @@ class BuildConfig(Config):
     ]
 
     CSS_OUT_DIR = Path('website', 'build', 'static', 'css')
+
+class DeployConfig(BuildConfig):
+
+    IMG_URL = "https://cdn.tomhallarchery.com/"
 
     # Pynetlify config
     NETLIFY_AUTH_TOKEN = os.environ.get('NETLIFY_AUTH_TOKEN')
