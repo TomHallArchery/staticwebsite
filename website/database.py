@@ -3,10 +3,6 @@ import mongoengine as mg
 
 from website import app
 
-#launch mongodb instance in seperate process
-cmd = ['mongod', '--config', app.config["DB_CONFIG"]]
-subprocess.Popen(cmd)
-
 #connect
 mg.connect('website', #connects to website DB
             username="app",

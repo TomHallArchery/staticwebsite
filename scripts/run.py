@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import atexit
 from time import sleep
 from datetime import datetime
 
@@ -22,15 +23,13 @@ if __name__ == '__main__':
     # Extra debugging/testing functions
     pprint("LOG")
 
-    p = utils.compile_css(watch=True)
-    print(p.pid)
+    sass = utils.compile_css(watch=True)
+    atexit.register(sass.kill)
 
-    # add a comment
     # log run
     database.Run.drop_collection()
     run = database.Run(started=datetime.now())
-    print(run)
     run.save()
 
     # Run dev server
-    app.run(debug=True)
+    app.run(debug=True, port=5000)

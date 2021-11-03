@@ -1,8 +1,5 @@
-hello:
-	echo "hello world"
-
 run:
-	python -m scripts.run
+	bash scripts/run.sh
 
 build:
 	python -m scripts.freeze
