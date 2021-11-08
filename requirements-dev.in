@@ -1,0 +1,7 @@
+-c requirements.txt
+fonttools
+brotli
+pympler
+pip-tools
+flake8
+pylint

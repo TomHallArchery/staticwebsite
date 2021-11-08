@@ -1,6 +1,6 @@
 .DS_Store
 __pycache__
-.python-version
+# .python-version
 .env
 node_modules
 
