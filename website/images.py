@@ -26,8 +26,9 @@ class SiteImage:
     Also provides html attributes for output """
 
     def __init__(self, file):
-        self.file = file #can't change filename after initialisation
-        self.formats = IMG_FORMATS # for now, fixed, as eg saving files depends on assumed formats
+        self.file = file  # can't change filename after initialisation
+        # for now, fixed, as eg saving files depends on assumed formats
+        self.formats = IMG_FORMATS
         self.db = IMG_DB
         self._dbq = IQ.file == self.file
 
@@ -85,13 +86,13 @@ class SiteImage:
     def archive(self):
         self.update_db({"status": "archived"})
 
-    def set_compression(self, q, format=".jpg"):
+    def set_compression(self, quality, format_=".jpg"):
         """ Override default image compression quality """
         # check format is in this instances supported formats
-        assert format in self.formats
+        assert format_ in self.formats
 
         self.update_db({
-            format : q
+            format_: quality
             })
 
     def test_compression(self):
@@ -100,25 +101,31 @@ class SiteImage:
         Prepares set of thumbnails in tmp/ to allow manual selection of best
         image quality"""
 
-        #Prepare tmp directory
+        # Prepare tmp directory
         tmp = Path(IMAGES_ROOT, 'tmp')
         Path.mkdir(tmp)
 
-        #Rotate portrait jpg into correct orientation
+        # Rotate portrait jpg into correct orientation
         preview = ImageOps.exif_transpose(self.open())
 
-        #Save preview at set quality values
-        for q in [85,75,65,55,45,35]:
-            preview.thumbnail((1200,1200))
+        # Save preview at set quality values
+        for qual in [85, 75, 65, 55, 45, 35]:
+            preview.thumbnail((1200, 1200))
             # Update save to use relative path
-            preview.save(f'{tmp}/jpg-{q}.jpg', quality=q, optimize=True, progressive=True)
-            preview.save(f'{tmp}/webp-{q}.webp', quality=q, method=6)
+            preview.save(
+                f'{tmp}/jpg-{qual}.jpg',
+                quality=qual, optimize=True, progressive=True
+                )
+            preview.save(
+                f'{tmp}/webp-{qual}.webp',
+                quality=qual, method=6
+                )
 
-        #Manually check quality in tmp dir and choose
-        q1 = int(input(f'Chose jpg compression: '))
-        self.set_compression(q1, '.jpg')
-        q2 = int(input(f'Chose webp compression: '))
-        self.set_compression(q2, '.webp')
+        # Manually check quality in tmp dir and choose
+        qual_jpg = int(input('Chose jpg compression: '))
+        self.set_compression(qual_jpg, '.jpg')
+        qual_webp = int(input('Chose webp compression: '))
+        self.set_compression(qual_webp, '.webp')
 
         for _ in Path.iterdir(tmp):
             Path.unlink(_)
@@ -128,14 +135,14 @@ class SiteImage:
         """ Generate and save thumbnails of source image"""
         im = ImageOps.exif_transpose(self.open())
 
-        #Deal with fresh images not yet saved in db
+        # Deal with fresh images not yet saved in db
         if not self.data:
             self.add_to_db()
 
         if not process_src:
             if self.data['status'] == "src":
                 return
-        #Don't process archived images
+        # Don't process archived images
         if self.data['status'] == "archived":
             return
 
@@ -144,11 +151,11 @@ class SiteImage:
         width = self.data.get('width')
         height = self.data.get('height')
 
-        #Set up staging area
+        # Set up staging area
         out = Path(IMAGES_ROOT, OUTPUT_DIR)
         Path.mkdir(out, exist_ok=True)
 
-        #Produce thumbnails no larger than current image max size
+        # Produce thumbnails no larger than current image max size
         thumbs = []
         widths = filter(lambda x: max(im.size) > x, WIDTHS)
         for w in widths:
@@ -156,11 +163,18 @@ class SiteImage:
             _w = min(w, w * width // height)
             thumb = im.copy()
             thumb.thumbnail((w, w), resample=Image.LANCZOS)
-            thumb.save(f'{out}/{self.path.stem}_{_w}.jpg', quality=q_jpg, optimize=True, progressive=True)
-            thumb.save(f'{out}/{self.path.stem}_{_w}.webp', quality=q_webp, method=6)
+            thumb.save(
+                f'{out}/{self.path.stem}_{_w}.jpg',
+                quality=q_jpg, optimize=True, progressive=True
+                )
+            thumb.save(
+                f'{out}/{self.path.stem}_{_w}.webp',
+                quality=q_webp, method=6
+                )
             thumbs.append(_w)
         print(thumbs)
-        #Save updated data to db
+
+        # Save updated data to db
         self.update_db({
             "status": "src",
             "width": im.width,
@@ -193,7 +207,9 @@ class SourceImages:
 
     @property
     def images(self):
-        """ Return list of SiteImage objects from all images in source directory"""
+        """
+        Return list of SiteImage objects from all images in source directory
+        """
         return [SiteImage(f.name) for f in self.path.iterdir()]
 
     def find(self, img):
@@ -256,7 +272,10 @@ def responsive_images(html, conditions, wrap_picture=False):
         # Set image attributes using database
         sizes = si.data.get('sizes', WIDTHS)
         img.setAttributes({
-            'src': Path(img_url, f'{path.stem}_{DEFAULT_IMG_WIDTH}{path.suffix}'),
+            'src': Path(
+                img_url,
+                f'{path.stem}_{DEFAULT_IMG_WIDTH}{path.suffix}'
+                ),
             'srcset': utils.srcset(img_url, path.stem, sizes, 'jpg'),
             'sizes': utils.sizes(conditions),
             'width': si.data.get('width'),
@@ -275,7 +294,7 @@ def responsive_images(html, conditions, wrap_picture=False):
         picture = parent.appendChild(picture)
         picture.appendBlocks([source, img])
 
-        #transfer classes to picture
+        # transfer classes to picture
         for _ in img.getAttribute('class').split():
             cls = img.removeClass(_)
             picture.addClass(cls)
@@ -288,8 +307,10 @@ def responsive_images(html, conditions, wrap_picture=False):
 
     return parser.getFormattedHTML()
 
+
 def main():
     pass
+
 
 if __name__ == '__main__':
     main()

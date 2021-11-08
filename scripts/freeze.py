@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 import os
 
+import flask
 from flask_htmlmin import HTMLMIN
 from flask_frozen import Freezer
-from flask import url_for, render_template
 
-from website import app, flatpages, utils, images, errors
+from website import app, utils, errors
 import config
 
 conf = os.environ.get("APP_CONFIG")
@@ -20,19 +20,24 @@ freezer = Freezer(app)
 FONTS = app.config["FONTS"]
 BUILD_PATH = "website/build"
 
-# Instructs the freezer to also check for dynamically generated urls from serve_page functinon.
+
+# Instructs the freezer to also check for dynamically generated urls
+# from serve_page functinon.
 @freezer.register_generator
 def fonts():
     for dir, font in FONTS.items():
         path = os.path.join('fonts', dir, font)
-        yield url_for('static', filename=path)
+        yield flask.url_for('static', filename=path)
 
-#Frozen flask issue: have to manually build the 404 error page for use by server
+
+# Frozen flask issue:
+# have to manually build the 404 error page for use by server
 def build_404():
     with app.test_request_context():
         error_page = errors.render_404()
         with open('website/build/404.html', 'w') as f:
             f.write(error_page)
+
 
 def main():
     print("Building website:")
@@ -45,6 +50,7 @@ def main():
 
     utils.compile_css(compressed=True)
     print("Css recompiled")
+
 
 if __name__ == '__main__':
     main()

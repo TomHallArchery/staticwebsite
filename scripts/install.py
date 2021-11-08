@@ -1,10 +1,10 @@
-# Download build and store latest alpine.js files in static, choosing type by config
+# Download build and store latest alpine.js files in static,
+# choosing type by config
 import requests
-from pathlib import Path
 
-from website import app, utils
+from website import app
 
-alpine_url= app.config["ALPINE"]['url']
+alpine_url = app.config["ALPINE"]['url']
 alpine_file_path = app.config["ALPINE"]['fpath']
 
 js = requests.get(alpine_url)

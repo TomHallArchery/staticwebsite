@@ -5,7 +5,8 @@ from tinydb import TinyDB
 import config
 
 app = Flask(__name__)
-db = TinyDB('database.json', indent=4, separators=(',', ': ')) #reads database in from json file
+# reads database in from json file
+db = TinyDB('database.json', indent=4, separators=(',', ': '))
 
 app.config.from_object(config.Config)
 flatpages = FlatPages(app)
