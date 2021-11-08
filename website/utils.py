@@ -1,7 +1,6 @@
 import subprocess
 import os
 import AdvancedHTMLParser
-import http.server as svr
 from contextlib import contextmanager
 from pynetlify import pynetlify
 
@@ -76,11 +75,6 @@ def gen_img_attributes(src, img_url, fname, widths, ext, default_size, default_l
         height,
         width
     ]
-
-def serve_static(dir, port):
-    print("Serving: ", dir)
-    with cwd(dir):
-        svr.test(HandlerClass=svr.SimpleHTTPRequestHandler, port=port)
 
 def deploy_folder_to_netlify(dir, subdomain):
     subdomain = subdomain.upper()
