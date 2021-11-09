@@ -151,6 +151,19 @@
                 800,
                 400
             ]
+        },
+        "13": {
+            "file": "2020-NationalTourFinals.jpg",
+            "status": "src",
+            "width": 4608,
+            "height": 3456,
+            "sizes": [
+                2000,
+                1600,
+                1200,
+                800,
+                400
+            ]
         }
     },
     "meta": {},
