@@ -148,8 +148,8 @@ class SiteImage:
 
         q_jpg = self.data.get('.jpg', 55)
         q_webp = self.data.get('.webp', 55)
-        width = self.data.get('width')
-        height = self.data.get('height')
+        width = self.data.get('width', im.width)
+        height = self.data.get('height', im.height)
 
         # Set up staging area
         out = Path(IMAGES_ROOT, OUTPUT_DIR)

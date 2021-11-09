@@ -8,6 +8,10 @@ build:
 serve:
 	python -m scripts.serve
 
+images: export REPROC_IMAGES=True
+images:
+	python -m scripts.process_images
+
 deploy: export APP_CONFIG=Deploy
 deploy:
 	python -m scripts.freeze
