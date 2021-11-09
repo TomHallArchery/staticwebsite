@@ -34,21 +34,5 @@
   width: 100%;
   height: auto;
   object-fit: cover;
-  @include slant-h;
-}
-
-/* Site hero-header styling */
-.o-hero {
-  padding: 0;
-  margin-top:0;
-  display: grid;
-  grid-template-rows: auto 1fr;
-  height: 100vh;
-  max-height: 100vh;
-
-  & > *:first-child {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    margin-top: 0;
-  }
+  @include mxn-slant-h;
 }

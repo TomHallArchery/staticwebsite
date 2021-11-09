@@ -106,8 +106,8 @@ h1:first-of-type {
   font-weight: 900;
 }
 
-@include headings {
-  color: c-neutral(200, $c-theme-hue);
+@include mxn-headings {
+  color: c-neutral(200, $c-theme-key);
 }
 
 // Set modular type scale to pass through h4
@@ -163,7 +163,7 @@ textarea {
 }
 
 p {
-  color: c-neutral(100, $c-theme-hue);
+  color: c-neutral(100, $c-theme-key);
 }
 
 /* *** */
@@ -228,22 +228,6 @@ p {
 .u-resize {
   resize:both;
   overflow:auto;
-}
-
-@each $name, $c in $c-colors {
-  .u-color-#{$name} {
-    color: $c;
-  }
-  .u-bg-#{$name} {
-    background-color: $c;
-  }
-}
-
-@each $label, $params in $c-neutrals {
-  $g: c-neutral($label, $c-theme-hue);
-  .u-bg-grey-#{$label} {
-    background-color: $g;
-  }
 }
 
 /* *** */

@@ -10,21 +10,25 @@
 
 {%- block header -%}
 
-  <header id="site_header" class="o-hero">
-    {% include "base/nav.html.j2" %}
-
+  <header id="site_header" class="c-hero-nav">
     {% filter responsive_images({ None: '120vmax'}, wrap_picture=True) %}
     <div class="intro c-slant-banner">
-      <!-- <a class="c-slant-banner__img" href="#athlete"> -->
-        <img class="c-slant-banner__img" style="--obj-pos: 50% 0%;" src="teamgb-profile.jpg" alt=""></img>
-      <!-- </a> -->
-      <!-- <a class="c-slant-banner__img" href="#coach"> -->
-        <img class="c-slant-banner__img" style="--obj-pos: 50% 70%;" src="2019-NationalTourFinals_Victory.jpg" alt=""></img>
-      <!-- </a> -->
-      <!-- <img class="slant-banner__img" style="--obj-pos: 45%;" src="/static/img/new/skiddaw-landscape.jpg" alt=""></img> -->
+        <img
+          class="c-slant-banner__img"
+          style="--obj-pos: 0% 0%;"
+          src="2020-NationalTourFinals.jpg"
+          alt="">
+        </img>
+        <img
+          class="c-slant-banner__img"
+          style="--obj-pos: 50% 70%;"
+          src="2019-NationalTourFinals_Victory.jpg"
+          alt="">
+        </img>
     </div>
     {% endfilter %}
 
+    {% include "base/nav.html.j2" %}
   </header>
 
 {%- endblock %}
@@ -33,23 +37,16 @@
 
 {%- block content -%}
 {% filter responsive_images(img_layout, wrap_picture=True) %}
-<main class="homepage">
+<main class="homepage c-intro-cards">
   <section class="c-intro-card" id="athlete">
     <h3 class="c-intro-card__header">Athlete</h3>
-    <img class="c-intro-card__img" src="sunny-woodland-field.jpg" alt="" loading="lazy">
     <div class="c-intro-card__body">
       <p>I'm a proffessional athlete and I've been competing since I started archery back in 2010.</p>
       <p>In that time I've progressed from club competitions, student leagues and country championships to climbing the podium in the National Tour, Indoor World series and World Cup. </p>
     </div>
-    <!-- <nav class="intro-card--nav">
-      <p>Learn More</p>
-      <a href="#">Competition Results</a>
-      <a href="#">My Sponsors</a>
-    </nav> -->
   </section>
   <section class="c-intro-card" id="coach">
     <h3 class="c-intro-card__header">Coach</h3>
-    <img class="c-intro-card__img" src="sunny-woodland-field.jpg" alt="" loading="lazy">
     <div class="c-intro-card__body">
       <p>I love to help others improve their archery, health and fitness.</p>
       <p>As a student I've helped coach new beginners for years, but more recently I've coached the Warwick performance team and privately.</p>
@@ -57,7 +54,6 @@
   </section>
   <section class="c-intro-card">
     <h3 class="c-intro-card__header">Person</h3>
-    <img class="c-intro-card__img" src="skiddaw-landscape.jpg" alt="" loading="lazy">
     <div class="c-intro-card__body">
       <p>What more is there to say? I love running and climbing in the mountains</p>
     </div>
