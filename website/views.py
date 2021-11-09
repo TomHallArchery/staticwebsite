@@ -41,7 +41,7 @@ def home_page():
         # could still allow dict unpacking of metadata
         description="The homepage of Tom Hall, Archer and Coach",
         keywords="Archery, Athlete, Profile",
-        img_layout={'min-width: 110ch': '60vw', None: '95vw'}
+        img_layout={'min-width: 110ch': '60vw', None: '95vw'},
         )
 
 

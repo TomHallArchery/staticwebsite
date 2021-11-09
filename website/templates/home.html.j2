@@ -1,4 +1,5 @@
 {% extends "base/base.html.j2" %}
+{% set layout='homepage' %}
 
 {% block head_styles %}
   {{ m.link_style('css/styles.css')}}
@@ -10,7 +11,7 @@
 
 {%- block header -%}
 
-  <header id="site_header" class="c-hero-nav">
+  <header class="{{ m.layout(layout, 'header') }} c-hero-nav" id="site_header" >
     {% filter responsive_images({ None: '120vmax'}, wrap_picture=True) %}
     <div class="intro c-slant-banner">
         <img
@@ -37,7 +38,7 @@
 
 {%- block content -%}
 {% filter responsive_images(img_layout, wrap_picture=True) %}
-<main class="homepage c-intro-cards">
+<main class="{{ m.layout(layout, 'main') }} c-intro-cards">
   <section class="c-intro-card" id="athlete">
     <h3 class="c-intro-card__header">Athlete</h3>
     <div class="c-intro-card__body">

@@ -3,7 +3,7 @@
 {% block content %}
 
 <!-- archived articles -->
-<main id="page_body">
+<main class="{{ m.layout(layout, 'main') }}" id="page_body">
   <h1>Articles</h1>
 
   <details open>
@@ -21,7 +21,7 @@
   </details>
 </main>
 
-<aside id="page_sidebar">
+<aside class="{{ m.layout(layout, 'aside') }}" id="page_sidebar">
   {% block side_content %}
   {% endblock %}
 </aside>
