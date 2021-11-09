@@ -13,8 +13,15 @@ deploy:
 	python -m scripts.freeze
 	python -m scripts.deploy
 
+upgrade:
+	pip-compile requirements.in
+	pip-compile dev-requirements.in
+	pip-sync requirements.txt dev-requirements.txt
+
 install:
-	pipenv install
+	pip install -r requirements.txt
+	pip install -r dev-requirements.txt
+	npm install
 	python -m scripts.install
 
 viewdb:
