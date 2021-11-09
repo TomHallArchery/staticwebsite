@@ -4,6 +4,12 @@
 /* *** */
 /* Global Styles */
 /* *** */
+:root {
+  @each $name, $hex in $c-colors {
+    --#{$name}: #{$hex};
+  }
+}
+
 html {
   box-sizing: border-box;
   font-family: "RobotoSlab", "Rockwell", Georgia, serif;
@@ -219,10 +225,10 @@ p {
 
   &--colored {
     @extend .u-icon;
-    --stroke-color: black;
-    --fill-color: black;
-    stroke: var(--stroke-color);
-    fill: var(--fill-color);
+    --stroke-clr: black;
+    --fill-clr: #0000;
+    stroke: var(--stroke-clr);
+    fill: var(--fill-clr);
   }
 }
 
