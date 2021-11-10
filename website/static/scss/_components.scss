@@ -229,18 +229,14 @@
 .c-slant-banner {
   // width: 100%;
   overflow: hidden;
-
-
-  @media (min-width: $bp-small) {
-    display: grid; /* implicit grid placement works here */
-  }
+  display: grid; /* implicit grid placement works here */
 
   &__img {
+    /* xsmall display: 1x img block */
     display: block;
-    height: 50%; //small display is vertically stacked blocks
-    // hard coded for 2x elements
-    @include mxn-slant-v;
+    height: 100%;
     margin-top: 0; // prevent overflow outside of grid
+    overflow: hidden; // IMPORTANT: fixes layout bugs
 
     // specific styling
     transform: scale(1.1);
@@ -255,11 +251,8 @@
       filter: brightness(0.65);
     }
 
-    &:first-child {
-      @include mxn-slant-v($top:0);
-    }
-    &:last-child {
-      @include mxn-slant-v($bottom:0);
+    &:not(:first-child){
+      display: none;
     }
 
     & > img {
@@ -268,8 +261,21 @@
       height:100%; // needed otherwise img will just exist at full height and overflow
     }
 
-    // Square/Landscape/Large screen sizes switch to grid controlled columns layout
+    @media (min-width: $bp-xsmall) {
+      /* small display: vertical blocks */
+      @include mxn-slant-v;
+
+      &:first-child {
+        @include mxn-slant-v($top:0);
+      }
+      &:last-child {
+        display: block;
+        @include mxn-slant-v($bottom:0);
+      }
+    }
+
     @media (min-width: $bp-small) {
+      /* Square/Landscape/Large switch to grid controlled columns layout */
       height: auto;
       max-height: 100%;
       @include mxn-slant-h;

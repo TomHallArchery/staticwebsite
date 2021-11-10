@@ -7,11 +7,16 @@
 {%- block header -%}
 
   <header class="{{ m.layout(layout, 'header') }} c-hero-nav" id="site_header" >
-    {% filter responsive_images({ None: '120vmax'}, wrap_picture=True) %}
+    {% filter responsive_images(
+      {'min-width: 30rem': 'max(50vw, 100vh)',
+      'min-width: 20rem': '120vw',
+      None: '100vmax'
+      },
+      wrap_picture=True) %}
     <div class="intro c-slant-banner">
         <img
           class="c-slant-banner__img"
-          style="--obj-pos: 0% 0%;"
+          style="--obj-pos: 10% 60%;"
           src="2020-NationalTourFinals.jpg"
           alt="">
         </img>
