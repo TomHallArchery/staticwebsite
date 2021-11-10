@@ -2,7 +2,6 @@
 __pycache__
 # .python-version
 .env
-node_modules
 
 pynetlify.ini
 gitlog.txt
@@ -25,7 +24,7 @@ website/static/js/alpine*
 # Ignore build output (deploy directly from cli)
 website/build/*
 !website/build/netlify.toml
-tmp
+tmp/
 
 # Local Netlify folder
 .netlify
