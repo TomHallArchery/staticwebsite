@@ -5,9 +5,12 @@ import flask
 from flask_htmlmin import HTMLMIN
 from flask_frozen import Freezer
 
-from website import app, utils, errors
+from website import create_app, utils
 import config
 
+app = create_app()
+
+# configure app for freezing locally or for deployment
 conf = os.environ.get("APP_CONFIG")
 if conf == "Deploy":
     app.config.from_object(config.DeployConfig)
@@ -17,39 +20,38 @@ else:
 HTMLMIN(app)
 freezer = Freezer(app)
 
-FONTS = app.config["FONTS"]
-BUILD_PATH = "website/build"
-
 
 # Instructs the freezer to also check for dynamically generated urls
 # from serve_page functinon.
 @freezer.register_generator
-def fonts():
-    for dir, font in FONTS.items():
-        path = os.path.join('fonts', dir, font)
-        yield flask.url_for('static', filename=path)
-
-
-# Frozen flask issue:
-# have to manually build the 404 error page for use by server
-def build_404():
-    with app.test_request_context():
-        error_page = errors.render_404()
-        with open('website/build/404.html', 'w') as f:
-            f.write(error_page)
+def register_fonts():
+    ''' Register font files with frozen flask '''
+    fonts = app.config["FONTS"]
+    for path, font in fonts.items():
+        file = os.path.join('fonts', path, font)
+        yield flask.url_for('static', filename=file)
 
 
 def main():
+    ''' Freeze website into static files '''
     print("Building website:")
 
     # TODO: check font files exist and compile with pyftsubset
-    build_404()
+
     # Freeze static files into default directory 'build'
     freezer.freeze()
     print("Website frozen")
 
-    utils.compile_css(compressed=True)
-    print("Css recompiled")
+    with app.app_context():
+        utils.compile_css(compressed=True)
+        print("Css recompiled")
+
+    # Frozen flask issue:
+    # have to manually build the 404 error page for use by server
+    with app.test_request_context():
+        error_page = flask.render_template('generic/404.html.j2')
+        with open('website/build/404.html', 'w', encoding="utf-8") as f:
+            f.write(error_page)
 
 
 if __name__ == '__main__':

@@ -5,7 +5,8 @@ from contextlib import contextmanager
 import AdvancedHTMLParser
 from pynetlify import pynetlify
 
-from website import app, flatpages
+from flask import current_app as app
+from website import flatpages
 
 
 @contextmanager

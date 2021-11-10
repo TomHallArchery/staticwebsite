@@ -1,15 +1,18 @@
 import mongoengine as mg
 
-from website import app
+from flask import current_app as app
+
 
 # connect
-mg.connect(
-    'website',  # connects to website DB
-    username="app",
-    password=app.config["DB_PWD"],
-    authentication_source="admin",
-    port=app.config["DB_PORT"],
-    )
+def connect_db():
+    ''' connect to default mongodb database '''
+    mg.connect(
+        'website',  # connects to website DB
+        username="app",
+        password=app.config["DB_PWD"],
+        authentication_source="admin",
+        port=app.config["DB_PORT"],
+        )
 
 
 # creates or loads collection
@@ -26,3 +29,6 @@ class Page(mg.Document):
 
 class Run(mg.Document):
     started = mg.DateTimeField()
+
+if __name__ == '__main__':
+    connect_db()

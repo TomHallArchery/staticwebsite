@@ -2,7 +2,8 @@ from pathlib import Path
 from PIL import Image, ImageOps
 from tinydb import Query
 
-from website import app, db, utils
+from flask import current_app as app
+from website import db, utils
 
 # Constants
 WIDTHS = app.config["IMG_WIDTHS"]

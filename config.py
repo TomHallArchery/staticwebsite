@@ -41,6 +41,7 @@ class Config:
     IMG_DEFAULT_WIDTH = '1200'
     IMG_DISPLAY_WIDTHS = {'min-width: 110ch': '60vw', None: '95vw'}
     IMG_FORMATS = ('.jpg', '.webp')
+    REPROC_IMAGES = os.environ.get('REPROC_IMAGES', False)
 
     # Views config
     VIEW_POSTS_DIR_WP = 'articles/archive'
@@ -64,7 +65,6 @@ class RunConfig(Config):
     DEBUG = True
     TEMPLATES_AUTO_RELOAD = True
     IMG_URL = "/static/img/out/"
-    REPROC_IMAGES = os.environ.get('REPROC_IMAGES', False)
     VIEW_TEST = True
 
 
@@ -89,6 +89,7 @@ class BuildConfig(Config):
         'js/',
         '.DS_Store',
     ]
+    FREEZER_IGNORE_404_NOT_FOUND = True
 
     CSS_OUT_DIR = Path('website', 'build', 'static', 'css')
 

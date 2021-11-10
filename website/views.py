@@ -2,13 +2,22 @@ import os
 from datetime import datetime
 
 import flask
-
-from website import app, flatpages, utils, images
+from flask import current_app as app
+from website import images, utils, flatpages
 
 
 @app.before_request
 def reload_flatpages():
     utils.clean_flatpage_metas(flatpages)
+
+
+@app.before_first_request
+def process_all_images():
+    ''' process img/src into thumbnails in img/out '''
+    print("Processing images")
+    all_imgs = images.SourceImages()
+    all_imgs.add_to_db()
+    all_imgs.process(reprocess=app.config['REPROC_IMAGES'])
 
 
 @app.context_processor
@@ -116,7 +125,10 @@ def serve_page(path_requested):
         )
 
 
-if app.config["VIEW_TEST"]:
-    @app.route("/test/")
-    def serve_test():
-        return flask.render_template('generic/test.html.j2')
+@app.route("/test/")
+def serve_test():
+    ''' render test page '''
+    print("TESTVAR: ", app.config["VIEW_TEST"])
+    if not app.config["VIEW_TEST"]:
+        flask.abort(404)
+    return flask.render_template('generic/test.html.j2')
