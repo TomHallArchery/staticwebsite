@@ -2,7 +2,7 @@
 
 {% block content -%}
 <!-- Page_Content from page.html.j2 tempalate, flatpage object -->
-<main class="l-default__item--main" id="page_body">
+<main class="{{ m.layout(layout, 'main') }}" id="page_body">
 
   <section>
   {% block page_heading -%}
@@ -22,7 +22,7 @@
 </main>
 <!-- End page_content -->
 
-<aside class="l-default__item--aside" id="page_sidebar">
+<aside class="{{ m.layout(layout, 'aside') }}" id="page_sidebar">
 
   {% block side_content -%}
     {{ side.html }}
