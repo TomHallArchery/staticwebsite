@@ -4,26 +4,50 @@
 {% block head_styles %}
   {{super()}}
   <style>
-  main {background-color: #888 !important;}
+  main {background-color: #bbb !important;}
   aside {background-color: #eee !important;}
   </style>
 {% endblock %}
 
 {% block page_content %}
-  <h1>Color test</h1>
-  <ol style="padding: 100px;" reversed>
-    <li class="_grey-950"></li>
-    <li class="_grey-900"></li>
-    <li class="_grey-800"></li>
-    <li class="_grey-700"></li>
-    <li class="_grey-600"></li>
-    <li class="_grey-500"></li>
-    <li class="_grey-400"></li>
-    <li class="_grey-300"></li>
-    <li class="_grey-200"></li>
-    <li class="_grey-100"></li>
-    <li class="_grey-50"></li>
-  </ol>
+<svg class="u-icon" style="--scale:10em;--stroke-clr:var(--Co)">
+  <use href="{{ m.svg_fragment('icons/podium', 'podium') }}"/>
+</svg>
+<img
+  class="u-icon"
+  style="--scale:10rem;"
+  src="{{ m.svg_file('icons', 'podium')}}"
+  alt="">
+
+  <div class="svg_wrapper">
+    <svg class="u-icon" style="--scale:5em;--stroke-clr:var(--Mn);">
+      <use href="{{ m.svg_fragment('targets/abstract', 'abstract') }}"/>
+    </svg>
+    <p>Use embedded svg from symbol element to include dynamic painting</p>
+    <img class="u-icon" style="--scale:5em;display:block;" src="{{ m.svg_file('targets', 'abstract')}}" alt="">
+    <img class="u-icon" style="--scale:5em;display:block;" src="{{ m.svg_file('targets', 'target')}}" alt="">
+    <img class="u-icon" style="--scale:5em;display:block;" src="{{ m.svg_file('targets', 'field')}}" alt="">
+    <p>Use seperate svg files as img src</p>
+    <div class="resize"
+    style="height:5em;width:5em;
+    background-repeat: no-repeat;
+    background-position:center;
+    background-image:url( {{ m.svg_file('targets', 'abstract') }} );
+    ">
+    </div>
+    <div class="resize"
+    style="height:5em;width:5em;
+    background-repeat: no-repeat;
+    background-position:center;
+    background-image:url( {{ m.svg_file('targets', 'target') }} );
+    ">
+    </div>
+    <ul style="list-style-image: url({{ m.svg_file('targets', 'field') }});" >
+      <li>List item</li>
+    </ul>
+    <p>Use seperate svg files as css background-img source</p>
+  </div>
+
 {% endblock %}
 
 {% block side_content %}

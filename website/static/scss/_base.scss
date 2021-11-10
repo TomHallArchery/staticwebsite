@@ -222,14 +222,6 @@ p {
   display: inline-block;
   width: var(--scale);
   height: var(--scale);
-
-  &--colored {
-    @extend .u-icon;
-    --stroke-clr: black;
-    --fill-clr: #0000;
-    stroke: var(--stroke-clr);
-    fill: var(--fill-clr);
-  }
 }
 
 .u-resize {

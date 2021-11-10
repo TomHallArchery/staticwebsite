@@ -1,0 +1,7 @@
+<svg viewBox="0 0 100 100" id="podium" xmlns="http://www.w3.org/2000/svg">
+  <g id="layer1" style="stroke:var(--stroke-clr, black)" fill="none" stroke-width="2">
+    <rect width="30" height="75" x="35" y="20"/>
+    <rect width="30" height="50" x="65" y="45"/>
+    <rect width="30" height="25" x="05" y="70"/>
+  </g>
+</svg>
