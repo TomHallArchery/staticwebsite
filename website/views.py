@@ -8,6 +8,7 @@ from website import images, utils, flatpages
 
 @app.before_request
 def reload_flatpages():
+    ''' run flatpage meta cleaning function before each request'''
     utils.clean_flatpage_metas(flatpages)
 
 
@@ -22,6 +23,7 @@ def process_all_images():
 
 @app.context_processor
 def inject_data():
+    ''' global context for all templates '''
     this_year = datetime.now().year
     return dict(
         year=this_year,
@@ -36,12 +38,13 @@ def inject_data():
 app.add_template_filter(images.responsive_images)
 
 # ===============
-# #ROUTES
+# ROUTES
 # ===============
 
 
 @app.route('/')
 def home_page():
+    ''' render homepage '''
     return flask.render_template(
         'home.html.j2',
         title="Home",
@@ -56,6 +59,7 @@ def home_page():
 
 @app.route('/results/')
 def results_page():
+    ''' render results page '''
     results = flatpages.get_or_404('results')
     sidebar = flatpages.get('sidebar')
     return flask.render_template(
@@ -67,6 +71,7 @@ def results_page():
 
 @app.route('/sponsors/')
 def sponsors_page():
+    ''' render sponsors page '''
     sponsors = flatpages.get_or_404('sponsors')
     sidebar = flatpages.get('sidebar')
     return flask.render_template(
@@ -78,6 +83,7 @@ def sponsors_page():
 
 @app.route('/contact/')
 def contact_page():
+    ''' render contacts page '''
     contact = flatpages.get_or_404('contact')
     return flask.render_template(
         'contact.html.j2',
@@ -87,6 +93,7 @@ def contact_page():
 
 @app.route('/articles/')
 def serve_articles_index():
+    ''' render articles index page '''
     # Selects posts with a PATH starting with wpexport/_posts
     wp_posts = utils.filter_pages(app.config["VIEW_POSTS_DIR_WP"])
     return flask.render_template(
@@ -98,7 +105,7 @@ def serve_articles_index():
 
 @app.route("/articles/<path:path_requested>/")
 def serve_article(path_requested):
-    ''' eg path_requested="archive/title" '''
+    ''' render article page eg path_requested="archive/title" '''
     # reappend 'article/' to front of path
     # as has been stripped off by the route selector
     path = os.path.join('articles', path_requested)
@@ -115,7 +122,7 @@ def serve_article(path_requested):
 # Retrieves the page specified by the url /path_requested
 @app.route("/page/<path_requested>/")
 def serve_page(path_requested):
-
+    ''' render generic page '''
     flatpage = flatpages.get_or_404(path_requested)
     return flask.render_template(
         'generic/page.html.j2',

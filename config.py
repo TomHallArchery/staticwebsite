@@ -7,12 +7,12 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Setting flatpages extensions wasn't working for some reason
-# had to overwrite pygmented_markdown method
-
 
 def prerender_jinja(text):
+    ''' render flask templating in markdown pages before parsing markdown '''
     prerendered_body = flask.render_template_string(flask.Markup(text))
+    # Setting flatpages extensions wasn't working for some reason
+    # had to overwrite pygmented_markdown method
     pygmented_body = markdown.markdown(
         prerendered_body,
         extensions=Config.FLATPAGES_MARKDOWN_EXTENSIONS)
@@ -20,6 +20,7 @@ def prerender_jinja(text):
 
 
 class Config:
+    ''' Standard configuration '''
     # MongoDB config
     DB_PORT = 5009
     DB_PWD = os.environ.get("DB_PWORD")
@@ -59,7 +60,9 @@ class Config:
     CSS_OUT_DIR = Path('website', 'static', 'css')
 
 
-class RunConfig(Config):
+class DevConfig(Config):
+    ''' Development configuration: running local flask server '''
+
     # from run.py
     ENV = 'DEVELOPMENT'
     DEBUG = True
@@ -69,6 +72,8 @@ class RunConfig(Config):
 
 
 class BuildConfig(Config):
+    ''' Build configuration: freezing to static files and serving locally '''
+
     ENV = 'PRODUCTION'
     IMG_URL = "http://localhost:5003/"
 
@@ -98,6 +103,9 @@ class BuildConfig(Config):
 
 
 class DeployConfig(BuildConfig):
+    '''
+    Deploy configuration: freezing to static files and deploying to netlify
+    '''
 
     IMG_URL = "https://cdn.tomhallarchery.com/"
 

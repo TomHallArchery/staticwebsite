@@ -17,18 +17,22 @@ def connect_db():
 
 # creates or loads collection
 class Img(mg.Document):
+    ''' Image ODM '''
     name = mg.StringField()
     desc = mg.StringField()
     created_at = mg.DateTimeField()
 
 
 class Page(mg.Document):
+    ''' Page ODM '''
     title = mg.StringField()
     content = mg.StringField()
 
 
 class Run(mg.Document):
+    ''' Run ODM '''
     started = mg.DateTimeField()
+
 
 if __name__ == '__main__':
     connect_db()
