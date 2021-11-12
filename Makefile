@@ -1,5 +1,5 @@
 dev:
-	bash scripts/run.sh
+	python -m scripts.run
 
 build:
 	python -m scripts.freeze
