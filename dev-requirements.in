@@ -6,3 +6,4 @@ pip-tools
 flake8
 pylint
 jedi
+livereload

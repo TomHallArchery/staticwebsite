@@ -22,6 +22,8 @@ jedi==0.18.0
     # via -r dev-requirements.in
 lazy-object-proxy==1.6.0
     # via astroid
+livereload==2.6.3
+    # via -r dev-requirements.in
 mccabe==0.6.1
     # via
     #   flake8
@@ -42,10 +44,16 @@ pylint==2.11.1
     # via -r dev-requirements.in
 pympler==0.9
     # via -r dev-requirements.in
+six==1.16.0
+    # via
+    #   -c requirements.txt
+    #   livereload
 toml==0.10.2
     # via pylint
 tomli==1.2.2
     # via pep517
+tornado==6.1
+    # via livereload
 typing-extensions==3.10.0.2
     # via
     #   astroid

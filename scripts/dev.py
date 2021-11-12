@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 import atexit
 from datetime import datetime
+import livereload as lr
 
 from website import create_app, utils, database
 import config
 
-app = create_app()
-app.config.from_object(config.DevConfig)
+app = create_app(config.DevConfig)
 
 
 if __name__ == '__main__':
@@ -21,4 +21,7 @@ if __name__ == '__main__':
         run.save()
 
     # Run dev server
-    app.run(debug=True, port=5000)
+    server = lr.Server(app.wsgi_app)
+    server.watch('website')
+    server.serve(port=5000, liveport=5001)
+    # app.run(port=5000)
