@@ -8,14 +8,12 @@ from flask_frozen import Freezer
 from website import create_app, utils
 import config
 
-app = create_app()
-
 # configure app for freezing locally or for deployment
 conf = os.environ.get("APP_CONFIG")
 if conf == "Deploy":
-    app.config.from_object(config.DeployConfig)
+    app = create_app(config.DeployConfig)
 else:
-    app.config.from_object(config.BuildConfig)
+    app = create_app(config.BuildConfig)
 
 HTMLMIN(app)
 freezer = Freezer(app)

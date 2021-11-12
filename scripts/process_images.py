@@ -1,8 +1,7 @@
 from website import create_app, images
 import config
 
-app = create_app()
-app.config.from_object(config.DevConfig)
+app = create_app(config.DevConfig)
 
 
 def process_all_images():

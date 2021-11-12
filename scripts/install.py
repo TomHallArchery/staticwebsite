@@ -5,8 +5,7 @@ import requests
 
 from website import create_app
 
-app = create_app
-app.config.from_object(config.Config)
+app = create_app(config.Config)
 
 alpine_url = app.config["ALPINE"]['url']
 alpine_file_path = app.config["ALPINE"]['fpath']
