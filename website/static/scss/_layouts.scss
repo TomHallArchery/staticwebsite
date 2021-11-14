@@ -1,0 +1,125 @@
+@use "vars" as *;
+
+/* Level 0 */
+/* Page body size and attributes */
+/* mobile */
+.l-default {
+  --page-inline-pad: 0.5rem;
+  --page-block-pad: 0rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto minmax(100vh, 1fr) auto auto;
+  grid-template-areas:
+    "nav"
+    "header"
+    "main"
+    "aside"
+    "footer";
+  margin: 0;
+  min-height: 100vh;
+  /* small */
+  /* gt 35ch ~ 280px */
+  @media screen and (min-width: $bp-xsmall) {
+    --page-block-pad: 0.5rem;
+    --page-inline-pad: 1rem;
+  }
+  /* medium */
+  /* 85ch ~ 680px */
+  @media screen and (min-width: $bp-small) {
+    --page-block-pad: 1rem;
+    --page-inline-pad: 2rem;
+  }
+
+  @media screen and (min-width: $bp-large) {
+    --page-inline-pad: 10vw;
+    background-color: c-neutral(900);
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto auto minmax(100vh, 1fr) auto;
+    grid-template-areas:
+      "nav nav "
+      "header header"
+      "main aside "
+      "footer footer";
+    margin: auto;
+  }
+  /* Level 1 */
+  /* Direct body descendants */
+  %layout__item {
+    margin: 0;
+    padding: var(--page-block-pad) var(--page-inline-pad);
+  }
+
+  &__header {
+    @extend %layout__item;
+    grid-area: header;
+    padding-inline: var(--page-inline-pad);
+  }
+
+  &__main {
+    @extend %layout__item;
+    grid-area: main;
+    background-color: c-neutral(950);
+    padding-left: var(--page-inline-pad);
+  }
+
+  &__aside {
+    @extend %layout__item;
+    grid-area: aside;
+    background-color: c-neutral(900);
+    padding-right: var(--page-inline-pad);
+  }
+
+  &__nav {
+    @extend %layout__item;
+    grid-area: nav;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-inline: var(--page-inline-pad);
+  }
+
+  &__footer {
+    @extend %layout__item;
+    background-color: $c-theme;
+    background-image: linear-gradient(
+      $c-theme-tint 5%,
+      $c-theme 50%,
+      $c-theme-shade 95%
+      );
+    color: $c-active;
+    grid-area: footer;
+    padding-inline: var(--page-inline-pad);
+  }
+
+}
+
+
+// override default grid styles for full width homepage
+.l-homepage {
+  --page_gutter: 0.5rem;
+  display: block;
+  min-height: 100vh;
+  background-color: white;
+  margin-top: 0;
+
+   @media screen and (min-width: $bp-small) {
+     --page_gutter: 1rem
+    }
+
+   @media screen and (min-width: $bp-medium) {
+     --page_gutter: 2rem
+    }
+
+   @media screen and (min-width: $bp-large) {
+     --page_gutter: 10vw
+    }
+
+    &__main {
+      padding: 0;
+      margin: 0 var(--page_gutter);
+    }
+
+    &__nav {
+     padding-left:var(--page_gutter);
+     padding-right:var(--page_gutter);
+    }
+}

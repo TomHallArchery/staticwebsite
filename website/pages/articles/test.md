@@ -3,4 +3,4 @@ title: Test
 ---
 
 New article test!
-{:.red}
+{:.u-color-Li}

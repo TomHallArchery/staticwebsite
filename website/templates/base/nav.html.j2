@@ -1,11 +1,27 @@
 <!-- from nav template -->
-  <h2><a href="/">TomHallArchery</a></h2>
-  <button class="hamburger hidden"><span class=""></span></button>
-  <ul class="open">
-    <li><a href={{ url_for('sponsors_page')}}>Sponsors</a></li>
-    <li><a href={{ url_for('results_page')}}>Results</a></li>
-    <li><a href={{ url_for('articles_page')}}>Articles</a></li>
-    <li><a href={{ url_for('contact_page')}}>Contact</a></li>
+<nav class="{{ m.layout(layout, 'nav') }} c-site-nav" x-data= "{navOpen: false}">
+
+  <h2 class="c-site-nav__header">
+    <a href="/">TomHallArchery</a>
+  </h2>
+
+  <button class="c-site-nav__btn is-hidden" type="button" @click="navOpen = !navOpen" :class="{'is-hidden' : false}">
+    <svg class="o-hamburger" viewBox="0 0 120 100" aria-labelledby="NavIconTitle">
+      <title id="NavIconTitle">Menu Icon</title>
+      <rect y="00" width="120" height="20"></rect>
+      <rect y="40" width="120" height="20"></rect>
+      <rect y="80" width="120" height="20"></rect>
+    </svg>
+  </button>
+
+  <ul class="c-site-nav__menu is-open" x-bind:class="{'is-open' : navOpen}">
+    <li>
+      <a href={{ url_for('serve_articles_index')}}>Articles</a>
+    </li>
+    <li>
+      <a href={{ url_for('contact_page')}}>Contact</a>
+    </li>
   </ul>
 
+</nav>
 <!-- end nav template -->

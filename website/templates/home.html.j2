@@ -1,37 +1,35 @@
 {% extends "base/base.html.j2" %}
-
-{% block head_styles %}
-  {{ m.link_style('css/styles.css')}}
-  {{ m.link_style('css/layouts/homepage.css')}}
-{% endblock %}
-
-{% block head_fonts %}
-  <link rel="prefetch" href="{{ url_for('static', filename='fonts/Roboto_Slab/RobotoSlab-VariableFont_wght-Latin.woff2') }}" as="font" type="font/woff2" crossorigin>
-{% endblock %}
+{% set layout='homepage' %}
 
 {%- block nav -%}
 {%- endblock %}
 
 {%- block header -%}
 
-  <header id="site_header" class="hero">
-  {% filter responsive_images(img_layout, img_url) %}
-    <picture>
-      <!-- <source media="(min-width: 300px)" srcset="{{ srcset(img_url, 'B2B_NeonEffect', img_sizes, 'jpg') }}" > -->
-      <source
-        type="image/webp"
-        srcset="{{ srcset(img_url, 'B2B_NeonEffect_small', img_sizes, 'webp') }}"
-        sizes="100vw"
-      >
-      <img src="{{ img_url + 'B2B_NeonEffect_small.jpg' }}" alt=""
-      width="2000"
-      height="2000">
-    </picture>
-  {% endfilter %}
-    <nav class="site_nav">
-      {% include "base/nav.html.j2" %}
-    </nav>
+  <header class="{{ m.layout(layout, 'header') }} c-hero-nav" id="site_header" >
+    {% filter responsive_images(
+      {'min-width: 30rem': 'max(50vw, 100vh)',
+      'min-width: 20rem': '120vw',
+      None: '100vmax'
+      },
+      wrap_picture=True) %}
+    <div class="intro c-slant-banner">
+        <img
+          class="c-slant-banner__img"
+          style="--obj-pos: 10% 60%;"
+          src="2020-NationalTourFinals.jpg"
+          alt="">
+        </img>
+        <img
+          class="c-slant-banner__img"
+          style="--obj-pos: 50% 70%;"
+          src="2019-NationalTourFinals_Victory.jpg"
+          alt="">
+        </img>
+    </div>
+    {% endfilter %}
 
+    {% include "base/nav.html.j2" %}
   </header>
 
 {%- endblock %}
@@ -39,6 +37,30 @@
 
 
 {%- block content -%}
+{% filter responsive_images(img_layout, wrap_picture=True) %}
+<main class="{{ m.layout(layout, 'main') }} c-intro-cards">
+  <section class="c-intro-card" id="athlete">
+    <h3 class="c-intro-card__header">Athlete</h3>
+    <div class="c-intro-card__body">
+      <p>I'm a proffessional athlete and I've been competing since I started archery back in 2010.</p>
+      <p>In that time I've progressed from club competitions, student leagues and country championships to climbing the podium in the National Tour, Indoor World series and World Cup. </p>
+    </div>
+  </section>
+  <section class="c-intro-card" id="coach">
+    <h3 class="c-intro-card__header">Coach</h3>
+    <div class="c-intro-card__body">
+      <p>I love to help others improve their archery, health and fitness.</p>
+      <p>As a student I've helped coach new beginners for years, but more recently I've coached the Warwick performance team and privately.</p>
+      <p>During Covid I began to experiment with online coaching sessions including bow training, technique drills and general fitness. </p>
+  </section>
+  <section class="c-intro-card">
+    <h3 class="c-intro-card__header">Person</h3>
+    <div class="c-intro-card__body">
+      <p>What more is there to say? I love running and climbing in the mountains</p>
+    </div>
+  </section>
+</main>
+{% endfilter %}
 {%- endblock content %}
 
 

@@ -39,13 +39,15 @@ $neutrals: (
   50: (lgt: 04%, sat: 70%),
 );
 
-@function neutral($value: 500, $hue: null) {
+@function neutral($value: 500, $col: false) {
   $v: map.get($neutrals, $value);
   $lgt: map.get($v, lgt);
-  @if $hue {
+  @if $col {
     $sat: map.get($v, sat);
+    $c: map.get($colors, $col);
+    $hue: color.hue($c);
     $grey: hsl($hue, $sat, $lgt);
-    @return $grey /* "grey-#{500}" */;
+    @return $grey;
   }
   @else {
     $grey: hsl(0deg, 0%, $lgt);
@@ -53,14 +55,8 @@ $neutrals: (
   }
 
 };
-
-// @debug neutral();
-// @debug neutral(200);
-// @debug neutral(800);
-// @debug neutral(800, color.hue(color(Li)));
-// @debug neutral(800, color.hue(color(Co)));
-
 // themeing
+$theme-key: Li;
 $theme: color(Li);
 $accent: color(Na);
 $active: white;
@@ -76,33 +72,3 @@ $theme-shadow: color.scale($theme, $lightness: -60%);
 $theme-shade: color.scale($theme, $lightness: -10%);
 $theme-tint: color.scale($theme, $lightness: 10%);
 $theme-highlight: color.scale($theme, $lightness: 40%);
-
-
-
-
-
-@if $test {
-  @each $label, $params in $neutrals {
-    $g: neutral($label, $theme-hue);
-
-    ._grey-#{$label} {
-      background-color: $g;
-      width: 200px;
-      height: 100px;
-      position: relative;
-
-      &::before {
-        content: "";
-        width: 100px;
-        height: 100px;
-        display: inline-block;
-        background-color: color.grayscale($g);
-      }
-
-      &::marker {
-        content: "#{$label}";
-        margin-right: 2em;
-      }
-    }
-  }
-}

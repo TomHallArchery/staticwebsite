@@ -1,0 +1,242 @@
+@use "vars" as *;
+@use "sass:math";
+
+/* *** */
+/* Global Styles */
+/* *** */
+:root {
+  @each $name, $hex in $c-colors {
+    --#{$name}: #{$hex};
+  }
+}
+
+html {
+  box-sizing: border-box;
+  font-family: "RobotoSlab", "Rockwell", Georgia, serif;
+  font-size: 18px;
+  font-weight: 350;
+  line-height: 1.5;
+
+  @media screen and (min-width: $bp-medium) {
+    font-size: 20px;
+  }
+}
+/* *** */
+/* Element spacing */
+/* *** */
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+  margin: 0;
+}
+/* 1 line spacing between all adjacent elements in tree */
+*+* {
+  margin-top: 0.75em;
+}
+/* Exceptions to above rule for: */
+/* adjacent paragrpahs, list items etc */
+li+li {
+  margin-top: 0.5em;
+}
+
+nav li+li,
+source+img,
+:is(div, main, header, nav, section, article, footer) {
+  margin-top: 0;
+}
+
+
+/* *** */
+/* Element Styles */
+/* Resets and general styling*/
+/* *** */
+a {
+  text-decoration: underline double;
+}
+/* example inserting unicode into pseudoelement */
+/* a::before {
+  content: "\1F4DE";
+  color: blue;
+} */
+a {
+  &:link {
+    color: $c-theme;
+  }
+
+  &:visited {
+    color: $c-theme-shadow;
+  }
+
+  &:hover {
+    text-decoration: none;
+    opacity: 0.7;
+  }
+
+  &:focus {
+    outline: 2px dotted $c-theme-highlight;
+  }
+
+  &:active {
+    background-color: $c-theme-highlight;
+    color: white;
+    opacity: revert;
+    outline: none;
+  }
+}
+
+b, strong {
+    font-weight: bolder;
+    // reset for specific scenarios
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 500;
+  // background: transparent;
+  // border: 2px solid currentColor;
+  // border-radius: 4px;
+}
+/* Contact form specific */
+form {
+  /* align-items:stretch; */
+  display: flex;
+  flex-direction: column;
+}
+
+form :is(input, textarea):focus {
+  // outline-color: c-color(Na);
+}
+
+h1:first-of-type {
+  font-weight: 900;
+}
+
+@include mxn-headings {
+  color: c-neutral(200, $c-theme-key);
+}
+
+// Set modular type scale to pass through h4
+$scale: 1.25;
+@for $i from 1 through 6 {
+  h#{$i} {
+    font-size: 1em * math.pow($scale, (4-$i));
+  }
+}
+
+nav {
+  ol,
+  ul {
+    list-style: none;
+  }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  /* object-fit: contain; */
+  font-style: italic;
+  color: #888;
+}
+
+
+img::after{
+  content: ' - img not loaded';
+}
+
+input {
+  height: 2em;
+}
+
+input,
+textarea {
+  border: 1px solid c-neutral(600);
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+summary {
+  cursor: pointer;
+}
+
+details summary > * {
+  display: inline;
+}
+
+textarea {
+  resize: vertical;
+}
+
+p {
+  color: c-neutral(100, $c-theme-key);
+}
+
+/* *** */
+/* FONT DECLARATIONS */
+/* *** */
+
+/* Latin English */
+@font-face {
+  font-family: "RobotoSlab";
+  src:
+    url("/static/fonts/Roboto_Slab/RobotoSlab-VariableFont_wght-Latin.woff2") format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  unicode-range: $chset-latin;
+}
+
+/* Minimal English */
+@font-face {
+    font-family: "PublicSans";
+    src:
+      url("/static/fonts/Public_Sans/PublicSans-VariableFont_wght-Min.woff2") format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    unicode-range: $chset-min-eng;
+}
+
+// @mixin fontface($family) {
+//   font-family: $family;
+//   src:
+//     url("/static/fonts/#{$family}/#{$family}-VariableFont_wght.ttf") format('woff2'),
+//     url("/static/fonts/#{$family}/#{$family}-VariableFont_wght.ttf") format('truetype');
+//   font-weight: 100 900;
+//   font-style: normal;
+// }
+
+/* *** */
+/* Utilitiies */
+/* *** */
+.u-notop {
+  margin-top: 0;
+}
+
+.u-none {
+  display: none !important;
+}
+
+.u-icon {
+  --scale: 1em;
+  display: inline-block;
+  width: var(--scale);
+  height: var(--scale);
+}
+
+.u-resize {
+  resize:both;
+  overflow:auto;
+}
+
+/* *** */
+/* Default Accesibility */
+/* *** */
+@media screen and (prefers-reduced-motion: reduce) {
+  * {
+    /* Very short durations means JavaScript that relies on events still works */
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

@@ -1,13 +1,9 @@
 $breakpoints: (
-  'xsmall':35ch,
-  'small':50ch,
-  'medium':85ch,
-  'large':110ch,
-  'xlarge':145ch,
+
 );
 
-$xsmall: 18rem;
-$small: 25rem;
-$medium: 45rem;
-$large: 60rem;
-$xlarge: 75rem;
+$xsmall: 20rem; // 320px
+$small: 30rem; // 480px
+$medium: 45rem; // 720px
+$large: 60rem; // 960px
+$xlarge: 75rem; // 1200px

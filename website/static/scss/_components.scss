@@ -1,0 +1,313 @@
+@use "vars" as *;
+@use "sass:color";
+@use "sass:math";
+@use "objects";
+
+.c-contact-form {
+  button {
+    $s: 0.5em;
+    background-color: $c-theme;
+    border: 0px solid $c-theme;
+    color: $c-active-off;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 450;
+    padding: 0 $s*3;
+    height: $s * 5;
+    align-self: flex-end;
+    box-shadow:
+      inset 0 $s * 0.5 $s $c-theme-tint,
+      inset 0 $s * -0.5 $s $c-theme-shade
+      ;
+
+    &:focus,
+    &:hover {
+      color: $c-active;
+      background-color: $c-theme-shade;
+      box-shadow: none;
+    }
+
+    &:active {
+      background-color: $c-theme;
+      box-shadow:
+        inset 0 $s * -0.5 $s $c-theme-tint,
+        inset 0 $s * 0.5 $s $c-theme-shade
+        ;
+    }
+  }
+
+  label[for="title"] {
+    display: none;
+  }
+}
+
+.c-intro-cards {
+  @media (min-width: $bp-large){
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.c-intro-card {
+  --min-width: 10rem;
+  max-width: none;
+  padding: 2rem 10vw;
+  @media (min-width: $bp-large) {
+    // display: flex;
+    // flex-wrap: wrap;
+    // gap: 0 10%;
+    padding: 1rem;
+  }
+  width: 100%;
+
+  &:nth-child(odd) {
+    // background-color: c-neutral(800);
+  }
+  &:nth-child(even) {
+    // background-color: c-neutral(700);
+  }
+
+  &__header {
+    // flex: 0 0 100%;
+    margin-bottom: 1em;
+  }
+
+  &__body {
+    // flex: 1 0 35%;
+  }
+
+  &__img {
+    // Styling split between wrapper (recieves class) and img object
+    @extend .o-slant-img;
+    // flex: 1 0 40%;
+    min-width: var(--min-width); //?
+    max-width: 2000px; //?
+    margin-top: 0;
+
+    & > img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+
+}
+
+// Site nav: built from nav components
+.c-site-nav {
+  background-color: $c-theme;
+  background-image: linear-gradient(
+    $c-theme-tint 5%,
+    $c-theme 50%,
+    $c-theme-shade 95%
+    );
+  color: $c-active-off;
+  font-family: "PublicSans", Tahoma, Arial, sans-serif;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  // font-size: 1.125em;
+
+  /* left part: header/home link */
+  &__header {
+    color: inherit;
+  }
+
+  /* right part: nav links */
+  &__btn {
+    @extend .o-btn-blank;
+    margin-right: auto;
+
+    &:focus {
+      outline: 2px dotted $c-active;
+    }
+
+    &:focus:not(:focus-visible) {
+      outline: none;
+    }
+
+    &.is-hidden {
+      display: none;
+    }
+    @media screen and (min-width: $bp-xsmall) {
+      margin-left: auto;
+      margin-right: 0;
+    }
+    @media screen and (min-width: $bp-small) {
+      display: none;
+    }
+  }
+
+  &__menu {
+    display: none;
+    flex-direction: column;
+    flex-basis: 100vw;
+    font-weight: 250;
+    margin-left: auto;
+    padding: 0;
+    text-align: center;
+
+    &.is-open {
+      display: flex;
+    }
+
+    @media screen and (min-width: $bp-small) {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      flex-basis: auto;
+      margin-top: 0;
+    }
+
+  }
+
+  li {
+    display: block; //not list item: extend from o-navlist?
+    line-height: 2em;
+
+    @media screen and (min-width: $bp-small) {
+      &:not(:last-child)::after {
+        content: '|';
+        padding: 0 clamp(0.5em, 1vw, 1em);
+      }
+    }
+
+  }
+
+  a {
+    color: inherit;
+    padding: 5px;
+    text-decoration: none;
+    text-shadow:
+      1px 1px 2px $c-theme-shadow,
+      ;
+      // -1px -1px 1px #ddd2;
+    transition: all 150ms ease-in-out;
+    /* refactor to a ::before/::after pseudo element rather than border */
+    &:hover {
+      border-width: 3px 0;
+      border-style: solid;
+      border-color: $c-active;
+      border-image-source:
+        linear-gradient(
+          to right,
+          transparent,
+          $c-active,
+          transparent
+        );
+      border-image-slice: 1;
+      color: $c-active;
+      opacity: revert; // revert default link opacity styling
+      text-decoration: none;
+      text-shadow:
+        1px 1px 3px $c-theme-shadow,
+        ;
+    }
+
+    &:focus-visible {
+      color: $c-active;
+      outline: 1px solid currentColor;
+      /* outline-offset: 3px; */
+      box-shadow:
+        0 0 2px 4px currentColor;
+    }
+
+    &:active {
+      background-color: $c-theme-highlight;
+      // box-shadow: revert;
+    }
+
+  }
+
+}
+
+//Intro Banner:
+// Built from img slants inside grid layout
+.c-slant-banner {
+  // width: 100%;
+  overflow: hidden;
+  display: grid; /* implicit grid placement works here */
+
+  &__img {
+    /* xsmall display: 1x img block */
+    display: block;
+    height: 100%;
+    margin-top: 0; // prevent overflow outside of grid
+    overflow: hidden; // IMPORTANT: fixes layout bugs
+
+    // specific styling
+    transform: scale(1.1);
+    transition: all 250ms ease-in-out;
+    // customisation based on individual image
+    background-color: c-neutral(600);
+
+    &:hover {
+      // specific styling
+      z-index: 2;
+      transform: scale(1.2);
+      filter: brightness(0.65);
+    }
+
+    &:not(:first-child){
+      display: none;
+    }
+
+    & > img {
+      object-fit: cover; // maintain aspect ratio and cover space of picture
+      object-position: var(--obj-pos, center);
+      height:100%; // needed otherwise img will just exist at full height and overflow
+    }
+
+    @media (min-width: $bp-xsmall) {
+      /* small display: vertical blocks */
+      @include mxn-slant-v;
+
+      &:first-child {
+        @include mxn-slant-v($top:0);
+      }
+      &:last-child {
+        display: block;
+        @include mxn-slant-v($bottom:0);
+      }
+    }
+
+    @media (min-width: $bp-small) {
+      /* Square/Landscape/Large switch to grid controlled columns layout */
+      height: auto;
+      max-height: 100%;
+      @include mxn-slant-h;
+      // force placement on same row
+      grid-row: 1;
+      // fill space of grid cell
+
+      &:first-child {
+        @include mxn-slant-h($left:0);
+      }
+      &:last-child {
+        @include mxn-slant-h($right:0);
+      }
+
+    }
+
+  }
+
+}
+
+/* Site hero-header styling */
+.c-hero-nav {
+  padding: 0;
+  margin-top:0;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  height: 100vh;
+  max-height: 100vh;
+
+  & > nav {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-top: 0;
+  }
+}

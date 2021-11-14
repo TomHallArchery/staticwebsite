@@ -1,23 +1,31 @@
 .DS_Store
 __pycache__
-.python-version
+# .python-version
+.env
+node_modules
 
 pynetlify.ini
 gitlog.txt
 
+# Ignore database files
+database/*
+!database/db.conf
 
 # Ignore image directory: output files uploaded seperately to netlify
 website/static/img/*
 !website/static/img/src
+!website/static/img/process.py
 
 # Ignore static/css: scss source and comipiled css already tracked on git
 website/static/css
 
+# Ignore external js dependancy from install script
+website/static/js/alpine*
+
 # Ignore build output (deploy directly from cli)
-website/build
-tmp.css
-tmp.css.map
-tmp/
+website/build/*
+!website/build/netlify.toml
+tmp
 
 # Local Netlify folder
 .netlify

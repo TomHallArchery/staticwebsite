@@ -2,7 +2,7 @@
 
 {% block content -%}
 <!-- Page_Content from page.html.j2 tempalate, flatpage object -->
-<main id="page_body">
+<main class="{{ m.layout(layout, 'main') }}" id="page_body">
 
   <section>
   {% block page_heading -%}
@@ -10,7 +10,7 @@
   {%- endblock %}
 
   {% block page_content -%}
-    {{ page.html | responsive_images(img_layout, img_url, wrap_picture=True)}}
+    {{ page.html | responsive_images(img_layout, wrap_picture=True)}}
   {%- endblock %}
   </section>
 
@@ -22,7 +22,7 @@
 </main>
 <!-- End page_content -->
 
-<aside id="page_sidebar">
+<aside class="{{ m.layout(layout, 'aside') }}" id="page_sidebar">
 
   {% block side_content -%}
     {{ side.html }}
