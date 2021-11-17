@@ -38,7 +38,7 @@ def process_img(image: Img):
 
 def _write_src(img_path: str):
     ''' return image src attribute from prefix url and file name'''
-    return Path(IMG_DOMAIN, img_path)
+    return IMG_DOMAIN + img_path
 
 
 def _write_srcset(path: Path, widths):
