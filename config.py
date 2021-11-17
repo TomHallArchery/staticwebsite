@@ -13,10 +13,12 @@ def prerender_jinja(text):
     prerendered_body = flask.render_template_string(flask.Markup(text))
     # Setting flatpages extensions wasn't working for some reason
     # had to overwrite pygmented_markdown method
-    pygmented_body = markdown.markdown(
+    html = markdown.markdown(
         prerendered_body,
-        extensions=Config.FLATPAGES_MARKDOWN_EXTENSIONS)
-    return pygmented_body
+        extensions=Config.FLATPAGES_MARKDOWN_EXTENSIONS,
+        output_format='html5',
+        )
+    return html
 
 
 class Config:

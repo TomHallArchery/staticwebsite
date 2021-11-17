@@ -25,8 +25,7 @@ upgrade:
 install:
 	pip install -r requirements.txt
 	pip install -r dev-requirements.txt
-	npm install
-	python -m scripts.install
+	python -m scripts.vendorize
 
 viewdb:
 	mongo --port 5009
