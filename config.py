@@ -22,9 +22,13 @@ def prerender_jinja(text):
 class Config:
     ''' Standard configuration '''
     # MongoDB config
-    DB_PORT = 5009
-    DB_PWD = os.environ.get("DB_PWORD")
-    DB_CONFIG = 'database/db.conf'
+    MONGODB_SETTINGS = {
+        'db': 'website',
+        'port': 5009,
+        'username': 'app',
+        'password': os.environ.get("DB_PWORD"),
+        'authentication_source': 'admin'
+    }
 
     # Flask flatpages configuration
     # 1. Pages are loaded on request.

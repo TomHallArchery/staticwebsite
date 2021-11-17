@@ -1,11 +1,10 @@
 from flask import Flask
 from flask_flatpages import FlatPages
-from tinydb import TinyDB
-
+from flask_mongoengine import MongoEngine
 import config
 
 flatpages = FlatPages()
-db = TinyDB('database.json', indent=4, separators=(',', ': '))
+db = MongoEngine()
 
 
 def create_app(config_class=None):
