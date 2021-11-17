@@ -1,5 +1,5 @@
 dev:
-	python -m scripts.run
+	python -m scripts.dev
 
 build:
 	python -m scripts.freeze

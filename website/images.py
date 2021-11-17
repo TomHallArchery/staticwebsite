@@ -36,11 +36,6 @@ def process_img(image: Img):
     image.update(status=ImgStatus.PROCESSED)
 
 
-def soupify(html):
-    ''' TESTING UTILITY '''
-    return bs4.BeautifulSoup(html, 'html.parser')
-
-
 def _write_src(img_path: str):
     ''' return image src attribute from prefix url and file name'''
     return Path(IMG_DOMAIN, img_path)

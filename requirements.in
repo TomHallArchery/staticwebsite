@@ -1,8 +1,6 @@
 flask
 flask-flatpages
 frozen-flask
-advancedhtmlparser
-tinydb
 pillow
 pynetlify
 beautifulsoup4

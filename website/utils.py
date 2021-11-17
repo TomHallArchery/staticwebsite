@@ -2,8 +2,8 @@ import subprocess
 import os
 from contextlib import contextmanager
 
-import AdvancedHTMLParser
 from pynetlify import pynetlify
+from bs4 import BeautifulSoup
 
 from flask import current_app as app
 from website import flatpages
@@ -57,10 +57,8 @@ def filter_pages(path):
 
 
 def parse_html(html):
-    ''' wrapper for initialising AdvanedHTMLParser'''
-    parser = AdvancedHTMLParser.AdvancedHTMLParser()
-    parser.parseStr(html)
-    return parser
+    ''' wrapper for initialising an HTML Parser'''
+    return BeautifulSoup(html, 'html.parser')
 
 
 def split_filename(path):
