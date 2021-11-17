@@ -10,7 +10,7 @@
   {%- endblock %}
 
   {% block page_content -%}
-    {{ page.html | responsive_images(img_layout, wrap_picture=True)}}
+    {{ page.html | responsive_images()}}
   {%- endblock %}
   </section>
 

@@ -12,13 +12,13 @@ def create_app(config_class=None):
     app = Flask(__name__)
     app.config.from_object(config_class or config.Config)
     flatpages.init_app(app)
+    db.init_app(app)
 
     with app.app_context():
         # required to bring app registered views in
         # pylint: disable=import-outside-toplevel, unused-import
         from website import views  # noqa
         from website import errors  # noqa
-        from website import database
+        from website import models  # noqa
 
-        database.connect_db()
     return app

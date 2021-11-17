@@ -6,38 +6,44 @@
 
 {%- block header -%}
 
+{% filter responsive_images() %}
+{% set header_sizes = {
+  'min-width: 30rem': 'max(50vw, 100vh)',
+  'min-width: 20rem': '120vw',
+  None: '100vmax'
+} %}
+
   <header class="{{ m.layout(layout, 'header') }} c-hero-nav" id="site_header" >
-    {% filter responsive_images(
-      {'min-width: 30rem': 'max(50vw, 100vh)',
-      'min-width: 20rem': '120vw',
-      None: '100vmax'
-      },
-      wrap_picture=True) %}
     <div class="intro c-slant-banner">
-        <img
-          class="c-slant-banner__img"
-          style="--obj-pos: 10% 60%;"
-          src="2020-NationalTourFinals.jpg"
-          alt="">
-        </img>
-        <img
-          class="c-slant-banner__img"
-          style="--obj-pos: 50% 70%;"
-          src="2019-NationalTourFinals_Victory.jpg"
-          alt="">
-        </img>
+      <img
+        class="c-slant-banner__img"
+        style="--obj-pos: 10% 60%;"
+        src="2020-NationalTourFinals.jpg"
+        alt=""
+        data-responsive=""
+        sizes="{{ sizes(header_sizes) }}"
+      >
+      <img
+        class="c-slant-banner__img"
+        style="--obj-pos: 50% 70%;"
+        src="2019-NationalTourFinals_Victory.jpg"
+        alt=""
+        data-responsive
+        sizes="{{ sizes(header_sizes) }}"
+      >
     </div>
-    {% endfilter %}
 
     {% include "base/nav.html.j2" %}
   </header>
 
+{% endfilter %}
 {%- endblock %}
 
 
 
 {%- block content -%}
-{% filter responsive_images(img_layout, wrap_picture=True) %}
+{% filter responsive_images() %}
+
 <main class="{{ m.layout(layout, 'main') }} c-intro-cards">
   <section class="c-intro-card" id="athlete">
     <h3 class="c-intro-card__header">Athlete</h3>
@@ -60,6 +66,7 @@
     </div>
   </section>
 </main>
+
 {% endfilter %}
 {%- endblock content %}
 

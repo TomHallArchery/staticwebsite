@@ -23,7 +23,7 @@ A pb in qualifying of 588 at 18m, a dream run through the matches to make the fi
 
 ## BUCS Indoors 2015
 Individual and team Gold
-![Big grin holding bucs trophy](2015-BUCS-indoor.jpg){: .test_img width=1536 height=1024}
+![Big grin holding bucs trophy](2015-BUCS-indoor.jpg){: data-responsive}
 
 ## BUCS H2H 2013
 My first ever H2H competition was my first ever win at BUCS. I still don't understand how I did it but I shot matches far above my qualifying level in the early rounds and finals, and walked away with a surprise gold medal ![]()

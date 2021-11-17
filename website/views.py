@@ -12,15 +12,6 @@ def reload_flatpages():
     utils.clean_flatpage_metas(flatpages)
 
 
-@app.before_first_request
-def process_all_images():
-    ''' process img/src into thumbnails in img/out '''
-    print("Processing images")
-    all_imgs = images.SourceImages()
-    all_imgs.add_to_db()
-    all_imgs.process(reprocess=app.config['REPROC_IMAGES'])
-
-
 @app.context_processor
 def inject_data():
     ''' global context for all templates '''
@@ -32,10 +23,9 @@ def inject_data():
         src=utils.src,
         srcset=utils.srcset,
         sizes=utils.sizes,
+        utils=utils,
         )
 
-
-app.add_template_filter(images.responsive_images)
 
 # ===============
 # ROUTES
@@ -62,6 +52,7 @@ def results_page():
     ''' render results page '''
     results = flatpages.get_or_404('results')
     sidebar = flatpages.get('sidebar')
+
     return flask.render_template(
         'generic/page.html.j2',
         page=results,
