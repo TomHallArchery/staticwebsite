@@ -80,7 +80,8 @@ def _wrap_picture(soup: bs4.BeautifulSoup, img: bs4.element.Tag, model: Img):
     source.attrs.update({
         'type': 'image/webp',
         'srcset': _write_srcset(
-            model._path,  # pylint: disable=protected-access
+            # pylint: disable=protected-access
+            model._path.with_suffix('.webp'),
             model.thumbnail_widths,
             ),
         'sizes': img.get('sizes')
