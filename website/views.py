@@ -3,7 +3,7 @@ from datetime import datetime
 
 import flask
 from flask import current_app as app
-from website import images, utils, flatpages
+from website import utils, flatpages
 
 
 @app.before_request

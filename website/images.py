@@ -1,6 +1,8 @@
 from pathlib import Path
+from typing import Any
 
-import PIL
+import PIL.Image
+import PIL.ImageOps
 import bs4
 from flask import current_app as app
 from mongoengine.errors import NotUniqueError
@@ -17,7 +19,7 @@ DEFAULT_IMG_WIDTH = app.config["IMG_DEFAULT_WIDTH"]
 IMG_DOMAIN = app.config["IMG_URL"]
 
 
-def add_all_imgs_to_db():
+def add_all_imgs_to_db() -> None:
     '''
     Creates Img model from all image files in source directory
 
@@ -34,7 +36,7 @@ def add_all_imgs_to_db():
             continue
 
 
-def process_img(image: Img):
+def process_img(image: Img) -> None:
     ''' save thumbnails and update img database '''
     if image.status == image.status.PROCESSED:
         return
@@ -43,12 +45,12 @@ def process_img(image: Img):
     image.update(status=image.status.PROCESSED)
 
 
-def _write_src(img_path: str):
+def _write_src(img_path: str) -> str:
     ''' return image src attribute from prefix url and file name'''
     return IMG_DOMAIN + img_path
 
 
-def _write_srcset(path: Path, widths):
+def _write_srcset(path: Path, widths: list[int]) -> str:
     ''' return image srcset attribute for set img widths'''
     srcset_list = (
         f'{_write_src(path.stem)}_{width}{path.suffix} {width}w'
@@ -57,8 +59,11 @@ def _write_srcset(path: Path, widths):
     return ", ".join(srcset_list)
 
 
-def _set_img_tag(img: bs4.element.Tag, model: Img):
-    path = model._path  # pylint: disable=protected-access
+def _set_img_tag(
+        img: bs4.element.Tag,
+        model: Img
+        ) -> None:
+    path = model.path
 
     largest_src = _write_src(
         f"{path.stem}_{str(model.thumbnail_widths[0])}"
@@ -76,10 +81,15 @@ def _set_img_tag(img: bs4.element.Tag, model: Img):
     })
 
 
-def _wrap_picture(soup: bs4.BeautifulSoup, img: bs4.element.Tag, model: Img):
+def _wrap_picture(
+        soup: bs4.BeautifulSoup,
+        img: bs4.element.Tag,
+        model: Img
+        ) -> bs4.element.Tag:
+
     picture = soup.new_tag('picture')
     source = soup.new_tag('source')
-    picture['class'] = img.get('class')
+    picture['class'] = img.get('class') or ""
     img['class'] = []
     img.wrap(picture)
     img.insert_before(source)
@@ -87,19 +97,18 @@ def _wrap_picture(soup: bs4.BeautifulSoup, img: bs4.element.Tag, model: Img):
     source.attrs.update({
         'type': 'image/webp',
         'srcset': _write_srcset(
-            # pylint: disable=protected-access
-            model._path.with_suffix('.webp'),
+            model.path.with_suffix('.webp'),
             model.thumbnail_widths,
             ),
-        'sizes': img.get('sizes')
+        'sizes': img.get('sizes', '')  # type: ignore[dict-item]
     })
     return picture
 
 
-def responsive_images(html: str):
+def responsive_images(html: str) -> str:
     ''' filter function for jinja templates
-    returns html for responsive image syntax
 
+    returns html for responsive image syntax
     '''
     soup = bs4.BeautifulSoup(html, 'html.parser')
     imgs = soup.select('img[data-responsive]')
@@ -110,14 +119,14 @@ def responsive_images(html: str):
         # 1) img has a src attribute
         src = img.get('src')
         # 2) img is logged as processed in database
-        model = Img.objects.get(name=src)  # pylint: disable=no-member
+        model = Img.objects.get(name=src)
 
         if not src or model.status != model.status.PROCESSED:
             continue
 
         _set_img_tag(img, model)
 
-        if 'no-wrap' not in img.get('data-responsive'):
+        if 'no-wrap' not in img['data-responsive']:
             _wrap_picture(soup, img, model)
 
     return soup.prettify()
@@ -126,7 +135,10 @@ def responsive_images(html: str):
 app.add_template_filter(responsive_images)
 
 
-def _create_thumbnails(image: Img, widths=WIDTHS):
+def _create_thumbnails(
+        image: Img,
+        widths: list[int] = WIDTHS
+        ) -> dict[str, Any]:
     """ Generate and save thumbnails of given source image"""
     # open image in PIL
     pil = PIL.ImageOps.exif_transpose(PIL.Image.open(image.path))
@@ -151,7 +163,11 @@ def _create_thumbnails(image: Img, widths=WIDTHS):
     )
 
 
-def _select_thumbnail_widths(width, height, standard_widths):
+def _select_thumbnail_widths(
+        width: int,
+        height: int,
+        standard_widths: list[int]
+        ) -> map[int]:
     '''
     returns list of widths of output images
     '''

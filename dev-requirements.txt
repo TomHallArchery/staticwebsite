@@ -60,6 +60,8 @@ tomli==1.2.2
     # via pep517
 tornado==6.1
     # via livereload
+types-markdown==3.3.8
+    # via -r dev-requirements.in
 typing-extensions==3.10.0.2
     # via
     #   astroid

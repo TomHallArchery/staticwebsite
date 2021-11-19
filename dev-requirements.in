@@ -8,3 +8,4 @@ pylint
 mypy
 jedi
 livereload
+types-Markdown

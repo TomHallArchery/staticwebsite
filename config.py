@@ -1,22 +1,24 @@
 import os
 from pathlib import Path
 
-import flask
-import markdown
+
+from markdown import markdown
+from flask import render_template_string, Markup
 from dotenv import load_dotenv
 
 load_dotenv()
 
 
-def prerender_jinja(text):
+def prerender_jinja(text: str) -> str:
     ''' render flask templating in markdown pages before parsing markdown '''
-    prerendered_body = flask.render_template_string(flask.Markup(text))
+    prerendered_body = render_template_string(Markup(text))
     # Setting flatpages extensions wasn't working for some reason
     # had to overwrite pygmented_markdown method
-    html = markdown.markdown(
+    html = markdown(
         prerendered_body,
         extensions=Config.FLATPAGES_MARKDOWN_EXTENSIONS,
-        output_format='html5',
+        output_format='html5',  # type: ignore[arg-type]
+        # 'html5' not in stubs library
         )
     return html
 
@@ -52,7 +54,7 @@ class Config:
 
     # Views config
     VIEW_POSTS_DIR_WP = 'articles/archive'
-    VIEW_TEST = os.environ.get('TEST')
+    VIEW_TEST = os.environ.get('VIEW_TEST', False)
 
     # External Depedancies
     ALPINE = {

@@ -16,9 +16,9 @@ def create_app(config_class=None):
 
     with app.app_context():
         # required to bring app registered views in
-        # pylint: disable=import-outside-toplevel, unused-import
         from website import views  # noqa
         from website import errors  # noqa
         from website import models  # noqa
+        from website import images  # noqa
 
     return app

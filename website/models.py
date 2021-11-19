@@ -3,11 +3,8 @@ from pathlib import Path
 
 import mongoengine as mg
 
-from website import db
 
-
-# creates or loads collection
-class Img(db.Document):
+class Img(mg.Document):
     ''' Image ODM '''
 
     class Status(Enum):
@@ -35,13 +32,13 @@ class Img(db.Document):
         return Path(self.path)
 
 
-class Page(db.Document):
+class Page(mg.Document):
     ''' Page ODM '''
     title = mg.StringField()
     content = mg.StringField()
 
 
-class Run(db.Document):
+class Run(mg.Document):
     ''' Run ODM '''
     started = mg.DateTimeField()
 
