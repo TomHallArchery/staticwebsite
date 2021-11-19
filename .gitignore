@@ -1,6 +1,7 @@
 # Python and systemfolders
 .DS_Store
 __pycache__
+.mpypy_cache
 .env
 .flaskenv
 .venv

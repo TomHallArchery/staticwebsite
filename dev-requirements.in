@@ -5,5 +5,6 @@ pympler
 pip-tools
 flake8
 pylint
+mypy
 jedi
 livereload
