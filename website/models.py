@@ -17,7 +17,7 @@ class Img(mg.Document):
 
     name = mg.StringField(required=True, unique=True)
     type = mg.StringField(required=True)
-    path = mg.StringField()
+    filepath = mg.StringField()
     desc = mg.StringField()
     status = mg.EnumField(Status, default=Status.NEW)
     width = mg.IntField()
@@ -28,8 +28,8 @@ class Img(mg.Document):
         return f"<Img(name='{self.name})', {self.status}>"
 
     @property
-    def _path(self):
-        return Path(self.path)
+    def path(self) -> Path:
+        return Path(self.filepath)
 
 
 class Page(mg.Document):

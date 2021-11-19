@@ -141,7 +141,7 @@ def _create_thumbnails(
         ) -> dict[str, Any]:
     """ Generate and save thumbnails of given source image"""
     # open image in PIL
-    pil = PIL.ImageOps.exif_transpose(PIL.Image.open(image.path))
+    pil = PIL.ImageOps.exif_transpose(PIL.Image.open(image.filepath))
     out = Path(IMAGES_ROOT, OUTPUT_DIR)
 
     widths = list(_select_thumbnail_widths(pil.width, pil.height, widths))
@@ -149,11 +149,11 @@ def _create_thumbnails(
         thumb = pil.copy()
         thumb.thumbnail((w, pil.height), resample=PIL.Image.LANCZOS)
         thumb.save(
-            f'{out}/{image.name}_{w}.jpg',
+            f'{out}/{image.path.stem}_{w}.jpg',
             quality=55, optimize=True, progressive=True
             )
         thumb.save(
-            f'{out}/{image.name}_{w}.webp',
+            f'{out}/{image.path.stem}_{w}.webp',
             quality=55, method=6
             )
     return dict(
