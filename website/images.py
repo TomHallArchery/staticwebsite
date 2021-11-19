@@ -3,8 +3,9 @@ from pathlib import Path
 import PIL
 import bs4
 from flask import current_app as app
+from mongoengine.errors import NotUniqueError
 
-from .models import Img, ImgStatus
+from .models import Img
 
 # Constants
 WIDTHS = app.config["IMG_WIDTHS"]
@@ -24,16 +25,22 @@ def add_all_imgs_to_db():
     '''
     imgpath = Path(IMAGES_ROOT, SOURCE_DIR)
     for path in Path(imgpath).iterdir():
-        Img(name=path.name, type=path.suffix, path=str(path)).save()
+        i = Img(name=path.name, type=path.suffix, path=str(path))
+        try:
+            i.save()
+            print(f"Saved Img: {i.name} to db")
+        except NotUniqueError:
+            print(f"Img: {i.name} already in db")
+            continue
 
 
 def process_img(image: Img):
     ''' save thumbnails and update img database '''
-    if image.status == ImgStatus.PROCESSED:
+    if image.status == image.status.PROCESSED:
         return
     sizes = _create_thumbnails(image)
     image.update(**sizes)
-    image.update(status=ImgStatus.PROCESSED)
+    image.update(status=image.status.PROCESSED)
 
 
 def _write_src(img_path: str):
@@ -105,7 +112,7 @@ def responsive_images(html: str):
         # 2) img is logged as processed in database
         model = Img.objects.get(name=src)  # pylint: disable=no-member
 
-        if not src or model.status != ImgStatus.PROCESSED:
+        if not src or model.status != model.status.PROCESSED:
             continue
 
         _set_img_tag(img, model)

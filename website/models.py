@@ -1,34 +1,37 @@
 from enum import Enum
+from pathlib import Path
 
 import mongoengine as mg
 
 from website import db
 
 
-class ImgStatus(Enum):
-    NEW = 'new'
-    PROCESSED = 'processed'
-    ARCHIVED = 'archived'
-
-
 # creates or loads collection
 class Img(db.Document):
     ''' Image ODM '''
-    name = mg.StringField(required=True)
+
+    class Status(Enum):
+        ''' Img status enumerator '''
+        NEW = 'new'
+        PROCESSED = 'processed'
+        ARCHIVED = 'archived'
+
+    # Status = Enum('Status', 'NEW PROCESSED ARCHIVED')
+
+    name = mg.StringField(required=True, unique=True)
     type = mg.StringField(required=True)
     path = mg.StringField()
     desc = mg.StringField()
-    status = mg.EnumField(ImgStatus, default=ImgStatus.NEW)
+    status = mg.EnumField(Status, default=Status.NEW)
     width = mg.IntField()
     height = mg.IntField()
     thumbnail_widths = mg.ListField(mg.IntField())
 
     def __repr__(self):
-        return f"Img({self.name})"
+        return f"<Img(name='{self.name})', {self.status}>"
 
     @property
     def _path(self):
-        from pathlib import Path
         return Path(self.path)
 
 
