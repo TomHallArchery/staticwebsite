@@ -167,7 +167,7 @@ def _select_thumbnail_widths(
         width: int,
         height: int,
         standard_widths: list[int]
-        ) -> map[int]:
+        ) -> map:
     '''
     returns list of widths of output images
     '''
