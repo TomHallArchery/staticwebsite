@@ -1,3 +1,5 @@
+include .env
+
 dev:
 	python -m scripts.dev
 
@@ -27,5 +29,5 @@ install:
 	pip install -r dev-requirements.txt
 	python -m scripts.vendorize
 
-viewdb:
-	mongo --port 5009
+mongo:
+	mongo --port 5009 --username "app"
