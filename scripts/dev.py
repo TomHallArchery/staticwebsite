@@ -11,10 +11,10 @@ app = create_app(config.DevConfig)
 
 if __name__ == '__main__':
 
-    with app.app_context():
-        sass = utils.compile_css(watch=True)
-        atexit.register(sass.kill)
+    sass = utils.compile_css(app, watch=True)
+    atexit.register(sass.kill)
 
+    with app.app_context():
         # log run
         models.Run.drop_collection()
         run = models.Run(started=datetime.now())

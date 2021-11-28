@@ -25,7 +25,7 @@ def rm_file(file):
         os.remove(file)
 
 
-def compile_css(compressed=False, watch=False):
+def compile_css(app, compressed=False, watch=False):
     ''' launch subprocess to run dart sass '''
     source = app.config["CSS_SRC_DIR"]
     dest = app.config["CSS_OUT_DIR"]

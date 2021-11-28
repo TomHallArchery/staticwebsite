@@ -40,9 +40,8 @@ def main():
     freezer.freeze()
     print("Website frozen")
 
-    with app.app_context():
-        utils.compile_css(compressed=True)
-        print("Css recompiled")
+    utils.compile_css(app, compressed=True)
+    print("Css recompiled")
 
     # Frozen flask issue:
     # have to manually build the 404 error page for use by server
