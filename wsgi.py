@@ -17,6 +17,7 @@ def make_shell_context():
         'images': website.images,
         'i': website.models.Img.objects.first(),
         'html': html,
+        'utils': website.utils
         }
 
 
