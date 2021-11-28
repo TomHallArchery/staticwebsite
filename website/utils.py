@@ -5,7 +5,6 @@ from contextlib import contextmanager
 from pynetlify import pynetlify
 from bs4 import BeautifulSoup
 
-from flask import current_app as app
 from website import flatpages
 
 
@@ -88,7 +87,7 @@ def sizes(criteria):
     return ", ".join(sizes_list).replace('(None) ', '')
 
 
-def deploy_folder_to_netlify(directory, subdomain):
+def deploy_folder_to_netlify(app, directory, subdomain):
     ''' deploys specified directory contents via pynetlify '''
     subdomain = subdomain.upper()
     assert subdomain in ['ROOT', 'CDN']
