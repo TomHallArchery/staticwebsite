@@ -1,9 +1,12 @@
 from pathlib import Path
 
-from mongoengine.errors import NotUniqueError
+from flask import render_template_string, Markup
 import frontmatter as fmr
+from mongoengine.errors import NotUniqueError
+from markdown import markdown
 
-from website.models import Page
+import config
+from .models import Page
 
 
 def add_all_pages_to_db() -> None:
@@ -12,7 +15,7 @@ def add_all_pages_to_db() -> None:
 
     Used to instantiate database from scratch
     '''
-    for fn in Path('website/pages').rglob('*.md'):
+    for fn in Path('website/content').rglob('*.md'):
         post = fmr.load(fn)
 
         page = Page(
@@ -30,11 +33,8 @@ def add_all_pages_to_db() -> None:
 
 
 def overwrite_metadata(page: Page):
-    page.to_json()
+    return page.to_json()
 
-from markdown import markdown
-from flask import render_template_string, Markup
-import config
 
 def prerender_jinja(text: str) -> str:
     ''' render flask templating in markdown pages before parsing markdown '''
@@ -48,6 +48,3 @@ def prerender_jinja(text: str) -> str:
         # 'html5' not in stubs library
         )
     return html
-
-from flask import current_app as app
-app.add_template_filter(prerender_jinja)
