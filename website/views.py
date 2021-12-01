@@ -99,13 +99,15 @@ def serve_article(path_requested):
     ''' render article page eg path_requested="archive/title" '''
     # reappend 'article/' to front of path
     # as has been stripped off by the route selector
-    path = os.path.join('articles', path_requested)
-    flatpage = flatpages.get_or_404(path)
+    import frontmatter as fmr
+    from website.models import Page
 
+    page = Page.objects.get_or_404(slug=path_requested)
+    flatpage = fmr.load(page.filepath)
     return flask.render_template(
         'articles/article.html.j2',
-        page=flatpage,
-        **flatpage.meta
+        content=flatpage.content,
+        **flatpage.metadata
         )
 
 

@@ -1,10 +1,14 @@
 from enum import Enum
 from pathlib import Path
 
-import mongoengine as mg
+from slugify import slugify
+import frontmatter as fmr
 
 
-class Img(mg.Document):
+from website import db
+
+
+class Img(db.Document):
     ''' Image ODM '''
 
     class Status(Enum):
@@ -15,32 +19,56 @@ class Img(mg.Document):
 
     # Status = Enum('Status', 'NEW PROCESSED ARCHIVED')
 
-    name = mg.StringField(required=True, unique=True)
-    type = mg.StringField(required=True)
-    filepath = mg.StringField()
-    desc = mg.StringField()
-    status = mg.EnumField(Status, default=Status.NEW)
-    width = mg.IntField()
-    height = mg.IntField()
-    thumbnail_widths = mg.ListField(mg.IntField())
+    name = db.StringField(required=True, unique=True)
+    type = db.StringField(required=True)
+    filepath = db.StringField()
+    desc = db.StringField()
+    status = db.EnumField(Status, default=Status.NEW)
+    width = db.IntField()
+    height = db.IntField()
+    thumbnail_widths = db.ListField(db.IntField())
 
     def __repr__(self):
-        return f"<Img(name='{self.name})', {self.status}>"
+        return f"<Img(name='{self.name}'), {self.status.name}, db.Document>"
 
     @property
     def path(self) -> Path:
         return Path(self.filepath)
 
 
-class Page(mg.Document):
+class Page(db.Document):
     ''' Page ODM '''
-    title = mg.StringField()
-    content = mg.StringField()
+
+    class Status(Enum):
+        ''' Img status enumerator '''
+        DRAFT = 'draft'
+        PUBLISHED = 'published'
+        ARCHIVED = 'archived'
+
+    title = db.StringField(required=True, unique=True)
+    description = db.StringField(required=True)
+    filepath = db.StringField()
+    keywords = db.ListField(db.StringField())
+    author = db.StringField(default="Tom Hall")
+    status = db.EnumField(Status, default=Status.DRAFT)
+    slug = db.StringField()
+
+    @property
+    def _slug(self):
+        return slugify(self.title)
+
+    @property
+    def path(self):
+        return Path(self.filepath)
+
+    def parse_file(self):
+        post = fmr.load(self.filepath)
+        return post
 
 
-class Run(mg.Document):
+class Run(db.Document):
     ''' Run ODM '''
-    started = mg.DateTimeField()
+    started = db.DateTimeField()
 
 
 if __name__ == '__main__':

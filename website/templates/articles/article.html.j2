@@ -1,8 +1,8 @@
 {% extends "generic/page.html.j2" %}
 
 {% block page_content %}
-  <article>
-    {{ page.html }}
+  <article class="">
+    {{ content | prerender_jinja }}
   </article>
 {% endblock %}
 
