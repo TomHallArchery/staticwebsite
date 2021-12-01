@@ -27,12 +27,12 @@ def add_all_imgs_to_db() -> None:
     '''
     imgpath = Path(IMAGES_ROOT, SOURCE_DIR)
     for path in Path(imgpath).iterdir():
-        i = Img(name=path.name, type=path.suffix, path=str(path))
+        i = Img(name=path.name, type=path.suffix, filepath=str(path))
         try:
             i.save()
-            print(f"Saved Img: {i.name} to db")
+            print(f"[Saved] Img: {i.name} to db")
         except NotUniqueError:
-            print(f"Img: {i.name} already in db")
+            print(f"[Skipped] Img: {i.name} already in db")
             continue
 
 

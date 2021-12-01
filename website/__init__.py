@@ -16,9 +16,12 @@ def create_app(config_class=None):
 
     with app.app_context():
         # required to bring app registered views in
-        from website import views  # noqa
-        from website import errors  # noqa
-        from website import models  # noqa
-        from website import images  # noqa
+        from website import (  # noqa
+            views,
+            errors,
+            models,
+            images,
+            pages,
+        )
 
     return app
