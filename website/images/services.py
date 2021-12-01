@@ -1,5 +1,6 @@
 from pathlib import Path
 from typing import Any
+import os
 
 import PIL.Image
 import PIL.ImageOps
@@ -70,7 +71,7 @@ def _set_img_tag(
         f"{path.suffix}"
         )
 
-    img.attrs.update({
+    img.attrs.update({  # type: ignore[attr-defined]
         'src': largest_src,
         'srcset': _write_srcset(
             path,
@@ -94,7 +95,7 @@ def _wrap_picture(
     img.wrap(picture)
     img.insert_before(source)
 
-    source.attrs.update({
+    source.attrs.update({  # type: ignore[attr-defined]
         'type': 'image/webp',
         'srcset': _write_srcset(
             model.path.with_suffix('.webp'),
@@ -130,9 +131,6 @@ def responsive_images(html: str) -> str:
             _wrap_picture(soup, img, model)
 
     return soup.prettify()
-
-
-app.add_template_filter(responsive_images)
 
 
 def _create_thumbnails(
@@ -179,3 +177,23 @@ def _select_thumbnail_widths(
     widths = map(lambda w: min(w, w * width // height), sizes)
 
     return widths
+
+
+def src(imgs_domain, img_path):
+    ''' return image src attribute from prefix url and file name'''
+    return os.path.join(imgs_domain, img_path)
+
+
+def srcset(imgs_domain, fname, widths, ext):
+    ''' return image srcset attribute for set img widths'''
+    srcset_list = (
+        f'{src(imgs_domain, fname)}_{width}.{ext} {width}w'
+        for width in widths
+        )
+    return ", ".join(srcset_list)
+
+
+def sizes(criteria):
+    ''' usage: sizes({'60vw':'min-width: 110ch', '95vw': None}) '''
+    sizes_list = (f'({sz}) {br}' for sz, br in criteria.items())
+    return ", ".join(sizes_list).replace('(None) ', '')

@@ -14,13 +14,16 @@ def create_app(config_class=None):
     flatpages.init_app(app)
     db.init_app(app)
 
+    from .images import images_bp, responsive_images
+    app.register_blueprint(images_bp)
+    app.add_template_filter(responsive_images)
+
     with app.app_context():
         # required to bring app registered views in
         from website import (  # noqa
             views,
             errors,
             models,
-            images,
             pages,
         )
 

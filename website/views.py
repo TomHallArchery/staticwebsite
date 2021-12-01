@@ -1,9 +1,9 @@
-import os
 from datetime import datetime
 
 import flask
 from flask import current_app as app
 from website import utils, flatpages
+from .images import services as img_services
 
 
 @app.before_request
@@ -20,9 +20,9 @@ def inject_data():
         year=this_year,
         img_sizes=app.config.get('IMG_WIDTHS'),
         img_layout=app.config.get('IMG_DISPLAY_WIDTHS'),
-        src=utils.src,
-        srcset=utils.srcset,
-        sizes=utils.sizes,
+        src=img_services.src,
+        srcset=img_services.srcset,
+        sizes=img_services.sizes,
         utils=utils,
         )
 

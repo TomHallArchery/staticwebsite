@@ -67,26 +67,6 @@ def split_filename(path):
     return (path, fname, ext)
 
 
-def src(imgs_domain, img_path):
-    ''' return image src attribute from prefix url and file name'''
-    return os.path.join(imgs_domain, img_path)
-
-
-def srcset(imgs_domain, fname, widths, ext):
-    ''' return image srcset attribute for set img widths'''
-    srcset_list = (
-        f'{src(imgs_domain, fname)}_{width}.{ext} {width}w'
-        for width in widths
-        )
-    return ", ".join(srcset_list)
-
-
-def sizes(criteria):
-    ''' usage: sizes({'60vw':'min-width: 110ch', '95vw': None}) '''
-    sizes_list = (f'({sz}) {br}' for sz, br in criteria.items())
-    return ", ".join(sizes_list).replace('(None) ', '')
-
-
 def deploy_folder_to_netlify(app, directory, subdomain):
     ''' deploys specified directory contents via pynetlify '''
     subdomain = subdomain.upper()
