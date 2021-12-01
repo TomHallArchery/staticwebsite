@@ -26,10 +26,9 @@ def create_app(config_class=None):
     with app.app_context():
         # required to bring app registered views in
         from website import (  # noqa
-            views,
+            routes,
             errors,
             models,
-            pages,
         )
 
     return app
