@@ -20,7 +20,7 @@ class Config:
     # Flask flatpages configuration
     # 1. Pages are loaded on request.
     # 2. File name extension for pages is Markdown.
-    FLATPAGES_ROOT = 'pages'
+    FLATPAGES_ROOT = 'content'
     FLATPAGES_EXTENSION = ['.md', '.markdown']  # 2
     FLATPAGES_HTML_RENDERER = 'website.pages.prerender_jinja'
     FLATPAGES_MARKDOWN_EXTENSIONS = ['attr_list', 'md_in_html']

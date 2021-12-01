@@ -1,7 +1,13 @@
 ---
 title: Results
 description: A timeline of some of my major competition results
-keywords: Competition, Medal, Tournament, Performance, Team, Championships
+keywords:
+  - Competition
+  - Medal
+  - Tournament
+  - Performance
+  - Team
+  - Championships
 unused: blank
 ---
 
