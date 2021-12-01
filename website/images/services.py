@@ -5,19 +5,17 @@ import os
 import PIL.Image
 import PIL.ImageOps
 import bs4
-from flask import current_app as app
+from flask import current_app
 from mongoengine.errors import NotUniqueError
 
 from .models import Img
+from config import Config
 
 # Constants
-WIDTHS = app.config["IMG_WIDTHS"]
-IMAGES_ROOT = app.config["IMG_ROOT"]
-SOURCE_DIR = app.config["IMG_SOURCE_DIR"]
-OUTPUT_DIR = app.config["IMG_OUTPUT_DIR"]
-IMG_FORMATS = app.config["IMG_FORMATS"]
-DEFAULT_IMG_WIDTH = app.config["IMG_DEFAULT_WIDTH"]
-IMG_DOMAIN = app.config["IMG_URL"]
+# Only appear in base config
+IMAGES_ROOT = Config.IMG_ROOT
+SOURCE_DIR = Config.IMG_SOURCE_DIR
+OUTPUT_DIR = Config.IMG_OUTPUT_DIR
 
 
 def add_all_imgs_to_db() -> None:
@@ -48,7 +46,7 @@ def process_img(image: Img) -> None:
 
 def _write_src(img_path: str) -> str:
     ''' return image src attribute from prefix url and file name'''
-    return IMG_DOMAIN + img_path
+    return current_app.config["IMG_URL"] + img_path
 
 
 def _write_srcset(path: Path, widths: list[int]) -> str:
@@ -135,14 +133,16 @@ def responsive_images(html: str) -> str:
 
 def _create_thumbnails(
         image: Img,
-        widths: list[int] = WIDTHS
         ) -> dict[str, Any]:
     """ Generate and save thumbnails of given source image"""
     # open image in PIL
     pil = PIL.ImageOps.exif_transpose(PIL.Image.open(image.filepath))
     out = Path(IMAGES_ROOT, OUTPUT_DIR)
 
-    widths = list(_select_thumbnail_widths(pil.width, pil.height, widths))
+    widths = list(_select_thumbnail_widths(
+        pil.width, pil.height, Config.IMG_WIDTHS
+        ))
+
     for w in widths:
         thumb = pil.copy()
         thumb.thumbnail((w, pil.height), resample=PIL.Image.LANCZOS)
