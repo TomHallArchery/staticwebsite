@@ -5,8 +5,6 @@ from contextlib import contextmanager
 from pynetlify import pynetlify
 from bs4 import BeautifulSoup
 
-from website import flatpages
-
 
 @contextmanager
 def cwd(path):
@@ -35,24 +33,6 @@ def compile_css(app, compressed=False, watch=False):
         cmnd.extend(['--watch'])
     res = subprocess.Popen(cmnd)
     return res
-
-
-# dirty:
-# strip '---' from ._meta attribute of page objects
-# to allow flatpages to work with yaml delimiter
-def clean_flatpage_metas(pages):
-    ''' strip "---" from all flatpage objects in pages '''
-    for page in pages:
-        page._meta = page._meta.strip('---')
-
-
-# add filtering method to flatpages object
-def filter_pages(path):
-    ''' return list of flask flatpage objects from subdirectory of "pages" '''
-    return list(
-        page for page in flatpages
-        if os.path.dirname(page.path) == path
-        )
 
 
 def parse_html(html):

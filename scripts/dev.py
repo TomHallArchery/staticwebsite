@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-import atexit
 from datetime import datetime
 import livereload as lr
 
@@ -8,11 +7,10 @@ import config
 
 app = create_app(config.DevConfig)
 
+def sass():
+    return utils.compile_css(app)
 
 if __name__ == '__main__':
-
-    sass = utils.compile_css(app, watch=True)
-    atexit.register(sass.kill)
 
     with app.app_context():
         # log run
@@ -20,8 +18,11 @@ if __name__ == '__main__':
         run = models.Run(started=datetime.now())
         run.save()
 
+    sass()
+
     # Run dev server
     server = lr.Server(app.wsgi_app)
+    server.watch('website/static/scss/**/*.scss', func=sass)
     server.watch('website')
     server.serve(port=5001)
     # app.run(port=5000)

@@ -1,3 +1,12 @@
+{# articles index template.
+
+  Parameters:
+    title
+    description
+    keywords
+    pages: iterable of page metadata objects
+#}
+
 {% extends "base/base.html.j2" %}
 
 {% block content %}
@@ -13,8 +22,8 @@
     <p>From my old blog 2016-2018</p>
     <ul class="decorated">
       {% for page in pages %}
-      <li><a href="{{ page.meta.link }}">
-          {{ page.meta.title | safe }}
+      <li><a href="{{ page['link'] }}">
+          {{ page['title'] | safe }}
         </a></li>
       {% endfor %}
     </ul>

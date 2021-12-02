@@ -1,11 +1,12 @@
 from pathlib import Path
+from typing import Any
 
 from flask import render_template_string, Markup
 import frontmatter as fmr
 from mongoengine.errors import NotUniqueError
 from markdown import markdown
 
-import config
+from config import Config
 from .models import Page
 
 
@@ -15,25 +16,24 @@ def add_all_pages_to_db() -> None:
 
     Used to instantiate database from scratch
     '''
-    for fn in Path('website/content').rglob('*.md'):
-        post = fmr.load(fn)
-
+    content_path = Path('website/content')
+    for fn in content_path.rglob('*.md'):
         page = Page(
-            title=post.get('title', fn.name),
-            description=post.get('description', ''),
-            filepath=str(fn)
+            filepath=str(fn),
+            name=fn.stem
             )
         try:
-            page.slug = page._slug
             page.save()
-            print(f"[Saved] Page: {page.title} to db")
+            m = meta(page)
+            page.modify(
+                title=m.get('title', ''),
+                description=m.get('description', ''),
+                keywords=m.get('keywords', ''),
+                )
+            print(f"[Saved] Page: {page.name} to db")
         except NotUniqueError:
-            print(f"[Skipped] Page: {page.title} already in db")
+            print(f"[Skipped] Page: {page.name} already in db")
             continue
-
-
-def overwrite_metadata(page: Page):
-    return page.to_json()
 
 
 def prerender_jinja(text: str) -> str:
@@ -43,8 +43,18 @@ def prerender_jinja(text: str) -> str:
     # had to overwrite pygmented_markdown method
     html = markdown(
         prerendered_body,
-        extensions=config.Config.FLATPAGES_MARKDOWN_EXTENSIONS,
+        extensions=Config.FLATPAGES_MARKDOWN_EXTENSIONS,
         output_format='html5',  # type: ignore[arg-type]
         # 'html5' not in stubs library
         )
     return html
+
+
+def content(page: Page) -> str:
+    assert page.path.suffix == '.md'
+    return prerender_jinja(fmr.load(page.path).content)
+
+
+def meta(page: Page) -> dict[str, Any]:
+    assert page.path.suffix == '.md'
+    return fmr.load(page.path).metadata

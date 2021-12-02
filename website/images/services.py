@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterator
 import os
 
 import PIL.Image
@@ -24,8 +24,8 @@ def add_all_imgs_to_db() -> None:
 
     Used to instantiate database from scratch
     '''
-    imgpath = Path(IMAGES_ROOT, SOURCE_DIR)
-    for path in Path(imgpath).iterdir():
+    img_path = Path(IMAGES_ROOT, SOURCE_DIR)
+    for path in img_path.iterdir():
         i = Img(name=path.name, type=path.suffix, filepath=str(path))
         try:
             i.save()
@@ -165,17 +165,16 @@ def _select_thumbnail_widths(
         width: int,
         height: int,
         standard_widths: list[int]
-        ) -> map:
+        ) -> Iterator[int]:
     '''
-    returns list of widths of output images
+    returns widths of output images
     '''
     # filter standard widths down
     # to just those smaller than original image dimensions
-    sizes = filter(lambda x: max(width, height) > x, standard_widths)
+    sizes = (x for x in standard_widths if max(width, height) > x)
 
     # correct width descriptor for portrait images
-    widths = map(lambda w: min(w, w * width // height), sizes)
-
+    widths = (min(s, s * width // height) for s in sizes)
     return widths
 
 

@@ -1,8 +1,17 @@
+{# article template.
+
+  Parameters:
+    title
+    description
+    keywords
+    content: html string of page content
+#}
+
 {% extends "generic/page.html.j2" %}
 
 {% block page_content %}
   <article class="">
-    {{ content | prerender_jinja }}
+    {{ content }}
   </article>
 {% endblock %}
 

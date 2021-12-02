@@ -1,3 +1,12 @@
+{# generic page template.
+
+  Parameters:
+    title
+    description
+    keywords
+    content: html string of page content
+#}
+
 {% extends "base/base.html.j2" %}
 
 {% block content -%}
@@ -10,7 +19,7 @@
   {%- endblock %}
 
   {% block page_content -%}
-    {{ page.html | responsive_images()}}
+    {{ content | responsive_images }}
   {%- endblock %}
   </section>
 

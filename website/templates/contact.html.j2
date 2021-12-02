@@ -1,3 +1,11 @@
+{# contact page template.
+
+  Parameters:
+    title
+    description
+    keywords
+#}
+
 {% extends "base/base.html.j2" %}
 
 {% block content %}
@@ -9,9 +17,10 @@
   <h1>{{ title | title }}</h1>
   {%- endblock %}
 
-  <p>Hey there, if you want to get in touch you can just send me a message on this form!</p>
+  {{ content }}
 
-{% block extra_content -%}
+
+  {% block extra_content -%}
   <form class="c-contact-form" id="contact-form" name="contact" action="" method="post" netlify netlify-honeypot="title">
 
       <label for="name">Name:</label>
@@ -34,12 +43,12 @@
       <button type="submit" name="submit" value="">Send Message</button>
 
   </form>
-{%- endblock %}
+  {%- endblock %}
 
   </section>
 </main>
 
-{% block side_content %}
-{% endblock %}
+  {% block side_content %}
+  {% endblock %}
 
 {%- endblock content %}

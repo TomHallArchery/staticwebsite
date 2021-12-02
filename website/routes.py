@@ -2,14 +2,8 @@ from datetime import datetime
 
 import flask
 from flask import current_app as app
-from website import utils, flatpages
+from website import utils
 from .images import services as img_services
-
-
-@app.before_request
-def reload_flatpages():
-    ''' run flatpage meta cleaning function before each request'''
-    utils.clean_flatpage_metas(flatpages)
 
 
 @app.context_processor
