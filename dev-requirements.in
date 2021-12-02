@@ -9,3 +9,6 @@ mypy
 jedi
 livereload
 types-Markdown
+types-beautifulsoup4
+types-Pillow
+types-python-slugify
