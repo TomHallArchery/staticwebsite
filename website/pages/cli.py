@@ -1,22 +1,27 @@
 import click
 
 from . import pages_bp as bp
-from .models import Page, Pages
+from . import services as sv
 
 
 @bp.cli.command('create')
 @click.argument('name')
 def create_page(name):
-    page = Page(name=name)
-    page.filepath = f'website/content/{name}.md'
-    page.path.touch()
-    page.save()
+    sv.create_page(name)
 
 
 @bp.cli.command('delete')
 @click.argument('name')
 def delete_page(name):
-    pages = Pages.query(name=name)
-    for page in pages:
-        page.path.unlink()
-        page.delete()
+    sv.delete_page(name)
+
+
+@bp.cli.command('read')
+@click.argument('name')
+def read_page(name):
+    sv.read_page(name)
+
+
+@bp.cli.command('init')
+def init_db():
+    sv.init_db_from_files()

@@ -1,12 +1,12 @@
 from enum import Enum
 from pathlib import Path
 
-from slugify import slugify
+from slugify import slugify  # type: ignore[import]
 
 from website import db
 
 
-class Status(Enum):
+class PageStatus(Enum):
     ''' Page status enumerator '''
     DRAFT = 'draft'
     PUBLISHED = 'published'
@@ -14,7 +14,8 @@ class Status(Enum):
     TEST = 'test'
 
 
-class Metadata(db.DynamicEmbeddedDocument):
+class PageMeta(db.DynamicEmbeddedDocument):  # type: ignore[name-defined]
+    ''' Embedded page metadata ODM '''
     title = db.StringField()
     description = db.StringField()
     keywords = db.ListField(db.StringField())
@@ -29,8 +30,8 @@ class Page(db.Document):  # type: ignore[name-defined]
 
     name = db.StringField(required=True, unique=True)
     filepath = db.StringField(unique=True)
-    status = db.EnumField(Status, default=Status.DRAFT)
-    metadata = db.EmbeddedDocumentField(Metadata)
+    status = db.EnumField(PageStatus, default=PageStatus.DRAFT)
+    metadata = db.EmbeddedDocumentField(PageMeta)
     # Keys from page metadata,
     # read/write to markdown?
 
@@ -49,7 +50,8 @@ class Pages():
     """ Holds shortcuts for queries on Document collection
 
     Note: Cannot access collection.objects unless working within app context,
-    so only safe to use within definitions. """
+    so only safe to use within definitions.
+    """
     collection = Page
     # could extend this into an abstract Documents class that uses classmethods
     # to create these automatically for multiple collections
