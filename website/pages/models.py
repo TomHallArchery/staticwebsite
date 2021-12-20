@@ -6,29 +6,33 @@ from slugify import slugify
 from website import db
 
 
-class Page(db.Document):  # type: ignore[name-defined]
-    ''' Page ODM '''
+class Status(Enum):
+    ''' Page status enumerator '''
+    DRAFT = 'draft'
+    PUBLISHED = 'published'
+    ARCHIVED = 'archived'
+    TEST = 'test'
 
-    class Status(Enum):
-        ''' Page status enumerator '''
-        DRAFT = 'draft'
-        PUBLISHED = 'published'
-        ARCHIVED = 'archived'
 
-    name = db.StringField(required=True, unique=True)
-    filepath = db.StringField(unique=True)
-    status = db.EnumField(Status, default=Status.DRAFT)
-
-    # Keys from page metadata,
-    # read/write to markdown?
-
+class Metadata(db.DynamicEmbeddedDocument):
     title = db.StringField()
     description = db.StringField()
     keywords = db.ListField(db.StringField())
     author = db.StringField(default="Tom Hall")
     slug = db.StringField()
     header_image = db.StringField()
-    layout = db.StringField(default="default")  # ?
+    layout = db.StringField(default="default")
+
+
+class Page(db.Document):  # type: ignore[name-defined]
+    ''' Page ODM '''
+
+    name = db.StringField(required=True, unique=True)
+    filepath = db.StringField(unique=True)
+    status = db.EnumField(Status, default=Status.DRAFT)
+    metadata = db.EmbeddedDocumentField(Metadata)
+    # Keys from page metadata,
+    # read/write to markdown?
 
     def slugify(self):
         return slugify(self.title)

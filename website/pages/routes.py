@@ -33,9 +33,9 @@ def _render_page_args(**query):
     return dict(
         content=content(page),
         side=content(sidebar),
-        title=page.title,
-        description=page.description,
-        keywords=page.keywords,
+        title=page.metadata.title,
+        description=page.metadata.description,
+        keywords=page.metadata.keywords,
     )
 
 
@@ -75,11 +75,10 @@ def serve_articles_index():
     wp_dir = flask.current_app.config["VIEW_POSTS_DIR_WP"]
     wp_posts = Pages.query(filepath__contains=wp_dir)
 
-    page_metas = map(meta, wp_posts)
     return flask.render_template(
         'articles/index.html.j2',
         title="Articles",
-        pages=page_metas
+        pages=wp_posts
         )
 
 

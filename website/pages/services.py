@@ -7,7 +7,7 @@ from mongoengine.errors import NotUniqueError
 from markdown import markdown
 
 from config import Config
-from .models import Page
+from .models import Page, Metadata
 
 
 def add_all_pages_to_db() -> None:
@@ -18,22 +18,32 @@ def add_all_pages_to_db() -> None:
     '''
     content_path = Path('website/content')
     for fn in content_path.rglob('*.md'):
+        raw_metadata = fmr.load(fn).metadata
+        metadata = Metadata(**raw_metadata)
+
         page = Page(
             filepath=str(fn),
-            name=fn.stem
+            name=fn.stem,
+            metadata=metadata
             )
         try:
             page.save()
-            m = meta(page)
-            page.modify(
-                title=m.get('title', ''),
-                description=m.get('description', ''),
-                keywords=m.get('keywords', ''),
-                )
-            print(f"[Saved] Page: {page.name} to db")
+            print(f"[Saved] Page: {page.name} to db")  # convert to log.info
         except NotUniqueError:
+            # convert to log.debug
             print(f"[Skipped] Page: {page.name} already in db")
+
             continue
+        # _read_metadata_from_file(page)
+
+
+def _read_metadata_from_file(page: Page) -> dict:
+    return meta(page)
+    # page.modify(
+    #     title=m.get('title', ''),
+    #     description=m.get('description', ''),
+    #     keywords=m.get('keywords', ''),
+    #     )
 
 
 def prerender_jinja(text: str) -> str:

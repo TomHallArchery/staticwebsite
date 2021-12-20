@@ -14,7 +14,7 @@
   <!-- Meta -->
   <title>{{ title | title }} | Tom Hall Archery </title>
   {{ m.meta("description",  description ) }}
-  {{ m.meta("keywords",  keywords ) }}
+  {{ m.meta("keywords",  ', '.join(keywords) ) }}
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#D70A53" />
