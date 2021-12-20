@@ -54,11 +54,11 @@ class Pages():
     # could extend this into an abstract Documents class that uses classmethods
     # to create these automatically for multiple collections
 
-    def query(**kwargs):
-        return Page.objects(**kwargs)
+    def query(**query):
+        return Page.objects(**query)
 
-    def get(**kwargs):
-        return Page.objects.get(**kwargs)
+    def get(**query):
+        return Page.objects.get(**query)
 
-    def get_or_404(**kwargs):
-        return Page.objects.get_or_404(**kwargs)
+    def get_or_404(**query):
+        return Page.objects.get_or_404(**query)
