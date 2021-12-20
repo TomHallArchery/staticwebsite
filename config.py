@@ -51,6 +51,8 @@ class Config:
     CSS_SRC_DIR = Path('website', 'static', 'scss')
     CSS_OUT_DIR = Path('website', 'static', 'css')
 
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+
 
 class DevConfig(Config):
     ''' Development configuration: running local flask server '''
