@@ -49,11 +49,9 @@ def _read_metadata_from_file(page: Page) -> dict:
 def prerender_jinja(text: str) -> str:
     ''' render flask templating in markdown pages before parsing markdown '''
     prerendered_body = render_template_string(Markup(text))
-    # Setting flatpages extensions wasn't working for some reason
-    # had to overwrite pygmented_markdown method
     html = markdown(
         prerendered_body,
-        extensions=Config.FLATPAGES_MARKDOWN_EXTENSIONS,
+        extensions=Config.CONTENT_MARKDOWN_EXTENSIONS,
         output_format='html5',  # type: ignore[arg-type]
         # 'html5' not in stubs library
         )

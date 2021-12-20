@@ -20,11 +20,10 @@ class Config:
     # Flask flatpages configuration
     # 1. Pages are loaded on request.
     # 2. File name extension for pages is Markdown.
-    FLATPAGES_ROOT = 'content'
-    FLATPAGES_EXTENSION = ['.md', '.markdown']  # 2
-    FLATPAGES_HTML_RENDERER = 'website.pages.services.prerender_jinja'
-    FLATPAGES_MARKDOWN_EXTENSIONS = ['attr_list', 'md_in_html']
-    FLATPAGES_AUTO_RELOAD = True  # 1
+    CONTENT_ROOT = 'website/content'
+    CONTENT_EXTENSION = ['.md', '.markdown']  # 2
+    CONTENT_HTML_RENDERER = 'website.pages.services.prerender_jinja'
+    CONTENT_MARKDOWN_EXTENSIONS = ['attr_list', 'md_in_html']
 
     # Images config
     IMG_ROOT = 'website/static/img/'
@@ -37,7 +36,7 @@ class Config:
     REPROC_IMAGES = os.environ.get('REPROC_IMAGES', False)
 
     # Views config
-    VIEW_POSTS_DIR_WP = 'articles/archive'
+    VIEW_POSTS_DIR_WP = 'archive'
     VIEW_TEST = os.environ.get('VIEW_TEST', False)
 
     # External Depedancies
