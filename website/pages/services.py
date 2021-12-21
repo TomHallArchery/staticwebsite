@@ -6,6 +6,7 @@ from Page objects referenced file.
 file_meta: Utility function, returns metadata dictionary
 from Page objects referenced file.
 """
+from datetime import date
 from typing import Any
 from pathlib import Path
 
@@ -55,23 +56,41 @@ def file_meta(page: Page) -> dict[str, Any]:
 
 
 def select_page_by_name(name: str) -> Page:
-    page = Pages.name(name)
+    page = Page.objects.get(name=name)
     return page
+
+
+def select_all_pages():
+    for page in Page.objects:
+        yield page
 
 
 def create_page(name: str) -> Page:
     page = Page(name=name)
-    page.filepath = f'website/content/{name}.md'
+    page.filepath = f'website/content/draft/{name}.md'
     page.path.touch()
     page.save()
     return page
 
 
-def delete_page(name: str) -> None:
-    pages = Pages.query(name=name)  # type: ignore[arg-type]
+def delete_pages(names: list[str]) -> None:
+    pages = Pages.query(name__in=names)  # type: ignore[arg-type]
     for page in pages:
         page.path.unlink()
         page.delete()
+    print(len(pages))
+
+
+def publish_page(page: Page) -> None:
+    page.status = page.status.PUBLISHED
+    page.metadata.date_published = date.today()
+    page.save()
+
+
+def revert_page(page: Page) -> None:
+    page.status = page.status.DRAFT
+    del page.metadata.date_published
+    page.save()
 
 
 def init_db_from_files() -> None:
@@ -88,7 +107,7 @@ def init_db_from_files() -> None:
             )
         try:
             page.save()
-            print(f"[Saved] Page: {page.name} to db")  # convert to log.info
+            print(f"[Saved] {page!r}")  # convert to log.info
         except NotUniqueError:
             # TODO convert to log.debug
             print(f"[Skipped] Page: {page.name} already in db")

@@ -1,6 +1,5 @@
-from datetime import datetime
+from datetime import date
 from enum import Enum
-import json
 from pathlib import Path
 
 from slugify import slugify  # type: ignore[import]
@@ -27,12 +26,12 @@ class PageMeta(db.DynamicEmbeddedDocument):  # type: ignore[name-defined]
     slug = db.StringField()
     header_image = db.ReferenceField(Img)
     layout = db.StringField(default="default")
-    date_created = db.DateTimeField(default=datetime.utcnow)
+    date_created = db.DateTimeField(default=date.today)
     date_published = db.DateTimeField()
 
     @property
     def all(self):
-        return json.loads(self.to_json())
+        return self.to_mongo().to_dict()
 
     def __str__(self):
         return f"{list(self.all)}"
@@ -50,12 +49,8 @@ class Page(db.Document):  # type: ignore[name-defined]
     metadata = db.EmbeddedDocumentField(PageMeta, default=PageMeta)
     content = db.StringField()
     # Keys from page metadata,
-    # read/write to markdown?
-    meta = {
-        'indexes': [
-            'name',
-        ]
-    }
+
+    meta = {'indexes': ['name']}
 
     @property
     def slug(self):
@@ -83,7 +78,7 @@ class Page(db.Document):  # type: ignore[name-defined]
 
     def push_to_file(self):
         file = self.parse_file()
-        metadata = json.loads(self.metadata.to_json())
+        metadata = self.metadata.to_mongo().to_dict()
         file.metadata = metadata
         frontmatter.dump(file, self.path)
         return metadata
@@ -92,7 +87,11 @@ class Page(db.Document):  # type: ignore[name-defined]
         return f"{self.name}"
 
     def __repr__(self):
-        return f"<Page(name='{self.name}'), {self.status.name}, db.Document>"
+        return (
+            f"<Page(name='{self.name}', "
+            f"filepath='{self.filepath}'), "
+            f"{self.status.name}>"
+            )
 
 
 class Pages():
@@ -116,7 +115,3 @@ class Pages():
     @staticmethod
     def get_or_404(**query):
         return Page.objects.get_or_404(**query)
-
-    @staticmethod
-    def name(name):
-        return Page.objects.get(name=name)
