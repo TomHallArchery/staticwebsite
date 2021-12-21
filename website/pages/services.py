@@ -15,7 +15,7 @@ from mongoengine.errors import NotUniqueError
 from markdown import markdown  # type: ignore[import]
 
 from config import Config
-from .models import Page, Pages, PageMeta
+from .models import Page, Pages
 
 
 def prerender_jinja(text: str) -> str:
@@ -54,11 +54,17 @@ def file_meta(page: Page) -> dict[str, Any]:
     return fmr.load(page.path).metadata
 
 
-def create_page(name: str) -> None:
+def select_page_by_name(name: str) -> Page:
+    page = Pages.name(name)
+    return page
+
+
+def create_page(name: str) -> Page:
     page = Page(name=name)
     page.filepath = f'website/content/{name}.md'
     page.path.touch()
     page.save()
+    return page
 
 
 def delete_page(name: str) -> None:
@@ -66,18 +72,6 @@ def delete_page(name: str) -> None:
     for page in pages:
         page.path.unlink()
         page.delete()
-
-
-def read_page(name: str) -> None:
-    try:
-        page = Pages.get(name=name)  # type: ignore[arg-type]
-    except Page.DoesNotExist:
-        print(f"Page: '{name}' not found")
-    else:
-        print(page.path)
-        file = fmr.load(page.path)
-        print(file.metadata)
-        print(file.content)
 
 
 def init_db_from_files() -> None:
@@ -88,13 +82,9 @@ def init_db_from_files() -> None:
     '''
     content_path = Path('website/content')
     for fn in content_path.rglob('*.md'):
-        raw_metadata = fmr.load(fn).metadata
-        metadata = PageMeta(**raw_metadata)
-
         page = Page(
             filepath=str(fn),
             name=fn.stem,
-            metadata=metadata
             )
         try:
             page.save()
@@ -103,3 +93,9 @@ def init_db_from_files() -> None:
             # TODO convert to log.debug
             print(f"[Skipped] Page: {page.name} already in db")
             continue
+        else:
+            page.pull_from_file()
+
+
+def drop_collection() -> None:
+    Page.drop_collection()

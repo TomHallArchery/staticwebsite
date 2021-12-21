@@ -5,7 +5,6 @@ keywords:
   - Page
   - keywords # will be used in meta-tag
 author: My name
-link:
 slug:
 id:
 header_image: URL For optional use in page header banner
