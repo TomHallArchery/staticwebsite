@@ -1,18 +1,20 @@
 ---
 author: tomhall2016
+categories:
+- Training and Coaching
 comments: true
-date: 2016-09-30 20:29:03+00:00
+date: 2016-09-30 20:29:03
+date_created: 2021-12-21 00:00:00
+keywords: []
 layout: post
 link: https://tomhall2016.wordpress.com/2016/09/30/just-pull-it-back-right/
 slug: just-pull-it-back-right
-title: Just pull it back, right?
-wordpress_id: 258
-categories:
-- Training and Coaching
 tags:
 - Process
 - Technique
 - UWAC
+title: Just pull it back, right?
+wordpress_id: 258
 ---
 
 Its a commonly heard phrase at the [University of Warwick AC](https://uwac.co.uk/). Archery, they say, is a simple sport. All you need to do is "pull it back and let it go"
@@ -26,5 +28,3 @@ What do I actually do to make the clicker go? Recently I've adopted two points o
 Its fairly well known that consciously opening the fingers to let go of the string is a bad idea, as the fingers cannot open fast enough to get out the way of the string and a "plucked" shot results. But perhaps less commonly understood is that focusing too much on pulling the bow back with the draw arm can cause the front side to collapse under pressure and throw the shot away.
 
 I'm up for suggestions for a better phrase but "open the bow" is a reasonably good description of what we're looking for; an even expansion of the draw length on both sides of the arrow. So as novice season gets under way, just remember they'll learn far better if they _don't _try to pull it back and let it go!
-
-

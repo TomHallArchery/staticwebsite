@@ -1,17 +1,19 @@
 ---
 author: tomhall2016
+categories:
+- External Content
 comments: true
-date: 2017-06-20 23:45:00+00:00
+date: 2017-06-20 23:45:00
+date_created: 2021-12-21 00:00:00
+keywords: []
 layout: post
 link: https://tomhall2016.wordpress.com/2017/06/20/archerys-biggest-fan/
 slug: archerys-biggest-fan
-title: Archerys Biggest Fan
-wordpress_id: 1040
-categories:
-- External Content
 tags:
 - ArcheryTV
 - World Cup
+title: Archerys Biggest Fan
+wordpress_id: 1040
 ---
 
 I watched this recently and it was a delightful way to spend 12 minutes of my life.

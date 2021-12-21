@@ -1,23 +1,22 @@
 ---
 author: tomhall2016
+categories:
+- Competition Reports
 comments: true
-date: 2018-02-19 19:30:59+00:00
+date: 2018-02-19 19:30:59
+date_created: 2021-12-21 00:00:00
+keywords: []
 layout: post
 link: https://tomhall2016.wordpress.com/2018/02/19/stepping-inside-the-mind-indoors/
 slug: stepping-inside-the-mind-indoors
-title: Stepping inside the mind, indoors.
-wordpress_id: 1434
-categories:
-- Competition Reports
 tags:
 - Affirmation
 - Indoors
 - Process
 - Psychology
+title: Stepping inside the mind, indoors.
+wordpress_id: 1434
 ---
-
-
-
 
 I hit a 596 Portsmouth at a University league match yesterday, with a clean second half and 38 Xs in total. It was a very enjoyable score, with a handicap of 10 bringing it pretty much in line with my best 18m and 70m scores.
 

@@ -1,19 +1,21 @@
 ---
 author: tomhall2016
+categories:
+- Equipment Reviews
 comments: true
-date: 2017-01-13 20:37:00+00:00
+date: 2017-01-13 20:37:00
+date_created: 2021-12-21 00:00:00
+keywords: []
 layout: post
 link: https://tomhall2016.wordpress.com/2017/01/13/on-making-bowstrings/
 slug: on-making-bowstrings
-title: A string to my bow
-wordpress_id: 345
-categories:
-- Equipment Reviews
 tags:
 - Bowstring
 - Equipment
 - Finals
 - Gear Review
+title: A string to my bow
+wordpress_id: 345
 ---
 
 About a month ago at the Back2Back I caused great confusion for the judges when I shot against Sean Evans in the final, while wearing a black T shirt with "EVANS" emblazoned across it in. "Evans to shoot first on target 1." "Evans is on target 2?" "No, that's Hall, Evans is on 1"... As much as I would have liked this to be a deliberate prank, it was a complete accident, but serves as a nice intro to today's post about [Evans Performance Bowstrings](http://www.evansperformancebowstrings.co.uk/), who have been supporting me for almost exactly a year now!
@@ -61,5 +63,3 @@ So if you're interested to learn more about exactly how to make a string, the 20
 [gallery ids="616,615,614,613,612,611" type="slideshow" link="file"]
 
 Full Disclaimer: I received these strings from Chris Evans of [Evans Performance Bowstrings](http://www.evansperformancebowstrings.co.uk/) free of charge. The post was my own idea to show a little bit of what goes into making them.
-
-

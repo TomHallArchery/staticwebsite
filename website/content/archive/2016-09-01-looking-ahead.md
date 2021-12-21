@@ -1,16 +1,18 @@
 ---
 author: tomhall2016
+categories:
+- General Updates
 comments: true
-date: 2016-09-01 22:00:19+00:00
+date: 2016-09-01 22:00:19
+date_created: 2021-12-21 00:00:00
+keywords: []
 layout: post
 link: https://tomhall2016.wordpress.com/2016/09/01/looking-ahead/
 slug: looking-ahead
-title: Looking ahead
-wordpress_id: 108
-categories:
-- General Updates
 tags:
 - International
+title: Looking ahead
+wordpress_id: 108
 ---
 
 So what is plan for the future?

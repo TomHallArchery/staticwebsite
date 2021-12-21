@@ -1,14 +1,14 @@
 ---
 author: tomhall2016
+categories:
+- Competition Reports
 comments: true
-date: 2017-04-17 16:28:28+00:00
+date: 2017-04-17 16:28:28
+date_created: 2021-12-21 00:00:00
+keywords: []
 layout: post
 link: https://tomhall2016.wordpress.com/2017/04/17/antalya-training-camp/
 slug: antalya-training-camp
-title: Antalya Training Camp
-wordpress_id: 865
-categories:
-- Competition Reports
 tags:
 - Finals
 - GB
@@ -17,6 +17,8 @@ tags:
 - Training
 - Training Camp
 - Turkey
+title: Antalya Training Camp
+wordpress_id: 865
 ---
 
 So last week in Turkey it got to around 20-25 degrees in the sunshine every day for 8 days in a row. I know this because I was there; on a last minute opportunity to attend an invitational tournament and training camp with the Turkish national squad.

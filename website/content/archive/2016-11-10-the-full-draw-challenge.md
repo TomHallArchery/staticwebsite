@@ -1,20 +1,22 @@
 ---
 author: tomhall2016
-comments: true
-date: 2016-11-10 20:12:30+00:00
-layout: post
-link: https://tomhall2016.wordpress.com/2016/11/10/the-full-draw-challenge/
-slug: the-full-draw-challenge
-title: The full draw challenge!
-wordpress_id: 278
 categories:
 - Training and Coaching
+comments: true
+date: 2016-11-10 20:12:30
+date_created: 2021-12-21 00:00:00
+keywords: []
+layout: post
+link: https://tomhall2016.wordpress.com/2016/11/10/the-full-draw-challenge/
 post_format:
 - Video
+slug: the-full-draw-challenge
 tags:
 - Bow Training
 - Drills
 - UWAC
+title: The full draw challenge!
+wordpress_id: 278
 ---
 
 Some of you may remember being nominated for this on facebook, posting a picture a day for ten days and temporarily blocking out the usual torrent of #hashtags. As entertaining as this was, the craze has now passed, and I decided it was time to steal the name for something a bit more physically demanding at the end of Thursdays club session...

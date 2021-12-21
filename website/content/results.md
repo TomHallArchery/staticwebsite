@@ -1,13 +1,16 @@
 ---
-title: Results
+author: Tom Hall
+date_created: 2021-12-21 00:00:00
 description: A timeline of some of my major competition results
 keywords:
-  - Competition
-  - Medal
-  - Tournament
-  - Performance
-  - Team
-  - Championships
+- Competition
+- Medal
+- Tournament
+- Performance
+- Team
+- Championships
+layout: default
+title: Results
 unused: blank
 ---
 

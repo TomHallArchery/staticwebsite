@@ -1,18 +1,20 @@
 ---
 author: tomhall2016
+categories:
+- General Updates
 comments: true
-date: 2017-10-18 12:10:28+00:00
+date: 2017-10-18 12:10:28
+date_created: 2021-12-21 00:00:00
+keywords: []
 layout: post
 link: https://tomhall2016.wordpress.com/2017/10/18/its-where-my-demons-hide/
 slug: its-where-my-demons-hide
-title: It's where my demons hide...
-wordpress_id: 1427
-categories:
-- General Updates
 tags:
 - International
 - Process
 - Technique
+title: It's where my demons hide...
+wordpress_id: 1427
 ---
 
 While I was out competing for GBR at the world championships, I had a strange thought. This competition isn't really about archery at all. Don't believe me? Read on...

@@ -1,18 +1,20 @@
 ---
 author: tomhall2016
+categories:
+- Competition Reports
 comments: true
-date: 2016-09-26 21:01:43+00:00
+date: 2016-09-26 21:01:43
+date_created: 2021-12-21 00:00:00
+keywords: []
 layout: post
 link: https://tomhall2016.wordpress.com/2016/09/26/4th-place-a-goodbad-result/
 slug: 4th-place-a-goodbad-result
-title: 4th Place. A goodbad result?
-wordpress_id: 147
-categories:
-- Competition Reports
 tags:
 - Finals
 - National Series
 - Result
+title: 4th Place. A goodbad result?
+wordpress_id: 147
 ---
 
 So World Archery have an article up on the "dynamic" Dutchman Sjef Van Den Berg, who recently finished 4th at the Olympics. And according to him, it "[still sucks](https://worldarchery.org/news/145382/4th-place-still-sucks-says-sjef)". After all the person finishing fourth has the dubious honour of being the only one in the field to have lost _two _matches, and the two biggest ones at that.
@@ -26,7 +28,3 @@ As it turned out, I came up against some pretty hot competition in both the semi
 I've decided not to worry about it too much. The event ran smoothly, the crowd were enjoying it, and the experience of a finals field match was invaluable. This caps off a long outdoor season and as the nights draw in I feel very much ready to stop scoring and start working on technique and fitness. Perhaps I was ready a couple of weeks ago!
 
 [caption id="attachment_184" align="aligncenter" width="600"]![tom_hall_2016_nationalseries_finals_back](https://tomhall2016.files.wordpress.com/2016/09/tom_hall_2016_nationalseries_finals_back.jpg) Focusing on the bit that matters. Photos by [Malcolm Rees](https://www.flickr.com/photos/bimbling_along/albums/72157673189766912/page1)[/caption]
-
-
-
-

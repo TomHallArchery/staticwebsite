@@ -1,14 +1,16 @@
 ---
 author: tomhall2016
+categories:
+- General Updates
 comments: true
-date: 2017-08-09 08:52:45+00:00
+date: 2017-08-09 08:52:45
+date_created: 2021-12-21 00:00:00
+keywords: []
 layout: post
 link: https://tomhall2016.wordpress.com/2017/08/09/preparing-for-qualifying-wcup-berlin/
 slug: preparing-for-qualifying-wcup-berlin
 title: 'Preparing for Qualifying: WCup Berlin'
 wordpress_id: 1403
-categories:
-- General Updates
 ---
 
 What goes through the mind before the start of a major tournament? How do you prepare to bring your A game at a very specific time in a very specific place, with no second chances and a field that's got so much strength and depth that 5 points could move you more than 5 places in the rankings?

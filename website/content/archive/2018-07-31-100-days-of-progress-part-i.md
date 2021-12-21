@@ -1,18 +1,20 @@
 ---
 author: tomhall2016
+categories:
+- 100 Days of Progress
 comments: true
-date: 2018-07-31 13:01:56+00:00
+date: 2018-07-31 13:01:56
+date_created: 2021-12-21 00:00:00
+keywords: []
 layout: post
 link: https://tomhall2016.wordpress.com/2018/07/31/100-days-of-progress-part-i/
 slug: 100-days-of-progress-part-i
-title: '100 days of progress: Part I'
-wordpress_id: 1471
-categories:
-- 100 Days of Progress
 tags:
 - Progress
 - Training
 - Volume
+title: '100 days of progress: Part I'
+wordpress_id: 1471
 ---
 
 I think about archery every day. I am obsessed with it and I have been for a long time. During my PhD (2013-2018) it was what gave me progress and direction that I didn't find in my work; experiments would succeed or fail, deadlines would be scrambled for and missed, maintenance tasks and washing glassware were an eternal chore. But in archery I always had the next competition to train for, the next bit of technique to work on or the next piece of equipment to find that would solve all of my problems.* I could see myself improving and getting better, much more so than in anything else I did. Nowadays I can look back on that progression even more clearly:

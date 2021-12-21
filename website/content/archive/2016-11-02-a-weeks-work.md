@@ -1,18 +1,20 @@
 ---
 author: tomhall2016
-comments: true
-date: 2016-11-02 22:36:48+00:00
-layout: post
-link: https://tomhall2016.wordpress.com/2016/11/02/a-weeks-work/
-slug: a-weeks-work
-title: A weeks work
-wordpress_id: 262
 categories:
 - Training and Coaching
+comments: true
+date: 2016-11-02 22:36:48
+date_created: 2021-12-21 00:00:00
+keywords: []
+layout: post
+link: https://tomhall2016.wordpress.com/2016/11/02/a-weeks-work/
 post_format:
 - Video
+slug: a-weeks-work
 tags:
 - Technique
+title: A weeks work
+wordpress_id: 262
 ---
 
 Its been a busy few weeks recently! I'm really getting stuck into the technical work now, building in some important changes to my form while still keeping the good elements. Here's a couple of videos taken a week apart showing some of the progress. 

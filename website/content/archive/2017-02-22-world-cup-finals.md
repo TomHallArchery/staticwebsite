@@ -1,19 +1,21 @@
 ---
 author: tomhall2016
+categories:
+- Competition Reports
 comments: true
-date: 2017-02-22 13:45:41+00:00
+date: 2017-02-22 13:45:41
+date_created: 2021-12-21 00:00:00
+keywords: []
 layout: post
 link: https://tomhall2016.wordpress.com/2017/02/22/world-cup-finals/
 slug: world-cup-finals
-title: World Cup Finals!
-wordpress_id: 627
-categories:
-- Competition Reports
 tags:
 - International
 - Process
 - Result
 - World Cup
+title: World Cup Finals!
+wordpress_id: 627
 ---
 
 So It's been a few days and to be honest I've not really had a huge amount of time to think about it. Last week I took part in the Vegas shoot for the first time, which was huge, scary and didn't really go to plan. Fortunately I had done enough in earlier results at [Marrakesh](https://tomhall2016.wordpress.com/2016/12/01/marrakesh-2016/) and Nimes (which I will write up soon) that I still made the top 16 in the world cup rankings and got to play. Awesome!
