@@ -1,31 +1,34 @@
 from enum import Enum
 from pathlib import Path
 
-from .. import db
+from website import db
 
 
-class Img(db.Document):
+class ImgStatus(Enum):
+    ''' Img status enumerator '''
+
+    NEW = 'new'
+    PROCESSED = 'processed'
+    ARCHIVED = 'archived'
+
+
+class Img(db.Document):  # type: ignore[name-defined]
     ''' Image ODM '''
-
-    class Status(Enum):
-        ''' Img status enumerator '''
-        NEW = 'new'
-        PROCESSED = 'processed'
-        ARCHIVED = 'archived'
-
-    # Status = Enum('Status', 'NEW PROCESSED ARCHIVED')
 
     name = db.StringField(required=True, unique=True)
     type = db.StringField(required=True)
     filepath = db.StringField()
     desc = db.StringField()
-    status = db.EnumField(Status, default=Status.NEW)
+    status = db.EnumField(ImgStatus, default=ImgStatus.NEW)
     width = db.IntField()
     height = db.IntField()
     thumbnail_widths = db.ListField(db.IntField())
 
+    def __str__(self):
+        return self.name
+
     def __repr__(self):
-        return f"<Img(name='{self.name}'), {self.status.name}, db.Document>"
+        return f"<Img(name='{self.name}'), {self.status.name}>"
 
     @property
     def path(self) -> Path:

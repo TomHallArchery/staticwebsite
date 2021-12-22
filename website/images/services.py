@@ -1,6 +1,6 @@
 from pathlib import Path
 from typing import Any, Iterator
-import os
+from collections import Iterable
 
 import PIL.Image
 import PIL.ImageOps
@@ -44,34 +44,51 @@ def process_img(image: Img) -> None:
     image.update(status=image.status.PROCESSED)
 
 
-def _write_src(img_path: str) -> str:
+def _write_src(url_prefix: str, path: Path, width: int) -> str:
     ''' return image src attribute from prefix url and file name'''
-    return current_app.config["IMG_URL"] + img_path
+
+    url = Path(url_prefix) / path.with_stem(f"{path.stem}_{width}").name
+    return str(url)
 
 
-def _write_srcset(path: Path, widths: list[int]) -> str:
+def _write_srcset(url_prefix: str, path: Path, widths: Iterable[int]) -> str:
     ''' return image srcset attribute for set img widths'''
-    srcset_list = (
-        f'{_write_src(path.stem)}_{width}{path.suffix} {width}w'
+
+    srcset = (
+        f'{_write_src(url_prefix, path, width)} {width}w'
         for width in widths
         )
-    return ", ".join(srcset_list)
+    return ", ".join(srcset)
+
+
+def _write_sizes(criteria: dict) -> str:
+    ''' return image sizes attribute from dictonary
+
+    usage: sizes({'60vw':'min-width: 110ch', '95vw': None})
+    '''
+
+    sizes_list = (
+        f'({sz}) {br}'
+        for sz, br
+        in criteria.items()
+        )
+    return ", ".join(sizes_list).replace('(None) ', '')
 
 
 def _set_img_tag(
         img: bs4.element.Tag,
         model: Img
         ) -> None:
-    path = model.path
 
-    largest_src = _write_src(
-        f"{path.stem}_{str(model.thumbnail_widths[0])}"
-        f"{path.suffix}"
-        )
+    path = model.path
+    url_prefix = current_app.config["IMG_URL"]
+
+    src = _write_src(url_prefix, path, model.thumbnail_widths[0])
 
     img.attrs.update({  # type: ignore[attr-defined]
-        'src': largest_src,
+        'src': src,
         'srcset': _write_srcset(
+            url_prefix,
             path,
             model.thumbnail_widths,
             ),
@@ -86,6 +103,7 @@ def _wrap_picture(
         model: Img
         ) -> bs4.element.Tag:
 
+    url_prefix = current_app.config["IMG_URL"]
     picture = soup.new_tag('picture')
     source = soup.new_tag('source')
     picture['class'] = img.get('class') or ""
@@ -96,6 +114,7 @@ def _wrap_picture(
     source.attrs.update({  # type: ignore[attr-defined]
         'type': 'image/webp',
         'srcset': _write_srcset(
+            url_prefix,
             model.path.with_suffix('.webp'),
             model.thumbnail_widths,
             ),
@@ -135,6 +154,7 @@ def _create_thumbnails(
         image: Img,
         ) -> dict[str, Any]:
     """ Generate and save thumbnails of given source image"""
+
     # open image in PIL
     pil = PIL.ImageOps.exif_transpose(PIL.Image.open(image.filepath))
     out = Path(IMAGES_ROOT, OUTPUT_DIR)
@@ -147,13 +167,14 @@ def _create_thumbnails(
         thumb = pil.copy()
         thumb.thumbnail((w, pil.height), resample=PIL.Image.LANCZOS)
         thumb.save(
-            f'{out}/{image.path.stem}_{w}.jpg',
+            _write_src(str(out), image.path, w),
             quality=55, optimize=True, progressive=True
             )
         thumb.save(
-            f'{out}/{image.path.stem}_{w}.webp',
+            _write_src(str(out), image.path.with_stem('.webp'), w),
             quality=55, method=6
             )
+
     return dict(
         height=pil.width,
         width=pil.height,
@@ -176,23 +197,3 @@ def _select_thumbnail_widths(
     # correct width descriptor for portrait images
     widths = (min(s, s * width // height) for s in sizes)
     return widths
-
-
-def src(imgs_domain, img_path):
-    ''' return image src attribute from prefix url and file name'''
-    return os.path.join(imgs_domain, img_path)
-
-
-def srcset(imgs_domain, fname, widths, ext):
-    ''' return image srcset attribute for set img widths'''
-    srcset_list = (
-        f'{src(imgs_domain, fname)}_{width}.{ext} {width}w'
-        for width in widths
-        )
-    return ", ".join(srcset_list)
-
-
-def sizes(criteria):
-    ''' usage: sizes({'60vw':'min-width: 110ch', '95vw': None}) '''
-    sizes_list = (f'({sz}) {br}' for sz, br in criteria.items())
-    return ", ".join(sizes_list).replace('(None) ', '')
