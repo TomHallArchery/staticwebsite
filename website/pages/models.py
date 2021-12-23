@@ -6,7 +6,7 @@ from slugify import slugify  # type: ignore[import]
 import frontmatter
 
 from website import db
-from website.images.models import Img
+from website.images.models import Image
 
 
 class PageStatus(Enum):
@@ -24,7 +24,7 @@ class PageMeta(db.DynamicEmbeddedDocument):  # type: ignore[name-defined]
     keywords = db.ListField(db.StringField())
     author = db.StringField(default="Tom Hall")
     slug = db.StringField()
-    header_image = db.ReferenceField(Img)
+    header_image = db.ReferenceField(Image)
     layout = db.StringField(default="default")
     date_created = db.DateTimeField(default=date.today)
     date_published = db.DateTimeField()

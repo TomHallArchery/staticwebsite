@@ -12,7 +12,14 @@ class ImgStatus(Enum):
     ARCHIVED = 'archived'
 
 
-class Img(db.Document):  # type: ignore[name-defined]
+class ImageFormat(db.EmbeddedDocument):  # type: ignore[name-defined]
+    ''' Image format subdocument '''
+    FORMATS = ('.jpg', '.webp')
+    type = db.StringField(choices=FORMATS, default='.jpg')
+    quality = db.IntField(min=0, max=100, default=55)
+
+
+class Image(db.Document):  # type: ignore[name-defined]
     ''' Image ODM '''
 
     name = db.StringField(required=True, unique=True)
@@ -23,6 +30,7 @@ class Img(db.Document):  # type: ignore[name-defined]
     width = db.IntField()
     height = db.IntField()
     thumbnail_widths = db.ListField(db.IntField())
+    formats = db.ListField(db.EmbeddedDocumentField(ImageFormat))
 
     def __str__(self):
         return self.name

@@ -14,7 +14,7 @@ def inject_data():
         year=this_year,
         img_sizes=app.config.get('IMG_WIDTHS'),
         img_layout=app.config.get('IMG_DISPLAY_WIDTHS'),
-        sizes=img_services._write_sizes_attr,
+        sizes=img_services._write_sizes,
         utils=utils,
         )
 

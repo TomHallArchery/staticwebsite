@@ -8,7 +8,7 @@ import bs4
 from flask import current_app
 from mongoengine.errors import NotUniqueError
 
-from .models import Img
+from .models import Image
 from config import Config
 
 # Constants
@@ -20,28 +20,48 @@ OUTPUT_DIR = Config.IMG_OUTPUT_DIR
 
 def add_all_imgs_to_db() -> None:
     '''
-    Creates Img model from all image files in source directory
+    Creates Image model from all image files in source directory
 
     Used to instantiate database from scratch
     '''
     img_path = Path(IMAGES_ROOT, SOURCE_DIR)
     for path in img_path.iterdir():
-        i = Img(name=path.name, type=path.suffix, filepath=str(path))
-        try:
-            i.save()
-            print(f"[Saved] Img: {i.name} to db")
-        except NotUniqueError:
-            print(f"[Skipped] Img: {i.name} already in db")
-            continue
+        add_img_to_db(path)
 
 
-def process_img(image: Img) -> None:
+def add_img_to_db(path) -> None:
+    image = Image(name=path.name, type=path.suffix, filepath=str(path))
+    try:
+        image.save()
+        print(f"[Saved] Image: {image.name} to db")
+    except NotUniqueError:
+        print(f"[Skipped] Image: {image.name} already in db")
+        pass
+
+
+def delete_images(images: Iterable[Image]) -> None:
+    for image in images:
+        image.path.unlink()
+        image.delete()
+    print(len(images))
+
+
+def drop_collection() -> None:
+    Image.drop_collection()
+
+
+def process_img(image: Image, skip_processed: bool = True) -> None:
     ''' save thumbnails and update img database '''
-    if image.status == image.status.PROCESSED:
+    if skip_processed and image.status == image.status.PROCESSED:
         return
     sizes = _create_thumbnails(image)
     image.update(**sizes)
     image.update(status=image.status.PROCESSED)
+
+
+def set_img_compression(image: Image, format: str, quality: int) -> int:
+    image
+    return quality
 
 
 def _write_src(url_prefix: str, path: Path, width: int) -> str:
@@ -76,51 +96,51 @@ def _write_sizes(criteria: dict) -> str:
 
 
 def _set_img_tag(
-        img: bs4.element.Tag,
-        model: Img
+        img_tag: bs4.element.Tag,
+        image: Image
         ) -> None:
 
-    path = model.path
+    path = image.path
     url_prefix = current_app.config["IMG_URL"]
 
-    src = _write_src(url_prefix, path, model.thumbnail_widths[0])
+    src = _write_src(url_prefix, path, image.thumbnail_widths[0])
 
-    img.attrs.update({  # type: ignore[attr-defined]
+    img_tag.attrs.update({  # type: ignore[attr-defined]
         'src': src,
         'srcset': _write_srcset(
             url_prefix,
             path,
-            model.thumbnail_widths,
+            image.thumbnail_widths,
             ),
-        'height': model.height,
-        'width': model.width,
+        'height': image.height,
+        'width': image.width,
     })
 
 
 def _wrap_picture(
         soup: bs4.BeautifulSoup,
-        img: bs4.element.Tag,
-        model: Img
+        img_tag: bs4.element.Tag,
+        image: Image
         ) -> bs4.element.Tag:
 
     url_prefix = current_app.config["IMG_URL"]
-    picture = soup.new_tag('picture')
-    source = soup.new_tag('source')
-    picture['class'] = img.get('class') or ""
-    img['class'] = []
-    img.wrap(picture)
-    img.insert_before(source)
+    picture_tag = soup.new_tag('picture')
+    source_tag = soup.new_tag('source')
+    picture_tag['class'] = img_tag.get('class') or ""
+    img_tag['class'] = []
+    img_tag.wrap(picture_tag)
+    img_tag.insert_before(source_tag)
 
-    source.attrs.update({  # type: ignore[attr-defined]
+    source_tag.attrs.update({  # type: ignore[attr-defined]
         'type': 'image/webp',
         'srcset': _write_srcset(
             url_prefix,
-            model.path.with_suffix('.webp'),
-            model.thumbnail_widths,
+            image.path.with_suffix('.webp'),
+            image.thumbnail_widths,
             ),
-        'sizes': img.get('sizes', '')  # type: ignore[dict-item]
+        'sizes': img_tag.get('sizes', '')  # type: ignore[dict-item]
     })
-    return picture
+    return picture_tag
 
 
 def responsive_images(html: str) -> str:
@@ -129,30 +149,28 @@ def responsive_images(html: str) -> str:
     returns html for responsive image syntax
     '''
     soup = bs4.BeautifulSoup(html, 'html.parser')
-    imgs = soup.select('img[data-responsive]')
+    img_tags = soup.select('img[data-responsive]')
 
-    for img in imgs:
+    for img_tag in img_tags:
 
         # Check prequistes met:
         # 1) img has a src attribute
-        src = img.get('src')
+        src = img_tag.get('src')
         # 2) img is logged as processed in database
-        model = Img.objects.get(name=src)
+        image = Image.objects.get(name=src)
 
-        if not src or model.status != model.status.PROCESSED:
+        if not src or image.status != image.status.PROCESSED:
             continue
 
-        _set_img_tag(img, model)
+        _set_img_tag(img_tag, image)
 
-        if 'no-wrap' not in img['data-responsive']:
-            _wrap_picture(soup, img, model)
+        if 'no-wrap' not in img_tag['data-responsive']:
+            _wrap_picture(soup, img_tag, image)
 
     return soup.prettify()
 
 
-def _create_thumbnails(
-        image: Img,
-        ) -> dict[str, Any]:
+def _create_thumbnails(image: Image) -> dict[str, Any]:
     """ Generate and save thumbnails of given source image"""
 
     # open image in PIL
@@ -171,7 +189,7 @@ def _create_thumbnails(
             quality=55, optimize=True, progressive=True
             )
         thumb.save(
-            _write_src(str(out), image.path.with_stem('.webp'), w),
+            _write_src(str(out), image.path.with_suffix('.webp'), w),
             quality=55, method=6
             )
 
@@ -197,3 +215,40 @@ def _select_thumbnail_widths(
     # correct width descriptor for portrait images
     widths = (min(s, s * width // height) for s in sizes)
     return widths
+
+
+def test_compression(image: Image):
+    """ Interactive test of image compression quality settings
+
+    Prepares set of thumbnails in tmp/ to allow manual selection of best
+    image quality"""
+
+    # Prepare tmp directory
+    tmp = Path(IMAGES_ROOT, 'tmp')
+    Path.mkdir(tmp)
+
+    # Rotate portrait jpg into correct orientation
+    preview = PIL.ImageOps.exif_transpose(PIL.Image.open(image.filepath))
+
+    # Save preview at set quality values
+    for qual in [85, 75, 65, 55, 45, 35]:
+        preview.thumbnail((1200, 1200))
+        # Update save to use relative path
+        preview.save(
+            f'{tmp}/jpg-{qual}.jpg',
+            quality=qual, optimize=True, progressive=True
+            )
+        preview.save(
+            f'{tmp}/webp-{qual}.webp',
+            quality=qual, method=6
+            )
+
+    # Manually check quality in tmp dir and choose
+    qual_jpg = int(input('Chose jpg compression: '))
+    set_img_compression(image, '.jpg', qual_jpg)
+    qual_webp = int(input('Chose webp compression: '))
+    set_img_compression(image, '.webp', qual_webp)
+
+    for _ in Path.iterdir(tmp):
+        Path.unlink(_)
+    tmp.rmdir()
