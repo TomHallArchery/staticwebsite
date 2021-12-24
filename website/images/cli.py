@@ -123,4 +123,4 @@ def init_images_collection():
 @bp.cli.command('drop')
 @click.confirmation_option(prompt='Drop images collection?')
 def drop_images_collection():
-    sv.drop_collection()
+    Image.drop_collection()

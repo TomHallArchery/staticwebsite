@@ -6,7 +6,7 @@ from PIL.Image import Image as PIL_Image
 from PIL.ImageOps import exif_transpose
 import bs4
 from flask import current_app
-from mongoengine.errors import NotUniqueError, DoesNotExist
+from mongoengine.errors import NotUniqueError
 
 from .models import Image
 from config import Config
@@ -134,7 +134,7 @@ def responsive_images(html: str) -> str:
 # Image database and io functions
 #################################
 
-
+# IO: reads from filesystem to populate db
 def init_db_from_files() -> None:
     '''
     Creates Image model from all image files in source directory
@@ -147,6 +147,7 @@ def init_db_from_files() -> None:
         add_img_to_db(path)
 
 
+# IO: reads from filesystem to populate db
 def add_img_to_db(path) -> Image:
     image = Image(
         name=path.name,
@@ -162,14 +163,15 @@ def add_img_to_db(path) -> Image:
     else:
         # record all parameters but don't process images yet
         set_thumbnail_widths(image)
-        set_img_format(
-            image, '.jpg', quality=55,
+        image.set_format(
+            '.jpg', quality=55,
             optimize=True, progressive=True
             )
-        set_img_format(image, '.webp', quality=55, method=6)
+        image._set_format('.webp', quality=55, method=6)
     return image
 
 
+# IO: deletes from db and file system
 def delete_images(images: Collection[Image]) -> None:
     for image in images:
         image.path.unlink()
@@ -177,10 +179,9 @@ def delete_images(images: Collection[Image]) -> None:
     print(len(images))
 
 
-def drop_collection() -> None:
-    Image.drop_collection()
-
-
+# IO: saves to filesystem using data
+# DB: updates database model
+# wrapper: calls subroutine to do bulk of work
 def process_img(image: Image, no_write=False) -> None:
     ''' save thumbnails and update img database '''
 
@@ -188,6 +189,7 @@ def process_img(image: Image, no_write=False) -> None:
     image.update(status=image.status.PROCESSED)
 
 
+# IO: reads from filesystem
 def pil_open_img(image: Image) -> PIL_Image:
     ''' Opens image model in PIL '''
 
@@ -195,23 +197,7 @@ def pil_open_img(image: Image) -> PIL_Image:
     return pil
 
 
-def set_img_format(image: Image, format: str, quality: int, **params) -> None:
-    try:
-        format_info = image.formats.get(format=format)
-    except DoesNotExist:
-        format_info = Image.Format(
-            format=format,
-            quality=quality,
-            processing=params
-            )
-        image.formats.append(format_info)
-    else:
-        format_info.quality = quality
-        format_info.processing = params
-    finally:
-        image.save()
-
-
+# DB, IO: sets data (width, height, thumbnail_widths) based on db data and file data
 def set_thumbnail_widths(image: Image) -> tuple[int, int, list[int]]:
     """ Generate thumbnail sizes of given source image"""
 
@@ -234,6 +220,7 @@ def set_thumbnail_widths(image: Image) -> tuple[int, int, list[int]]:
     return og_width, og_height, list(widths)
 
 
+# IO, DB: creates output files from DB data
 def create_thumbnails(image: Image) -> None:
     """ save image into thumbnails of given widths """
 
@@ -259,6 +246,7 @@ def create_thumbnails(image: Image) -> None:
     return
 
 
+# IO: creates temporary output files
 def generate_compressed(image: Image):
     """ Writes image previews to allow comparing compression settings
 

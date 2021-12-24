@@ -1,4 +1,5 @@
 from enum import Enum
+from mongoengine.errors import DoesNotExist
 from pathlib import Path
 
 from website import db
@@ -56,3 +57,21 @@ class Image(db.Document):  # type: ignore[name-defined]
 
         # 1 check all listed files exist
         return all(path.exists for path in outputs)
+
+    def set_format(self, format: str, quality: int, **params) -> None:
+        try:
+            format_info = self.formats.get(format=format)
+        except DoesNotExist:
+            format_info = self.formats.create(
+                format=format,
+                quality=quality,
+                processing=params
+                )
+        else:
+            format_info.quality = quality
+            format_info.processing = params
+        finally:
+            self.save()
+
+    def delete_format(self, format: str) -> int:
+        return self.formats.filter(format=format).delete()
