@@ -1,6 +1,6 @@
 import website
 from website import create_app
-from website.images.models import Img
+from website.images.models import Image
 from website.pages.models import Page
 import config
 
@@ -12,9 +12,11 @@ def make_shell_context():
     return {
         'website': website,
         'db': website.db,
-        'Img': Img,
+        'Image': Image,
         'Page': Page,
         'utils': website.utils,
+        'page': Page.objects.first(),
+        'image': Image.objects.first(),
         }
 
 
