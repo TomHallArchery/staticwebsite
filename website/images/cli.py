@@ -13,6 +13,8 @@ IMG_OUT_DIR = Path(sv.IMAGES_ROOT, sv.OUTPUT_DIR)
 
 # callbacks
 def find_by_name_or_file(ctx, param, name_or_file):
+    if not name_or_file:
+        return None
     path = Path(name_or_file)
 
     # use filename to lookup on images directory
@@ -33,7 +35,8 @@ def find_by_name_or_file(ctx, param, name_or_file):
 
 path_arg = click.argument(
     'path',
-    callback=find_by_name_or_file
+    callback=find_by_name_or_file,
+    required=False,
 )
 
 
@@ -75,24 +78,46 @@ def delete_img(path):
 
 
 @bp.cli.command('process')
-@click.option('-s', '--skip/--no-skip', 'skip_processed', default=True)
 @click.option('-a', '--all', 'process_all', is_flag=True)
 @path_arg
-def process_img(file, name, process_all, skip_processed):
+def process_img(path, process_all):
     if process_all:
         for image in Image.objects:
-            sv.process_img(image, skip_processed)
+            sv.process_img(image)
             click.echo(image.name)
         return
 
-    name = name or file.name
-    image = Image.objects.get(name=name)
+    image = Image.objects.get(name=path.name)
     sv.process_img(image)
+
+
+@bp.cli.command('test-compression')
+@path_arg
+def test_img_compression(path):
+    image = Image.objects.get(filepath=str(path))
+    test = sv.test_compression(image)
+    click.echo(test)
+
+
+@bp.cli.command('looping')
+@click.option('--io/--no-io', 'with_io')
+def test(with_io):
+    if with_io:
+        for image in Image.objects:
+            sv.pil_open_img(image)
+            for width in image.thumbnail_widths:
+                for format in image.formats:
+                    click.echo(format.outputs)
+    else:
+        for image in Image.objects:
+            for width in image.thumbnail_widths:
+                for format in image.formats:
+                    click.echo(format.outputs)
 
 
 @bp.cli.command('init')
 def init_images_collection():
-    sv.add_all_imgs_to_db()
+    sv.init_db_from_files()
 
 
 @bp.cli.command('drop')
