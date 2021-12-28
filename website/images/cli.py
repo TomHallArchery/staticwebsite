@@ -1,3 +1,4 @@
+import itertools
 from pathlib import Path
 import shutil
 
@@ -19,15 +20,15 @@ def find_by_name_or_file(ctx, param, name_or_file):
 
     # use filename to lookup on images directory
     if path.parent == Path('.'):
-
+        search = itertools.chain(
+            IMG_SRC_DIR.iterdir(),
+            IMG_OUT_DIR.iterdir(),
+        )
         # try SOURCE_DIR first
-        for fn in IMG_SRC_DIR.iterdir():
+        for fn in search:
             if fn.name == path.name:
                 return fn
 
-        for fn in IMG_OUT_DIR.iterdir():
-            if fn.name == path.name:
-                return fn
     # return filename directly
     else:
         return path
@@ -99,20 +100,20 @@ def test_img_compression(path):
     click.echo(test)
 
 
-@bp.cli.command('looping')
-@click.option('--io/--no-io', 'with_io')
-def test(with_io):
-    if with_io:
-        for image in Image.objects:
-            sv.pil_open_img(image)
-            for width in image.thumbnail_widths:
-                for format in image.formats:
-                    click.echo(format.outputs)
-    else:
-        for image in Image.objects:
-            for width in image.thumbnail_widths:
-                for format in image.formats:
-                    click.echo(format.outputs)
+# @bp.cli.command('looping')
+# @click.option('--io/--no-io', 'with_io')
+# def test(with_io):
+#     if with_io:
+#         for image in Image.objects:
+#             sv.pil_open_img(image)
+#             for width in image.thumbnail_widths:
+#                 for format in image.formats:
+#                     click.echo(format.outputs)
+#     else:
+#         for image in Image.objects:
+#             for width in image.thumbnail_widths:
+#                 for format in image.formats:
+#                     click.echo(format.outputs)
 
 
 @bp.cli.command('init')

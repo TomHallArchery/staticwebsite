@@ -24,18 +24,23 @@ class Image(db.Document):  # type: ignore[name-defined]
         processing = db.DictField()
         outputs = db.ListField(db.StringField())
 
+        def __str__(self):
+            return self.format
+
         def __repr__(self):
-            return f"<Image.Format: {self.format} {len(self.outputs)} files>"
+            return f"<Format(format={self.format}), {len(self.outputs)} files>"
 
     name = db.StringField(required=True, unique=True)
     source_format = db.StringField(required=True)
-    filepath = db.StringField()
+    filepath = db.StringField(required=True)
     desc = db.StringField()
     status = db.EnumField(ImgStatus, default=ImgStatus.NEW)
     width = db.IntField()
     height = db.IntField()
     thumbnail_widths = db.ListField(db.IntField())
     formats = db.EmbeddedDocumentListField(Format)
+
+    meta = {'indexes': ['name', 'filepath']}
 
     def __str__(self):
         return self.name

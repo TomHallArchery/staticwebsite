@@ -82,7 +82,7 @@ def _wrap_picture(
         soup: bs4.BeautifulSoup,
         img_tag: bs4.element.Tag,
         image: Image
-        ):
+        ) -> None:
 
     url_prefix = current_app.config["IMG_URL"]
     picture_tag = soup.new_tag('picture')
@@ -197,8 +197,8 @@ def pil_open_img(image: Image) -> PIL_Image:
     return pil
 
 
-# DB, IO: sets data (width, height, thumbnail_widths) based on db data and file data
-def set_thumbnail_widths(image: Image) -> tuple[int, int, list[int]]:
+# DB, IO: sets data (width, height, thumbnail_widths) based on db and file data
+def set_thumbnail_widths(image: Image) -> Image:
     """ Generate thumbnail sizes of given source image"""
 
     # extract original dimensions from oriented image
@@ -217,37 +217,37 @@ def set_thumbnail_widths(image: Image) -> tuple[int, int, list[int]]:
         height=og_height,
         thumbnail_widths=list(widths),
     )
-    return og_width, og_height, list(widths)
+    return image
 
 
 # IO, DB: creates output files from DB data
-def create_thumbnails(image: Image) -> None:
+def create_thumbnails(image: Image) -> Image:
     """ save image into thumbnails of given widths """
 
-    pil = pil_open_img(image)
     out = Path(IMAGES_ROOT, OUTPUT_DIR)
 
-    for width in image.thumbnail_widths:
-        thumb = pil.copy()
-        thumb.thumbnail((width, image.height), resample=PIL.Image.LANCZOS)
-        for format in image.formats:
-            fname = _write_src(
-                str(out),
-                image.path.with_suffix(format.format),
-                width
-                )
-            thumb.save(
-                fname,
-                quality=format.quality,
-                **format.processing
-                )
-            format.outputs.append(fname)
-    image.save()
-    return
+    with pil_open_img(image) as pil:
+        for width in image.thumbnail_widths:
+            thumb = pil.copy()
+            thumb.thumbnail((width, image.height), resample=PIL.Image.LANCZOS)
+            for format in image.formats:
+                fname = _write_src(
+                    str(out),
+                    image.path.with_suffix(format.format),
+                    width=width
+                    )
+                thumb.save(
+                    fname,
+                    quality=format.quality,
+                    **format.processing
+                    )
+                format.outputs.append(fname)
+        image.save()
+    return image
 
 
 # IO: creates temporary output files
-def generate_compressed(image: Image):
+def generate_compressed(image: Image) -> Image:
     """ Writes image previews to allow comparing compression settings
 
     Prepares set of thumbnails in tmp/ to allow manual selection of best
@@ -271,3 +271,4 @@ def generate_compressed(image: Image):
                 quality=qual,
                 # **format.processing
                 )
+    return image
