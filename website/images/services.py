@@ -8,6 +8,7 @@ import bs4
 from flask import current_app
 from mongoengine.errors import NotUniqueError
 
+from . import images_bp as bp
 from .models import Image
 from config import Config
 
@@ -103,6 +104,7 @@ def _wrap_picture(
     })
 
 
+@bp.app_template_filter()
 def responsive_images(html: str) -> str:
     ''' filter function for jinja templates
 

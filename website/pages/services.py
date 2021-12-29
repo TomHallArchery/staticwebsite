@@ -16,9 +16,11 @@ from mongoengine.errors import NotUniqueError
 from markdown import markdown  # type: ignore[import]
 
 from config import Config
+from . import pages_bp as bp
 from .models import Page, Pages
 
 
+@bp.app_template_filter()
 def prerender_jinja(text: str) -> str:
     ''' render flask templating in markdown pages before parsing markdown '''
     prerendered_body = render_template_string(Markup(text))
