@@ -10,7 +10,7 @@ class Config:
     ''' Standard configuration '''
     # MongoDB config
     MONGODB_SETTINGS = {
-        'db': 'website',
+        'db': 'dev',
         'port': 5009,
         'username': 'app',
         'password': os.environ.get("DB_PWORD"),
@@ -30,7 +30,7 @@ class Config:
     IMG_SOURCE_DIR = 'src'
     IMG_OUTPUT_DIR = 'out'
     IMG_WIDTHS = [2000, 1600, 1200, 800, 400]
-    IMG_DEFAULT_WIDTH = '1200'
+    IMG_DEFAULT_WIDTH = 1200
     IMG_DISPLAY_WIDTHS = {'min-width: 110ch': '60vw', None: '95vw'}
     IMG_FORMATS = ('.jpg', '.webp')
     REPROC_IMAGES = os.environ.get('REPROC_IMAGES', False)
@@ -101,8 +101,13 @@ class DeployConfig(BuildConfig):
     '''
 
     IMG_URL = "https://cdn.tomhallarchery.com/"
+    MONGODB_DB = 'website'
 
     # Pynetlify config
     NETLIFY_AUTH_TOKEN = os.environ.get('NETLIFY_AUTH_TOKEN')
     NETLIFY_ROOT_ID = os.environ.get('NETLIFY_ROOT_ID')
     NETLIFY_CDN_ID = os.environ.get('NETLIFY_CDN_ID')
+
+
+class TestConfig():
+    pass

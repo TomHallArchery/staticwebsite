@@ -4,6 +4,8 @@ from time import sleep
 from . import pages_bp as bp
 from . import services as sv
 
+bp.cli.short_help = "SUBCOMMAND Pages command group"
+
 
 @bp.cli.command('select')
 @click.argument('name')

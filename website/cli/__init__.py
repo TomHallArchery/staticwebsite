@@ -1,13 +1,21 @@
+from pprint import pformat
+
 import click
 from flask import Blueprint
 
 cli_bp = Blueprint('cli', __name__, cli_group=None)
 
+from . import develop
 
-@cli_bp.cli.command('test-cli')
-def test_bp():
-    click.echo('Testing:')
-    click.echo(cli_bp.import_name)
+
+@cli_bp.cli.command('config')
+def show_config():
+    """ Show current app config for default app in wsgi.py """
+
+    from flask import current_app
+    click.echo('App Config: ')
+    click.echo_via_pager(pformat(current_app.config))
+
 
 # TODO: dev command
 # TODO: build(staging) command

@@ -2,7 +2,6 @@ from datetime import datetime
 
 import flask
 from flask import current_app as app
-from website import utils
 from .images import services as img_services
 
 
@@ -15,7 +14,6 @@ def inject_data():
         img_sizes=app.config.get('IMG_WIDTHS'),
         img_layout=app.config.get('IMG_DISPLAY_WIDTHS'),
         sizes=img_services._write_sizes,
-        utils=utils,
         )
 
 

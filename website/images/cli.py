@@ -11,6 +11,7 @@ from .models import Image
 IMG_SRC_DIR = Path(sv.IMAGES_ROOT, sv.SOURCE_DIR)
 IMG_OUT_DIR = Path(sv.IMAGES_ROOT, sv.OUTPUT_DIR)
 
+bp.cli.short_help = "SUBCOMMAND Images command group"
 
 # callbacks
 def find_by_name_or_file(ctx, param, name_or_file):

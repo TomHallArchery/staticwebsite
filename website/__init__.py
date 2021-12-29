@@ -1,8 +1,28 @@
+from os import environ
+
 from flask import Flask
 from flask_mongoengine import MongoEngine
 import config
 
 db = MongoEngine()
+
+
+def configure_app(app, config_class=None):
+    """Set the appropriate config based on the environment settings"""
+
+    if config_class is None:
+        settings_map = {
+                'development': config.DevConfig,
+                'build': config.BuildConfig,
+                'deployment': config.DeployConfig,
+                'testing': config.TestConfig,
+                'base': config.Config
+            }
+        env = environ.get('FLASK_ENV', 'base').lower()
+        config_class = settings_map[env]
+
+    app.config.from_object(config_class)
+    app.config["CONFIG_CLASS"] = config_class
 
 
 def register_blueprints(app):
@@ -17,8 +37,11 @@ def register_blueprints(app):
 
 def create_app(config_class=None):
     ''' Default application initialisation '''
+
     app = Flask(__name__)
-    app.config.from_object(config_class or config.Config)
+    configure_app(app, config_class)
+
+    # intialise extensions
     db.init_app(app)
 
     register_blueprints(app)

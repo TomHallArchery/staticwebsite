@@ -16,12 +16,6 @@ def cwd(path):
         os.chdir(oldpwd)
 
 
-def rm_file(file):
-    ''' Remove file at path without exceptions for not found or directory '''
-    if os.path.exists(file) and os.path.isfile(file):
-        os.remove(file)
-
-
 def compile_css(app, compressed=False, watch=False):
     ''' launch subprocess to run dart sass '''
     source = app.config["CSS_SRC_DIR"]
@@ -35,18 +29,6 @@ def compile_css(app, compressed=False, watch=False):
     return res
 
 
-def parse_html(html):
-    ''' wrapper for initialising an HTML Parser'''
-    return BeautifulSoup(html, 'html.parser')
-
-
-def split_filename(path):
-    ''' return path, filename and extension from a path like string '''
-    path, file = os.path.split(path)
-    fname, ext = os.path.splitext(file)
-    return (path, fname, ext)
-
-
 def deploy_folder_to_netlify(app, directory, subdomain):
     ''' deploys specified directory contents via pynetlify '''
     subdomain = subdomain.upper()
@@ -58,12 +40,3 @@ def deploy_folder_to_netlify(app, directory, subdomain):
     netlify = pynetlify.APIRequest(auth_token)
     target = netlify.get_site(domain_id)
     return netlify.deploy_folder_to_site(directory, target)
-
-
-def main():
-    '''  '''
-    pass
-
-
-if __name__ == '__main__':
-    main()
