@@ -2,9 +2,6 @@ import subprocess
 import os
 from contextlib import contextmanager
 
-from pynetlify import pynetlify
-from bs4 import BeautifulSoup
-
 
 @contextmanager
 def cwd(path):
@@ -27,16 +24,3 @@ def compile_css(app, compressed=False, watch=False):
         cmnd.extend(['--watch'])
     res = subprocess.Popen(cmnd)
     return res
-
-
-def deploy_folder_to_netlify(app, directory, subdomain):
-    ''' deploys specified directory contents via pynetlify '''
-    subdomain = subdomain.upper()
-    assert subdomain in ['ROOT', 'CDN']
-
-    auth_token = app.config.get('NETLIFY_AUTH_TOKEN')
-    domain_id = app.config.get(f'NETLIFY_{subdomain}_ID')
-
-    netlify = pynetlify.APIRequest(auth_token)
-    target = netlify.get_site(domain_id)
-    return netlify.deploy_folder_to_site(directory, target)
