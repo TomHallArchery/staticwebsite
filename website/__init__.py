@@ -2,9 +2,14 @@ from os import environ
 
 from flask import Flask
 from flask_mongoengine import MongoEngine
+from flask_htmlmin import HTMLMIN
+from flask_frozen import Freezer
+
 import config
 
 db = MongoEngine()
+htmlmin = HTMLMIN()
+freezer = Freezer()
 
 
 def configure_app(app, config_class=None):
@@ -43,13 +48,14 @@ def create_app(config_class=None):
 
     # intialise extensions
     db.init_app(app)
+    htmlmin.init_app(app)
+    freezer.init_app(app)
 
     register_blueprints(app)
 
     with app.app_context():
         # required to bring app registered views in
         from website import (  # noqa
-            routes,
             errors,
             models,
         )

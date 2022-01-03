@@ -12,11 +12,34 @@ Templates used:
 - articles/article.html.j2
 
 """
+from datetime import datetime
+
 import flask
 
 from . import pages_bp
 from .models import Pages
 from .services import render_page_args
+
+
+@pages_bp.app_context_processor
+def inject_data():
+    ''' global context for all templates '''
+    this_year = datetime.now().year
+    return dict(
+        year=this_year,
+        )
+
+
+@pages_bp.route('/')
+def home_page():
+    ''' render homepage '''
+    return flask.render_template(
+        'home.html.j2',
+        title="Home",
+        description="The homepage of Tom Hall, Archer and Coach",
+        keywords="Archery, Athlete, Profile",
+        img_layout={'min-width: 110ch': '60vw', None: '95vw'},
+        )
 
 
 @pages_bp.route('/results/')

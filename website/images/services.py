@@ -24,8 +24,8 @@ OUTPUT_DIR = Config.IMG_OUTPUT_DIR
 # ########################
 
 
-def _write_src(url_prefix: str, path: Path,
-               descriptor: str = None, width: int = None) -> str:
+def write_src(url_prefix: str, path: Path,
+              descriptor: str = None, width: int = None) -> str:
     ''' return image src attribute from prefix url and file name'''
     if width is not None:
         descriptor = f"_{width}"
@@ -33,17 +33,18 @@ def _write_src(url_prefix: str, path: Path,
     return str(url)
 
 
-def _write_srcset(url_prefix: str, path: Path, widths: Iterable[int]) -> str:
+def write_srcset(url_prefix: str, path: Path, widths: Iterable[int]) -> str:
     ''' return image srcset attribute for set img widths'''
 
     srcset = (
-        f'{_write_src(url_prefix, path, width=width)} {width}w'
+        f'{write_src(url_prefix, path, width=width)} {width}w'
         for width in widths
         )
     return ", ".join(srcset)
 
 
-def _write_sizes(criteria: dict) -> str:
+@bp.app_template_filter()
+def write_sizes(criteria: dict) -> str:
     ''' return image sizes attribute from dictonary
 
     usage: sizes({'60vw':'min-width: 110ch', '95vw': None})
@@ -57,7 +58,7 @@ def _write_sizes(criteria: dict) -> str:
     return ", ".join(sizes_list).replace('(None) ', '')
 
 
-def _set_img_tag(
+def set_img_tag(
         img_tag: bs4.element.Tag,
         image: Image
         ) -> None:
@@ -65,11 +66,11 @@ def _set_img_tag(
     path = image.path
     url_prefix = current_app.config["IMG_URL"]
 
-    src = _write_src(url_prefix, path, width=image.thumbnail_widths[0])
+    src = write_src(url_prefix, path, width=image.thumbnail_widths[0])
 
     img_tag.attrs.update({  # type: ignore[attr-defined]
         'src': src,
-        'srcset': _write_srcset(
+        'srcset': write_srcset(
             url_prefix,
             path,
             image.thumbnail_widths,
@@ -79,7 +80,7 @@ def _set_img_tag(
     })
 
 
-def _wrap_picture(
+def wrap_picture(
         soup: bs4.BeautifulSoup,
         img_tag: bs4.element.Tag,
         image: Image
@@ -95,7 +96,7 @@ def _wrap_picture(
 
     source_tag.attrs.update({  # type: ignore[attr-defined]
         'type': 'image/webp',
-        'srcset': _write_srcset(
+        'srcset': write_srcset(
             url_prefix,
             image.path.with_suffix('.webp'),
             image.thumbnail_widths,
@@ -124,10 +125,10 @@ def responsive_images(html: str) -> str:
         if not src or image.status != image.status.PROCESSED:
             continue
 
-        _set_img_tag(img_tag, image)
+        set_img_tag(img_tag, image)
 
         if 'no-wrap' not in img_tag['data-responsive']:
-            _wrap_picture(soup, img_tag, image)
+            wrap_picture(soup, img_tag, image)
 
     return soup.prettify()
 
@@ -233,7 +234,7 @@ def create_thumbnails(image: Image) -> Image:
             thumb = pil.copy()
             thumb.thumbnail((width, image.height), resample=PIL.Image.LANCZOS)
             for format in image.formats:
-                fname = _write_src(
+                fname = write_src(
                     str(out),
                     image.path.with_suffix(format.format),
                     width=width

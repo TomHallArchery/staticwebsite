@@ -3,11 +3,9 @@ from pathlib import Path
 
 import click
 import flask
-from flask_htmlmin import HTMLMIN
-from flask_frozen import Freezer
 
 import config
-from website import create_app
+from website import create_app, freezer
 from . import cli_bp as bp
 from .utils import compile_css
 
@@ -17,8 +15,6 @@ def main():
     ''' Freeze website into static files '''
 
     app = create_app(config.BuildConfig)
-    HTMLMIN(app)
-    freezer = Freezer(app)
 
     # Instructs the freezer to also check for dynamically generated urls
     # from serve_page functinon.

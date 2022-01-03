@@ -2,7 +2,7 @@
 <nav class="{{ m.layout(layout, 'nav') }} c-site-nav" x-data= "{navOpen: false}">
 
   <h2 class="c-site-nav__header">
-    <a href= {{ url_for('home_page')}}>TomHallArchery</a>
+    <a href= {{ url_for('pages.home_page')}}>TomHallArchery</a>
   </h2>
 
   <button class="c-site-nav__btn is-hidden" type="button" @click="navOpen = !navOpen" :class="{'is-hidden' : false}">
