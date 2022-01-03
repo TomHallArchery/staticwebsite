@@ -68,6 +68,8 @@ types-pillow==8.3.8
     # via -r dev-requirements.in
 types-python-slugify==5.0.2
     # via -r dev-requirements.in
+types-requests==2.26.3
+    # via -r dev-requirements.in
 typing-extensions==3.10.0.2
     # via
     #   astroid
