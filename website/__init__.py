@@ -39,6 +39,14 @@ def register_blueprints(app):
     app.register_blueprint(pages_bp)
     app.register_blueprint(cli_bp)
 
+    # Conditionally registers testing endpoint based on config;
+    # To avoid accidentally deploying test page
+    if app.config["VIEW_TEST"]:
+        app.add_url_rule(
+            '/test/',
+            endpoint='pages.serve_test',
+            )
+
 
 def create_app(config_class=None):
     ''' Default application initialisation '''
@@ -58,5 +66,4 @@ def create_app(config_class=None):
         from website import (  # noqa
             errors,
         )
-
     return app

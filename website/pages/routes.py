@@ -16,12 +16,12 @@ from datetime import datetime
 
 import flask
 
-from . import pages_bp
+from . import pages_bp as bp
 from .models import Pages
 from .services import render_page_args
 
 
-@pages_bp.app_context_processor
+@bp.app_context_processor
 def inject_data():
     ''' global context for all templates '''
     this_year = datetime.now().year
@@ -30,7 +30,7 @@ def inject_data():
         )
 
 
-@pages_bp.route('/')
+@bp.route('/')
 def home_page():
     ''' render homepage '''
     return flask.render_template(
@@ -42,7 +42,7 @@ def home_page():
         )
 
 
-@pages_bp.route('/results/')
+@bp.route('/results/')
 def results_page():
     ''' render results page '''
 
@@ -52,7 +52,7 @@ def results_page():
         )
 
 
-@pages_bp.route('/sponsors/')
+@bp.route('/sponsors/')
 def sponsors_page():
     ''' render sponsors page '''
 
@@ -62,7 +62,7 @@ def sponsors_page():
         )
 
 
-@pages_bp.route('/contact/')
+@bp.route('/contact/')
 def contact_page():
     ''' render contacts page '''
     return flask.render_template(
@@ -71,7 +71,7 @@ def contact_page():
         )
 
 
-@pages_bp.route('/articles/')
+@bp.route('/articles/')
 def serve_articles_index():
     ''' render articles index page '''
     # Selects posts with a PATH starting with wpexport/_posts
@@ -86,20 +86,21 @@ def serve_articles_index():
 
 
 # TODO fix slugs in model
-@pages_bp.route("/articles/<path:path_requested>/")
+@bp.route("/articles/<path:path_requested>/")
 def serve_article(path_requested):
     ''' render article page eg path_requested="archive/title" '''
 
     return flask.render_template(
         'articles/article.html.j2',
-        **render_page_args(slug=path_requested)
+        # query embedded metadata object
+        **render_page_args(metadata__slug=path_requested)
         )
 
 
 # TODO fix slugs in model
 # URL Routing - Flat Pages
 # Retrieves the page specified by the url /path_requested
-@pages_bp.route("/page/<path_requested>/")
+@bp.route("/page/<path_requested>/")
 def serve_page(path_requested):
     ''' render generic page '''
 
@@ -107,3 +108,9 @@ def serve_page(path_requested):
         'generic/page.html.j2',
         **render_page_args(slug=path_requested)
         )
+
+
+@bp.endpoint("pages.serve_test")
+def serve_test():
+    ''' render test page '''
+    return flask.render_template('generic/test.html.j2')
