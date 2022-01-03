@@ -11,7 +11,8 @@ from .utils import compile_css
 
 
 @bp.cli.command('freeze')
-def main():
+@click.option('--serve', is_flag=True)
+def main(serve):
     ''' Freeze website into static files '''
 
     app = create_app(config.BuildConfig)
@@ -43,3 +44,10 @@ def main():
         error_page = flask.render_template('generic/404.html.j2')
         with open('website/build/404.html', 'w', encoding="utf-8") as f:
             f.write(error_page)
+
+    if serve:
+        freezer.serve()
+
+
+if __name__ == '__main__':
+    main()
