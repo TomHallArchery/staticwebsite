@@ -40,10 +40,8 @@ class Config:
     VIEW_TEST = os.environ.get('VIEW_TEST', False)
 
     # External Depedancies
-    ALPINE = {
-        'url': "https://unpkg.com/alpinejs@3.4.2/dist/cdn.min.js",
-        'fpath': Path('website', 'static', 'js', 'alpine.js'),
-    }
+    ALPINE_VERSION = '3.4.2'
+    ALPINE_FILE_PATH = Path('website', 'static', 'js', 'alpine.js')
 
     # CSS config
     CSS_PREPROCESSOR = 'sass'
