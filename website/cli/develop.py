@@ -1,9 +1,8 @@
 #!/usr/bin/env python
-from datetime import datetime
 import livereload as lr
 
 import config
-from website import create_app, models
+from website import create_app
 from . import cli_bp as bp
 from .utils import compile_css
 
@@ -16,11 +15,6 @@ def main():
 
     def sass():
         return compile_css(app)
-
-    # log run
-    models.Run.drop_collection()
-    run = models.Run(started=datetime.now())
-    run.save()
 
     sass()
 

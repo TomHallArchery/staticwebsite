@@ -57,7 +57,6 @@ def create_app(config_class=None):
         # required to bring app registered views in
         from website import (  # noqa
             errors,
-            models,
         )
 
     return app
