@@ -2,7 +2,7 @@
 import multiprocessing
 import http.server as svr
 
-from website import utils
+from . import utils
 
 ROOT_HEADERS = {
     'test_ROOT': "True",
