@@ -2,6 +2,9 @@
 import multiprocessing
 import http.server as svr
 
+import click
+
+from . import cli_bp as bp
 from . import utils
 
 ROOT_HEADERS = {
@@ -91,6 +94,7 @@ def serve_cdn():
     serve_static(CDNReqHandler, 'website/static/img/out', 5003)
 
 
+@bp.cli.command('serve')
 def main():
     ''' serve from build directory and img '''
     proc1 = multiprocessing.Process(target=serve_site)

@@ -1,4 +1,5 @@
 from pathlib import Path
+from urllib.parse import urljoin
 from collections import Iterable, Collection
 
 import PIL.Image
@@ -29,8 +30,8 @@ def write_src(url_prefix: str, path: Path,
     ''' return image src attribute from prefix url and file name'''
     if width is not None:
         descriptor = f"_{width}"
-    url = Path(url_prefix) / path.with_stem(f"{path.stem}{descriptor}").name
-    return str(url)
+    resource = path.with_stem(f"{path.stem}{descriptor}").name
+    return urljoin(url_prefix, resource)
 
 
 def write_srcset(url_prefix: str, path: Path, widths: Iterable[int]) -> str:
