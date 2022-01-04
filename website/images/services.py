@@ -1,6 +1,6 @@
 from pathlib import Path
 from urllib.parse import urljoin
-from collections import Iterable, Collection
+from collections.abc import Iterable, Collection
 
 import PIL.Image
 from PIL.Image import Image as PIL_Image
