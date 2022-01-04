@@ -1,12 +1,10 @@
--c requirements.txt
+-c base.txt
 fonttools
 brotli
 livereload
-pip-tools
 
 ### Linting/IDE ###
 flake8
-pylint
 mypy
 jedi
 
