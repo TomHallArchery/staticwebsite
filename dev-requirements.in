@@ -1,13 +1,16 @@
 -c requirements.txt
 fonttools
 brotli
-pympler
+livereload
 pip-tools
+
+### Linting/IDE ###
 flake8
 pylint
 mypy
 jedi
-livereload
+
+### Mypy Library stubs ###
 types-Markdown
 types-beautifulsoup4
 types-Pillow
