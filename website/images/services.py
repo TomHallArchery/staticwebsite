@@ -28,9 +28,18 @@ OUTPUT_DIR = Config.IMG_OUTPUT_DIR
 def write_src(url_prefix: str, path: Path,
               descriptor: str = None, width: int = None) -> str:
     ''' return image src attribute from prefix url and file name'''
+
+    # check url_prefix is either absolute or
+    if url_prefix[0] not in ['/', 'h']:
+        raise ValueError(
+            f"Invalid char '{url_prefix[0]}' at start of url_prefix. "
+            "Check config IMG_URL?"
+        )
     if width is not None:
-        descriptor = f"_{width}"
-    resource = path.with_stem(f"{path.stem}{descriptor}").name
+        suffix = f"_{width}"
+    else:
+        suffix = descriptor or ''
+    resource = path.with_stem(f"{path.stem}{suffix}").name
     return urljoin(url_prefix, resource)
 
 
@@ -190,7 +199,7 @@ def process_img(image: Image, no_write=False) -> None:
     ''' save thumbnails and update img database '''
 
     create_thumbnails(image)
-    image.update(status=image.status.PROCESSED)
+    image.update(status=image.status.PROCESSED)  # NOT USED
 
 
 # IO: reads from filesystem
@@ -207,10 +216,11 @@ def set_thumbnail_widths(image: Image) -> Image:
 
     # extract original dimensions from oriented image
     with pil_open_img(image) as pil:
-        og_width, og_height = pil.width, pil.height
+        og_width, og_height = pil.width, pil.height    # params
 
     # filter standard widths down
     # to just those smaller than original image dimensions
+    # param
     sizes = (x for x in Config.IMG_WIDTHS if max(og_width, og_height) > x)
 
     # scale width descriptor for portrait images
@@ -228,7 +238,7 @@ def set_thumbnail_widths(image: Image) -> Image:
 def create_thumbnails(image: Image) -> Image:
     """ save image into thumbnails of given widths """
 
-    out = Path(IMAGES_ROOT, OUTPUT_DIR)
+    out = Path(IMAGES_ROOT, OUTPUT_DIR)  # param
 
     with pil_open_img(image) as pil:
         for width in image.thumbnail_widths:
@@ -258,14 +268,14 @@ def generate_compressed(image: Image) -> Image:
     image quality"""
 
     # Prepare tmp directory
-    tmp = Path(IMAGES_ROOT, 'tmp')
+    tmp = Path(IMAGES_ROOT, 'tmp')  # param
     Path.mkdir(tmp, exist_ok=True)
 
     # Rotate portrait jpg into correct orientation
     pil = pil_open_img(image)
 
     # Save preview at set quality values
-    for qual in [85, 75, 65, 55, 45, 35]:
+    for qual in [85, 75, 65, 55, 45, 35]:  # param
         preview = pil.copy()
         preview.thumbnail((1200, 1200))
         # Update save to use relative path

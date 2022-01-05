@@ -37,3 +37,17 @@ class TestWriteSrc():
         """
         assert sv.write_src(url_prefix, path) == expected
         assert Path(expected).suffix == path.suffix
+
+    @pytest.mark.parametrize('url_prefix', [
+        'static/img/out/',
+        'ftp://example.com'
+    ])
+    def test_raises(self, url_prefix, path):
+        """
+        GIVEN an invalid url prefix
+        WHEN write_src is called
+        THEN check a ValueError is raised
+        """
+        with pytest.raises(ValueError):
+            sv.write_src('other', path)
+            sv.write_src('static/img/out/', path)
