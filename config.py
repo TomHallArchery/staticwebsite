@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 
+from urlpath import URL
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -58,7 +59,7 @@ class DevConfig(Config):
     ENV = 'DEVELOPMENT'
     DEBUG = True
     TEMPLATES_AUTO_RELOAD = True
-    IMG_URL = "/static/img/out/"
+    IMG_DOMAIN = URL("/static/img/out/")
     VIEW_TEST = True
 
 
@@ -66,7 +67,7 @@ class BuildConfig(Config):
     ''' Build configuration: freezing to static files and serving locally '''
 
     ENV = 'PRODUCTION'
-    IMG_URL = "http://localhost:5003/"
+    IMG_DOMAIN = URL("http://localhost:5003/")
 
     # Manually add fonts to list to incorporate into freezer
     FONTS = {  # tuple: vf, latin, woff2
@@ -98,7 +99,7 @@ class DeployConfig(BuildConfig):
     Deploy configuration: freezing to static files and deploying to netlify
     '''
 
-    IMG_URL = "https://cdn.tomhallarchery.com/"
+    IMG_DOMAIN = URL("https://cdn.tomhallarchery.com/")
     MONGODB_DB = 'website'
 
     # Pynetlify config

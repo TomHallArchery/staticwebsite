@@ -1,7 +1,7 @@
 from pathlib import Path
-from urllib.parse import urljoin
 from collections.abc import Iterable, Collection
 
+from urlpath import URL
 import PIL.Image
 from PIL.Image import Image as PIL_Image
 from PIL.ImageOps import exif_transpose
@@ -25,22 +25,33 @@ OUTPUT_DIR = Config.IMG_OUTPUT_DIR
 # ########################
 
 
-def write_src(url_prefix: str, path: Path,
-              descriptor: str = None, width: int = None) -> str:
-    ''' return image src attribute from prefix url and file name'''
+def write_src(
+    url: URL,
+    path: Path,
+    descriptor: str = None,
+    width: int = None,
+) -> URL:
+    '''
+    Return correct image source URL from domain and file path.
 
-    # check url_prefix is either absolute or
-    if url_prefix[0] not in ['/', 'h']:
+    Optionally append width or custom descriptor before file suffix.
+
+    >>> write_src(URL('http://img.domain/'), Path('path/to/img.ext'))
+    URL('http://img.domain/img.ext')
+    '''
+
+    # check url_prefix is either absolute or has http scheme
+    if url.scheme not in ['http', 'https'] and url.anchor != '/':
         raise ValueError(
-            f"Invalid char '{url_prefix[0]}' at start of url_prefix. "
-            "Check config IMG_URL?"
+            f"Invalid url_prefix: {url} "
+            "Check config IMG_DOMAIN?"
         )
     if width is not None:
         suffix = f"_{width}"
     else:
         suffix = descriptor or ''
     resource = path.with_stem(f"{path.stem}{suffix}").name
-    return urljoin(url_prefix, resource)
+    return url.resolve() / resource
 
 
 def write_srcset(url_prefix: str, path: Path, widths: Iterable[int]) -> str:
@@ -74,7 +85,7 @@ def set_img_tag(
         ) -> None:
 
     path = image.path
-    url_prefix = current_app.config["IMG_URL"]
+    url_prefix = current_app.config["IMG_DOMAIN"]
 
     src = write_src(url_prefix, path, width=image.thumbnail_widths[0])
 
@@ -96,7 +107,7 @@ def wrap_picture(
         image: Image
         ) -> None:
 
-    url_prefix = current_app.config["IMG_URL"]
+    url_prefix = current_app.config["IMG_DOMAIN"]
     picture_tag = soup.new_tag('picture')
     source_tag = soup.new_tag('source')
     picture_tag['class'] = img_tag.get('class') or ""
