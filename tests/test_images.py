@@ -1,10 +1,12 @@
 from pathlib import Path
 
-from urlpath import URL
+import bs4
 import pytest
+from urlpath import URL
 
-# from website.images.models import Image
+from website import create_app
 from website.images import services as sv
+from website.images.models import Image
 
 APP_IMG_DOMAINS = [
     URL('/static/img/out/'),
@@ -14,11 +16,16 @@ APP_IMG_DOMAINS = [
 
 
 @pytest.fixture()
+def app():
+    return create_app()
+
+
+@pytest.fixture()
 def path():
     return Path('tmp/test.jpg')
 
 
-class TestWriteSrc():
+class TestWriteSrc:
 
     # what i really want to test/vallidate is that config contains good values!
     @pytest.mark.parametrize('url, expected', [
@@ -55,7 +62,7 @@ class TestWriteSrc():
             sv.write_src(url, path)
 
 
-class TestWriteSrcset():
+class TestWriteSrcset:
 
     def test_good_inputs(self, path):
         """
@@ -67,7 +74,7 @@ class TestWriteSrcset():
         assert srcset == "/domain/test_0.jpg 0w, /domain/test_1.jpg 1w, /domain/test_10.jpg 10w, /domain/test_100.jpg 100w, /domain/test_1000.jpg 1000w, /domain/test_10000.jpg 10000w"
 
 
-class TestWriteSizes():
+class TestWriteSizes:
 
     # couldn't think of anything more creative than a working example
     def test_example(self):
@@ -83,3 +90,57 @@ class TestWriteSizes():
     # other tests:
     # ensure requires dict keys are optional valid css media expressions
     # ensure requires dict values are optional valid css width units
+
+
+@pytest.fixture()
+def image():
+    return Image(
+        name='test.jpg',
+        filepath='tmp/test.jpg',
+        width=3000,
+        height=2000,
+        thumbnail_widths=[2000, 1600, 1200, 800, 400]
+    )
+
+
+@pytest.fixture()
+def soup():
+    return bs4.BeautifulSoup('''
+    <!DOCTYPE html>
+    <html lang="en" dir="ltr">
+      <head>
+        <meta charset="utf-8">
+        <title></title>
+      </head>
+      <body>
+        <section>
+          <h1>Test</h1>
+          <img src="test.jpg" data-responsive/>
+          <p>Below Image body text</p>
+        </section>
+      </body>
+    </html>''', "html.parser")
+
+
+class TestSetImgTag:
+
+    def test_example(self, soup, image):
+        """
+        GIVEN a mock image object and a html img tag
+        WHEN set_img_tag is called
+        THEN check output is the expected html img tag
+            with adjusted src, srcset, width and height attributes
+            and one <url><width> pair per thumbnail width on model
+        """
+
+        image_tag = soup.img
+        attrs = ('src', 'srcset', 'width', 'height', 'data-responsive')
+
+        sv.set_img_tag(image_tag, image, APP_IMG_DOMAINS[2])
+
+        # check attributes are present
+        assert all(attr in image_tag.attrs.keys() for attr in attrs)
+
+        # check srcset has as many descriptors as there are widths on image model
+        srcset = image_tag.attrs['srcset']
+        assert len(srcset.split(',')) == len(image.thumbnail_widths)

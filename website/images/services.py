@@ -1,18 +1,18 @@
+from collections.abc import Collection, Iterable
 from pathlib import Path
-from collections.abc import Iterable, Collection
 from typing import Optional
 
-from urlpath import URL
-import PIL.Image
-from PIL.Image import Image as PIL_Image
-from PIL.ImageOps import exif_transpose
 import bs4
+import PIL.Image
+from config import Config
 from flask import current_app
 from mongoengine.errors import NotUniqueError
+from PIL.Image import Image as PIL_Image
+from PIL.ImageOps import exif_transpose
+from urlpath import URL
 
 from . import images_bp as bp
 from .models import Image
-from config import Config
 
 # Constants
 # Only appear in base config
@@ -99,20 +99,22 @@ def write_sizes(sizes_dict: dict[Optional[str], str]) -> str:
     return ", ".join(sizes_list).replace('(None) ', '')
 
 
+# mutates tag in place
+# requires app config
+# requires image model
 def set_img_tag(
         img_tag: bs4.element.Tag,
-        image: Image
+        image: Image,
+        domain: Url,
         ) -> None:
 
     path = image.path
-    url_prefix = current_app.config["IMG_DOMAIN"]
-
-    src = write_src(url_prefix, path, width=image.thumbnail_widths[0])
+    src = write_src(domain, path, width=image.thumbnail_widths[0])
 
     img_tag.attrs.update({  # type: ignore[attr-defined]
         'src': src,
         'srcset': write_srcset(
-            url_prefix,
+            domain,
             path,
             image.thumbnail_widths,
             ),
@@ -124,10 +126,10 @@ def set_img_tag(
 def wrap_picture(
         soup: bs4.BeautifulSoup,
         img_tag: bs4.element.Tag,
-        image: Image
+        image: Image,
+        domain: Url,
         ) -> None:
 
-    url_prefix = current_app.config["IMG_DOMAIN"]
     picture_tag = soup.new_tag('picture')
     source_tag = soup.new_tag('source')
     picture_tag['class'] = img_tag.get('class') or ""
@@ -138,7 +140,7 @@ def wrap_picture(
     source_tag.attrs.update({  # type: ignore[attr-defined]
         'type': 'image/webp',
         'srcset': write_srcset(
-            url_prefix,
+            domain,
             image.path.with_suffix('.webp'),
             image.thumbnail_widths,
             ),
@@ -154,6 +156,7 @@ def responsive_images(html: str) -> str:
     '''
     soup = bs4.BeautifulSoup(html, 'html.parser')
     img_tags = soup.select('img[data-responsive]')
+    domain = current_app.config["IMG_DOMAIN"]
 
     for img_tag in img_tags:
 
@@ -166,10 +169,10 @@ def responsive_images(html: str) -> str:
         if not src or image.status != image.status.PROCESSED:
             continue
 
-        set_img_tag(img_tag, image)
+        set_img_tag(img_tag, image, domain)
 
         if 'no-wrap' not in img_tag['data-responsive']:
-            wrap_picture(soup, img_tag, image)
+            wrap_picture(soup, img_tag, image, domain)
 
     return soup.prettify()
 
