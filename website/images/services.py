@@ -12,7 +12,7 @@ from PIL.ImageOps import exif_transpose
 from urlpath import URL
 
 from . import images_bp as bp
-from .models import Image
+from .models import Image, DoesNotExist
 
 # Constants
 # Only appear in base config
@@ -164,7 +164,10 @@ def responsive_images(html: str) -> str:
         # 1) img has a src attribute
         src = img_tag.get('src')
         # 2) img is logged as processed in database
-        image = Image.objects.get(name=src)
+        try:
+            image = Image.objects.get(name=src)
+        except DoesNotExist as exc:
+            raise ValueError(f"Cannot find img in db with src: {src}") from exc
 
         if not src or image.status != image.status.PROCESSED:
             continue
