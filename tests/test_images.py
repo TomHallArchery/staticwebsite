@@ -115,7 +115,8 @@ def soup():
       <body>
         <section>
           <h1>Test</h1>
-          <img src="test.jpg" data-responsive/>
+          <img class="other" src="other.jpg"/>
+          <img class="display" src="test.jpg" sizes="100vw" data-responsive/>
           <p>Below Image body text</p>
         </section>
       </body>
@@ -133,14 +134,44 @@ class TestSetImgTag:
             and one <url><width> pair per thumbnail width on model
         """
 
-        image_tag = soup.img
-        attrs = ('src', 'srcset', 'width', 'height', 'data-responsive')
+        attrs = {'src', 'srcset', 'width', 'height', 'data-responsive'}
 
+        image_tag = soup.select('.display')[0]
         sv.set_img_tag(image_tag, image, APP_IMG_DOMAINS[2])
 
         # check attributes are present
-        assert all(attr in image_tag.attrs.keys() for attr in attrs)
+
+        assert attrs <= set(image_tag.attrs.keys())
 
         # check srcset has as many descriptors as there are widths on image model
         srcset = image_tag.attrs['srcset']
         assert len(srcset.split(',')) == len(image.thumbnail_widths)
+
+
+class TestWrapPicture:
+
+    def test_example(self, soup, image):
+        """
+        GIVEN some html in :soup: and an image object
+        WHEN wrap_picture is called
+        THEN check output is the expected html picture set with source tag(s)
+            and that wrapping has not changed the order of images
+            and that only one image has been wrapped
+            and that the images class has been transfered to the picture
+        """
+        image_tag = soup.select('.display')[0]
+
+        sv.wrap_picture(soup, image_tag, image, APP_IMG_DOMAINS[2])
+        # check only 1 picture has been wrapped
+        assert len(soup.select('picture')) == 1
+        # check picture now has imgs class
+        assert "display" in soup.select('picture')[0]['class']
+
+        # check n image formats added relates to model
+        assert len(soup.select('source')) == max(1, len(image.formats) - 1)
+
+        all_tags = soup.find_all()
+        other_img = soup.find(class_="other")
+
+        # given order in fixture, check image tag still comes after other img
+        assert all_tags.index(image_tag) > all_tags.index(other_img)
