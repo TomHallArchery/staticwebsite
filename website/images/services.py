@@ -20,17 +20,37 @@ SOURCE_DIR = Config.IMG_SOURCE_DIR
 OUTPUT_DIR = Config.IMG_OUTPUT_DIR
 
 
+# HACK
+# subclassing URL leads to correct static typing behaviour
+# can still pass URL objects from source
+# but need own class for type annotation
+class Url(URL):
+    def _init(self):
+        return super()._init()
+
 # ########################
 # Image in HTML functions
 # ########################
 
 
-def write_src(
-    url: URL,
+def _write_img_fn(
     path: Path,
     descriptor: str = None,
     width: int = None,
-) -> URL:
+) -> str:
+    if width is not None:
+        suffix = f"_{width}"
+    else:
+        suffix = descriptor or ''
+    return path.with_stem(f"{path.stem}{suffix}").name
+
+
+def write_src(
+    url: Url,
+    path: Path,
+    descriptor: str = None,
+    width: int = None,
+) -> Url:
     '''
     Return correct image source URL from domain and file path.
 
@@ -46,19 +66,18 @@ def write_src(
             f"Invalid url_prefix: {url} "
             "Check config IMG_DOMAIN?"
         )
-    if width is not None:
-        suffix = f"_{width}"
-    else:
-        suffix = descriptor or ''
-    resource = path.with_stem(f"{path.stem}{suffix}").name
-    return url.resolve() / resource
+    resource = _write_img_fn(path, descriptor, width)
+    uri = url.resolve() / resource
+    return uri
 
 
-def write_srcset(url_prefix: str, path: Path, widths: Iterable[int]) -> str:
-    ''' return image srcset attribute for set img widths'''
+def write_srcset(url: Url, path: Path, widths: Iterable[int]) -> str:
+    '''Return image srcset attribute for set img widths.'''
+
+    # static hinting not detecting URL type so check manually?
 
     srcset = (
-        f'{write_src(url_prefix, path, width=width)} {width}w'
+        f'{write_src(url, path, width=width)} {width}w'
         for width in widths
         )
     return ", ".join(srcset)
@@ -66,7 +85,7 @@ def write_srcset(url_prefix: str, path: Path, widths: Iterable[int]) -> str:
 
 @bp.app_template_filter()
 def write_sizes(criteria: dict) -> str:
-    ''' return image sizes attribute from dictonary
+    '''Return image sizes attribute from dictonary.
 
     usage: sizes({'60vw':'min-width: 110ch', '95vw': None})
     '''
@@ -256,11 +275,10 @@ def create_thumbnails(image: Image) -> Image:
             thumb = pil.copy()
             thumb.thumbnail((width, image.height), resample=PIL.Image.LANCZOS)
             for format in image.formats:
-                fname = write_src(
-                    str(out),
+                fname = str(out / _write_img_fn(
                     image.path.with_suffix(format.format),
                     width=width
-                    )
+                    ))
                 thumb.save(
                     fname,
                     quality=format.quality,
