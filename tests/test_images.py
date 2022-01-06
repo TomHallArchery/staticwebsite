@@ -66,3 +66,20 @@ class TestWriteSrcset():
         srcset = sv.write_srcset(URL('/domain/'), path, [0, 1, 10, 100, 1000, 10_000])
         assert srcset == "/domain/test_0.jpg 0w, /domain/test_1.jpg 1w, /domain/test_10.jpg 10w, /domain/test_100.jpg 100w, /domain/test_1000.jpg 1000w, /domain/test_10000.jpg 10000w"
 
+
+class TestWriteSizes():
+
+    # couldn't think of anything more creative than a working example
+    def test_example(self):
+        """
+        GIVEN a known dictionary
+        WHEN write_sizes is called
+        THEN check output is the expected sizes string
+        """
+
+        sizes = sv.write_sizes({'min-width: 110ch': '60vw', None: '95vw'})
+        assert sizes == "(min-width: 110ch) 60vw, 95vw"
+
+    # other tests:
+    # ensure requires dict keys are optional valid css media expressions
+    # ensure requires dict values are optional valid css width units

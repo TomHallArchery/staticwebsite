@@ -1,5 +1,6 @@
 from pathlib import Path
 from collections.abc import Iterable, Collection
+from typing import Optional
 
 from urlpath import URL
 import PIL.Image
@@ -75,7 +76,6 @@ def write_srcset(url: Url, path: Path, widths: Iterable[int]) -> str:
     '''Return image srcset attribute for set img widths.'''
 
     # static hinting not detecting URL type so check manually?
-
     srcset = (
         f'{write_src(url, path, width=width)} {width}w'
         for width in widths
@@ -84,16 +84,17 @@ def write_srcset(url: Url, path: Path, widths: Iterable[int]) -> str:
 
 
 @bp.app_template_filter()
-def write_sizes(criteria: dict) -> str:
-    '''Return image sizes attribute from dictonary.
+def write_sizes(sizes_dict: dict[Optional[str], str]) -> str:
+    '''Return image sizes attribute string from dictonary.
 
-    usage: sizes({'60vw':'min-width: 110ch', '95vw': None})
+    >>> write_sizes({'min-width: 110ch': '60vw', None: '95vw'})
+    "(min-width: 110ch) 60vw, 95vw"
     '''
 
     sizes_list = (
         f'({sz}) {br}'
         for sz, br
-        in criteria.items()
+        in sizes_dict.items()
         )
     return ", ".join(sizes_list).replace('(None) ', '')
 
