@@ -28,6 +28,10 @@ OUTPUT_DIR = Config.IMG_OUTPUT_DIR
 class Url(URL):
     def _init(self):
         return super()._init()
+# import typing
+# Url = typing.NewType('Url', URL)
+# Argument 2 to NewType(...) must be subclassable (got "Any") [valid-newtype]
+
 
 # ########################
 # Image in HTML functions
