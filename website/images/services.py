@@ -4,15 +4,16 @@ from typing import Optional
 
 import bs4
 import PIL.Image
-from config import Config
 from flask import current_app
 from mongoengine.errors import NotUniqueError
 from PIL.Image import Image as PIL_Image
 from PIL.ImageOps import exif_transpose
 from urlpath import URL
 
+from config import Config
+
 from . import images_bp as bp
-from .models import Image, DoesNotExist
+from .models import DoesNotExist, Image
 
 # Constants
 # Only appear in base config

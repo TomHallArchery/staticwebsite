@@ -3,6 +3,7 @@ import livereload as lr
 
 import config
 from website import create_app
+
 from . import cli_bp as bp
 from .utils import compile_css
 

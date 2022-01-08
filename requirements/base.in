@@ -10,3 +10,4 @@ flask-htmlmin
 flask-mongoengine
 python-frontmatter
 python-slugify
+urlpath

@@ -1,11 +1,13 @@
 # Download build and store latest alpine.js files in static,
 # choosing type by config
 import os
+
 import requests
 
-from website import create_app
-from . import cli_bp as bp
 import config
+from website import create_app
+
+from . import cli_bp as bp
 
 
 @bp.cli.command('vendorize')

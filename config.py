@@ -1,8 +1,8 @@
 import os
 from pathlib import Path
 
-from urlpath import URL
 from dotenv import load_dotenv
+from urlpath import URL
 
 load_dotenv()
 

@@ -7,15 +7,16 @@ file_meta: Utility function, returns metadata dictionary
 from Page objects referenced file.
 """
 from datetime import date
-from typing import Any
 from pathlib import Path
+from typing import Any
 
 import frontmatter as fmr
-from flask import render_template_string, Markup
-from mongoengine.errors import NotUniqueError
+from flask import Markup, render_template_string
 from markdown import markdown  # type: ignore[import]
+from mongoengine.errors import NotUniqueError
 
 from config import Config
+
 from . import pages_bp as bp
 from .models import Page, Pages
 

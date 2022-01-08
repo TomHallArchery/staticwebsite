@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-import multiprocessing
 import http.server as svr
+import multiprocessing
 
 import click
 

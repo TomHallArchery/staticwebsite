@@ -1,5 +1,6 @@
-import click
 from time import sleep
+
+import click
 
 from . import pages_bp as bp
 from . import services as sv

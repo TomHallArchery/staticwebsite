@@ -1,6 +1,7 @@
 from enum import Enum
-from mongoengine.errors import DoesNotExist
 from pathlib import Path
+
+from mongoengine.errors import DoesNotExist
 
 from website import db
 

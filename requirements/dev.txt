@@ -50,6 +50,8 @@ idna==3.3
     #   requests
 importlib-metadata==4.10.0
     # via markdown
+isort==5.10.1
+    # via -r requirements/dev.in
 itsdangerous==2.0.1
     # via
     #   flask
@@ -101,7 +103,9 @@ pyyaml==6.0
     #   flask-flatpages
     #   python-frontmatter
 requests==2.27.0
-    # via pynetlify
+    # via
+    #   pynetlify
+    #   urlpath
 six==1.16.0
     # via
     #   flask-flatpages
@@ -128,6 +132,8 @@ typing-extensions==4.0.1
     # via mypy
 urllib3==1.26.7
     # via requests
+urlpath==1.2.0
+    # via -r requirements/base.in
 werkzeug==2.0.2
     # via flask
 wtforms[email]==3.0.1

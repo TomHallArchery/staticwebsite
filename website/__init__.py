@@ -1,9 +1,9 @@
 from os import environ
 
 from flask import Flask
-from flask_mongoengine import MongoEngine
-from flask_htmlmin import HTMLMIN
 from flask_frozen import Freezer
+from flask_htmlmin import HTMLMIN
+from flask_mongoengine import MongoEngine
 
 import config
 
@@ -31,9 +31,9 @@ def configure_app(app, config_class=None):
 
 
 def register_blueprints(app):
+    from .cli import cli_bp
     from .images import images_bp
     from .pages import pages_bp
-    from .cli import cli_bp
 
     app.register_blueprint(images_bp)
     app.register_blueprint(pages_bp)
@@ -63,7 +63,5 @@ def create_app(config_class=None):
 
     with app.app_context():
         # required to bring app registered views in
-        from website import (  # noqa
-            errors,
-        )
+        from website import errors  # noqa
     return app

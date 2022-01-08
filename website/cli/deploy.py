@@ -2,6 +2,7 @@ from pynetlify import pynetlify
 
 import config
 from website import create_app
+
 from . import cli_bp as bp
 
 

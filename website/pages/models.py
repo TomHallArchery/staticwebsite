@@ -2,8 +2,8 @@ from datetime import date
 from enum import Enum
 from pathlib import Path
 
-from slugify import slugify  # type: ignore[import]
 import frontmatter
+from slugify import slugify  # type: ignore[import]
 
 from website import db
 from website.images.models import Image

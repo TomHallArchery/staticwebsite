@@ -6,6 +6,7 @@ import flask
 
 import config
 from website import create_app, freezer
+
 from . import cli_bp as bp
 from .utils import compile_css
 

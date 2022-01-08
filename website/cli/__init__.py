@@ -5,7 +5,7 @@ from flask import Blueprint
 
 cli_bp = Blueprint('cli', __name__, cli_group=None)
 
-from . import develop, freeze, deploy, serve, vendorize  # noqa
+from . import deploy, develop, freeze, serve, vendorize  # noqa
 
 
 @cli_bp.cli.command('config')
