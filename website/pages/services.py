@@ -1,16 +1,7 @@
 """
-Service functions for CRUD operations on Page objects
-
-file_content: utility function, returns formatted body html
-from Page objects referenced file.
-file_meta: Utility function, returns metadata dictionary
-from Page objects referenced file.
 """
-from datetime import date
 from pathlib import Path
-from typing import Any
 
-import frontmatter as fmr
 from flask import Markup, render_template_string
 from markdown import markdown  # type: ignore[import]
 from mongoengine.errors import NotUniqueError
@@ -18,7 +9,7 @@ from mongoengine.errors import NotUniqueError
 from config import Config
 
 from . import pages_bp as bp
-from .models import Page, Pages
+from .models import Page
 
 
 @bp.app_template_filter()
@@ -40,60 +31,12 @@ def render_page_args(**query):
     sidebar = Pages.get(name='sidebar')
 
     return dict(
-        content=file_content(page),
-        side=file_content(sidebar),
+        content=prerender_jinja(page.content),
+        side=prerender_jinja(sidebar.content),
         title=page.metadata.title,
         description=page.metadata.description,
         keywords=page.metadata.keywords,
     )
-
-
-def file_content(page: Page) -> str:
-    assert page.path.suffix == '.md'
-    return prerender_jinja(fmr.load(page.path).content)
-
-
-def file_meta(page: Page) -> dict[str, Any]:
-    assert page.path.suffix == '.md'
-    return fmr.load(page.path).metadata
-
-
-def select_page_by_name(name: str) -> Page:
-    page = Page.objects.get(name=name)
-    return page
-
-
-def select_all_pages():
-    for page in Page.objects:
-        yield page
-
-
-def create_page(name: str) -> Page:
-    page = Page(name=name)
-    page.filepath = f'website/content/draft/{name}.md'
-    page.path.touch()
-    page.save()
-    return page
-
-
-def delete_pages(names: list[str]) -> None:
-    pages = Pages.query(name__in=names)  # type: ignore[arg-type]
-    for page in pages:
-        page.path.unlink()
-        page.delete()
-    print(len(pages))
-
-
-def publish_page(page: Page) -> None:
-    page.status = page.status.PUBLISHED
-    page.metadata.date_published = date.today()
-    page.save()
-
-
-def revert_page(page: Page) -> None:
-    page.status = page.status.DRAFT
-    del page.metadata.date_published
-    page.save()
 
 
 def init_db_from_files() -> None:
@@ -117,7 +60,3 @@ def init_db_from_files() -> None:
             continue
         else:
             page.pull_from_file()
-
-
-def drop_collection() -> None:
-    Page.drop_collection()

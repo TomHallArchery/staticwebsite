@@ -4,6 +4,7 @@ import click
 
 from . import pages_bp as bp
 from . import services as sv
+from .models import Page
 
 bp.cli.short_help = "SUBCOMMAND Pages command group"
 
@@ -12,14 +13,14 @@ bp.cli.short_help = "SUBCOMMAND Pages command group"
 @click.argument('name')
 def select_page(name):
     """Get page by name."""
-    page = sv.select_page_by_name(name)
+    page = Page.objects.get(name=name)
     click.echo(repr(page))
 
 
 @bp.cli.command('list')
 def list_pages():
     """List all pages in database."""
-    for page in sv.select_all_pages():
+    for page in Page.objects:
         click.echo(f"{page.status.name:12}{page.name:24}")
 
 
@@ -29,7 +30,7 @@ def list_pages():
 @click.option('--edit/--no-edit', default=True)
 def create_page(name, interactive, edit):
     """Create new page in database and filesystem."""
-    page = sv.create_page(name)
+    page = Page.create_by_name(name)
     if interactive:
         page.metadata.title = click.prompt('Page title')
         page.metadata.description = click.prompt('Page description')
@@ -44,21 +45,22 @@ def create_page(name, interactive, edit):
 @click.argument('names', nargs=-1)
 def delete_pages(names):
     """Delete pages from database and filesystem."""
-    sv.delete_pages(names)
+    pages = Page.objects(name__in=names)
+    pages.delete()
 
 
 @bp.cli.command('edit')
 @click.argument('name')
 def edit_page(name):
     """Edit page in default markdown editor."""
-    page = sv.select_page_by_name(name)
+    page = Page.objects.get(name=name)
     click.launch(page.filepath)
 
 
 @bp.cli.command('pull')
 @click.argument('name')
 def pull_metadata(name):
-    page = sv.select_page_by_name(name)
+    page = Page.objects.get(name=name)
     metadata = page.pull_from_file()
     click.echo(repr(page))
     click.echo(metadata)
@@ -67,7 +69,7 @@ def pull_metadata(name):
 @bp.cli.command('push')
 @click.argument('name')
 def push_metadata(name):
-    page = sv.select_page_by_name(name)
+    page = Page.objects.get(name=name)
     metadata = page.push_to_file()
     click.echo(repr(page))
     click.echo(metadata)
@@ -75,17 +77,18 @@ def push_metadata(name):
 
 @bp.cli.command('push-all')
 def push_all_metadata():
-    for page in sv.select_all_pages():
+    for page in Page.objects:
         page.push_to_file()
 
 
 @bp.cli.command('publish')
 @click.argument('name')
 def publish_page(name):
-    page = sv.select_page_by_name(name)
+    page = Page.objects.get(name=name)
     click.echo(f"{page!r}")
     if click.confirm('Publish Page?'):
-        sv.publish_page(page)
+        page.publish()
+        page.save()
         click.echo("Page Published")
 
 
@@ -99,4 +102,4 @@ def init_collection():
 @click.confirmation_option(prompt='Drop pages collection?')
 def drop_collection():
     """Drop pages collection from database."""
-    sv.drop_collection()
+    Page.drop_collection()

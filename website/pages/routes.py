@@ -17,7 +17,7 @@ from datetime import datetime
 import flask
 
 from . import pages_bp as bp
-from .models import Pages
+from .models import Page
 from .services import render_page_args
 
 
