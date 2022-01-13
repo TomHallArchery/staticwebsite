@@ -1,20 +1,17 @@
 ---
 author: tomhall2016
-categories:
-- Equipment Reviews
-comments: true
-date: 2018-05-14 19:30:17
 date_created: 2021-12-21 00:00:00
+date_published: null
+description: null
+filepath: website/content/archive/2018-05-14-on-test-easton-vs-cx.md
+header_image: null
 keywords: []
 layout: post
 link: https://tomhall2016.wordpress.com/2018/05/14/on-test-easton-vs-cx/
+name: 2018-05-14-on-test-easton-vs-cx
 slug: on-test-easton-vs-cx
-tags:
-- Arrows
-- Equipment
-- Training Camp
+status: archived
 title: 'On Test: Easton vs Carbon Express'
-wordpress_id: 1452
 ---
 
 Arrows are the single most important piece of equipment any archer can get. We often get distracted thinking about all the ways our riser, limbs, string, stabilisation etc. can affect the consistency of our shooting, but at the end of the day you'll be using the same kit for every shot of a scoring round. But with arrows, every end you are shooting a different missile and hoping they will group together. This is where there are the most variables and therefore a huge advantage in getting the most consistent set possible.

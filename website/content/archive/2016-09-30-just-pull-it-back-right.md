@@ -1,20 +1,17 @@
 ---
 author: tomhall2016
-categories:
-- Training and Coaching
-comments: true
-date: 2016-09-30 20:29:03
 date_created: 2021-12-21 00:00:00
+date_published: null
+description: null
+filepath: website/content/archive/2016-09-30-just-pull-it-back-right.md
+header_image: null
 keywords: []
 layout: post
 link: https://tomhall2016.wordpress.com/2016/09/30/just-pull-it-back-right/
+name: 2016-09-30-just-pull-it-back-right
 slug: just-pull-it-back-right
-tags:
-- Process
-- Technique
-- UWAC
+status: archived
 title: Just pull it back, right?
-wordpress_id: 258
 ---
 
 Its a commonly heard phrase at the [University of Warwick AC](https://uwac.co.uk/). Archery, they say, is a simple sport. All you need to do is "pull it back and let it go"

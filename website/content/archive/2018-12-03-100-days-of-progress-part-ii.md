@@ -1,16 +1,17 @@
 ---
 author: tomhall2016
-categories:
-- General Updates
-comments: true
-date: 2018-12-03 21:01:13
 date_created: 2021-12-21 00:00:00
+date_published: null
+description: null
+filepath: website/content/archive/2018-12-03-100-days-of-progress-part-ii.md
+header_image: null
 keywords: []
 layout: post
 link: https://tomhall2016.wordpress.com/2018/12/03/100-days-of-progress-part-ii/
+name: 2018-12-03-100-days-of-progress-part-ii
 slug: 100-days-of-progress-part-ii
+status: archived
 title: '100 Days of Progress: Part II'
-wordpress_id: 1488
 ---
 
 On the 16th of July I set out on an exciting new project: 100 days of progress. The concept was simple, take a photo and write a description of something that I am doing to improve my archery every single day, and share it to the [internet](https://www.instagram.com/explore/tags/100daysofprogress/). A couple of weeks later I had written the first [blog post](https://tomhall2016.wordpress.com/2018/07/31/100-days-of-progress-part-i/) about it, with a grand plan for what to put in the next three (or four or five) over the coming days that would cover the European Championships, National Tour finals, the end of season break (no archery for two weeks!), and the beginnings of a new cycle of preparation including a training event in Tokyo.

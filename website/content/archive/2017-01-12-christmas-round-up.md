@@ -1,19 +1,17 @@
 ---
 author: tomhall2016
-categories:
-- General Updates
-comments: true
-date: 2017-01-12 21:50:22
 date_created: 2021-12-21 00:00:00
+date_published: null
+description: null
+filepath: website/content/archive/2017-01-12-christmas-round-up.md
+header_image: null
 keywords: []
 layout: post
 link: https://tomhall2016.wordpress.com/2017/01/12/christmas-round-up/
+name: 2017-01-12-christmas-round-up
 slug: christmas-round-up
-tags:
-- Result
-- Update
+status: archived
 title: Christmas round up
-wordpress_id: 605
 ---
 
 Its been a busy few weeks since I last posted! In that time I've won the Back2Back UK and came third at the National Indoors, turned my bow into a Christmas decoration (see below; it balances quite nicely! ), done loads of form work and training at Lilleshall and qualified for the European Indoors with scores of 585, 582 and 582 on WA 18m rounds.

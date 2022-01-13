@@ -1,21 +1,17 @@
 ---
 author: tomhall2016
-categories:
-- Equipment Reviews
-comments: true
-date: 2017-06-27 19:41:04
 date_created: 2021-12-21 00:00:00
+date_published: null
+description: null
+filepath: website/content/archive/2017-06-27-gillo-gs6-stabilisers-review.md
+header_image: null
 keywords: []
 layout: post
 link: https://tomhall2016.wordpress.com/2017/06/27/gillo-gs6-stabilisers-review/
+name: 2017-06-27-gillo-gs6-stabilisers-review
 slug: gillo-gs6-stabilisers-review
-tags:
-- Equipment
-- Gear Review
-- GILLO
-- Stabilization
+status: archived
 title: 'Gillo GS6 Stabilisers: Review'
-wordpress_id: 1041
 ---
 
 This has taken me a surprisingly long time to get round to writing. There are several reasons for this: 1) I am a master [procrastinator](http://waitbutwhy.com/2013/10/why-procrastinators-procrastinate.html)*,  2) I accidentally deleted half the pictures I took while testing, and 3) I have spent a lot of time on planes, in hotels and at competitions. Incidentally I have also gotten a LOT of practice at [Hive](http://gen42.com/hive) and [Monopoly Deal](https://boardgamegeek.com/boardgame/40398/monopoly-deal-card-game) in the last couple of months...

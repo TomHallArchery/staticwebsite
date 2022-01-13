@@ -18,7 +18,20 @@ import flask
 
 from . import pages_bp as bp
 from .models import Page
-from .services import render_page_args
+
+
+def render_page_args(**query):
+    """ Shortcut function to help render standard page """
+    page = Page.objects.get_or_404(**query)
+    sidebar = Page.objects.get(name='sidebar')
+
+    return dict(
+        content=page.render_content(),
+        side=sidebar.render_content(),
+        title=page.title,
+        description=page.description,
+        keywords=page.keywords,
+    )
 
 
 @bp.app_context_processor
@@ -76,7 +89,7 @@ def serve_articles_index():
     ''' render articles index page '''
     # Selects posts with a PATH starting with wpexport/_posts
     wp_dir = flask.current_app.config["VIEW_POSTS_DIR_WP"]
-    wp_posts = Pages.query(filepath__contains=wp_dir)
+    wp_posts = Page.objects(filepath__contains=wp_dir)
 
     return flask.render_template(
         'articles/index.html.j2',
@@ -93,7 +106,7 @@ def serve_article(path_requested):
     return flask.render_template(
         'articles/article.html.j2',
         # query embedded metadata object
-        **render_page_args(metadata__slug=path_requested)
+        **render_page_args(slug=path_requested)
         )
 
 

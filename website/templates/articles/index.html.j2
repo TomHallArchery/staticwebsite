@@ -22,8 +22,8 @@
     <p>From my old blog 2016-2018</p>
     <ul class="decorated">
       {% for page in pages %}
-      <li><a href="{{ page.metadata['link'] }}">
-          {{ page.metadata['title'] | safe }}
+      <li><a href="{{ page['link'] }}">
+          {{ page['title'] | safe }}
         </a></li>
       {% endfor %}
     </ul>

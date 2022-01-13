@@ -3,8 +3,7 @@ from time import sleep
 import click
 
 from . import pages_bp as bp
-from . import services as sv
-from .models import Page
+from .models import Page, init_db
 
 bp.cli.short_help = "SUBCOMMAND Pages command group"
 
@@ -35,6 +34,7 @@ def create_page(name, interactive, edit):
         page.metadata.title = click.prompt('Page title')
         page.metadata.description = click.prompt('Page description')
         page.metadata.keywords = click.prompt('Page keywords')
+    page.save()
     page.push_to_file()
     if edit:
         sleep(1)
@@ -88,6 +88,7 @@ def publish_page(name):
     click.echo(f"{page!r}")
     if click.confirm('Publish Page?'):
         page.publish()
+        page.push_to_file()
         page.save()
         click.echo("Page Published")
 
@@ -95,7 +96,7 @@ def publish_page(name):
 @bp.cli.command('init')
 def init_collection():
     """Initialise database from current set of files."""
-    sv.init_db_from_files()
+    init_db()
 
 
 @bp.cli.command('drop')

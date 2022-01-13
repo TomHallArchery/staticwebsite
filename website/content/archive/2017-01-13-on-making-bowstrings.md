@@ -1,21 +1,17 @@
 ---
 author: tomhall2016
-categories:
-- Equipment Reviews
-comments: true
-date: 2017-01-13 20:37:00
 date_created: 2021-12-21 00:00:00
+date_published: null
+description: null
+filepath: website/content/archive/2017-01-13-on-making-bowstrings.md
+header_image: null
 keywords: []
 layout: post
 link: https://tomhall2016.wordpress.com/2017/01/13/on-making-bowstrings/
+name: 2017-01-13-on-making-bowstrings
 slug: on-making-bowstrings
-tags:
-- Bowstring
-- Equipment
-- Finals
-- Gear Review
+status: archived
 title: A string to my bow
-wordpress_id: 345
 ---
 
 About a month ago at the Back2Back I caused great confusion for the judges when I shot against Sean Evans in the final, while wearing a black T shirt with "EVANS" emblazoned across it in. "Evans to shoot first on target 1." "Evans is on target 2?" "No, that's Hall, Evans is on 1"... As much as I would have liked this to be a deliberate prank, it was a complete accident, but serves as a nice intro to today's post about [Evans Performance Bowstrings](http://www.evansperformancebowstrings.co.uk/), who have been supporting me for almost exactly a year now!

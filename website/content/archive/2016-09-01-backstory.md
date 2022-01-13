@@ -1,16 +1,17 @@
 ---
 author: tomhall2016
-categories:
-- General Updates
-comments: true
-date: 2016-09-01 20:35:55
 date_created: 2021-12-21 00:00:00
+date_published: null
+description: null
+filepath: website/content/archive/2016-09-01-backstory.md
+header_image: null
 keywords: []
 layout: post
 link: https://tomhall2016.wordpress.com/2016/09/01/backstory/
+name: 2016-09-01-backstory
 slug: backstory
+status: archived
 title: Backstory
-wordpress_id: 25
 ---
 
 To understand where you are going you should probably know where you have been.

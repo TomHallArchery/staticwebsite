@@ -1,20 +1,17 @@
 ---
 author: tomhall2016
-categories:
-- General Updates
-comments: true
-date: 2017-04-15 16:05:26
 date_created: 2021-12-21 00:00:00
+date_published: null
+description: null
+filepath: website/content/archive/2017-04-15-quick-transitions-a-catchup.md
+header_image: null
 keywords: []
 layout: post
 link: https://tomhall2016.wordpress.com/2017/04/15/quick-transitions-a-catchup/
+name: 2017-04-15-quick-transitions-a-catchup
 slug: quick-transitions-a-catchup
-tags:
-- Equipment
-- Form
-- Result
+status: archived
 title: 'Quick Transitions: A catchup'
-wordpress_id: 839
 ---
 
 So the last few months have all really been about quick changeovers for me. Indoors ended at high pace, with three week turnarounds between finishing 4th at the IWC in Nimes ([YouTube](https://www.youtube.com/watch?v=dhjbNAJHX20&t=498s)), signing up for Las Vegas to go to the [world cup finals](https://tomhall2016.wordpress.com/2017/02/22/world-cup-finals/), and then back home preparing for the European Indoor championships.
