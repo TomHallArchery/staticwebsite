@@ -9,7 +9,7 @@ keywords: []
 layout: default
 link: null
 name: sidebar
-slug: null
+slug: sidebar
 status: draft
 title: null
 ---

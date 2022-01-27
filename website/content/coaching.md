@@ -9,7 +9,7 @@ keywords: []
 layout: default
 link: null
 name: coaching
-slug: null
+slug: coaching
 status: draft
 title: Coaching
 ---

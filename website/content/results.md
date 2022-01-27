@@ -15,7 +15,7 @@ keywords:
 layout: default
 link: null
 name: results
-slug: null
+slug: results
 status: draft
 title: Results
 ---

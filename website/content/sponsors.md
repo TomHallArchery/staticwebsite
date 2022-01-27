@@ -10,7 +10,7 @@ keywords:
 layout: default
 link: null
 name: sponsors
-slug: null
+slug: sponsors
 status: draft
 title: Sponsors
 ---

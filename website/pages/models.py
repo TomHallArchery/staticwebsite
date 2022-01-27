@@ -74,6 +74,16 @@ class Page(db.Document):  # type: ignore[name-defined]
         else:
             return slugify(self.name)
 
+    def clean(self):
+        # Validate only published pages have publication date
+        if self.status != PageStatus.PUBLISHED and self.date_published is not None:
+            raise ValidationError('None published entries should not have a publication date.')
+
+        # auto fill slug
+        if self.slug is None:
+            self.slug = self.get_slug()
+
+
     @property
     def path(self):
         return Path(self.filepath)
