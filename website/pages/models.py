@@ -33,6 +33,7 @@ def prerender_jinja(text: str) -> str:
 
 class PageStatus(Enum):
     ''' Page status enumerator '''
+    NULL = None
     DRAFT = 'draft'
     PUBLISHED = 'published'
     ARCHIVED = 'archived'
@@ -45,7 +46,7 @@ class Page(db.Document):  # type: ignore[name-defined]
     # Document Fields
     name = db.StringField(required=True, unique=True)
     filepath = db.StringField(unique=True)
-    status = db.EnumField(PageStatus, default=PageStatus.DRAFT)
+    status = db.EnumField(PageStatus, default=PageStatus.NULL)
 
     # metadata
     title = db.StringField()
