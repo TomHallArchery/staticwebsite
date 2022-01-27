@@ -92,9 +92,18 @@ class Page(db.Document):  # type: ignore[name-defined]
 
     @staticmethod
     def delete_handler(sender, document):
-        print("sender", sender)
         print("delete handler running on", document)
         document.path.unlink()
+
+    @staticmethod
+    def save_handler(sender, document, created):
+        print("save handler running on", document)
+        document.push_to_file()
+
+    @staticmethod
+    def init_handler(sender, document, values):
+        pass
+        # print("init handler running on values dict", values['name'])
 
     # Buisness logic
     def publish(self) -> None:
@@ -156,6 +165,8 @@ class Page(db.Document):  # type: ignore[name-defined]
 
 
 signals.post_delete.connect(Page.delete_handler, sender=Page)
+signals.post_save.connect(Page.save_handler, sender=Page)
+signals.pre_init.connect(Page.init_handler, sender=Page)
 
 
 def init_db() -> None:
@@ -166,28 +177,11 @@ def init_db() -> None:
     '''
     content_path = Path('website/content')
     for fn in content_path.rglob('*.md'):
-        try:
-            page = Page.objects.get(name=fn.stem)
-        except Page.DoesNotExist:
-            print(f"Page: {page.name} already in db")
-            page = Page(
-                filepath=str(fn),
-                name=fn.stem,
-                )
-        finally:
-            page.pull_from_file()
-            page.save()
-            print(f"[Saved] {page!r}")  # convert to log.info
 
-        # try:
-        #     page.save()
-        #     print(f"[Saved] {page!r}")  # convert to log.info
-        # except NotUniqueError:
-        #     # TODO convert to log.debug
-        #     print(f"[Skipped] Page: {page.name} already in db")
-        #     page = Page.objects.get(name=page.name)
-        #     continue
-        # finally:
-        #     print("Pull from file")
-        #     print(page.id)
-        #     page.pull_from_file()
+        page = Page.objects(name=fn.stem).modify(
+            upsert=True,
+            new=True,
+            set__filepath=str(fn),
+            )
+        page.pull_from_file()
+        page.save()

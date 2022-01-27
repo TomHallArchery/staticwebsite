@@ -1,7 +1,7 @@
 ---
 author: Tom Hall
 date_created: 2021-12-21 00:00:00
-date_published: 2021-12-21 00:00:00
+date_published: null
 description: null
 filepath: website/content/coaching.md
 header_image: null
@@ -11,7 +11,7 @@ link: null
 name: coaching
 slug: null
 status: draft
-title: null
+title: Coaching
 ---
 
 Body text for coaching page

@@ -1,7 +1,7 @@
 ---
 author: Tom Hall
 date_created: 2021-12-21 00:00:00
-date_published: 2022-01-13 00:00:00
+date_published: null
 description: A timeline of some of my major competition results
 filepath: website/content/results.md
 header_image: null
@@ -16,7 +16,7 @@ layout: default
 link: null
 name: results
 slug: null
-status: published
+status: draft
 title: Results
 ---
 
