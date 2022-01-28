@@ -27,12 +27,14 @@ def configure_app(app, config_class=None):
 
 def register_blueprints(app):
     from .cli import cli_bp
+    from .errors import errors_bp
     from .images import images_bp
     from .pages import pages_bp
 
+    app.register_blueprint(cli_bp)
+    app.register_blueprint(errors_bp)
     app.register_blueprint(images_bp)
     app.register_blueprint(pages_bp)
-    app.register_blueprint(cli_bp)
 
     # Conditionally registers testing endpoint based on config;
     # To avoid accidentally deploying test page
@@ -56,7 +58,4 @@ def create_app(config_class=None):
 
     register_blueprints(app)
 
-    with app.app_context():
-        # required to bring app registered views in
-        from website import errors  # noqa
     return app
