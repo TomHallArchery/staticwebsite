@@ -20,7 +20,7 @@ def select_page(name):
 def list_pages():
     """List all pages in database."""
     for page in Page.objects:
-        click.echo(f"{page.status.name:12}{page.name:24}")
+        click.echo(f"{page.status.name:12}/{page.slug:24}")
 
 
 @bp.cli.command('create')
