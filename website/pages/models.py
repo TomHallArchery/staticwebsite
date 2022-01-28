@@ -4,10 +4,10 @@ from pathlib import Path
 from typing import Any
 
 import frontmatter
-from flask import Markup, render_template_string
+from flask import Markup, current_app, render_template_string
 from markdown import markdown  # type: ignore[import]
 from mongoengine import signals
-# from mongoengine.errors import NotUniqueError
+from mongoengine.errors import ValidationError
 from mongoengine.queryset import queryset_manager
 from slugify import slugify  # type: ignore[import]
 
@@ -86,8 +86,13 @@ class Page(db.Document):  # type: ignore[name-defined]
     # CRUD
     def clean(self):
         # Validate only published pages have publication date
-        if self.status != PageStatus.PUBLISHED and self.date_published is not None:
-            raise ValidationError('None published entries should not have a publication date.')
+        if (
+            self.status != PageStatus.PUBLISHED and
+            self.date_published is not None
+        ):
+            raise ValidationError(
+                'Non-published entries should not have a publication date.'
+            )
 
         # auto fill slug
         if self.slug is None:
@@ -125,7 +130,13 @@ class Page(db.Document):  # type: ignore[name-defined]
         del self.date_published
 
     def visible(self) -> bool:
-        pass
+        if current_app.env == 'production':
+            if self.status == PageStatus.PUBLISHED:
+                return True
+            else:
+                return False
+        else:
+            return True
 
     # Metadata syncing
     def _parse_file(self):

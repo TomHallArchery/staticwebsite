@@ -20,9 +20,11 @@ from . import pages_bp as bp
 from .models import Page
 
 
-def render_page_args(**query):
+def render_page_args(page=None, **query):
     """ Shortcut function to help render standard page """
-    page = Page.objects.get_or_404(**query)
+
+    if not page:
+        page = Page.objects.get_or_404(**query)
     sidebar = Page.objects.get(name='sidebar')
 
     return dict(
@@ -52,26 +54,6 @@ def home_page():
         description="The homepage of Tom Hall, Archer and Coach",
         keywords="Archery, Athlete, Profile",
         img_layout={'min-width: 110ch': '60vw', None: '95vw'},
-        )
-
-
-@bp.route('/results/')
-def results_page():
-    ''' render results page '''
-
-    return flask.render_template(
-        'generic/page.html.j2',
-        **render_page_args(name='results')
-        )
-
-
-@bp.route('/sponsors/')
-def sponsors_page():
-    ''' render sponsors page '''
-
-    return flask.render_template(
-        'generic/page.html.j2',
-        **render_page_args(name='sponsors')
         )
 
 
@@ -110,16 +92,18 @@ def serve_article(path_requested):
         )
 
 
-# TODO fix slugs in model
-# URL Routing - Flat Pages
-# Retrieves the page specified by the url /path_requested
-@bp.route("/page/<path_requested>/")
-def serve_page(path_requested):
-    ''' render generic page '''
+@bp.route("/page/<slug>/")
+def serve_page(slug):
+    ''' render generic page by name '''
+    print(slug)
+    page = Page.objects.get_or_404(slug=slug)
+
+    if not page.visible():
+        flask.abort(403)
 
     return flask.render_template(
         'generic/page.html.j2',
-        **render_page_args(slug=path_requested)
+        **render_page_args(page=page)
         )
 
 
