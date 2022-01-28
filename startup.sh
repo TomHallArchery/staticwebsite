@@ -4,11 +4,11 @@
 
 
 # Activate virtual enviroment
-source .venv/bin/activate
+source .venv/397/bin/activate
 
 
 # Start database
-mongod --config database/db.conf
+mongod --fork --config database/db.conf
 
 # Status report
 ls

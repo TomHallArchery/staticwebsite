@@ -56,17 +56,17 @@ class DevConfig(Config):
     ''' Development configuration: running local flask server '''
 
     # from run.py
-    ENV = 'DEVELOPMENT'
+    ENV = 'development'
     DEBUG = True
     TEMPLATES_AUTO_RELOAD = True
     IMG_DOMAIN = URL("/static/img/out/")
     VIEW_TEST = True
 
 
-class BuildConfig(Config):
+class ProdConfig(Config):
     ''' Build configuration: freezing to static files and serving locally '''
 
-    ENV = 'PRODUCTION'
+    ENV = 'production'
     IMG_DOMAIN = URL("http://localhost:5003/")
 
     # Manually add fonts to list to incorporate into freezer
@@ -94,7 +94,7 @@ class BuildConfig(Config):
     MINIFY_HTML = True
 
 
-class DeployConfig(BuildConfig):
+class DeployConfig(ProdConfig):
     '''
     Deploy configuration: freezing to static files and deploying to netlify
     '''
@@ -108,5 +108,14 @@ class DeployConfig(BuildConfig):
     NETLIFY_CDN_ID = os.environ.get('NETLIFY_CDN_ID')
 
 
-class TestConfig():
-    pass
+class TestConfig(Config):
+    TESTING = True
+
+
+map = {
+    'base': Config,
+    'development': DevConfig,
+    'production': ProdConfig,
+    'deployment': DeployConfig,
+    'testing': TestConfig,
+}

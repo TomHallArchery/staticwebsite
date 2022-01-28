@@ -16,18 +16,13 @@ def configure_app(app, config_class=None):
     """Set the appropriate config based on the environment settings"""
 
     if config_class is None:
-        settings_map = {
-                'development': config.DevConfig,
-                'build': config.BuildConfig,
-                'deployment': config.DeployConfig,
-                'testing': config.TestConfig,
-                'base': config.Config
-            }
-        env = environ.get('FLASK_ENV', 'base').lower()
-        config_class = settings_map[env]
+        cfg = environ.get('FLASK_CONFIG', 'base').lower()
+        config_class = config.map[cfg]
+    else:
+        cfg = config_class.__name__
 
     app.config.from_object(config_class)
-    app.config["CONFIG_CLASS"] = config_class
+    app.cfg = cfg
 
 
 def register_blueprints(app):

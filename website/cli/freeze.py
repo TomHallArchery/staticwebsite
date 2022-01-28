@@ -16,7 +16,7 @@ from .utils import compile_css
 def main(serve):
     ''' Freeze website into static files '''
 
-    app = create_app(config.BuildConfig)
+    app = create_app(config.ProdConfig)
 
     # Instructs the freezer to also check for dynamically generated urls
     # from serve_page functinon.
