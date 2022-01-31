@@ -46,7 +46,7 @@ def inject_data():
 
 
 @bp.route('/')
-def home_page():
+def home():
     ''' render homepage '''
     return flask.render_template(
         'home.html.j2',
@@ -58,7 +58,7 @@ def home_page():
 
 
 @bp.route('/contact/')
-def contact_page():
+def contact():
     ''' render contacts page '''
     return flask.render_template(
         'contact.html.j2',
@@ -67,7 +67,7 @@ def contact_page():
 
 
 @bp.route('/articles/')
-def serve_articles_index():
+def articles():
     ''' render articles index page '''
     # Selects posts with a PATH starting with wpexport/_posts
     wp_dir = flask.current_app.config["VIEW_POSTS_DIR_WP"]
@@ -82,7 +82,7 @@ def serve_articles_index():
 
 # TODO fix slugs in model
 @bp.route("/articles/<path:path_requested>/")
-def serve_article(path_requested):
+def article(path_requested):
     ''' render article page eg path_requested="archive/title" '''
 
     return flask.render_template(
@@ -92,8 +92,8 @@ def serve_article(path_requested):
         )
 
 
-@bp.route("/page/<slug>/")
-def serve_page(slug):
+@bp.route("/<slug>/")
+def page(slug):
     ''' render generic page by name '''
     print(slug)
     page = Page.objects.get_or_404(slug=slug)
@@ -108,6 +108,6 @@ def serve_page(slug):
 
 
 @bp.endpoint("pages.serve_test")
-def serve_test():
+def test():
     ''' render test page '''
     return flask.render_template('generic/test.html.j2')
