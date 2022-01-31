@@ -11,7 +11,7 @@ class Config:
     ''' Standard configuration '''
     # MongoDB config
     MONGODB_SETTINGS = {
-        'db': 'dev',
+        'db': 'website',
         'port': 5009,
         'username': 'app',
         'password': os.environ.get("DB_PWORD"),
@@ -100,7 +100,6 @@ class DeployConfig(ProdConfig):
     '''
 
     IMG_DOMAIN = URL("https://cdn.tomhallarchery.com/")
-    MONGODB_DB = 'website'
 
     # Pynetlify config
     NETLIFY_AUTH_TOKEN = os.environ.get('NETLIFY_AUTH_TOKEN')

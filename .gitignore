@@ -13,6 +13,7 @@ gitlog.txt
 
 # Ignore database files
 database/*
+!database/archive/
 !database/db.conf
 
 # Ignore image directory: output files uploaded seperately to netlify
