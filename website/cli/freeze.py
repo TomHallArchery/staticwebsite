@@ -13,10 +13,14 @@ from .utils import compile_css
 
 @bp.cli.command('freeze')
 @click.option('--serve', is_flag=True)
-def main(serve):
+@click.option('--deployment', is_flag=True)
+def main(serve, deployment):
     ''' Freeze website into static files '''
 
-    app = create_app(config.ProdConfig)
+    if deployment:
+        app = create_app(config.DeployConfig)
+    else:
+        app = create_app(config.ProdConfig)
 
     # Instructs the freezer to also check for dynamically generated urls
     # from serve_page functinon.
@@ -33,6 +37,7 @@ def main(serve):
     # TODO: check font files exist and compile with pyftsubset
 
     # Freeze static files into default directory 'build'
+    assert app.cfg == freezer.app.cfg
     freezer.freeze()
     click.echo("Website frozen")
 
